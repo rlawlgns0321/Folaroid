@@ -47,4 +47,4 @@
 
 ##### Three.js | React | Spring boot | JPA | MySQL | AWS
 
-![image-20221012204615042](C:\Users\SSAFY\Desktop\새 폴더 (4)\S07P31A103\README.assets\image-20221012204615042.png)
+![image-20221012204615042](README.assets\architecture.png)
