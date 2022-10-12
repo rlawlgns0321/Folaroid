@@ -1,4 +1,8 @@
-## 1. 아이디어 회의
+# README
+
+
+
+### :airplane: 1. 아이디어 회의
 
     1) 기업, 프로젝트 마스코트를 그려주는 AI 서비스
     * 키워드 입력으로 관련된 마스코트 및 캐릭터 생성
@@ -22,11 +26,25 @@
 
 
 
-## 2. 화면 기획 - 프로토타입
+## 포트폴리오 자동 작성 서비스
 
- 1. 메인페이지
+> 포트폴리오 자동 디자인 서비스.
+>
+> 깃헙 프로젝트에 양식에 맞게 readme 파일을 작성하고 공유하면 해당 파일을 크롤링하여 포트폴리오 사이트를 제작
+>
+> WebGL로 구현된 캐릭터가 타인의 포트폴리오를 볼 수 있는 서비스 및 다양한 서브 기능들을 인터렉티브 웹 기술 활용하여 다양한 디자인으로 제공
 
-    ![image-20221012171332715](README.assets/image-20221012171332715.png)
- 
- 2. 템플릿 페이지
-    ![Desktop - 4](README.assets/Desktop - 4.png)
+### :monorail: 1. 화면 기획 - 프로토타입
+
+##### 메인페이지
+
+![image-20221012171332715](README.assets/image-20221012171332715.png)
+
+##### 템플릿 페이지
+![Desktop - 4](README.assets/Desktop - 4.png)
+
+### :classical_building: 2. 아키텍처 다이어그램
+
+##### Three.js | React | Spring boot | JPA | MySQL | AWS
+
+![image-20221012204615042](C:\Users\SSAFY\Desktop\새 폴더 (4)\S07P31A103\README.assets\image-20221012204615042.png)
