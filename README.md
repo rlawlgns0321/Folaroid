@@ -27,4 +27,6 @@
  1. 메인페이지
 
     ![image-20221012171332715](README.assets/image-20221012171332715.png)
-
+ 
+ 2. 템플릿 페이지
+    ![Desktop - 4](README.assets/Desktop - 4.png)
