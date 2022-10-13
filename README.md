@@ -47,4 +47,4 @@
 
 ##### Three.js | React | Spring boot | JPA | MySQL | AWS
 
-![image-20221012204615042](README.assets\architecture.png)
+![architecture](README.assets/architecture.png)
