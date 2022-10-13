@@ -35,8 +35,12 @@
 > WebGL로 구현된 캐릭터가 타인의 포트폴리오를 볼 수 있는 서비스 및 다양한 서브 기능들을 인터렉티브 웹 기술 활용하여 다양한 디자인으로 제공
 
 ### 기술 활용 기획
-- 백엔드 : Spring Java MySQL python
-- 프론트엔드 : React Three.js
+- 백엔드 : Spring, Java, MySQL, python
+- 프론트엔드 : React, Three.js
+
+### 담당파트
+- 백엔드 : 김지훈, 박종선, 이창현
+- 프론트엔드 : 김용환, 김미애, 정예원
 
 
 ### :monorail: 1. 화면 기획 - 프로토타입
