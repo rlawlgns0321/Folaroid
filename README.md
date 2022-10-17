@@ -56,6 +56,8 @@
 
 ![image-20221017171505057](README.assets/image-20221017171505057.png)
 
+![image-20221017175456492](README.assets/image-20221017175456492.png)
+
 ### :classical_building: 3. 아키텍처 다이어그램
 
 ##### Three.js | React | Spring boot | JPA | MySQL | AWS
