@@ -88,7 +88,7 @@
 
 ### 6.ERD
 
-![erd](C:\Users\SSAFY\Downloads\erd.png)
+![a103_ERD2](README.assets/a103_ERD2.png)
 
 
 
