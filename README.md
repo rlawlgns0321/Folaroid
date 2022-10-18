@@ -123,3 +123,7 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 1. 다른회원의 포트폴리오 조회 페이지, 템플릿 보기 페이지
 
 ![image-20221018225137694](README.assets/image-20221018225137694.png)
+
+2. 메인페이지
+
+![메인페이지](README.assets/메인페이지.png)
