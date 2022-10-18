@@ -117,3 +117,9 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 
 ![image-20221018172838259](README.assets/image-20221018172838259.png)
+
+### 8. 화면 설계
+
+1. 다른회원의 포트폴리오 조회 페이지, 템플릿 보기 페이지
+
+![image-20221018225137694](README.assets/image-20221018225137694.png)
