@@ -135,3 +135,10 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 3. 다른회원의 포트폴리오
 
 ![image-20221019223713132](README.assets/image-20221019223713132.png)
+
+### :pencil: 8. REST API Docs
+
+| Description | URL (endpoints) |  Method | Body | Payload | 상태 | ps |
+| :---------: | :-------------: |  :----: | :--: | :-----: | :--: | :-: |
+| 마이페이지   |                 |         |      | return{<br /><br />} | | |
+| 포트폴리오 제작 |              | POST | user_no,<br />pf_privacy,<br />image | pf_no | |
