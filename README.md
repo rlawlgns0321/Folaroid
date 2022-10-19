@@ -142,3 +142,7 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 | :---------: | :-------------: |  :----: | :--: | :-----: | :--: | :-: |
 | 마이페이지   |                 |         |      | return{<br /><br />} | | |
 | 포트폴리오 제작 |              | POST | user_no,<br />pf_privacy,<br />image | pf_no | |
+| 제작 첫페이지 | | GET | pf_no | return {<br />pjt_no,<br />pjt_name,<br />pjt_subtitle,<br />pjt_url,<br />pjt_githuburl,<br />pjt_star<br />} | |
+| 제작 첫페이지 - 템플릿 변경 | | PUT | pf_no,<br />ap_templates_no | pf_no | |
+| 제작 첫페이지 - 프로젝트 생성 | | POST | pjt_githuburl | pjt_no | | |
+| 프로젝트 생성 - 공개 레포지토리 검색 | | GET | user_githubid | pjt_githuburl | | |
