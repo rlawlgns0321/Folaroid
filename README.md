@@ -127,3 +127,7 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 2. 메인페이지
 
 ![메인페이지](README.assets/메인페이지.png)
+
+3. 제작 첫페이지
+
+   ![image-20221019161017865](README.assets/image-20221019161017865.png)
