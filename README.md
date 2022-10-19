@@ -122,14 +122,16 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 
 ### 8. 화면 설계
 
-1. 다른회원의 포트폴리오 조회 페이지, 템플릿 보기 페이지
-
-![image-20221018225137694](README.assets/image-20221018225137694.png)
-
-2. 메인페이지
+1. 메인페이지
 
 ![메인페이지](README.assets/메인페이지.png)
 
-3. 제작 첫페이지
+![image-20221019223542259](README.assets/image-20221019223542259.png)
 
-   ![image-20221019161017865](README.assets/image-20221019161017865.png)
+2. 제작 첫페이지
+
+![image-20221019161017865](README.assets/image-20221019161017865.png)
+
+3. 다른회원의 포트폴리오
+
+![image-20221019223713132](README.assets/image-20221019223713132.png)
