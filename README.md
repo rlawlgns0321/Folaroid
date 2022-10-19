@@ -88,7 +88,7 @@
 
 ### 6.ERD
 
-![erd](C:\Users\SSAFY\Downloads\erd.png)
+![a103_ERD2](README.assets/a103_ERD2.png)
 
 
 
@@ -107,3 +107,23 @@
 - star 개수
 - github 주소
 - url
+
+### 7. 캐릭터 모델링 후보
+![image](/uploads/f1f7c2b93d311a610f8e162ab2bddcfd/image.png)<br />
+https://www.turbosquid.com/ko/3d-models/rigged-cute-cartoon-chibi-rabbit-3d-1759274<br />
+![image](/uploads/eb490c0189d855dc46b0761cae7f333a/image.png)<br />
+https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<br />
+![image](/uploads/56bb8a672339f294772fdfd309811720/image.png)<br />
+https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
+
+![image-20221018172838259](README.assets/image-20221018172838259.png)
+
+### 8. 화면 설계
+
+1. 다른회원의 포트폴리오 조회 페이지, 템플릿 보기 페이지
+
+![image-20221018225137694](README.assets/image-20221018225137694.png)
+
+2. 메인페이지
+
+![메인페이지](README.assets/메인페이지.png)
