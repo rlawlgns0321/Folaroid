@@ -107,22 +107,6 @@
 
 
 
-*추가해야할 부분*
-
-자기소개
-
-- ARCHIVING, 링크: github, linkedin, blog
-- 개인 정보: 이름, 생년월일, 주소지, 연락처, 이메일, 학력 등
-- 경력
-- 기술스택
-
-프로젝트
-
-- 기술스택
-- star 개수
-- github 주소
-- url
-
 ### 7. 캐릭터 모델링 후보
 ![image](/uploads/f1f7c2b93d311a610f8e162ab2bddcfd/image.png)<br />
 https://www.turbosquid.com/ko/3d-models/rigged-cute-cartoon-chibi-rabbit-3d-1759274<br />
