@@ -93,7 +93,7 @@
     1) 색깔 폰트 다 다르게 하고 싶을거고 이모티콘 다 만들고 싶을텐데 이 레이아웃에선 다 가능하게 할 수 있다는 느낌이 안들었다. 프로젝트 별로 꾸미는 기능 강화가 필요
     2) 자기소개 - 소개 내용이 없다, 글씨나 그림, 사진을 넣을 수 있는 기능이 없다
     3) 링크드인? 인크루트? -> 포폴사이트 좀더 참고해야함
-
+    
     ERD
     1) UserInfo의 확장 필요 -> 고유정보(나이, 학벌, 성적) 추가
     2) 해시태그는 관리자가 관리 필요
@@ -149,7 +149,13 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 
 ![image-20221019223713132](README.assets/image-20221019223713132.png)
 
-### :pencil: 9. REST API Docs
+### 9. WireFrame 작성
+
+![image-20221020195039820](README.assets/image-20221020195039820.png)
+
+
+
+### :pencil: 10. REST API Docs
 
 | Description | URL (endpoints) |  Method | Body | Payload | 상태 | ps |
 | :---------: | :-------------: |  :----: | :--: | :-----: | :--: | :-: |
