@@ -136,7 +136,7 @@ https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 
 ![image-20221019223713132](README.assets/image-20221019223713132.png)
 
-### :pencil: 8. REST API Docs
+### :pencil: 9. REST API Docs
 
 | Description | URL (endpoints) |  Method | Body | Payload | 상태 | ps |
 | :---------: | :-------------: |  :----: | :--: | :-----: | :--: | :-: |
