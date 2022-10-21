@@ -112,8 +112,6 @@
 https://www.turbosquid.com/ko/3d-models/rigged-cute-cartoon-chibi-rabbit-3d-1759274<br />
 ![image](/uploads/eb490c0189d855dc46b0761cae7f333a/image.png)<br />
 https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<br />
-![image](/uploads/56bb8a672339f294772fdfd309811720/image.png)<br />
-https://www.turbosquid.com/ko/3d-models/3d-cute-cartoon-bee-1807380
 
 
 
