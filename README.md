@@ -172,3 +172,12 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 ### 강의 리스트
  - https://www.inflearn.com/course/3d-%EC%9D%B8%ED%84%B0%EB%9E%99%ED%8B%B0%EB%B8%8C-%EC%9B%B9
+
+### 포트폴리오 예시
+ - https://www.notion.so/fd824605fe6045d6928369a7d8cadcd4
+ - https://www.notion.so/IU-fdad75fe243a4fd9958aae2e7b22ac24
+ - https://www.notion.so/Geon-Lee-0a2ead807ec24791b5f75a5d0974fca8
+ - https://www.notion.so/About-dding-g-776f9cfa976147db9befff2dc15249ee
+ - https://www.notion.so/0e35606c8c7f4a8c877cb340e2686fd6
+ -https://www.notion.so/FullStack-Programmer-26ad44edea894f59b4d35442b286271d
+
