@@ -179,5 +179,5 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
  - https://www.notion.so/Geon-Lee-0a2ead807ec24791b5f75a5d0974fca8
  - https://www.notion.so/About-dding-g-776f9cfa976147db9befff2dc15249ee
  - https://www.notion.so/0e35606c8c7f4a8c877cb340e2686fd6
- -https://www.notion.so/FullStack-Programmer-26ad44edea894f59b4d35442b286271d
+ - https://www.notion.so/FullStack-Programmer-26ad44edea894f59b4d35442b286271d
 
