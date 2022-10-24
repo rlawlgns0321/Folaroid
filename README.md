@@ -131,15 +131,21 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 ![메인페이지](README.assets/메인페이지.png)
 
-2. 제작 첫페이지
+2. 제작 페이지
 
+![image-20221024171417152](README.assets/image-20221024171417152.png)
 
+![image-20221024171443006](README.assets/image-20221024171443006.png)
 
-3. 프로젝트 상세 제작 페이지(프로토)
+![image-20221024171456057](README.assets/image-20221024171456057.png)
+
+3. 프로젝트 상세 제작 페이지
 
 ![image-20221021175603768](README.assets/image-20221021175603768.png)
 
-3. 다른회원의 포트폴리오
+![image-20221024171521803](README.assets/image-20221024171521803.png)
+
+4. 다른회원의 포트폴리오
 
 ![image-20221021175513860](README.assets/image-20221021175513860.png)
 
