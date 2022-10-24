@@ -1,5 +1,7 @@
 # README
 
+[TOC]
+
 
 
 ### :airplane: 1. 아이디어 회의
@@ -45,6 +47,8 @@
 - 프론트엔드 : 김용환, 김미애, 정예원
 
 
+
+
 ### :monorail: 2. 화면 기획 - 프로토타입
 
 ##### 메인페이지
@@ -59,6 +63,8 @@
 ![image-20221017171505057](README.assets/image-20221017171505057.png)
 
 ![image-20221017175456492](README.assets/image-20221017175456492.png)
+
+
 
 ### :classical_building: 3. 아키텍처 다이어그램
 
@@ -83,6 +89,8 @@
 | 추가) 기업 추천              |작성한 기술스택을 기반으로 기업 추천                             |구인구직 사이트 크롤링      |            |
 | 튜토리얼 페이지              |WebGL 활용<br>제작 페이지에서 각 선택 상황에서 어떤식으로 사용하는지 튜토리얼 제공|      |            |
 
+
+
 ### :airplane: 5-1. 팀미팅(221017)
 
     1) 사용자가 디자인할 수 있는 기능이 한정적임 -> 템플릿의 수량보다 다양한 케이스를 지원할 수 있는 기능이 중요하다!
@@ -101,7 +109,9 @@
     4) 많은 데이터를 한번에 받아서 처리해주는 방법 고민?
     5) 템플릿 그 이상을 담을 필요가 있다 (IDE의 테마변경할 때)
 
-### 6.ERD
+
+
+### 6. ERD
 
 ![a103_ERD2](README.assets/a103_ERD2.png)
 
@@ -123,7 +133,7 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 2. 제작 첫페이지
 
-![image-20221019161017865](README.assets/image-20221019161017865.png)
+
 
 3. 프로젝트 상세 제작 페이지(프로토)
 
@@ -158,6 +168,41 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 | 프로젝트 | | DELETE | pjt_no | {<br />ture/false<br />} | | |
 
 
+
+### :avocado: 11. GIT컨벤션
+
+1. **말머리 기호**
+
+   - [VR] : VR 및 Unity 관련 기능
+   - [Blender] : Blender 및 에셋 제작 관련 기능
+   - [STT] : STT 관련 기능
+   - [TTS] : TTS 관련 기능
+   - [SERVER] : AI 서버 관련 기능
+
+2. **커밋**
+
+   - [말머리] 기능: ~~ ex) [VR] feat: skeleton 프로젝트 추가
+
+3. **브랜치명**
+
+   - feature/말머리/기능 ex) feature/VR/skeleton
+
+     - 기능  : 가능하다면 한 단어로 쓰기
+
+       굳이 기능을 글로 쓰자면 ex)feature/VR/build-gradle-script-write
+
+4. **머지**
+
+   - 브랜치명 into develop
+   - feature/VR/skeleton into develop
+   - 메세지는 커밋 메세지와 똑같이!
+
+5. **Git-flow**
+
+   - develop에서 feature branch 따서 완료되면 다시 develop으로 merge
+   - 프로젝트 완성 후 develop을 master로 merge
+
+   
 
 ### :pen: 참고문헌
 
