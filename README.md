@@ -175,7 +175,7 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 
 
-### :avocado: 11. GIT컨벤션
+### :avocado: 11-1. GIT컨벤션
 
 1. **말머리 기호**
 
@@ -205,7 +205,16 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
    - develop에서 feature branch 따서 완료되면 다시 develop으로 merge
    - 프로젝트 완성 후 develop을 master로 merge
 
-   
+### 11-2. JIRA컨벤션
+1. **말머리 기호**
+
+   - [FE]: 프론트 엔드 기능
+   - [BE]: 백 엔드 관련 기능
+
+2. **Icon**
+
+   - Story: 직접 기능 구현
+   - Task: 학습, 문서작업 등
 
 ### :pencil: 참고문헌
 
