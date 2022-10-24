@@ -173,15 +173,12 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 1. **말머리 기호**
 
-   - [VR] : VR 및 Unity 관련 기능
-   - [Blender] : Blender 및 에셋 제작 관련 기능
-   - [STT] : STT 관련 기능
-   - [TTS] : TTS 관련 기능
-   - [SERVER] : AI 서버 관련 기능
+   - [BE] : Backend 및 DB 관련 기능
+   - [FE] : Frontend 및 WebGL 관련 기능
 
 2. **커밋**
 
-   - [말머리] 기능: ~~ ex) [VR] feat: skeleton 프로젝트 추가
+   - [말머리] 기능: ~~ ex) [FE] feat: skeleton 프로젝트 추가
 
 3. **브랜치명**
 
@@ -204,7 +201,7 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
    
 
-### :pen: 참고문헌
+### :pencil: 참고문헌
 
 ### MD Editor 리스트
 
