@@ -1,15 +1,14 @@
-import { React } from 'react';
-
-function App() {
-  const name = '미예';
+import React from 'react';
+import './App.css';
+//import { Route } from 'react-router-dom';
+//import MainPage from './MainPage';
+import MyPage from './MyPage';
+const App = () => {
   return (
-    <>
-      {name === '미애'? (
-      <h1>{name} 안녕</h1>) : (
-        <h2>넌 미애가 아냐</h2>
-      )}
-    </>
+    <div>
+      <MyPage></MyPage>
+    </div>
   );
-}
+};
 
 export default App;
