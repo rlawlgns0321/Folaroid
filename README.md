@@ -159,7 +159,7 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 | Description | URL (endpoints) |  Method | Body | Payload | 상태 | ps |
 | :---------: | :-------------: |  :----: | :--: | :-----: | :--: | :-: |
-| 마이페이지   |                 |         |      | return{<br /><br />} | | |
+| 마이페이지 - 필수 정보  | /mypqge/default | GET | user_no     | user_name 값이 있을 때<br />{<br />user_name,<br />user_birth,<br />user_email,<br />user_github_id,<br />user_phone,<br />intro_stack:[{<br />hash_no,<br />hash_name<br />}]<br />}<br />없을 때 {각 요소를 null로} | | user_name이 빈 값인지 아닌지 판단하여 "최초 정보를 작성해주세요" 문구를 보여줄지 아닐지 결정 |
 | 포트폴리오 제작 |              | POST | user_no,<br />pf_privacy,<br />image | pf_no | |
 | 제작 첫페이지 | | GET | pf_no | return {<br />pjt_no,<br />pjt_name,<br />pjt_subtitle,<br />pjt_url,<br />pjt_githuburl,<br />pjt_star<br />} | |
 | 제작 첫페이지 - 템플릿 변경 | | PUT | pf_no,<br />ap_templates_no | pf_no | |
