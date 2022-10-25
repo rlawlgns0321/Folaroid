@@ -218,6 +218,13 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 ### :pencil: 참고문헌
 
+### 12. 개발환경
+1. Java 8
+2. IntelliJ 2022.1.3
+3. gradle project
+4. Spring Boot 2.7.5
+5. MySQL 8.0.29
+
 ### MD Editor 리스트
 
 - https://simplemde.com/
