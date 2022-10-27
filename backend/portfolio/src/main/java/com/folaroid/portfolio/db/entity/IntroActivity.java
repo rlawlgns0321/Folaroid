@@ -17,7 +17,7 @@ public class IntroActivity {
     private Long introNo;
 
     private String activityName;
-    private LocalDateTime activityDate;
+    private String activityDate;
 
     @Column(length = 2083)
     private String activityUrl;
