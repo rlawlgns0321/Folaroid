@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Spring Boot REST API")
                 .version("1.0.0")
-                .description("folaroid의 swagger api 입니다.")
+                .description("Folaroid의 swagger api 입니다.")
                 .build();
     }
 }
