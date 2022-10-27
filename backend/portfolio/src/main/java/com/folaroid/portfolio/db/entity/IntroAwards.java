@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 public class IntroAwards {
 
     @Id @GeneratedValue
-    //@Column(name = "intro_awards_id")
-    private Long introAwardsId;
+    //@Column(name = "intro_awards_no")
+    private Long introAwardsNo;
 
     private Long introNo;
     private String awardsName;
