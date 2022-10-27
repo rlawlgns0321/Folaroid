@@ -1,9 +1,9 @@
 .react{
-  background: black;
+  background: linear-gradient(to top, gray, black);
   color: white;
-  font-size: 48px;
+  font-size: 45px;
   font-weight: bold;
-  padding: 16px;
+  padding: 30px;
 }
 .info{
   background-color: lightgray;
@@ -19,5 +19,7 @@
   flex-wrap: wrap;
   flex-direction: row-reverse;
   text-align: center;
-  padding: auto;
+}
+.icon{
+  margin-right: 10px;
 }

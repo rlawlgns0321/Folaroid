@@ -10,20 +10,39 @@ import CreateIcon from '@mui/icons-material/Create';
 
 const MyPage = () => {
   const onClick = () => {
-    alert('내정보작성페이지 갈거임');
+    alert('User Data 없으면 alert바를 통해 가게 해버릴까?');
   };
   return (
     <>
-      <div className="react">Folaroid</div>
+      <div className="react">마이페이지</div>
       {/* <div>
         <div className="info">
           최초 정보를 작성해주세요. <CreateIcon onClick={onClick}></CreateIcon>
         </div>
       </div> */}
-      <div className="box">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={12}>
-            <CreateIcon onClick={onClick}></CreateIcon>
+      <div
+        className="box"
+        style={{
+          border: 'solid',
+          borderColor: 'lightgrey',
+          margin: '30px',
+          marginLeft: '10%',
+          marginRight: '10%',
+        }}
+      >
+        <Grid
+          container
+          spacing={4}
+          style={{ marginTop: '0px', marginBottom: '30px' }}
+        >
+          <Grid item xs={6} md={6} style={{}}>
+            <b style={{ fontSize: '30px', marginRight: '20%' }}>기본정보</b>
+          </Grid>
+          <Grid item xs={6} md={6}>
+            <CreateIcon
+              onClick={onClick}
+              style={{ marginLeft: '30%' }}
+            ></CreateIcon>
           </Grid>
           <Grid item xs={6} md={6} placeItems="center">
             <PersonIcon className="icon" fontSize="large"></PersonIcon>
@@ -38,7 +57,10 @@ const MyPage = () => {
             />
           </Grid>
           <Grid item xs={6} md={6}>
-            <PhoneAndroidIcon fontSize="large"></PhoneAndroidIcon>
+            <PhoneAndroidIcon
+              className="icon"
+              fontSize="large"
+            ></PhoneAndroidIcon>
             <TextField
               id="standard-read-only-input"
               label="Required*"
@@ -50,7 +72,7 @@ const MyPage = () => {
             />
           </Grid>
           <Grid item xs={6} md={6}>
-            <EventIcon fontSize="large"></EventIcon>
+            <EventIcon className="icon" fontSize="large"></EventIcon>
             <TextField
               id="standard-read-only-input"
               label="Required*"
@@ -62,7 +84,7 @@ const MyPage = () => {
             />
           </Grid>
           <Grid item xs={6} md={6}>
-            <EmailIcon fontSize="large"></EmailIcon>
+            <EmailIcon className="icon" fontSize="large"></EmailIcon>
             <TextField
               id="standard-read-only-input"
               label="Required*"
@@ -74,7 +96,7 @@ const MyPage = () => {
             />
           </Grid>
           <Grid item xs={6} md={6}>
-            <GitHubIcon fontSize="large"></GitHubIcon>
+            <GitHubIcon className="icon" fontSize="large"></GitHubIcon>
             <TextField
               id="standard-read-only-input"
               label="Required*"
