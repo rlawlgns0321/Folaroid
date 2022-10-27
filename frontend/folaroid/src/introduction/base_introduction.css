@@ -4,7 +4,7 @@
     font-size: 36px;
     font-weight: bold;
     padding: 10px;
-    border-bottom: 1px solid #aaa;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
   }
 
 .btn {
@@ -22,4 +22,8 @@
     color: white;
     background: black;
     border: 1px solid black;
+}
+
+* {
+    font-family: Ubuntu;
 }
