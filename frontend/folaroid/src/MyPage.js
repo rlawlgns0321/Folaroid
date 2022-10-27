@@ -7,11 +7,35 @@ import EventIcon from '@mui/icons-material/Event';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import CreateIcon from '@mui/icons-material/Create';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import FolderIcon from '@mui/icons-material/Folder';
+import DeleteIcon from '@mui/icons-material/Delete';
 
+function generate(element: React.ReactElement) {
+  return [0, 1, 2].map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    })
+  );
+}
+const Demo = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+}));
 const MyPage = () => {
   const onClick = () => {
     alert('User Data 없으면 alert바를 통해 가게 해버릴까?');
   };
+  const [dense, setDense] = React.useState(false);
+  const [secondary, setSecondary] = React.useState(false);
+
   return (
     <>
       <div className="react">마이페이지</div>
@@ -35,8 +59,10 @@ const MyPage = () => {
           spacing={4}
           style={{ marginTop: '0px', marginBottom: '30px' }}
         >
-          <Grid item xs={6} md={6} style={{}}>
-            <b style={{ fontSize: '30px', marginRight: '20%' }}>기본정보</b>
+          <Grid item xs={6} md={6}>
+            <Typography variant="h5" component="div">
+              <b>나의 정보</b>
+            </Typography>
           </Grid>
           <Grid item xs={6} md={6}>
             <CreateIcon
@@ -44,7 +70,7 @@ const MyPage = () => {
               style={{ marginLeft: '30%' }}
             ></CreateIcon>
           </Grid>
-          <Grid item xs={6} md={6} placeItems="center">
+          <Grid item xs={6} md={6}>
             <PersonIcon className="icon" fontSize="large"></PersonIcon>
             <TextField
               id="standard-read-only-input"
@@ -106,6 +132,48 @@ const MyPage = () => {
               }}
               variant="standard"
             />
+          </Grid>
+        </Grid>
+      </div>
+
+      <div
+        className="box"
+        style={{
+          border: 'solid',
+          borderColor: 'lightgrey',
+          margin: '30px',
+          marginLeft: '10%',
+          marginRight: '10%',
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={12}>
+            <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
+              <b>포트폴리오</b>
+            </Typography>
+            <Demo>
+              <List dense={dense}>
+                {generate(
+                  <ListItem
+                    secondaryAction={
+                      <IconButton edge="end" aria-label="delete">
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                  >
+                    <ListItemAvatar>
+                      <Avatar>
+                        <FolderIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Single-line item"
+                      secondary={secondary ? 'Secondary text' : null}
+                    />
+                  </ListItem>
+                )}
+              </List>
+            </Demo>
           </Grid>
         </Grid>
       </div>
