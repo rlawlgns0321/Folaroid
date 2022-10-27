@@ -31,7 +31,7 @@ public class Intro {
     private IntroPersonalData introPersonalData;
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Intro_stack_no")
+    @JoinColumn(name = "intro_stack_no")
     private IntroStack introStack;
 
 }
