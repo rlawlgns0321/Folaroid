@@ -13,3 +13,11 @@
   font-weight: bold;
   padding: 20px;
 }
+.box{
+  display: flex;
+  align-content: center;  
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  text-align: center;
+  padding: auto;
+}
