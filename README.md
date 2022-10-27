@@ -232,8 +232,6 @@ https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<b
 
 ### :pencil: 참고문헌
 
-
-
 ### MD Editor 리스트
 
 - https://simplemde.com/
