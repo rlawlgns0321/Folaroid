@@ -7,11 +7,11 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class Archiving {
+public class IntroArchiving {
 
     @Id @GeneratedValue
-    //@Column(name = "archiving_no")
-    private Long archivingNo;
+    //@Column(name = "intro_archiving_no")
+    private Long introArchivingNo;
 
     private Long introNo;
 
