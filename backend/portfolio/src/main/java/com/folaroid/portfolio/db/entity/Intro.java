@@ -22,6 +22,7 @@ public class Intro {
 
     private long portfolioTemplatesNo;
 
+
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "intro_image_no")
     private IntroImage introImage;
