@@ -7,7 +7,6 @@ import EventIcon from '@mui/icons-material/Event';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import CreateIcon from '@mui/icons-material/Create';
-import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -20,18 +19,78 @@ import WebIcon from '@mui/icons-material/Web';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { ListItemSecondaryAction } from '@mui/material';
-
-function generate(element: React.ReactElement) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
+import Divider from '@mui/material/Divider';
+const PortFolioItem = ({ num }) => {
+  //보기 => router 포폴페이지
+  //수정 => 제작페이지
+  //복사 =? 같은 포폴페이지가 아래 추가됨
+  //삭제 => 리스트에서 삭제
+  return (
+    <div>
+      <Divider />
+      <ListItem>
+        <ListItemSecondaryAction>
+          <IconButton edge="end">
+            <VisibilityIcon />
+          </IconButton>
+          <IconButton edge="end">
+            <CreateIcon />
+          </IconButton>
+          <IconButton edge="end">
+            <ContentCopyIcon />
+          </IconButton>
+          <IconButton edge="end">
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+        <ListItemAvatar>
+          <Avatar>
+            <WebIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          primaryTypographyProps={{ color: 'primary', fontWeight: 'bold' }}
+          secondaryTypographyProps={{ fontWeight: 'bold' }}
+          primary={`포트폴리오 ${num + 1}`}
+          secondary={`작성날짜`}
+        />
+      </ListItem>
+      <Divider />
+    </div>
   );
-}
-const Demo = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
+};
+const Intro = ({ icon, children }) => {
+  return (
+    <div>
+      {children.icon}
+      <TextField
+        id="standard-read-only-input"
+        label="Required*"
+        defaultValue={children.value}
+        InputProps={{
+          readOnly: true,
+        }}
+        variant="standard"
+      />
+    </div>
+  );
+};
+
 const MyPage = () => {
+  const portfolios = [0, 1, 2];
+  const icons = [
+    { icon: <PersonIcon className="icon" fontSize="large" />, value: 'Name' },
+    {
+      icon: <PhoneAndroidIcon className="icon" fontSize="large" />,
+      value: 'Tel',
+    },
+    { icon: <EventIcon className="icon" fontSize="large" />, value: 'Birth' },
+    { icon: <EmailIcon className="icon" fontSize="large" />, value: 'Email' },
+    {
+      icon: <GitHubIcon className="icon" fontSize="large" />,
+      value: 'GitHub Link',
+    },
+  ];
   const onClick = () => {
     alert('User Data 없으면 alert바를 통해 가게 해버릴까?');
   };
@@ -49,8 +108,6 @@ const MyPage = () => {
       <div
         className="box"
         style={{
-          border: 'solid',
-          borderColor: 'lightgrey',
           margin: '30px',
           marginLeft: '10%',
           marginRight: '10%',
@@ -58,90 +115,28 @@ const MyPage = () => {
       >
         <Grid
           container
-          spacing={4}
+          spacing={2}
           style={{ marginTop: '0px', marginBottom: '30px' }}
         >
-          <Grid item xs={6} md={6}>
-            <Typography variant="h5" component="div">
-              <b>나의 정보</b>
-            </Typography>
-          </Grid>
-          <Grid item xs={6} md={6}>
+          <Grid item xs={12} md={12}>
             <CreateIcon
               onClick={onClick}
-              style={{ marginLeft: '30%' }}
+              edge="end"
+              style={{ marginLeft: '80%' }}
             ></CreateIcon>
           </Grid>
-          <Grid item xs={6} md={6}>
-            <PersonIcon className="icon" fontSize="large"></PersonIcon>
-            <TextField
-              id="standard-read-only-input"
-              label="Required*"
-              defaultValue="Name"
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={6} md={6}>
-            <PhoneAndroidIcon
-              className="icon"
-              fontSize="large"
-            ></PhoneAndroidIcon>
-            <TextField
-              id="standard-read-only-input"
-              label="Required*"
-              defaultValue="Phone"
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={6} md={6}>
-            <EventIcon className="icon" fontSize="large"></EventIcon>
-            <TextField
-              id="standard-read-only-input"
-              label="Required*"
-              defaultValue="Birth"
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={6} md={6}>
-            <EmailIcon className="icon" fontSize="large"></EmailIcon>
-            <TextField
-              id="standard-read-only-input"
-              label="Required*"
-              defaultValue="Email"
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={6} md={6}>
-            <GitHubIcon className="icon" fontSize="large"></GitHubIcon>
-            <TextField
-              id="standard-read-only-input"
-              label="Required*"
-              defaultValue="Github Link"
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="standard"
-            />
-          </Grid>
+          {icons.map((value, key) => {
+            return (
+              <Grid key={key} item xs={6} md={6}>
+                <Intro>{value}</Intro>
+              </Grid>
+            );
+          })}
         </Grid>
       </div>
       <div
         className="box"
         style={{
-          border: 'solid',
-          borderColor: 'lightgrey',
           margin: '30px',
           marginLeft: '10%',
           marginRight: '10%',
@@ -149,49 +144,15 @@ const MyPage = () => {
       >
         <Grid
           container
-          spacing={1}
-          style={{ marginTop: '0px', marginBottom: '30px' }}
+          spacing={2}
+          style={{ marginLeft: '5%', marginRight: '5%' }}
         >
           <Grid item xs={12} md={12}>
-            <Typography variant="h5">
-              <b>포트폴리오</b>
-            </Typography>
-            <Grid
-              item
-              xs={12}
-              md={12}
-              style={{ marginLeft: '15%', marginRight: '15%' }}
-            >
-              <List dense={dense}>
-                {generate(
-                  <ListItem>
-                    <ListItemSecondaryAction>
-                      <IconButton edge="end">
-                        <VisibilityIcon />
-                      </IconButton>
-                      <IconButton edge="end">
-                        <CreateIcon />
-                      </IconButton>
-                      <IconButton edge="end">
-                        <ContentCopyIcon />
-                      </IconButton>
-                      <IconButton edge="end">
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <WebIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="Single-line item"
-                      secondary="작성날짜"
-                    />
-                  </ListItem>
-                )}
-              </List>
-            </Grid>
+            <List dense={dense}>
+              {portfolios.map((key, value) => {
+                return <PortFolioItem key={key} num={value} />;
+              })}
+            </List>
           </Grid>
         </Grid>
       </div>
