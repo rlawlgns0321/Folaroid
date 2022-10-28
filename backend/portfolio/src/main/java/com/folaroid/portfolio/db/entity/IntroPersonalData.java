@@ -25,7 +25,7 @@ public class IntroPersonalData {
     @Column(length = 15)
     private String personalDataPhone;
 
-    @OneToOne(mappedBy = "introImage", fetch = LAZY)
+    @OneToOne(mappedBy = "introPersonalData", fetch = LAZY)
     private Intro intro;
 }
 

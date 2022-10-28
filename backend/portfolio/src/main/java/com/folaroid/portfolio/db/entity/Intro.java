@@ -35,4 +35,8 @@ public class Intro {
     @JoinColumn(name = "intro_stack_no")
     private IntroStack introStack;
 
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "intro_language_no")
+    private IntroLanguage introLanguage;
+
 }
