@@ -1,16 +1,22 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userNo;
+    private long userNo;
 
     @Column(length = 60)
     private String userGithubId;
@@ -25,4 +31,5 @@ public class User {
 
     @Column(length = 15)
     private String userPhone;
+
 }
