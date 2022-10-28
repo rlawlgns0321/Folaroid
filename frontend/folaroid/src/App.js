@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import CallBackpage from './pages/CallBackpage';
 import MainPage from './pages/MainPage';
 
 function App() {
-  return (
-    <div >
-      <Route path='/' component={MainPage} exact/>
-    </div>
-  );
+    return (
+        <div>
+            <Routes>
+                <Route path="/" element={<MainPage/>} exact />
+                <Route path="/callback" element={<CallBackpage/>} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

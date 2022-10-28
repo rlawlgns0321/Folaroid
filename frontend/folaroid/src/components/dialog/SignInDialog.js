@@ -6,6 +6,15 @@ const SignInDialog = ({ onClose, open }) => {
         onClose();
     };
 
+    const clientId = process.env.REACT_APP_CLIENT_ID;
+    const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+
+    const loginUri = `https://github.com/login/oauth/authorize?client_id=${clientId}`;
+
+    const onLoginClick = () => {
+        window.location.href = loginUri;
+    }
+
     return (
         <Dialog fullWidth maxWidth={'xs'} onClose={handleClose} open={open}>
             <Grid sx={{ my: 5 }} container justifyContent={'center'}>
@@ -37,12 +46,13 @@ const SignInDialog = ({ onClose, open }) => {
                         fontWeight: 'bold',
                         fontSize: '1rem',
                         borderRadius: '20px',
-                        '&:hover':{
-                            backgroundColor: '#505050'
-                        }
+                        '&:hover': {
+                            backgroundColor: '#505050',
+                        },
                     }}
                     disableElevation
                     variant="contained"
+                    onClick={onLoginClick}
                 >
                     GitHub 로그인
                 </Button>
