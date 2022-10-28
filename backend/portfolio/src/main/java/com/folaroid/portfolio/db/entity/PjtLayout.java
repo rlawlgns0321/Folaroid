@@ -27,8 +27,11 @@ public class PjtLayout {
 
     **/
 
-    @Column(name = "pjt_no")
-    private Long pjtNo;
+    @ManyToOne( cascade = CascadeType.ALL)
+    @JoinColumn(name = "pjt_no")
+    private Project project;
+//    @Column(name = "pjt_no")
+//    private Long pjtNo;
 
     @Column(name = "pjt_layout_font", length = 100)
     private String pjtLayOutFont;
