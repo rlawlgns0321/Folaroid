@@ -5,21 +5,21 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import { TextField } from '@mui/material';
 
-const EmailInputModule = () => {
-  const [email, setEmail] = useState('');
+const PhoneInputModule = () => {
+  const [phone, setPhone] = useState('');
 
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
+  const handleChangePhone = (event) => {
+    setPhone(event.target.value);
   };
 
   const handleSubmit = (event) => {
-    alert(`이름: ${email}`);
+    alert(`연락처: ${phone}`);
     event.preventDefault();
   };
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
-      <CardHeader action={<Button>추가</Button>} title="이메일" />
+      <CardHeader action={<Button>추가</Button>} title="연락처" />
       <CardContent>
         <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
           <div
@@ -32,14 +32,14 @@ const EmailInputModule = () => {
           >
             <div style={{ width: '100%' }}>
               <TextField
-                label="이메일"
-                type="email"
-                placeholder="example@ssafy.com"
+                label="연락처"
+                type="tel"
+                placeholder="010-0000-0000"
                 InputLabelProps={{
                   shrink: true,
                 }}
                 style={{ width: '40%' }}
-                onChange={handleChangeEmail}
+                onChange={handleChangePhone}
               />
             </div>
             <div>
@@ -54,4 +54,4 @@ const EmailInputModule = () => {
   );
 };
 
-export default EmailInputModule;
+export default PhoneInputModule;

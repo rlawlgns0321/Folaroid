@@ -5,21 +5,21 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import { TextField } from '@mui/material';
 
-const EmailInputModule = () => {
-  const [email, setEmail] = useState('');
+const SloganInputModule = () => {
+  const [slogan, setSlogan] = useState('');
 
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
+  const handleChangeSlogan = (event) => {
+    setSlogan(event.target.value);
   };
 
   const handleSubmit = (event) => {
-    alert(`이름: ${email}`);
+    alert(`이름: ${slogan}`);
     event.preventDefault();
   };
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
-      <CardHeader action={<Button>추가</Button>} title="이메일" />
+      <CardHeader action={<Button>추가</Button>} title="슬로건" />
       <CardContent>
         <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
           <div
@@ -32,15 +32,12 @@ const EmailInputModule = () => {
           >
             <div style={{ width: '100%' }}>
               <TextField
-                label="이메일"
-                type="email"
-                placeholder="example@ssafy.com"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                style={{ width: '40%' }}
-                onChange={handleChangeEmail}
-              />
+              multiline
+              placeholder='취준생 화이팅!'
+              style={{ width: '40%' }}
+              onChange={handleChangeSlogan}
+              rows={2}
+              maxRows={4}/>
             </div>
             <div>
               <Button type="submit" variant="contained">
@@ -54,4 +51,4 @@ const EmailInputModule = () => {
   );
 };
 
-export default EmailInputModule;
+export default SloganInputModule;
