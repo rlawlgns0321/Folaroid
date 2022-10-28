@@ -149,23 +149,28 @@ const MyPage = () => {
       >
         <Grid
           container
-          spacing={4}
+          spacing={1}
           style={{ marginTop: '0px', marginBottom: '30px' }}
         >
           <Grid item xs={12} md={12}>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5">
               <b>포트폴리오</b>
             </Typography>
-            <Demo>
+            <Grid
+              item
+              xs={12}
+              md={12}
+              style={{ marginLeft: '15%', marginRight: '15%' }}
+            >
               <List dense={dense}>
                 {generate(
                   <ListItem>
                     <ListItemSecondaryAction>
                       <IconButton edge="end">
-                        <CreateIcon />
+                        <VisibilityIcon />
                       </IconButton>
                       <IconButton edge="end">
-                        <VisibilityIcon />
+                        <CreateIcon />
                       </IconButton>
                       <IconButton edge="end">
                         <ContentCopyIcon />
@@ -186,7 +191,7 @@ const MyPage = () => {
                   </ListItem>
                 )}
               </List>
-            </Demo>
+            </Grid>
           </Grid>
         </Grid>
       </div>
