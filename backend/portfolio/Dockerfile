@@ -1,4 +1,7 @@
 FROM openjdk:8-jdk-alpine
+
+VOLUME /tmp
+
 #CMD ["./gradlew", "clean", "build"]
 ARG JAR_FILE=build/libs/portfolio-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
