@@ -20,6 +20,9 @@ public class IntroStack {
     @Column(length = 50)
     private String stackContent;
 
-    @OneToOne(mappedBy = "introStack", fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "intro_no")
     private Intro intro;
+
+    private Long hash_no;
 }

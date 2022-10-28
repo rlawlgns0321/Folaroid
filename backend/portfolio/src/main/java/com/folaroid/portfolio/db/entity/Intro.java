@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -30,12 +33,9 @@ public class Intro {
     @JoinColumn(name = "intro_personal_data_no")
     private IntroPersonalData introPersonalData;
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "intro_stack_no")
-    private IntroStack introStack;
+    @OneToMany(mappedBy = "intro")
+    private List<IntroStack> introStacks = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "intro_language_no")
-    private IntroLanguage introLanguage;
-
+    @OneToMany(mappedBy = "intro")
+    private List<IntroLanguage> introLanguages = new ArrayList<>();
 }

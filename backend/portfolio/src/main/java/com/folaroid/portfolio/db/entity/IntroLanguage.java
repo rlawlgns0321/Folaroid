@@ -25,6 +25,7 @@ public class IntroLanguage {
 
     private java.sql.Date language_date;
 
-    @OneToOne(mappedBy = "introLanguage", fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "intro_no")
     private Intro intro;
 }
