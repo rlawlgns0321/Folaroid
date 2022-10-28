@@ -10,6 +10,7 @@ import static javax.persistence.FetchType.*;
 public class IntroImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "intro_image_no")
     private long introImageNo;
 
     @Column(length = 2083)

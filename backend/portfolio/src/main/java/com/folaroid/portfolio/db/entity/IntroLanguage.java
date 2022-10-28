@@ -1,13 +1,17 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
-
+@Entity
+@Getter
 public class IntroLanguage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "intro_language_no")
     private long introLanguageNo;
 
     @Column(length = 50)

@@ -12,6 +12,7 @@ public class IntroPersonalData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "intro_personal_data_no")
     private long introPersonalDataNo;
 
     @Column(length = 50)
