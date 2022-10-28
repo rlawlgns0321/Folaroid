@@ -1,11 +1,17 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class User {
 
     @Id
@@ -25,4 +31,5 @@ public class User {
 
     @Column(length = 15)
     private String userPhone;
+
 }
