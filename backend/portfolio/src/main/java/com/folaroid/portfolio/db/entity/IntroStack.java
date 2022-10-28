@@ -11,6 +11,7 @@ public class IntroStack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "intro_stack_no")
     private long IntroStackNo;
 
 //    0,1,2로 제한할 것
