@@ -14,8 +14,12 @@ public class PjtLayoutImage {
     @Column(name = "image_no")
     private Long imageNo;
 
-    @Column(name = "pjt_detail_no")
-    private Long pjtDetailNo;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "pjt_detail_no")
+    private PjtLayout pjtLayout;
+
+//    @Column(name = "pjt_detail_no")
+//    private Long pjtDetailNo;
 
     @Column(name = "pjt_detail_image_location", length = 2083)
     private String pjtDetailImageLocation;

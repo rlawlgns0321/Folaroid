@@ -23,7 +23,11 @@ public class Portfolio {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "portfolio_templates_no")
-    private Long portfolioTemplatesNo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "portfolio_templates_no")
+    private PortfolioTemplates portfolioTemplates;
+
+//    @Column(name = "portfolio_templates_no")
+//    private Long portfolioTemplatesNo;
 
 }

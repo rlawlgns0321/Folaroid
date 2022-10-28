@@ -14,8 +14,9 @@ public class Project {
     @Column(name = "pjt_no")
     private Long pjtNo;
 
-    @Column(name = "pf_no")
-    private Long pfNo;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "pf_no")
+    private Portfolio portfolio;
 
     @Column(name = "pjt_title", length = 100)
     private String pjtTitle;
