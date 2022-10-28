@@ -1,6 +1,8 @@
 package com.folaroid.portfolio.config;
 
 
+import com.folaroid.portfolio.api.service.OAuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,5 +27,6 @@ public class SecurityConfig {
         http.oauth2Login()
                 .userInfoEndpoint()
                 .userService(oAuthService);
+        return http.build();
     }
 }
