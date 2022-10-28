@@ -8,7 +8,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import CreateIcon from '@mui/icons-material/Create';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -16,8 +15,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FolderIcon from '@mui/icons-material/Folder';
 import DeleteIcon from '@mui/icons-material/Delete';
+import WebIcon from '@mui/icons-material/Web';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { ListItemSecondaryAction } from '@mui/material';
 
 function generate(element: React.ReactElement) {
   return [0, 1, 2].map((value) =>
@@ -135,7 +137,6 @@ const MyPage = () => {
           </Grid>
         </Grid>
       </div>
-
       <div
         className="box"
         style={{
@@ -146,29 +147,41 @@ const MyPage = () => {
           marginRight: '10%',
         }}
       >
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={4}
+          style={{ marginTop: '0px', marginBottom: '30px' }}
+        >
           <Grid item xs={12} md={12}>
-            <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
+            <Typography variant="h5" component="div">
               <b>포트폴리오</b>
             </Typography>
             <Demo>
               <List dense={dense}>
                 {generate(
-                  <ListItem
-                    secondaryAction={
-                      <IconButton edge="end" aria-label="delete">
+                  <ListItem>
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end">
+                        <CreateIcon />
+                      </IconButton>
+                      <IconButton edge="end">
+                        <VisibilityIcon />
+                      </IconButton>
+                      <IconButton edge="end">
+                        <ContentCopyIcon />
+                      </IconButton>
+                      <IconButton edge="end">
                         <DeleteIcon />
                       </IconButton>
-                    }
-                  >
+                    </ListItemSecondaryAction>
                     <ListItemAvatar>
                       <Avatar>
-                        <FolderIcon />
+                        <WebIcon />
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary="Single-line item"
-                      secondary={secondary ? 'Secondary text' : null}
+                      secondary="작성날짜"
                     />
                   </ListItem>
                 )}
