@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import EventIcon from '@mui/icons-material/Event';
@@ -18,7 +16,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import WebIcon from '@mui/icons-material/Web';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { ListItemSecondaryAction } from '@mui/material';
+import { Grid, ListItemSecondaryAction } from '@mui/material';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 const PortFolioItem = ({ num }) => {
   //보기 => router 포폴페이지
@@ -61,34 +60,35 @@ const PortFolioItem = ({ num }) => {
 };
 const Intro = ({ icon, children }) => {
   return (
-    <div>
-      {children.icon}
-      <TextField
-        id="standard-read-only-input"
-        label="Required*"
-        defaultValue={children.value}
-        InputProps={{
-          readOnly: true,
-        }}
-        variant="standard"
-      />
-    </div>
+    <Grid
+      container
+      spacing={1}
+      style={{ display: 'flex', alignItems: 'center' }}
+    >
+      <Grid item xs={4} md={4}>
+        {children.icon}
+        <Typography>{children.value}</Typography>
+      </Grid>
+      <Grid item xs={8} md={8}>
+        <Typography align="left">데이터받을곳</Typography>
+      </Grid>
+    </Grid>
   );
 };
 
 const MyPage = () => {
   const portfolios = [0, 1, 2];
   const icons = [
-    { icon: <PersonIcon className="icon" fontSize="large" />, value: 'Name' },
+    { icon: <PersonIcon fontSize="large" />, value: '이름' },
     {
-      icon: <PhoneAndroidIcon className="icon" fontSize="large" />,
-      value: 'Tel',
+      icon: <PhoneAndroidIcon fontSize="large" />,
+      value: '연락처',
     },
-    { icon: <EventIcon className="icon" fontSize="large" />, value: 'Birth' },
-    { icon: <EmailIcon className="icon" fontSize="large" />, value: 'Email' },
+    { icon: <EventIcon fontSize="large" />, value: '생년월일' },
+    { icon: <EmailIcon fontSize="large" />, value: '이메일' },
     {
-      icon: <GitHubIcon className="icon" fontSize="large" />,
-      value: 'GitHub Link',
+      icon: <GitHubIcon fontSize="large" />,
+      value: 'Github 저장소',
     },
   ];
   const onClick = () => {
@@ -99,7 +99,18 @@ const MyPage = () => {
 
   return (
     <>
-      <div className="react">마이페이지</div>
+      <div className="react" display="flex">
+        마이페이지
+        <Button
+          variant="outlined"
+          size="large"
+          onClick={() => {
+            alert('clicked');
+          }}
+        >
+          새 포트폴리오 작성
+        </Button>
+      </div>
       {/* <div>
         <div className="info">
           최초 정보를 작성해주세요. <CreateIcon onClick={onClick}></CreateIcon>
