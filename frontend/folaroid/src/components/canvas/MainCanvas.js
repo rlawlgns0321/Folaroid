@@ -1,78 +1,83 @@
 import { css } from '@emotion/css';
-import React from 'react';
-import { Stage, Layer, Star, Text } from 'react-konva';
-
-function generateShapes() {
-    return [...Array(10)].map((_, i) => ({
-        id: i.toString(),
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        rotation: Math.random() * 180,
-        isDragging: false,
-    }));
-}
-
-const INITIAL_STATE = generateShapes();
+import React, { useRef, useState } from 'react';
+import { Stage, Layer, Line, Text } from 'react-konva';
 
 const MainCanvas = () => {
-    const [stars, setStars] = React.useState(INITIAL_STATE);
+    const [tool, setTool] = useState('pen');
+    const [lines, setLines] = useState([]);
+    const [strokeWidth, setStrokeWidth] = useState(1);
+    const isDrawing = useRef(true);
+    const [cnt, setCnt] = useState(0);
 
-    const handleDragStart = (e) => {
-        const id = e.target.id();
-        setStars(
-            stars.map((star) => {
-                return {
-                    ...star,
-                    isDragging: star.id === id,
-                };
-            })
-        );
-    };
-    const handleDragEnd = (e) => {
-        setStars(
-            stars.map((star) => {
-                return {
-                    ...star,
-                    isDragging: false,
-                };
-            })
-        );
+    const handleMouseMove = (e) => {
+        if (cnt === 200) {
+            isDrawing.current = false;
+
+        }
+
+        // no drawing - skipping
+        if (!isDrawing.current) {
+            return;
+        }
+
+        isDrawing.current = true;
+        const pos = e.target.getStage().getPointerPosition();
+
+        setLines([...lines, { tool, points: [pos.x, pos.y] }]);
+
+        const stage = e.target.getStage();
+        const point = stage.getPointerPosition();
+        let lastLine = lines[lines.length - 1];
+        // add point
+        lastLine.points = lastLine.points.concat([point.x, point.y]);
+
+        // replace last
+        lines.splice(lines.length - 1, 1, lastLine);
+        setLines(lines.concat());
+
+        setStrokeWidth(strokeWidth + 1);
+
+        setCnt(cnt + 1);
+        console.log(lines);
     };
 
     return (
-        <Stage width={window.innerWidth} height={window.innerHeight} className={css`
-            position: fixed;
-            top:0;
-            left:0;
-        `}>
-            <Layer>
-                <Text text="Try to drag a star" />
-                {stars.map((star) => (
-                    <Star
-                        key={star.id}
-                        id={star.id}
-                        x={star.x}
-                        y={star.y}
-                        numPoints={5}
-                        innerRadius={20}
-                        outerRadius={40}
-                        fill="#89b717"
-                        opacity={0.8}
-                        draggable
-                        rotation={star.rotation}
-                        shadowColor="black"
-                        shadowBlur={10}
-                        shadowOpacity={0.6}
-                        shadowOffsetX={star.isDragging ? 10 : 5}
-                        shadowOffsetY={star.isDragging ? 10 : 5}
-                        scaleX={star.isDragging ? 1.2 : 1}
-                        scaleY={star.isDragging ? 1.2 : 1}
-                        onDragStart={handleDragStart}
-                        onDragEnd={handleDragEnd}
-                    />
-                ))}
-            </Layer>
-        </Stage>
+        <div>
+            <Stage
+                width={window.innerWidth}
+                height={window.innerHeight}
+                onMousemove={handleMouseMove}
+            >
+                <Layer>
+                    <Text text="Just start drawing" x={5} y={30} />
+                    {lines.map((line, i) => (
+                        <Line
+                            key={i}
+                            points={line.points}
+                            stroke="#df4b26"
+                            strokeWidth={strokeWidth}
+                            tension={0.5}
+                            lineCap="round"
+                            lineJoin="round"
+                            globalCompositeOperation={
+                                line.tool === 'eraser'
+                                    ? 'destination-out'
+                                    : 'source-over'
+                            }
+                        />
+                    ))}
+                </Layer>
+            </Stage>
+            <select
+                value={tool}
+                onChange={(e) => {
+                    setTool(e.target.value);
+                }}
+            >
+                <option value="pen">Pen</option>
+                <option value="eraser">Eraser</option>
+            </select>
+        </div>
     );
 };
 
