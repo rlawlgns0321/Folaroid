@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ProjectLayout = () => {
+const TemplateSide = () => {
     return (
         <div>
-            
+            템플릿
         </div>
     );
 };
 
-export default ProjectLayout;
+export default TemplateSide;
