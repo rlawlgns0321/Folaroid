@@ -1,23 +1,22 @@
 package com.folaroid.portfolio.config;
 
-
-// import com.folaroid.portfolio.api.service.OAuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //http.httpBasic().disable();
+        http.csrf().disable();
+    }
 
     //private final OAuthService oAuthService;
 

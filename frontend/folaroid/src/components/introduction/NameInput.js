@@ -1,37 +1,40 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+// import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-// import InputLabel from '@mui/material/InputLabel';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import { TextField } from '@mui/material';
 
-const NameInputModule = ({ onInsert }) => {
-  const [name, setName] = useState('');
+const NameInputModule = ({ }) => {
+  // const name = useSelector((state) => state)
+  const [ name, setName ] = useState('');
 
-  const handleChangeName = useCallback((event) => {
+  const handleChangeName = (event) => {
     setName(event.target.value);
-  }, []);
+    console.log(event.target.value)
+  };
 
-  const handleSubmit = useCallback(
-    (event) => {
-      onInsert(name);
-      event.preventDefault();
-    },
-    [onInsert, name]
-  );
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  // const saveBtnClick = (e) => {
+  //   onSaveBtnClick(inputData);
+  //   resetForm();
+  //   console.log(e)
+  // }
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
       <CardHeader
-        action={<Button>추가</Button>}
-        suppressHydrationWarning
         title="이름"
       />
       <CardContent>
         <Box>
-          <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+          <form style={{ margin: '10px' }} onSubmit={handleSubmit}>
             <div
               style={{
                 width: '100%',
@@ -42,7 +45,6 @@ const NameInputModule = ({ onInsert }) => {
             >
               <div style={{width: '100%'}}>
                 <TextField
-                  required
                   label="이름"
                   placeholder="이름"
                   value={name}
@@ -58,6 +60,9 @@ const NameInputModule = ({ onInsert }) => {
               </div>
             </div>
           </form>
+        </Box>
+        <Box>
+          {name}
         </Box>
       </CardContent>
     </Card>

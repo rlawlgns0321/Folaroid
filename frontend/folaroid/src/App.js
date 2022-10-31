@@ -3,16 +3,23 @@ import { Route, Routes } from 'react-router-dom';
 import CallBackpage from './pages/CallBackpage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import './index.css';
+import BaseIntro from './pages/BaseIntro';
+import theme from './theme';
+import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
     return (
-        <div>
-            <Routes>
-                <Route path="/" element={<MainPage />} exact />
-                <Route path="/callback" element={<CallBackpage />} />
-                <Route path="/mypage" element={<MyPage />} />
-            </Routes>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div>
+                <Routes>
+                    <Route path="/" element={<MainPage />} exact />
+                    <Route path="/callback" element={<CallBackpage />} />
+                    <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/intro" element={<BaseIntro />} />
+                </Routes>
+            </div>
+        </ThemeProvider>
     );
 }
 
