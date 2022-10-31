@@ -1,17 +1,17 @@
 import React from 'react';
-import './base_introduction.css';
+import '../components/introduction/base_introduction.css';
 import { Box } from '@mui/system';
-import Sidebar from './sidebar';
-import NameInput from './name_input';
-import BirthInput from './birth_input';
-import EmailInput from './email_input';
-import StackInput from './stack_input';
-import PhoneInput from './phone_input';
-import ImageInput from './image_input';
-import SchoolInput from './school_input';
-import SloganInput from './slogan_input';
+import Sidebar from '../components/introduction/Sidebar';
+import NameInput from '../components/introduction/NameInput';
+import BirthInput from '../components/introduction/BirthInput';
+import EmailInput from '../components/introduction/EmailInput';
+import StackInput from '../components/introduction/StackInput';
+import PhoneInput from '../components/introduction/PhoneInput';
+import ImageInput from '../components/introduction/ImageInput';
+import SchoolInput from '../components/introduction/SchoolInput';
+import SloganInput from '../components/introduction/SloganInput';
 
-function SignUp(props) {
+function BaseIntro() {
   const title = '기본정보';
 
   return (
@@ -41,4 +41,4 @@ function SignUp(props) {
   );
 }
 
-export default SignUp;
+export default BaseIntro;
