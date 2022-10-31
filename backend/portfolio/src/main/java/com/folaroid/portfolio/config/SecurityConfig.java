@@ -11,12 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //http.httpBasic().disable();
-        http.csrf().disable();
-    }
+public class SecurityConfig {
+
 
     private final OAuthService oAuthService;
 
@@ -25,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Bean
     public SecurityFilterChain FilterChain(HttpSecurity http) throws Exception {
-        http.oauth2Login()
+        http.csrf().disable().oauth2Login()
                 .userInfoEndpoint()
                 .userService(oAuthService);
         return http.build();
