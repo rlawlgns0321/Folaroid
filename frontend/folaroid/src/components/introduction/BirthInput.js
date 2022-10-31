@@ -32,6 +32,7 @@ const BirthInputModule = () => {
             <div style={{ width: '100%' }}>
               <LocalizationProvider
                 dateAdapter={AdapterDayjs}
+                sx={{width:'40%'}}
                 >
                 <DatePicker
                   label="생년월일"
