@@ -10,16 +10,16 @@ import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
     return (
-      <ThemeProvider theme={theme}>
-        <div>
-            <Routes>
-                <Route path="/" element={<MainPage />} exact />
-                <Route path="/callback" element={<CallBackpage />} />
-                <Route path="/mypage" element={<MyPage />} />
-                <Route path="/intro" element={<BaseIntro />}/>
-            </Routes>
-        </div>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+            <div>
+                <Routes>
+                    <Route path="/" element={<MainPage />} exact />
+                    <Route path="/callback" element={<CallBackpage />} />
+                    <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/intro" element={<BaseIntro />} />
+                </Routes>
+            </div>
+        </ThemeProvider>
     );
 }
 
