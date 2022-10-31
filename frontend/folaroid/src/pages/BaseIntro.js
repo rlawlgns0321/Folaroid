@@ -10,6 +10,10 @@ import PhoneInput from '../components/introduction/PhoneInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
 import SloganInput from '../components/introduction/SloganInput';
+import LanguageInput from '../components/introduction/LanguageInput';
+import LinkInput from '../components/introduction/LinkInput';
+import CertificateInput from '../components/introduction/CertificateInput'
+import AwardInput from '../components/introduction/AwardInput'
 
 function BaseIntro() {
   const title = '기본정보';
@@ -36,6 +40,10 @@ function BaseIntro() {
         <SloganInput></SloganInput>
         <StackInput></StackInput>
         <SchoolInput></SchoolInput>
+        <LanguageInput></LanguageInput>
+        <LinkInput></LinkInput>
+        <CertificateInput></CertificateInput>
+        <AwardInput></AwardInput>
       </div>
     </Box>
   );

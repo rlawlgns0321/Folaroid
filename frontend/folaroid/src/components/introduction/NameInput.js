@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-// import { useForm } from 'react-hook-form';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { nameLoad } from '../../module/name';
+import { useSelector, useDispatch } from 'react-redux';
+// import { insert } from '../../module/name'
+import { Button, Box, Card, CardHeader, CardContent, TextField } from '@mui/material';
+// import axios from 'axios';
 
-const NameInputModule = ({ }) => {
-  // const name = useSelector((state) => state)
-  const [ name, setName ] = useState('');
+const NameInputModule = () => {
+  const [name, setName] = useState('')
+
+  const dispatch = useDispatch();
+  // const onInsert = (id, content) => dispatch(insert(id, content));
 
   const handleChangeName = (event) => {
-    setName(event.target.value);
     console.log(event.target.value)
   };
 
@@ -21,11 +20,6 @@ const NameInputModule = ({ }) => {
     event.preventDefault();
   };
 
-  // const saveBtnClick = (e) => {
-  //   onSaveBtnClick(inputData);
-  //   resetForm();
-  //   console.log(e)
-  // }
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
@@ -44,7 +38,7 @@ const NameInputModule = ({ }) => {
               }}
             >
               <div style={{width: '100%'}}>
-                <TextField
+                <           TextField
                   label="이름"
                   placeholder="이름"
                   value={name}
