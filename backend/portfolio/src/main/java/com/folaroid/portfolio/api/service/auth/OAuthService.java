@@ -1,4 +1,4 @@
-package com.folaroid.portfolio.api.service;
+package com.folaroid.portfolio.api.service.auth;
 
 import com.folaroid.portfolio.db.entity.User;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-
+/*
 @Service
 public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
@@ -25,4 +25,4 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         Map<String, Object> attributes = oAuth2User.getAttributes(); //oAuth 유저 정보
         return null;
     }
-}
+}*/
