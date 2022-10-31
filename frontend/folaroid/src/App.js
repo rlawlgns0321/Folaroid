@@ -1,27 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import Button from '@mui/material/Button';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import CallBackpage from './pages/CallBackpage';
+import MainPage from './pages/MainPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button variant="contained">Contained</Button>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <Routes>
+                <Route path="/" element={<MainPage/>} exact />
+                <Route path="/callback" element={<CallBackpage/>} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

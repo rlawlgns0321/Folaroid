@@ -1,9 +1,9 @@
 FROM node:16.16.0 as build-stage
 WORKDIR /var/jenkins_home/workspace/S07P31A103/frontend/folaroid
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 COPY . .
-RUN npm run build
+RUN yarn build
 FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /var/jenkins_home/workspace/S07P31A103/frontend/folaroid/build /usr/share/nginx/html
 COPY --from=build-stage /var/jenkins_home/workspace/S07P31A103/frontend/folaroid/deploy_conf/nginx.conf /etc/nginx/conf.d/default.conf

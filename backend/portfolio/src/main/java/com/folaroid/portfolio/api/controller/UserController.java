@@ -18,6 +18,7 @@ public class UserController {
 //            httpMethod = "GET")
 //    @GetMapping("/mypage/default")
 //    public UserDto EssentialInformation(
+//            @RequestBody @Valid CustomerUpdateReq request
 //    ) {
 //    }
 
