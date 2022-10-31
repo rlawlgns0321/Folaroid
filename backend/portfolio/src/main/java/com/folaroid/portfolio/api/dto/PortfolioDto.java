@@ -15,7 +15,8 @@ public class PortfolioDto {
         private Long userNo;
         private Integer pfPrivacy;
         private LocalDateTime updatedAt;
-        private PortfolioTemplates portfolioTemplates;
+        private Long portfolioTemplatesNo;
+        //private PortfolioTemplates portfolioTemplates;
         private String pfImageLocation;
 
         public Portfolio toEntity(){
@@ -24,7 +25,8 @@ public class PortfolioDto {
                     .userNo(userNo)
                     .pfPrivacy(pfPrivacy)
                     .updatedAt(updatedAt)
-                    .portfolioTemplates(portfolioTemplates)
+                    //.portfolioTemplates(portfolioTemplates)
+                    .portfolioTemplatesNo(portfolioTemplatesNo)
                     .pfImageLocation(pfImageLocation)
                     .build();
             return portfolio;
@@ -37,7 +39,8 @@ public class PortfolioDto {
         private Long userNo;
         private Integer pfPrivacy;
         private LocalDateTime updatedAt;
-        private PortfolioTemplates portfolioTemplates;
+        //private PortfolioTemplates portfolioTemplates;
+        private Long portfolioTemplatesNo;
         private String pfImageLocation;
 
         public Response(Portfolio portfolio){
@@ -45,7 +48,8 @@ public class PortfolioDto {
             this.userNo = portfolio.getUserNo();
             this.pfPrivacy = portfolio.getPfPrivacy();
             this.updatedAt = portfolio.getUpdatedAt();
-            this.portfolioTemplates = portfolio.getPortfolioTemplates();
+            //this.portfolioTemplates = portfolio.getPortfolioTemplates();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
             this.pfImageLocation = portfolio.getPfImageLocation();
         }
     }

@@ -34,6 +34,9 @@ public class PortfolioController {
     return  ResponseEntity.status(HttpStatus.OK).body(port);
     }
 
+    /**
+     * 포트폴리오 삭제
+     */
     @DeleteMapping("{pfNo}")
     @ApiOperation(value = "포트폴리오 삭제", notes = "포트폴리오를 삭제한다.")
     @ApiResponses({
@@ -43,6 +46,21 @@ public class PortfolioController {
     })
     public ResponseEntity<?> deletePortfolio(@PathVariable Long pfNo){
         portfolioService.deletePortfolio(pfNo);
+        return ResponseEntity.status(200).body(pfNo);
+    }
+
+    /**
+     * 포트폴리오 템플릿 수정
+     */
+    @PatchMapping("{pfNo}")
+    @ApiOperation(value = "포트폴리오 템플릿 수정", notes = "포트폴리오 탬플릿을 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> patchPortfolioTemplate(@PathVariable Long pfNo, @RequestBody PortfolioDto.Request portfolioRequest){
+        portfolioService.patchPortfolioTemplate(pfNo, portfolioRequest);
         return ResponseEntity.status(200).body(pfNo);
     }
 }

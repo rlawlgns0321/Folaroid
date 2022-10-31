@@ -27,14 +27,18 @@ public class Portfolio {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pf_templates_no")
-    private PortfolioTemplates portfolioTemplates;
+//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "pf_templates_no")
+//    private PortfolioTemplates portfolioTemplates;
 
-//    @Column(name = "portfolio_templates_no")
-//    private Long portfolioTemplatesNo;
+    @Column(name = "portfolio_templates_no")
+    private Long portfolioTemplatesNo;
 
     @Column(name = "pf_image_location", length = 2083)
     private String pfImageLocation;
+
+    public void updatePortfolioTemplate(Long portfolioTemplatesNo){
+        this.portfolioTemplatesNo = portfolioTemplatesNo;
+    }
 
 }

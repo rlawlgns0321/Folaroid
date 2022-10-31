@@ -6,4 +6,5 @@ import com.folaroid.portfolio.db.entity.Portfolio;
 public interface PortfolioService {
     Portfolio createPortfolio(PortfolioDto.Request portfolioRequest);
     void deletePortfolio(Long pfNo);
+    void patchPortfolioTemplate(Long pfNo, PortfolioDto.Request portfolioRequest);
 }
