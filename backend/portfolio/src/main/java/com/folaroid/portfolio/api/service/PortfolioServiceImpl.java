@@ -16,4 +16,13 @@ public class PortfolioServiceImpl implements PortfolioService{
     public Portfolio createPortfolio(PortfolioDto.Request portfolioRequest) {
         return portfolioRepository.save(portfolioRequest.toEntity());
     }
+
+    @Override
+    public void deletePortfolio(Long pfNo) {
+        Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(()->
+                new IllegalArgumentException("해당 포트폴리오가 존재하지 않습니다."));
+        // 포트폴리오에 존재하는 프로젝트 먼저 삭제하는 코드 작성
+        // ??
+        portfolioRepository.delete(portfolio);
+    }
 }
