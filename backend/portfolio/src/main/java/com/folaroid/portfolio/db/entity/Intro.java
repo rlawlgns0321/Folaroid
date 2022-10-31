@@ -4,8 +4,6 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -14,16 +12,16 @@ import static javax.persistence.FetchType.LAZY;
 public class Intro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long introNo;
+    private Long introNo;
 
     @Column(length = 1000)
     private String introContent;
 
-    private long userNo;
+    private Long userNo;
 
-    private long pfNo;
+    private Long pfNo;
 
-    private long portfolioTemplatesNo;
+    private Long portfolioTemplatesNo;
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "intro_image_no")
@@ -33,9 +31,13 @@ public class Intro {
     @JoinColumn(name = "intro_personal_data_no")
     private IntroPersonalData introPersonalData;
 
-    @OneToMany(mappedBy = "intro")
-    private List<IntroStack> introStacks = new ArrayList<>();
+//    @OneToMany(mappedBy = "intro")
+//    private List<IntroStack> introStacks = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "intro")
+//    private List<IntroLanguage> introLanguages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "intro")
-    private List<IntroLanguage> introLanguages = new ArrayList<>();
+    public void SaveDefaultUserInfo(long userNo) {
+        this.userNo = userNo;
+    }
 }
