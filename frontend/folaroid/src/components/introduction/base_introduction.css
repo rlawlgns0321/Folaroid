@@ -1,0 +1,29 @@
+.base-intro-header {
+    background-color: white;
+    color:dodgerblue;
+    font-size: 36px;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+  }
+
+.btn {
+    font-weight: bold;
+}
+
+.wrapper {
+    background-color: white;
+    padding: 1rem;
+    color: black;
+    font-size: 2rem;
+}
+
+.inverted {
+    color: white;
+    background: black;
+    border: 1px solid black;
+}
+
+* {
+    font-family: 'NanumSquare';
+}
