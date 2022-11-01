@@ -10,10 +10,13 @@
     "@mui/joy": "^5.0.0-alpha.51",
     "@mui/material": "^5.10.10",
     "@mui/x-date-pickers": "^5.0.5",
+    "@react-three/drei": "^9.40.0",
+    "@react-three/fiber": "^8.9.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "dayjs": "^1.11.6",
+    "gsap": "^3.11.3",
     "immer": "^9.0.16",
     "konva": "^8.3.13",
     "moment": "^2.29.4",
@@ -26,6 +29,7 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "three": "^0.146.0",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -51,5 +55,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "babel-loader": "^9.0.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "core-js": "^3.26.0",
+    "cross-env": "^7.0.3",
+    "html-webpack-plugin": "^5.5.0",
+    "source-map-loader": "^4.0.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }
