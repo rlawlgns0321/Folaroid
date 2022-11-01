@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Builder
 public class IntroPersonalData {
 
     @Id

@@ -2,10 +2,7 @@ package com.folaroid.portfolio.api.dto;
 
 import com.folaroid.portfolio.db.entity.Portfolio;
 import com.folaroid.portfolio.db.entity.Project;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class ProjectDto {
     @Data
@@ -37,6 +34,7 @@ public class ProjectDto {
         }
 
     }
+    @Getter
     public static class Response{
         private Long pjtNo;
         private Portfolio portfolio;
