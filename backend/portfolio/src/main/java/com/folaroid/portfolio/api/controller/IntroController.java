@@ -69,8 +69,17 @@ public class IntroController {
 
 
     /**
-     * 자기소개 개인정보 삭제
+     * 자기소개 이미지 등록
      */
-
+    @PutMapping("")
+    @ApiOperation(value = "자기소개 개인정보 이름 삭제", notes = "자기소개 개인정보 이름을 삭제한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity introImage(){
+        return null;
+    }
 
 }

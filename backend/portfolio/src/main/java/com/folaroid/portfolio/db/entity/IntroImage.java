@@ -20,4 +20,8 @@ public class IntroImage {
 
     @OneToOne(mappedBy = "introImage", fetch = LAZY)
     private Intro intro;
+
+    public void putIntroImage(String introImageLocation){
+        this.introImageLocation = introImageLocation;
+    }
 }
