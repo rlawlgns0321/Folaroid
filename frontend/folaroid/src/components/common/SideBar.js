@@ -2,24 +2,28 @@ import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const TabBtn = styled.button`
+const TabBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
-    color: black;
+    color: ${(props) => (props.isActive ? "#000000" : "#c8c8c8")};
     border: 0;
     background-color: white;
+    text-decoration: none;
 `;
 
 const SideTab = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: 100%;
+    height: 100%;
     flex-grow: 1;
 `;
 
 const SideBar = ({ children }) => {
+    const { pathname } = useLocation();
+
     return (
         <Grid
             container
@@ -44,17 +48,32 @@ const SideBar = ({ children }) => {
                         border-right: 3px solid #c8c8c8;
                     `}
                 >
-                    <TabBtn>자기소개</TabBtn>
+                    <TabBtn
+                        to="/portfolio/intro"
+                        isActive={pathname === '/portfolio/intro'}
+                    >
+                        자기소개
+                    </TabBtn>
                 </SideTab>
                 <SideTab>
-                    <TabBtn>프로젝트</TabBtn>
+                    <TabBtn
+                        to="/portfolio/project"
+                        isActive={pathname === '/portfolio/project'}
+                    >
+                        프로젝트
+                    </TabBtn>
                 </SideTab>
                 <SideTab
                     className={css`
                         border-left: 3px solid #c8c8c8;
                     `}
                 >
-                    <TabBtn>템플릿</TabBtn>
+                    <TabBtn
+                        to="/portfolio/template"
+                        isActive={pathname === '/portfolio/template'}
+                    >
+                        템플릿
+                    </TabBtn>
                 </SideTab>
             </Grid>
             <div

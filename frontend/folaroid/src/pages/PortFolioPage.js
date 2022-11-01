@@ -6,8 +6,9 @@ import SideBar from '../components/common/SideBar';
 import { Route, Routes } from 'react-router-dom';
 import ProjectSide from '../components/project/ProjectSide';
 import TemplateSide from '../components/template/TemplateSide';
-import Sidebar from '../components/introduction/Sidebar';
 import IntroSide from '../components/introduction/IntroSide';
+import ProjectBody from '../components/project/ProjectBody';
+import Contents from '../components/common/Contents';
 
 const PortFolioPage = () => {
     return (
@@ -21,8 +22,9 @@ const PortFolioPage = () => {
                     maxHeight: '93vh',
                     borderTop: '3px solid black',
                 }}
+                direction="row"
             >
-                <div
+                <Grid
                     className={css`
                         width: 20vw;
                         border-right: 3px solid black;
@@ -35,7 +37,18 @@ const PortFolioPage = () => {
                             <Route path="intro" element={<IntroSide />} />
                         </Routes>
                     </SideBar>
-                </div>
+                </Grid>
+                <Grid
+                    className={css`
+                        width: 80vw;
+                    `}
+                >
+                    <Contents title="프로젝트">
+                        <Routes>
+                            <Route path="project" element={<ProjectBody />} />
+                        </Routes>
+                    </Contents>
+                </Grid>
             </Grid>
         </div>
     );
