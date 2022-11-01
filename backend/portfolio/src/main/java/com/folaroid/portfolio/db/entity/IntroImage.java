@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.*;
 @Entity
 @Getter
+@Builder
 public class IntroImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
