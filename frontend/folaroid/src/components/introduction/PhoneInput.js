@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
+import {
+  Button,
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  TextField,
+} from '@mui/material';
 
-const PhoneInputModule = () => {
-  const [phone, setPhone] = useState('');
-
-  const handleChangePhone = (event) => {
-    setPhone(event.target.value);
-  };
+function PhoneInput(props) {
 
   const handleSubmit = (event) => {
-    alert(`연락처: ${phone}`);
     event.preventDefault();
-  };
+    console.log(event.target[0].value)
+    const content = event.target[0].value;
+    console.log(content)
+    props.onCreate(content);
+};
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
@@ -39,12 +40,11 @@ const PhoneInputModule = () => {
                   shrink: true,
                 }}
                 style={{ width: '40%' }}
-                onChange={handleChangePhone}
               />
             </div>
             <div>
               <Button type="submit" variant="contained">
-                제출
+                저장
               </Button>
             </div>
           </div>
@@ -54,4 +54,38 @@ const PhoneInputModule = () => {
   );
 };
 
-export default PhoneInputModule;
+function ReadPhone(props) {
+  return (
+      <Card style={{ width: '80%', margin: '10px' }}>
+          <CardHeader title="연락처" />
+          <CardContent>
+              <Box>{props.phone}</Box>
+          </CardContent>
+      </Card>
+  );
+}
+
+function ViewPhone() {
+  const [mode, setMode] = useState('CREATE');
+  const [phone, setPhone] = useState('');
+
+  let content = null;
+  if (mode === 'CREATE') {
+      content = 
+          <PhoneInput
+              onCreate={(_phone) => {
+                  const newPhone = _phone;
+                  setPhone(newPhone);
+                  setMode('READ')
+              }}
+          ></PhoneInput>
+  } else if (mode === 'READ') {
+    console.log({phone})
+    content = <ReadPhone phone={phone}></ReadPhone>
+  }
+
+  return content
+}
+
+export default ViewPhone;
+

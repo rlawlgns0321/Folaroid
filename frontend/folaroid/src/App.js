@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import CallBackpage from './pages/CallBackpage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
-import './index.css';
 import BaseIntro from './pages/BaseIntro';
+import './index.css';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 

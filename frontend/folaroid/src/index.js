@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {createStore} from '@reduxjs/toolkit';
+// import {createStore} from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import rootReducer from './module'
+import store from './store'
 
-const store = createStore(rootReducer);
+// const store = createStore(rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
