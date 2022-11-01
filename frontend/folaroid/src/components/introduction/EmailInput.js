@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
+import {
+  Button,
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  TextField,
+} from '@mui/material';
 
-const EmailInputModule = () => {
-  const [email, setEmail] = useState('');
 
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
+function EmailInput(props) {
 
   const handleSubmit = (event) => {
-    alert(`이름: ${email}`);
-    event.preventDefault();
+        event.preventDefault();
+        console.log(event.target[0].value)
+        const content = event.target[0].value;
+        console.log(content)
+        props.onCreate(content);
   };
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
-      <CardHeader action={<Button>추가</Button>} title="이메일" />
+      <CardHeader title="이메일" />
       <CardContent>
         <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
           <div
@@ -39,12 +41,11 @@ const EmailInputModule = () => {
                   shrink: true,
                 }}
                 style={{ width: '40%' }}
-                onChange={handleChangeEmail}
               />
             </div>
             <div>
               <Button type="submit" variant="contained">
-                제출
+                저장
               </Button>
             </div>
           </div>
@@ -54,4 +55,37 @@ const EmailInputModule = () => {
   );
 };
 
-export default EmailInputModule;
+function ReadEmail(props) {
+  return (
+      <Card style={{ width: '80%', margin: '10px' }}>
+          <CardHeader title="이메일" />
+          <CardContent>
+              <Box>{props.email}</Box>
+          </CardContent>
+      </Card>
+  );
+}
+
+function ViewEmail() {
+  const [mode, setMode] = useState('CREATE');
+  const [email, setEmail] = useState('');
+
+  let content = null;
+  if (mode === 'CREATE') {
+      content = 
+          <EmailInput
+              onCreate={(_email) => {
+                  const newEmail = _email;
+                  setEmail(newEmail);
+                  setMode('READ')
+              }}
+          ></EmailInput>
+  } else if (mode === 'READ') {
+    console.log({email})
+    content = <ReadEmail email={email}></ReadEmail>
+  }
+
+  return content
+}
+
+export default ViewEmail;
