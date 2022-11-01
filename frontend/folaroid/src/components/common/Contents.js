@@ -32,7 +32,7 @@ const Contents = ({ children }) => {
     return (
         <Wrap container direction="column">
             <Title>{title}</Title>
-            <Grid>{children}</Grid>
+            <Grid style={{maxHeight: '92%', overflow: "auto"}}>{children}</Grid>
         </Wrap>
     );
 };
