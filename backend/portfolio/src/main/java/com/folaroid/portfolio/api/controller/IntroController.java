@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/intro")
 @RequiredArgsConstructor
@@ -23,9 +20,9 @@ public class IntroController {
     private final IntroPersonalDataService introPersonalDataService;
 
     /**
-     * 자기소개 개인정보 작성
+     * 자기소개 개인정보 이름 작성
      */
-    @PostMapping
+    @PostMapping("personal-data")
     @ApiOperation(value = "자기소개 개인정보 작성", notes = "자기소개의 개인정보를 작성한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -36,6 +33,25 @@ public class IntroController {
         IntroPersonalData introPersonalData = introPersonalDataService.createIntroPersonalData(introPersonalDataRequest);
         return ResponseEntity.status(HttpStatus.OK).body(introPersonalData);
     }
+
+    /**
+     * 자기소개 개인정보 이름 삭제
+     */
+    @DeleteMapping("personal-data/{introPersonalDataNo}")
+    @ApiOperation(value = "자기소개 개인정보 이름 삭제", notes = "자기소개 개인정보 이름을 삭제한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity deletePersonalData(@PathVariable Long introPersonalDataNo){
+        return null;
+    }
+
+
+    /**
+     * 자기소개 개인정보 삭제
+     */
 
 
 }
