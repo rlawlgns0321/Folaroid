@@ -11,8 +11,5 @@
         <module name="portfolio.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="portfolio.querydsl" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

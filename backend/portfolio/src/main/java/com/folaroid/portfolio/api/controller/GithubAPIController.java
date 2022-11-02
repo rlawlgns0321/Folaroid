@@ -15,11 +15,11 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
 
-@RestController
-@PropertySource("classpath:application-security.properties")
+//@RestController
+//@PropertySource("classpath:application-security.properties")
 public class GithubAPIController {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+   /* private final RestTemplate restTemplate = new RestTemplate();
 
     @Value("${client-id}")
     private String clientId;
@@ -45,7 +45,7 @@ public class GithubAPIController {
     public String getAuthorized() {
         //System.out.println(restTemplate.getForObject(buildURI(), String.class));
         return restTemplate.getForObject(buildURI(), String.class);
-    }
+    }*/
 
     /*@Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
