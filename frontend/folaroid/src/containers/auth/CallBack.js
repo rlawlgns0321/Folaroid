@@ -3,10 +3,9 @@ import qs from 'qs';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const CallBack = () => {
-    const authUri = `BE와협의한 주소`;
+    const authUri = `http://localhost:8080/callback`;
     const location = useLocation();
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const getToken = async () => {
@@ -14,16 +13,14 @@ const CallBack = () => {
                 ignoreQueryPrefix: true,
             });
             console.log(code);
-            // try {
-            //     const response = await fetch(`${authUri}?code=${code}`);
-            //     const data = await response.json();
+            try {
+                const response = await fetch(`${authUri}?code=${code}`);
+                const data = await response.json();
 
-            //     localStorage.setItem('token', data.jwt);
-            //     localStorage.setItem('ProfileURL', data.avatar_url);
+                localStorage.setItem('token', data.jwt);
 
-            //     history.push('/');
-            // } catch (error) {}
-            navigate('/');
+                navigate('/');
+            } catch (error) {}
         };
         getToken();
     }, [location, navigate, authUri]);
@@ -31,4 +28,4 @@ const CallBack = () => {
     return <div>로딩중</div>;
 };
 
-export default  CallBack;
+export default CallBack;
