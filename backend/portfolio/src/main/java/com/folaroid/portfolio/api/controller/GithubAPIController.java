@@ -1,26 +1,57 @@
 package com.folaroid.portfolio.api.controller;
 
 
-import org.hibernate.cfg.Environment;
+//import org.springframework.context.annotation.PropertySource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.util.Collections;
+import java.util.Map;
 
-@Controller
-@PropertySource("classpath:application-security.properties")
+//@RestController
+//@PropertySource("classpath:application-security.properties")
 public class GithubAPIController {
 
-    @Value("${spring.security.oauth2.client.registration.github.client-id}")
+   /* private final RestTemplate restTemplate = new RestTemplate();
+
+    @Value("${client-id}")
+    private String clientId;
+    private String redirectUri = "http://127.0.0.1:3000/login/oauth2/code/github";
+
+
+    private String buildURI() {
+        String endpoint = "https://github.com/login/oauth/authorize";
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(endpoint)
+                .queryParam("client_id", clientId)
+                .queryParam("redirect_uri", redirectUri);
+
+        System.out.println(builder.toUriString());
+        return builder.toUriString();
+    }
+    @GetMapping("/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return Collections.singletonMap("name", principal.getAttribute("name"));
+    }
+
+    @GetMapping("/test")
+    public String getAuthorized() {
+        //System.out.println(restTemplate.getForObject(buildURI(), String.class));
+        return restTemplate.getForObject(buildURI(), String.class);
+    }*/
+
+    /*@Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String clientId;
     @Value("${spring.security.oauth2.client.registration.github.client-secret}")
     private String clientSecret;
-    @GetMapping("/callback")
+    @GetMapping("/login/oauth2/code/github")
     public String getAuthorizationCode(@RequestParam String code) throws IOException {
 
         URL url = new URL("https://github.com/login/oauth/access_token");
@@ -56,5 +87,5 @@ public class GithubAPIController {
             }
         }
         return sb.toString();
-    }
+    }*/
 }

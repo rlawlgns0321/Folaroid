@@ -1,13 +1,17 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
+@Builder
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +39,9 @@ public class Project {
 
     @Column(name = "pjt_image_location", length = 2083)
     private String pjtImageLocation;
+
+    public void updateProjectTitle(String pjtTitle, String pjtSubtitle){
+        this.pjtTitle = pjtTitle;
+        this.pjtSubtitle = pjtSubtitle;
+    }
 }

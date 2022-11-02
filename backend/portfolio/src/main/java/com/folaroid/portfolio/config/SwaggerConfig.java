@@ -2,6 +2,8 @@ package com.folaroid.portfolio.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,14 +18,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     @Bean
-    public Docket restAPI() {
+    public Docket AdminApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
-                .build();
+                .apis(RequestHandlerSelectors.basePackage("com.folaroid.portfolio"))
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(this.apiInfo());
     }
+
+
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
