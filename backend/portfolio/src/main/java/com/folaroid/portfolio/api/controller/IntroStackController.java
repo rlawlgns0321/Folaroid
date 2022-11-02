@@ -38,10 +38,10 @@ public class IntroStackController {
     @ApiOperation(value = "마이페이지 - 기술스택",
             notes="삭제",
             httpMethod = "DELETE")
-    @DeleteMapping("/mypage/intro_stack")
-    public ResponseEntity<Long> delete(@RequestBody IntroStackNoDto request){
-        introStackService.delete(request.getIntroStackNo());
-        return new ResponseEntity<>(request.getIntroStackNo(), HttpStatus.OK);
+    @DeleteMapping("/mypage/intro_stack/{intro_stack_no}")
+    public ResponseEntity<Long> delete(@PathVariable("intro_stack_no") Long introStackNo){
+        introStackService.delete(introStackNo);
+        return new ResponseEntity<>(introStackNo, HttpStatus.OK);
     }
 
 }

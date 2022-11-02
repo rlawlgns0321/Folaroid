@@ -19,17 +19,32 @@ public class UserService {
 
     /** 마이페이지 - 필수 정보 */
     @Transactional
-    public Long save(UserNoReq request) {
+    public Long introTableSave(UserNoReq request) {
         Intro intro = new Intro();
         intro.SaveDefaultUserInfo(request.getUserNo());
         return introRepository.save(intro).getIntroNo();
     }
 
-//    @Transactional(readOnly = true)
-//    public UserDefaultDto findById(UserNoReq request) {
-//        User user = userRepository.findById(request.getUserNo()).get();
-//        return new UserDefaultDto(user);
-//    }
 
+    @Transactional(readOnly = true)
+    public User find(UserNoReq request) {
+        return userRepository.findById(request.getUserNo()).get();
+    }
 
+    @Transactional
+    public void put(UserDefaultDto request) {
+        User user = userRepository.findById(request.getUserNo()).get();
+        user.updateUser(request.getUserGithubId(), request.getUserName(), request.getUserBirth(), request.getUserEmail(), request.getUserPhone());
+    }
+    @Transactional
+    public Long save(UserSignupReq request) {
+        User user = new User();
+        user.saveUser(request.getUserGithubId(), request.getUserEmail());
+        return userRepository.save(user).getUserNo();
+    }
+
+    public Long login(UserLoginReq request) {
+        User user = userRepository.findByUserGithubId(request.getUserGithubId());
+        return userRepository.findUserDefaultData(user.getUserNo());
+    }
 }
