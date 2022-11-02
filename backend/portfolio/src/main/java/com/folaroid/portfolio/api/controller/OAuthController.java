@@ -2,7 +2,7 @@ package com.folaroid.portfolio.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.folaroid.portfolio.api.service.auth.JwtUtil;
+//import com.folaroid.portfolio.api.service.auth.JwtUtil;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.nimbusds.oauth2.sdk.token.AccessToken;
 import org.slf4j.Logger;
@@ -24,6 +24,7 @@ import java.util.Map;
 
 @RestController
 @PropertySource("classpath:application-security.properties")
+@CrossOrigin
 public class OAuthController {
     private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
@@ -40,7 +41,6 @@ public class OAuthController {
         param.add("client_id", clientId);
         param.add("client_secret", clientSecret);
         param.add("code", code);
-        param.add("redirect_url", REDIRECT_URI);
 
         HttpHeaders header = new HttpHeaders();
         header.add("Accept", "application/json");
@@ -52,7 +52,7 @@ public class OAuthController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(TOKEN_REQUEST_URI,
                 HttpMethod.POST,
-                getCodeRequestEntity(code),
+                codeRequestEntity,
                 String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -75,7 +75,7 @@ public class OAuthController {
         return builder.toUriString();
     }*/
    @GetMapping("/callback")
-   public Map<String, String> getLogin(String code, HttpServletResponse res) throws JsonProcessingException {
+   public Map<String, String> getLogin(@RequestParam String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
 
        /*ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", responseToken.getAccessToken())

@@ -30,7 +30,7 @@ const PortFolioPage = () => {
                         border-right: 3px solid black;
                     `}
                 >
-                    <SideBar isPortfolio={false}>
+                    <SideBar isPortfolio>
                         <Routes>
                             <Route path="template" element={<TemplateSide />} />
                             <Route path="project" element={<ProjectSide />} />

@@ -18,7 +18,7 @@ const CallBack = () => {
                 const data = await response.json();
 
                 localStorage.setItem('token', data.jwt);
-
+                console.log(data);
                 navigate('/');
             } catch (error) {}
         };
