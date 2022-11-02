@@ -1,5 +1,10 @@
 package com.folaroid.portfolio.api.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class GithubUser {
     private String login;
     private String id;
