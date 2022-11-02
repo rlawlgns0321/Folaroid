@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 public class PortfolioController {
-    @Autowired
     private final PortfolioService portfolioService;
     private final ProjectService projectService;
 

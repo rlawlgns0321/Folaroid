@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@RequiredArgsConstructor
 @Service("introArchivingService")
 public class IntroArchivingServiceImpl implements IntroArchivingService {
     @Autowired
@@ -27,6 +26,12 @@ public class IntroArchivingServiceImpl implements IntroArchivingService {
         Intro intro = introRepository.findById(request.getIntroNo()).get();
         introArchiving.saveIntroArchiving(intro, request.getArchivingName(), request.getArchivingLink());
         return introArchivingRepository.save(introArchiving).getIntroArchivingNo();
+    }
+
+    @Transactional
+    @Override
+    public IntroArchiving findIntroArchiving(IntroArchivingDto.IntroArchivingNo request) {
+        return introArchivingRepository.findById(request.getIntroArchivingNo()).get();
     }
 }
 
