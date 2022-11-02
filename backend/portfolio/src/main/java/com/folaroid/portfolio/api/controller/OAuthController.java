@@ -1,12 +1,17 @@
 package com.folaroid.portfolio.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.folaroid.portfolio.api.vo.OAuthToken;
+import com.nimbusds.oauth2.sdk.token.AccessToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -40,6 +45,19 @@ public class OAuthController {
         header.add("Accept", "application/json");
         return new HttpEntity<>(param, header);
     }
+
+    private OAuthToken getOAuthToken(String code) throws JsonProcessingException {
+        HttpEntity<MultiValueMap<String, String>> codeRequestEntity = getCodeRequestEntity(code);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(TOKEN_REQUEST_URI,
+                HttpMethod.POST,
+                getCodeRequestEntity(code),
+                String.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        OAuthToken oAuthToken = null;
+        return objectMapper.readValue(response.getBody(), OAuthToken.class);
+    }
    /* @Value("${client-secret}")
     private String clientSecret;
     private String buildURI(String authorizationCode) {
@@ -57,8 +75,7 @@ public class OAuthController {
     }*/
     @GetMapping("/login/oauth2/code/github")
     public String getAuthorizationCode(String code) throws JsonProcessingException {
-        System.out.println("===== authorizationCode : " + code);
-        return "===== authorizationCode : " + code;
+        return getOAuthToken(code).getAccessToken();
     }
 
  /*   @PostMapping("/getAccessToken")
