@@ -6,6 +6,7 @@ package com.folaroid.portfolio.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.folaroid.portfolio.api.dto.UserDto;
+import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,25 +19,24 @@ import org.springframework.web.client.RestTemplate;
 //@PropertySource("classpath:application-security.properties")
 public class GithubAPIUserController {
 
-    private final String USER_REQUEST_URI = "https://github.com/login/oauth/user";
+    private final String USER_REQUEST_URI = "https://api.github.com/user";
     private HttpEntity<MultiValueMap<String, String>> getUserInfoEntity(OAuthToken oAuthToken) {
         HttpHeaders userInfoRequestHeaders = new HttpHeaders();
         userInfoRequestHeaders.add("Authorization", "token " + oAuthToken.getAccessToken());
         return new HttpEntity<>(userInfoRequestHeaders);
     }
 
-    private UserDto getUserInfo(OAuthToken oAuthToken) throws JsonProcessingException {
+    private GithubUser getUserInfo(OAuthToken oAuthToken)  {
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> userInfoResponse = restTemplate.exchange(
+        ResponseEntity<GithubUser> userInfoResponse = restTemplate.exchange(
                 USER_REQUEST_URI,
                 HttpMethod.GET,
                 getUserInfoEntity(oAuthToken),
-                String.class
+                GithubUser.class
         );
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(userInfoResponse.getBody(), UserDto.class);
+        return userInfoResponse.getBody();
 
     }
 }

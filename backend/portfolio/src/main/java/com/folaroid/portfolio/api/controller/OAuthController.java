@@ -28,7 +28,7 @@ import java.util.Map;
 public class OAuthController {
     private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
-    //private final String USER_REQUEST_URI = "https://github.com/login/oauth/user";
+
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
     @Value("${client-id}")
     private String clientId;
