@@ -2,16 +2,14 @@ package com.folaroid.portfolio.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.folaroid.portfolio.api.service.auth.JwtUtil;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.nimbusds.oauth2.sdk.token.AccessToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -19,7 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @PropertySource("classpath:application-security.properties")
@@ -74,10 +75,19 @@ public class OAuthController {
         return builder.toUriString();
     }*/
    @GetMapping("/callback")
-   public String getLogin(String code, HttpSession session) throws JsonProcessingException {
+   public Map<String, String> getLogin(String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
-       session.setAttribute("oAuthToken", responseToken);
-       return responseToken.getAccessToken();
+
+       /*ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", responseToken.getAccessToken())
+               .path("/").sameSite("none").domain("127.0.0.1")
+               .secure(true).httpOnly(true)
+               .maxAge(JwtUtil.TOKEN_VALIDATION_SECOND).build();
+
+       res.setHeader("Set-Cookie", accessTokenCookie.toString()+);*/
+
+       HashMap<String, String> map = new HashMap<>();
+       map.put("jwt", responseToken.getAccessToken());
+       return map;
    }
 
  /*   @PostMapping("/getAccessToken")
