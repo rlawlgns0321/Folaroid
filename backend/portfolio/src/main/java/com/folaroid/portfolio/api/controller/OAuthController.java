@@ -5,7 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,9 +20,26 @@ public class OAuthController {
 
     private RestTemplate restTemplate = new RestTemplate();
     private final String REDIRECT_URI = "http://127.0.0.1:3000/login/oauth2/code/github";
+    private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
+    private final String USER_REQUEST_URI = "https://github.com/login/oauth/user";
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
     @Value("${client-id}")
     private String clientId;
+    @Value("${client-secret}")
+    private String clientSecret;
+
+    private HttpEntity<MultiValueMap<String, String>> getCodeRequestEntity(String code) {
+
+        MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
+        param.add("client_id", clientId);
+        param.add("client_secret", clientSecret);
+        param.add("code", code);
+        param.add("redirect_url", REDIRECT_URI);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Accept", "application/json");
+        return new HttpEntity<>(param, header);
+    }
    /* @Value("${client-secret}")
     private String clientSecret;
     private String buildURI(String authorizationCode) {
