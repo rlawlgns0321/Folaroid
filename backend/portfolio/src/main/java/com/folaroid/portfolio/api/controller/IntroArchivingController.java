@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +30,9 @@ public class IntroArchivingController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity createIntroArchiving(@RequestBody IntroArchivingDto.Request introArchivingRequest){
-        return ResponseEntity.ok(introArchivingService.createIntroArchiving(introArchivingRequest));
+    public ResponseEntity<Long> saveIntroArchiving(@RequestBody IntroArchivingDto.IntroArchivingDetail request){
+        Long introArchivingNo = introArchivingService.saveIntroArchiving(request);
+        return new ResponseEntity<>(introArchivingNo, HttpStatus.OK);
     }
 
 }

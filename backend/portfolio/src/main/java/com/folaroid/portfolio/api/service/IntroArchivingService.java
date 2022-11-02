@@ -4,6 +4,6 @@ import com.folaroid.portfolio.api.dto.IntroArchivingDto;
 import com.folaroid.portfolio.db.entity.IntroArchiving;
 
 public interface IntroArchivingService {
-    Long createIntroArchiving(IntroArchivingDto.Request introArchivingDto);
+    Long saveIntroArchiving(IntroArchivingDto.IntroArchivingDetail request);
 
 }

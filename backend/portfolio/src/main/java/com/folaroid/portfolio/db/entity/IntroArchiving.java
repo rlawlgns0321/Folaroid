@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class IntroArchiving {
 
     @Id @GeneratedValue
@@ -22,11 +21,10 @@ public class IntroArchiving {
     private String archivingName; // 사용자 관련 링크 이름
     private String archivingLink; // 사용자 관련 링크
 
-    @Builder
-    public IntroArchiving(String archivingName, String archivingLink, Intro intro){
+    public void saveIntroArchiving(Intro intro, String archivingName, String archivingLink){
+        this.intro = intro;
         this.archivingName = archivingName;
         this.archivingLink = archivingLink;
-        this.intro = intro;
     }
 
 }
