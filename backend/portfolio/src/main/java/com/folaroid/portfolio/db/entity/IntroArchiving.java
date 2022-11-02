@@ -1,12 +1,14 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
+@Getter
+@Builder
 public class IntroArchiving {
 
     @Id @GeneratedValue
