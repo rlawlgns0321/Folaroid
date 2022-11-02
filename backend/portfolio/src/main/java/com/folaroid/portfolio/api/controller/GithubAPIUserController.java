@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 //@PropertySource("classpath:application-security.properties")
 public class GithubAPIUserController {
 
-    private final String USER_REQUEST_URI = "https://github.com/login/oauth/user";
+    private final String USER_REQUEST_URI = "https://api.github.com/user";
     private HttpEntity<MultiValueMap<String, String>> getUserInfoEntity(OAuthToken oAuthToken) {
         HttpHeaders userInfoRequestHeaders = new HttpHeaders();
         userInfoRequestHeaders.add("Authorization", "token " + oAuthToken.getAccessToken());
