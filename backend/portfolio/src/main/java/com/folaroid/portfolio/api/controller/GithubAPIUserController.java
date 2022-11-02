@@ -6,6 +6,7 @@ package com.folaroid.portfolio.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.folaroid.portfolio.api.dto.UserDto;
+import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,7 @@ public class GithubAPIUserController {
         return new HttpEntity<>(userInfoRequestHeaders);
     }
 
-    private UserDto getUserInfo(OAuthToken oAuthToken) throws JsonProcessingException {
+    private GithubUser getUserInfo(OAuthToken oAuthToken) throws JsonProcessingException {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> userInfoResponse = restTemplate.exchange(
@@ -36,7 +37,7 @@ public class GithubAPIUserController {
         );
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(userInfoResponse.getBody(), UserDto.class);
+        return objectMapper.readValue(userInfoResponse.getBody(), GithubUser.class);
 
     }
 }
