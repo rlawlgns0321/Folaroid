@@ -15,7 +15,7 @@ public class IntroPersonalDataDto {
         private java.sql.Date personaDataBirth;
         private String personalDataEmail;
         private String personalDataPhone;
-        private Intro intro;
+        //private Intro intro;
 
         public IntroPersonalData toEntity(){
             IntroPersonalData introPersonalData = IntroPersonalData.builder()
@@ -24,7 +24,7 @@ public class IntroPersonalDataDto {
                     .personalDataBirth(personaDataBirth)
                     .personalDataEmail(personalDataEmail)
                     .personalDataPhone(personalDataPhone)
-                    .intro(intro)
+                    //.intro(intro)
                     .build();
             return introPersonalData;
         }
@@ -37,7 +37,7 @@ public class IntroPersonalDataDto {
         private java.sql.Date personaDataBirth;
         private String personalDataEmail;
         private String personalDataPhone;
-        private Intro intro;
+        //private Intro intro;
 
         public Response(IntroPersonalData introPersonalData){
             this.introPersonalDataNo = introPersonalData.getIntroPersonalDataNo();
@@ -45,7 +45,7 @@ public class IntroPersonalDataDto {
             this.personaDataBirth = introPersonalData.getPersonalDataBirth();
             this.personalDataEmail = introPersonalData.getPersonalDataEmail();
             this.personalDataPhone = introPersonalData.getPersonalDataPhone();
-            this.intro = introPersonalData.getIntro();
+            //this.intro = introPersonalData.getIntro();
         }
 
     }
