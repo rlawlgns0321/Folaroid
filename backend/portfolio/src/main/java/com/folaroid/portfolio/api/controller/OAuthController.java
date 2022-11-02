@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @PropertySource("classpath:application-security.properties")
 public class OAuthController {
-
-    private RestTemplate restTemplate = new RestTemplate();
-    private final String REDIRECT_URI = "http://127.0.0.1:3000/login/oauth2/code/github";
+    private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
     private final String USER_REQUEST_URI = "https://github.com/login/oauth/user";
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
@@ -73,10 +73,12 @@ public class OAuthController {
         System.out.println(builder.toUriString());
         return builder.toUriString();
     }*/
-    @GetMapping("/login/oauth2/code/github")
-    public String getAuthorizationCode(String code) throws JsonProcessingException {
-        return getOAuthToken(code).getAccessToken();
-    }
+   @GetMapping("/callback")
+   public String getLogin(String code, HttpSession session) throws JsonProcessingException {
+       OAuthToken responseToken = getOAuthToken(code);
+       session.setAttribute("oAuthToken", responseToken);
+       return responseToken.getAccessToken();
+   }
 
  /*   @PostMapping("/getAccessToken")
     public String getToken(@RequestParam("code") String authorizationCode) {
