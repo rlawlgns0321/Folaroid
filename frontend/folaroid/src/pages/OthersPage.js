@@ -1,26 +1,22 @@
 import React from 'react';
-import { css } from '@emotion/css';
 import Header from '../components/common/Header';
 import SearchInput from '../components/others/SearchInput';
-import styled from '@emotion/styled';
+import PortFolioBox from '../components/others/PortfolioBox';
 
-const Page = styled.div`
-    width:100%;
-    height: 100%;
-    /* background-color: black; */
-`;
 
 const OthersPage = () => {
-    
     return (
         <div>
-
+            {/* <style>{'body { background-color: black; }'}</style> */}
             <Header />
-        <Page>
-            <div style={{ margin: '20px' }}>
-                <SearchInput></SearchInput>
+            <div style={{ backgroundColor: 'black'}}>
+                <div style={{ margin: '20px' }}>
+                    <SearchInput></SearchInput>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <PortFolioBox></PortFolioBox>
+                </div>
             </div>
-        </Page>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     Box,
@@ -11,10 +11,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import axios from 'axios';
+// import axios from 'axios';
 
 function BaseInput(props) {
-    const [birth, setBirth] = useState(dayjs('2022-01-01'));
+    const [birth, setBirth] = useState(dayjs('2000-01-01'));
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -102,7 +102,7 @@ function BaseInput(props) {
                                     display: 'flex',
                                     alignItems: 'center',
                                     margin: '20px',
-                                    justifyContent: 'end'
+                                    justifyContent: 'end',
                                 }}
                             >
                                 <Button type="submit" variant="contained">

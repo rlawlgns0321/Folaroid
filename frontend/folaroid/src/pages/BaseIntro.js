@@ -45,12 +45,8 @@ function BaseIntro() {
                         border-right: 3px solid black;
                     `}
                 >
-                    <SideBar>
-                        <Routes>
-                            <Route path="template" element={<TemplateSide />} />
-                            <Route path="project" element={<ProjectSide />} />
-                            <Route path="intro" element={<IntroSide />} />
-                        </Routes>
+                    <SideBar isPortfolio={false}>
+                        <IntroSide/>
                     </SideBar>
                 </Grid>
                 <Grid
