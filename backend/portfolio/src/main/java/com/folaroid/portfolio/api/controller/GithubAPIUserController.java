@@ -26,18 +26,17 @@ public class GithubAPIUserController {
         return new HttpEntity<>(userInfoRequestHeaders);
     }
 
-    private GithubUser getUserInfo(OAuthToken oAuthToken) throws JsonProcessingException {
+    private GithubUser getUserInfo(OAuthToken oAuthToken)  {
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> userInfoResponse = restTemplate.exchange(
+        ResponseEntity<GithubUser> userInfoResponse = restTemplate.exchange(
                 USER_REQUEST_URI,
                 HttpMethod.GET,
                 getUserInfoEntity(oAuthToken),
-                String.class
+                GithubUser.class
         );
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(userInfoResponse.getBody(), GithubUser.class);
+        return userInfoResponse.getBody();
 
     }
 }
