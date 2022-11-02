@@ -24,6 +24,7 @@ import java.util.Map;
 
 @RestController
 @PropertySource("classpath:application-security.properties")
+@CrossOrigin
 public class OAuthController {
     private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
