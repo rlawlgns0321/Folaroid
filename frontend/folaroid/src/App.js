@@ -9,8 +9,7 @@ import './index.css';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 import PortFolioPage from './pages/PortFolioPage';
-import ProjectSide from './components/project/ProjectSide';
-import TemplateSide from './components/template/TemplateSide';
+import ProjectInfoPage from './pages/ProjectInfoPage';
 
 function App() {
     return (
@@ -23,6 +22,7 @@ function App() {
                     <Route path="/intro" element={<BaseIntro />} />
                     <Route path="/portfolio/*" element={<PortFolioPage />}/>
                     <Route path="/others" element={<OthersPage />}/>
+                    <Route path="/projectinfo" element={<ProjectInfoPage />} />
                 </Routes>
             </div>
         </ThemeProvider>
