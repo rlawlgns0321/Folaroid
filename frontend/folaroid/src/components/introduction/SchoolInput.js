@@ -23,7 +23,7 @@ const rows = [
 
 
 
-const SchoolInputModule = () => {
+function SchoolInput() {
   const [school, setSchool] = useState('');
   const [major, setMajor] = useState('');
   const [degree, setDegree] = useState('');
@@ -134,4 +134,4 @@ const SchoolInputModule = () => {
 
 
 
-export default SchoolInputModule;
+export default SchoolInput;

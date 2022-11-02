@@ -4,6 +4,7 @@ import CallBackpage from './pages/CallBackpage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import BaseIntro from './pages/BaseIntro';
+import OthersPage from './pages/OthersPage';
 import './index.css';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/intro" element={<BaseIntro />} />
                     <Route path="/portfolio/*" element={<PortFolioPage />}/>
+                    <Route path="/others" element={<OthersPage />}/>
                 </Routes>
             </div>
         </ThemeProvider>

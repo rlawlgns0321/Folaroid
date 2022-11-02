@@ -1,55 +1,28 @@
 import React from 'react';
-import '../components/introduction/base_introduction.css';
-import { Box } from '@mui/system';
-import {
-    Sidebar,
-    NameInput,
-    BirthInput,
-    EmailInput,
-    StackInput,
-    PhoneInput,
-    ImageInput,
-    SchoolInput,
-    SloganInput,
-    LanguageInput,
-    LinkInput,
-    CertificateInput,
-    AwardInput
-} from '../components/introduction';
+import { css } from '@emotion/css';
+import Header from '../components/common/Header';
+import SearchInput from '../components/others/SearchInput';
+import styled from '@emotion/styled';
 
+const Page = styled.div`
+    width:100%;
+    height: 100%;
+    /* background-color: black; */
+`;
 
-function BaseIntro() {
-    const title = '기본정보';
-
+const OthersPage = () => {
+    
     return (
-        <Box style={{ display: 'flex', margin: '10px' }}>
-            <Sidebar></Sidebar>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    width: '100%',
-                }}
-            >
-                <div className="base-intro-header" style={{ width: '100%' }}>
-                    {title}
-                </div>
-                <NameInput></NameInput>
-                <BirthInput></BirthInput>
-                <EmailInput></EmailInput>
-                <PhoneInput></PhoneInput>
-                <ImageInput></ImageInput>
-                <SloganInput></SloganInput>
-                <StackInput></StackInput>
-                <SchoolInput></SchoolInput>
-                <LanguageInput></LanguageInput>
-                <LinkInput></LinkInput>
-                <CertificateInput></CertificateInput>
-                <AwardInput></AwardInput>
-            </div>
-        </Box>
-    );
-}
+        <div>
 
-export default BaseIntro;
+            <Header />
+        <Page>
+            <div style={{ margin: '20px' }}>
+                <SearchInput></SearchInput>
+            </div>
+        </Page>
+        </div>
+    );
+};
+
+export default OthersPage;

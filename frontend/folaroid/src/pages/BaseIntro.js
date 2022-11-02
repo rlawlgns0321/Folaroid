@@ -12,10 +12,10 @@ import Contents from '../components/common/Contents';
 
 // import Sidebar from '../components/introduction/Sidebar';
 import NameInput from '../components/introduction/NameInput';
-import BirthInput from '../components/introduction/BirthInput';
-import EmailInput from '../components/introduction/EmailInput';
+// import BirthInput from '../components/introduction/BirthInput';
+// import EmailInput from '../components/introduction/EmailInput';
+// import PhoneInput from '../components/introduction/PhoneInput';
 import StackInput from '../components/introduction/StackInput';
-import PhoneInput from '../components/introduction/PhoneInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
 import SloganInput from '../components/introduction/SloganInput';
@@ -60,9 +60,6 @@ function BaseIntro() {
                 >
                     <Contents title={title}>
                       <NameInput></NameInput>
-                      <BirthInput></BirthInput>
-                      <EmailInput></EmailInput>
-                      <PhoneInput></PhoneInput>
                       <ImageInput></ImageInput>
                       <SloganInput></SloganInput>
                       <StackInput></StackInput>
