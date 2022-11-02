@@ -3,7 +3,7 @@ import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const ProjectBodyItem = () => {
+const ProjectBodyItem = ({project}) => {
     return (
         <Card sx={{ minWidth: 355, width: 355 }}>
             <Skeleton variant="rectangular" width={355} height={200} />
@@ -13,7 +13,7 @@ const ProjectBodyItem = () => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Grid sx={{pl:2, fontWeight: "bold"}}>프로젝트명</Grid>
+                <Grid sx={{pl:2, fontWeight: "bold"}}>{project.name}</Grid>
                 <Grid>
                     <IconButton aria-label="delete" size="large">
                         <DeleteIcon fontSize="inherit" />

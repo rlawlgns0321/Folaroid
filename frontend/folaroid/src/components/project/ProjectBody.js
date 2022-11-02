@@ -11,23 +11,16 @@ const ItemWrap = styled(Grid)`
     margin-bottom: 20px;
 `;
 
-const ProjectBody = () => {
+const ProjectBody = ({ projects }) => {
     return (
         <Grid container>
+            {projects.map((project) => (
+                <ItemWrap item xs={6} key={project.id}>
+                    <ProjectBodyItem project={project}/>
+                </ItemWrap>
+            ))}
             <ItemWrap item xs={6}>
-                <ProjectBodyItem />
-            </ItemWrap>
-            <ItemWrap item xs={6}>
-                <ProjectBodyItem />
-            </ItemWrap>
-            <ItemWrap item xs={6}>
-                <ProjectBodyItem />
-            </ItemWrap>
-            <ItemWrap item xs={6}>
-                <ProjectBodyItem />
-            </ItemWrap>
-            <ItemWrap item xs={6}>
-                <ProjectAdd/>
+                <ProjectAdd />
             </ItemWrap>
         </Grid>
     );

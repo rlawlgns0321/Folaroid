@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './module';
+import rootReducer from './modules';
 import { Provider } from 'react-redux';
 
 const store = configureStore({ reducer: rootReducer });

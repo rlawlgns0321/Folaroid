@@ -9,6 +9,7 @@ import TemplateSide from '../components/template/TemplateSide';
 import IntroSide from '../components/introduction/IntroSide';
 import ProjectBody from '../components/project/ProjectBody';
 import Contents from '../components/common/Contents';
+import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 
 const PortFolioPage = () => {
     return (
@@ -45,7 +46,7 @@ const PortFolioPage = () => {
                 >
                     <Contents title="프로젝트">
                         <Routes>
-                            <Route path="project" element={<ProjectBody />} />
+                            <Route path="project" element={<ProjectBodyContainer />} />
                         </Routes>
                     </Contents>
                 </Grid>
