@@ -1,8 +1,11 @@
 package com.folaroid.portfolio.db.entity;
 
 import lombok.Getter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
+
+import java.sql.Date;
 
 import static javax.persistence.FetchType.LAZY;
 @Entity
@@ -12,20 +15,29 @@ public class IntroLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "intro_language_no")
-    private long introLanguageNo;
+    private Long introLanguageNo;
 
     @Column(length = 50)
-    private String language_name;
+    private String languageName;
 
     @Column(length = 50)
-    private String language_test_name;
+    private String languageTestName;
 
     @Column(length = 10)
-    private String language_grade;
+    private String languageGrade;
 
-    private java.sql.Date language_date;
+    private java.sql.Date languageDate;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "intro_no")
     private Intro intro;
+
+    public void saveIntroLanguage(Intro intro, String languageName, String languageTestName, String languageGrade, Date languageDate) {
+        this.intro = intro;
+        this.languageName = languageName;
+        this.languageTestName = languageTestName;
+        this.languageGrade = languageGrade;
+        this.languageDate = languageDate;
+    }
 }
