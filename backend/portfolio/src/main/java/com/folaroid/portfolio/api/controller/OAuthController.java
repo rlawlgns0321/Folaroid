@@ -53,7 +53,7 @@ public class OAuthController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(TOKEN_REQUEST_URI,
                 HttpMethod.POST,
-                getCodeRequestEntity(code),
+                codeRequestEntity,
                 String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
