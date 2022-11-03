@@ -4,9 +4,11 @@ import com.folaroid.portfolio.api.dto.IntroCertificationDto;
 import com.folaroid.portfolio.db.entity.IntroCertification;
 import com.folaroid.portfolio.db.repository.IntroCertificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+@Service
 public class IntroCertificationServiceImpl implements IntroCertificationService{
     @Autowired
     IntroCertificationRepository introCertificationRepository;
