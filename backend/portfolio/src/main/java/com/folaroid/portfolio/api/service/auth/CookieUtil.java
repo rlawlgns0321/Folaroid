@@ -1,5 +1,5 @@
 package com.folaroid.portfolio.api.service.auth;
-
+/*
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +22,4 @@ public class CookieUtil {
                 .path("/").sameSite("none").domain("i7a602.p.ssafy.io").secure(true).httpOnly(true).maxAge(0).build();
     }
 
-}
+}*/

@@ -45,7 +45,6 @@ public class OAuthController {
         param.add("client_id", clientId);
         param.add("client_secret", clientSecret);
         param.add("code", code);
-        param.add("redirect_url", REDIRECT_URI);
 
         HttpHeaders header = new HttpHeaders();
         header.add("Accept", "application/json");
@@ -89,7 +88,7 @@ public class OAuthController {
 
     //public static ReadmeController readmeTest = new ReadmeController();
    @GetMapping("/callback")
-   public Map<String, String> getLogin(String code, HttpServletResponse res) throws JsonProcessingException {
+   public Map<String, String> getLogin(@RequestParam String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
        GithubUser responseUserInfo = getUserInfo(responseToken);
 
