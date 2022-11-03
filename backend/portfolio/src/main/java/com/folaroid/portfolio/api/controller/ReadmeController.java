@@ -20,8 +20,21 @@ public class ReadmeController {
             conn.setRequestMethod("GET");
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((line = rd.readLine()) != null) {
-                if (line.length() != 0)
-                res.add(line);
+
+                if (line.length() != 0) {
+                    if (line.length() > 2
+                        && line.charAt(0) == '`'
+                        && line.charAt(0) == line.charAt(1)
+                        && line.charAt(1) == line.charAt(2)) {
+                        String codeLine;
+                        while ((codeLine = rd.readLine()) != null) {
+                            line += "\n" + codeLine;
+                            if (codeLine.length() > 2 && codeLine.substring(codeLine.length() - 3).equals("```"))
+                                break;
+                        }
+                    }
+                    res.add(line);
+                }
             }
             rd.close();
         } catch (Exception e) {
