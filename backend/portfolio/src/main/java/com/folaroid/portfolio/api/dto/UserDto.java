@@ -1,5 +1,7 @@
 package com.folaroid.portfolio.api.dto;
 
+import com.folaroid.portfolio.db.entity.Intro;
+import com.folaroid.portfolio.db.entity.IntroPersonalData;
 import com.folaroid.portfolio.db.entity.IntroStack;
 import com.folaroid.portfolio.db.entity.User;
 import lombok.AllArgsConstructor;
@@ -37,14 +39,25 @@ public class UserDto {
         private java.sql.Date userBirth;
         private String userEmail;
         private String userPhone;
-        public UserDefaultDto(User user) {
+        public UserDefaultDto(User user, IntroPersonalData introPersonalData) {
             this.userNo = user.getUserNo();
             this.userGithubId= user.getUserGithubId();
-            this.userName= user.getUserName();
-            this.userBirth= user.getUserBirth();
+            this.userName= introPersonalData.getPersonalDataName();
+            this.userBirth= introPersonalData.getPersonalDataBirth();
             this.userEmail= user.getUserEmail();
-            this.userPhone= user.getUserPhone();
+            this.userPhone= introPersonalData.getPersonalDataPhone();
         }
 
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class UserDefaultForUpdateDto {
+        private Long introNo;
+        private String userName;
+        private java.sql.Date userBirth;
+        private String userPhone;
+
+    }
+
 }

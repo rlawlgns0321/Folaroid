@@ -15,7 +15,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     PortfolioRepository portfolioRepository;
 
     @Override
-    public Portfolio createPortfolio(PortfolioDto.Request portfolioRequest) {
+    public Portfolio createPortfolio(PortfolioDto.portfolioRequest portfolioRequest) {
         return portfolioRepository.save(portfolioRequest.toEntity());
     }
 
@@ -30,7 +30,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Transactional
     @Override
-    public void patchPortfolioTemplate(Long pfNo, PortfolioDto.Request portfolioRequest) {
+    public void patchPortfolioTemplate(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 포트폴리오 프로젝트가 존재하지 않습니다."));
         portfolio.updatePortfolioTemplate(portfolioRequest.getPortfolioTemplatesNo());

@@ -10,14 +10,14 @@ public class IntroDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Request{
+    public static class introRequest{
         private Long introNo;
         private String introContent;
         private Long userNo;
         private Long pfNo;
-        private Long portfolioTemplatesNo;
-        private IntroImage introImage;
-        private IntroPersonalData introPersonalData;
+//        private Long portfolioTemplatesNo;
+//        private IntroImage introImage;
+//        private IntroPersonalData introPersonalData;
 
         public Intro toEntity(){
             Intro intro = Intro.builder()
@@ -25,9 +25,9 @@ public class IntroDto {
                     .introContent(introContent)
                     .userNo(userNo)
                     .pfNo(pfNo)
-                    .portfolioTemplatesNo(portfolioTemplatesNo)
-                    .introImage(introImage)
-                    .introPersonalData(introPersonalData)
+//                    .portfolioTemplatesNo(portfolioTemplatesNo)
+//                    .introImage(introImage)
+//                    .introPersonalData(introPersonalData)
                     .build();
             return intro;
         }
@@ -39,18 +39,26 @@ public class IntroDto {
         private String introContent;
         private Long userNo;
         private Long pfNo;
-        private Long portfolioTemplatesNo;
-        private IntroImage introImage;
-        private IntroPersonalData introPersonalData;
+//        private Long portfolioTemplatesNo;
+//        private IntroImage introImage;
+//        private IntroPersonalData introPersonalData;
 
         public Response(Intro intro){
             this.introNo = intro.getIntroNo();
             this.introContent = intro.getIntroContent();
             this.userNo = intro.getUserNo();
             this.pfNo = intro.getPfNo();
-            this.portfolioTemplatesNo = intro.getPortfolioTemplatesNo();
-            this.introImage = intro.getIntroImage();
-            this.introPersonalData = intro.getIntroPersonalData();
+//            this.portfolioTemplatesNo = intro.getPortfolioTemplatesNo();
+//            this.introImage = intro.getIntroImage();
+//            this.introPersonalData = intro.getIntroPersonalData();
         }
+    }
+
+
+
+    @Getter
+    @AllArgsConstructor
+    public static class IntroNoDto {
+        private Long introNo;
     }
 }

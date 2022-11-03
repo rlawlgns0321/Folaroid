@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class IntroController {
     @Autowired
-    private final IntroPersonalDataService introPersonalDataService;
+//    private final IntroPersonalDataService introPersonalDataService;
     private final IntroService introService;
 
     /**
@@ -33,8 +33,8 @@ public class IntroController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity createIntro(@RequestBody IntroDto.Request IntroRequest){
-        Intro intro = introService.createIntro(IntroRequest);
+    public ResponseEntity createIntro(@RequestBody IntroDto.introRequest introRequest){
+        Intro intro = introService.createIntro(introRequest);
         return ResponseEntity.status(HttpStatus.OK).body(intro);
     }
 

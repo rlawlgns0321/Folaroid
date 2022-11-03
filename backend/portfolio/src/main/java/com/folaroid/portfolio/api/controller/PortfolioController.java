@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 public class PortfolioController {
-    @Autowired
     private final PortfolioService portfolioService;
     private final ProjectService projectService;
 
@@ -32,7 +31,7 @@ public class PortfolioController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity createPortfolio(@RequestBody PortfolioDto.Request portfolioDtoRequest){
+    public ResponseEntity createPortfolio(@RequestBody PortfolioDto.portfolioRequest portfolioDtoRequest){
         Portfolio port = portfolioService.createPortfolio(portfolioDtoRequest);
     return  ResponseEntity.status(HttpStatus.OK).body(port);
     }
@@ -62,7 +61,7 @@ public class PortfolioController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> patchPortfolioTemplate(@PathVariable Long pfNo, @RequestBody PortfolioDto.Request portfolioRequest){
+    public ResponseEntity<?> patchPortfolioTemplate(@PathVariable Long pfNo, @RequestBody PortfolioDto.portfolioRequest portfolioRequest){
         portfolioService.patchPortfolioTemplate(pfNo, portfolioRequest);
         return ResponseEntity.status(200).body(pfNo);
     }
@@ -77,7 +76,7 @@ public class PortfolioController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> patchProjectTitle(@PathVariable Long pfNo,Long pjtNo, @RequestBody ProjectDto.Request projectRequest){
+    public ResponseEntity<?> patchProjectTitle(@PathVariable Long pfNo,Long pjtNo, @RequestBody ProjectDto.projectRequest projectRequest){
         projectService.patchProjectTitle(pfNo, pjtNo, projectRequest);
         return ResponseEntity.status(200).body(pjtNo);
     }

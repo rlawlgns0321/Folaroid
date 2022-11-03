@@ -8,7 +8,6 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.*;
 @Entity
 @Getter
-@Builder
 public class IntroImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +17,8 @@ public class IntroImage {
     @Column(length = 2083)
     private String introImageLocation;
 
-    @OneToOne(mappedBy = "introImage", fetch = LAZY)
-    private Intro intro;
+//    @OneToOne(mappedBy = "introImage", fetch = LAZY)
+//    private Intro intro;
 
     public void putIntroImage(String introImageLocation){
         this.introImageLocation = introImageLocation;

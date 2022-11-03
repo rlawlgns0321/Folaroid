@@ -20,7 +20,7 @@ public class IntroStackController {
     @ApiOperation(value = "마이페이지 - 기술스택",
             notes="등록",
             httpMethod = "POST")
-    @PostMapping("/mypage/intro_stack")
+    @PostMapping("/intro_stack")
     public ResponseEntity<Long> save(@RequestBody StackNoDto request){
         Long introStackNo = introStackService.save(request);
         return new ResponseEntity<>(introStackNo, HttpStatus.OK);
@@ -29,7 +29,7 @@ public class IntroStackController {
     @ApiOperation(value = "마이페이지 - 기술스택",
             notes="조회",
             httpMethod = "GET")
-    @GetMapping("/mypage/intro_stack")
+    @GetMapping("/intro_stack")
     public ResponseEntity<StackNameDto> find(@RequestBody IntroStackNoDto request){
         StackNameDto introStackDto = introStackService.find(request);
         return new ResponseEntity<>(introStackDto, HttpStatus.OK);
@@ -38,7 +38,7 @@ public class IntroStackController {
     @ApiOperation(value = "마이페이지 - 기술스택",
             notes="삭제",
             httpMethod = "DELETE")
-    @DeleteMapping("/mypage/intro_stack/{intro_stack_no}")
+    @DeleteMapping("/intro_stack/{intro_stack_no}")
     public ResponseEntity<Long> delete(@PathVariable("intro_stack_no") Long introStackNo){
         introStackService.delete(introStackNo);
         return new ResponseEntity<>(introStackNo, HttpStatus.OK);

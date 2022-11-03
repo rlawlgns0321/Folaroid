@@ -21,6 +21,8 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pf_no")
     private Portfolio portfolio;
+//    @Column(name = "pf_no")
+//    private Long pfNo;
 
     @Column(name = "pjt_title", length = 100)
     private String pjtTitle;
