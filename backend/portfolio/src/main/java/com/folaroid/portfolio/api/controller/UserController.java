@@ -51,7 +51,7 @@ public class UserController {
     @PutMapping("/user_info")
     public ResponseEntity<Long> put(@RequestBody UserDefaultForUpdateDto request) {
         userService.put(request);
-        return new ResponseEntity<>(request.getUserNo(), HttpStatus.OK);
+        return new ResponseEntity<>(request.getIntroNo(), HttpStatus.OK);
     }
 
 
