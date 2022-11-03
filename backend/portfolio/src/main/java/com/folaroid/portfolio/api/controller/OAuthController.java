@@ -88,6 +88,7 @@ public class OAuthController {
 
        HashMap<String, String> map = new HashMap<>();
        map.put("jwt", responseToken.getAccessToken());
+       System.out.println(responseToken.getAccessToken());
        return map;
    }
 

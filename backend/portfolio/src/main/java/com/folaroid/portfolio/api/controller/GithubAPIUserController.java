@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import static com.folaroid.portfolio.api.dto.UserDto.*;
@@ -33,6 +34,7 @@ public class GithubAPIUserController {
         return new HttpEntity<>(userInfoRequestHeaders);
     }
 
+    @PostMapping("/signup")
     private GithubUser getUserInfo(OAuthToken oAuthToken)  {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -42,7 +44,9 @@ public class GithubAPIUserController {
                 getUserInfoEntity(oAuthToken),
                 GithubUser.class
         );
+        System.out.println("get User Info Success?");
         userService.save(new UserSignupReq(userInfoResponse.getBody().getLogin(), userInfoResponse.getBody().getEmail()));
+        System.out.println("get User Info Success!");
         return userInfoResponse.getBody();
 
     }
