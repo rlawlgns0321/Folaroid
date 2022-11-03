@@ -22,7 +22,7 @@ public class IntroLanguageController {
     @ApiOperation(value = "마이페이지 - 공인 어학성적",
             notes="등록",
             httpMethod = "POST")
-    @PostMapping("/mypage/intro_language")
+    @PostMapping("/intro_language")
     public ResponseEntity<Long> save(@RequestBody IntroLanguageDto.IntroLanguageDetail request){
         System.out.println(request.getLanguageDate());
         Long introLanguageNo = introLanguageService.save(request);
@@ -32,7 +32,7 @@ public class IntroLanguageController {
     @ApiOperation(value = "마이페이지 - 공인 어학성적",
             notes="조회",
             httpMethod = "GET")
-    @GetMapping("/mypage/intro_language")
+    @GetMapping("/intro_language")
     public ResponseEntity<IntroLanguage> find(@RequestBody IntroLanguageDto.IntroLanguageNo request){
         IntroLanguage introLanguage = introLanguageService.find(request);
         return new ResponseEntity<>(introLanguage, HttpStatus.OK);
@@ -41,7 +41,7 @@ public class IntroLanguageController {
     @ApiOperation(value = "마이페이지 - 공인 어학성적",
             notes="삭제",
             httpMethod = "DELETE")
-    @DeleteMapping("/mypage/intro_language")
+    @DeleteMapping("/intro_language")
     public ResponseEntity<Long> delete(@RequestBody IntroLanguageDto.IntroLanguageNo request){
         introLanguageService.delete(request.getIntroLanguageNo());
         return new ResponseEntity<>(request.getIntroLanguageNo(), HttpStatus.OK);

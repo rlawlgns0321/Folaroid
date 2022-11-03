@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/mypage/intro-archiving")
+@RequestMapping("/intro-archiving")
 @RequiredArgsConstructor
 @RestController
 public class IntroArchivingController {

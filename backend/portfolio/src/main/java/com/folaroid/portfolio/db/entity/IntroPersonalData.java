@@ -9,7 +9,6 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@Builder
 public class IntroPersonalData {
 
     @Id
@@ -22,13 +21,16 @@ public class IntroPersonalData {
 
     private java.sql.Date personalDataBirth;
 
-    @Column(length = 40)
-    private String personalDataEmail;
-
     @Column(length = 15)
     private String personalDataPhone;
 
 //    @OneToOne(mappedBy = "introPersonalData", fetch = LAZY)
 //    private Intro intro;
+
+    public void updateIntroPersonalData(String userName, java.sql.Date userBirth, String userPhone) {
+        this.personalDataName = userName;
+        this.personalDataBirth = userBirth;
+        this.personalDataPhone = userPhone;
+    }
 }
 
