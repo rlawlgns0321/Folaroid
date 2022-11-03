@@ -3,6 +3,7 @@ package com.folaroid.portfolio.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.folaroid.portfolio.api.service.auth.JwtUtil;
+import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.nimbusds.oauth2.sdk.token.AccessToken;
 import org.slf4j.Logger;
@@ -28,6 +29,8 @@ import java.util.Map;
 public class OAuthController {
     private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
+
+    private final String USER_REQUEST_URI = "https://api.github.com/user";
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
     @Value("${client-id}")
@@ -60,24 +63,32 @@ public class OAuthController {
         OAuthToken oAuthToken = null;
         return objectMapper.readValue(response.getBody(), OAuthToken.class);
     }
-   /* @Value("${client-secret}")
-    private String clientSecret;
-    private String buildURI(String authorizationCode) {
 
+    private HttpEntity<MultiValueMap<String, String>> getUserInfoEntity(OAuthToken oAuthToken) {
+        HttpHeaders userInfoRequestHeaders = new HttpHeaders();
+        userInfoRequestHeaders.add("Authorization", "token " + oAuthToken.getAccessToken());
+        return new HttpEntity<>(userInfoRequestHeaders);
+    }
 
-        String endpoint = "https://github.com/login/oauth/access_token";
+    private GithubUser getUserInfo(OAuthToken oAuthToken)  {
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(endpoint)
-                .queryParam("client_id", clientId)
-                .queryParam("client_secret", clientSecret)
-                .queryParam("code", authorizationCode);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<GithubUser> userInfoResponse = restTemplate.exchange(
+                USER_REQUEST_URI,
+                HttpMethod.GET,
+                getUserInfoEntity(oAuthToken),
+                GithubUser.class
+        );
+        //System.out.println("get User Info Success?");
+        //userService.save(new UserSignupReq(userInfoResponse.getBody().getLogin(), userInfoResponse.getBody().getEmail()));
+        //System.out.println("get User Info Success!");
+        return userInfoResponse.getBody();
 
-        System.out.println(builder.toUriString());
-        return builder.toUriString();
-    }*/
+    }
    @GetMapping("/callback")
    public Map<String, String> getLogin(String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
+       GithubUser responseUserInfo = getUserInfo(responseToken);
 
        /*ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", responseToken.getAccessToken())
                .path("/").sameSite("none").domain("127.0.0.1")
@@ -88,13 +99,9 @@ public class OAuthController {
 
        HashMap<String, String> map = new HashMap<>();
        map.put("jwt", responseToken.getAccessToken());
+       map.put("github_id", responseUserInfo.getLogin());
+       map.put("email", responseUserInfo.getEmail());
        System.out.println(responseToken.getAccessToken());
        return map;
    }
-
- /*   @PostMapping("/getAccessToken")
-    public String getToken(@RequestParam("code") String authorizationCode) {
-        System.out.println("===== authorizationCode : " + authorizationCode);
-        return restTemplate.getForObject(buildURI(authorizationCode), String.class);
-    }*/
 }
