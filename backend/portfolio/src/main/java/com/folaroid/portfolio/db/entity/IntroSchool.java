@@ -14,9 +14,7 @@ import javax.persistence.*;
 @Getter
 @Builder
 public class IntroSchool {
-
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "intro_school_no")
     private Long introSchoolNo;
 
