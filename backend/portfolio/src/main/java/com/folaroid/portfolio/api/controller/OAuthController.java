@@ -85,6 +85,8 @@ public class OAuthController {
         return userInfoResponse.getBody();
 
     }
+
+    public static ReadmeController readmeTest = new ReadmeController();
    @GetMapping("/callback")
    public Map<String, String> getLogin(String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
@@ -101,6 +103,7 @@ public class OAuthController {
        map.put("jwt", responseToken.getAccessToken());
        map.put("github_id", responseUserInfo.getLogin());
        map.put("email", responseUserInfo.getEmail());
+       System.out.println(readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md"));
        System.out.println(responseToken.getAccessToken());
        return map;
    }
