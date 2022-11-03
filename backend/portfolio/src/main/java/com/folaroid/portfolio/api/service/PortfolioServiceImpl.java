@@ -4,8 +4,10 @@ import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.IntroStackDto;
 import com.folaroid.portfolio.api.dto.PortfolioDto;
 import com.folaroid.portfolio.api.dto.UserDto;
+import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.IntroStack;
 import com.folaroid.portfolio.db.entity.Portfolio;
+import com.folaroid.portfolio.db.repository.IntroRepository;
 import com.folaroid.portfolio.db.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,22 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Autowired
     PortfolioRepository portfolioRepository;
+    @Autowired
+    IntroRepository introRepository;
 
+    @Transactional
     @Override
-    public Portfolio createPortfolio(PortfolioDto.portfolioRequest portfolioRequest) {
-        return portfolioRepository.save(portfolioRequest.toEntity());
+    public PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest request) {
+        Portfolio portfolio = portfolioRepository.save(request.toEntity());
+        Intro intro = new Intro();
+        intro.SavePortfolioInfo(portfolio.getPfNo(), portfolio.getUserNo());
+        Long introNo = introRepository.save(intro).getIntroNo();
+//        기존의 개인정보 데이터들을 바로 포트폴리오의 자기소개 정보로 저장할 것.
+
+        return new PortfolioDto.SavePortfolioDto(portfolio, introNo);
     }
 
+    @Transactional
     @Override
     public void deletePortfolio(Long pfNo) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(()->
