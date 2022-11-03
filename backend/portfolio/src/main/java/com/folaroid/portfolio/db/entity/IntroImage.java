@@ -8,6 +8,7 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.*;
 @Entity
 @Getter
+@Builder
 public class IntroImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

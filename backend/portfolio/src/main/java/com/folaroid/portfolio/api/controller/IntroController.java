@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class IntroController {
     @Autowired
-//    private final IntroPersonalDataService introPersonalDataService;
+    private final IntroPersonalDataService introPersonalDataService;
     private final IntroService introService;
 
     /**
