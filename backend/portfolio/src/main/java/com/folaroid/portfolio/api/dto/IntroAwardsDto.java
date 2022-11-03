@@ -14,13 +14,13 @@ public class IntroAwardsDto {
     @Builder
     public static class introAwardsRequest{
         private Long introAwardsNo;
-        private Intro intro;
+        private Long introNo;
         private String awardsName;
         private String awardsDate;
         private String awardsIssuer;
         private String awardsDetail;
 
-        public IntroAwards toEntity(){
+        public IntroAwards toEntity(Intro intro){
             IntroAwards introAwards = IntroAwards.builder()
                     .introAwardsNo(introAwardsNo)
                     .intro(intro)
@@ -35,7 +35,7 @@ public class IntroAwardsDto {
 
     public static class introAwardsResponse{
         private Long introAwardsNo;
-        private Long intro;
+        private Long introNo;
         private String awardsName;
         private String awardsDate;
         private String awardsIssuer;
@@ -43,7 +43,7 @@ public class IntroAwardsDto {
 
         public introAwardsResponse(IntroAwards introAwards){
             this.introAwardsNo = introAwards.getIntroAwardsNo();
-            this.intro = introAwards.getIntro().getIntroNo();
+            this.introNo = introAwards.getIntro().getIntroNo();
             this.awardsName = introAwards.getAwardsName();
             this.awardsDate = introAwards.getAwardsDate();
             this.awardsIssuer = introAwards.getAwardsIssuer();

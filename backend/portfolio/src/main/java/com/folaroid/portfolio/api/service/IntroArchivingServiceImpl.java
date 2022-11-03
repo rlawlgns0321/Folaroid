@@ -19,6 +19,7 @@ import java.util.List;
 public class IntroArchivingServiceImpl implements IntroArchivingService {
     @Autowired
     IntroArchivingRepository introArchivingRepository;
+    @Autowired
     IntroRepository introRepository;
 
 
