@@ -1,0 +1,22 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "name": "프로젝트1",
+            "lastUpdate": "7일전",
+            "description": "재난 대피 시뮬레이션"
+        },
+        {
+            "id": 2,
+            "name": "프로젝트2",
+            "lastUpdate": "7일전",
+            "description": "plex 운동 프로젝트"
+        },
+        {
+            "id": 3,
+            "name": "프로젝트3",
+            "lastUpdate": "27일전",
+            "description": "포트폴리오 제작 프로젝트"
+        }
+    ]
+}

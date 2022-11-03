@@ -12,17 +12,17 @@ public class IntroStack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "intro_stack_no")
-    private long IntroStackNo;
+    private Long introStackNo;
 
-//    0,1,2로 제한할 것
-    private Integer stackLevel;
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 
-    @Column(length = 50)
-    private String stackContent;
+    private Long hashNo;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
 
-    private Long hash_no;
+    public void saveIntroStack(Long introNo, Long hashNo) {
+        this.introNo = introNo;
+        this.hashNo = hashNo;
+    }
 }

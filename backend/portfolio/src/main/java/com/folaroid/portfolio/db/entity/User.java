@@ -1,13 +1,13 @@
 package com.folaroid.portfolio.db.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="user")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,18 +18,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userNo;
 
-    @Column(length = 60)
+    @Column(length = 60, unique=true)
     private String userGithubId;
-
-    @Column(length = 10)
-    private String userName;
-
-    private java.sql.Date userBirth;
 
     @Column(length = 40)
     private String userEmail;
 
-    @Column(length = 15)
-    private String userPhone;
-
+    public void save(String userGithubId, String userEmail) {
+        this.userGithubId = userGithubId;
+        this.userEmail = userEmail;
+    }
 }
