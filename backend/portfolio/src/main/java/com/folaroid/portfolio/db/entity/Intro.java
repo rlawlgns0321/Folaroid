@@ -27,15 +27,15 @@ public class Intro {
 
     private Long pfNo;
 
-    private Long portfolioTemplatesNo;
+//    private Long portfolioTemplatesNo;
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "intro_image_no")
-    private IntroImage introImage;
-
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "intro_personal_data_no")
-    private IntroPersonalData introPersonalData;
+//    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "intro_image_no")
+//    private IntroImage introImage;
+//
+//    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "intro_personal_data_no")
+//    private IntroPersonalData introPersonalData;
 
 //    @OneToMany(mappedBy = "intro")
 //    private List<IntroStack> introStacks = new ArrayList<>();

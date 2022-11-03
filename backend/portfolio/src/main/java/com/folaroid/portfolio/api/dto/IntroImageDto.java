@@ -21,7 +21,7 @@ public class IntroImageDto {
             IntroImage introImage = IntroImage.builder()
                     .introImageNo(introImageNo)
                     .introImageLocation(introImageLocation)
-                    .intro(intro)
+//                    .intro(intro)
                     .build();
             return introImage;
         }
@@ -35,7 +35,7 @@ public class IntroImageDto {
         public Response(IntroImage introImage){
             this.introImageNo = introImage.getIntroImageNo();
             this.introImageLocation = introImage.getIntroImageLocation();
-            this.intro = introImage.getIntro();
+//            this.intro = introImage.getIntro();
         }
     }
 }

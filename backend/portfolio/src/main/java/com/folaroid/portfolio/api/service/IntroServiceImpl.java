@@ -12,7 +12,7 @@ public class IntroServiceImpl implements IntroService{
     IntroRepository introRepository;
 
     @Override
-    public Intro createIntro(IntroDto.Request introRequest) {
+    public Intro createIntro(IntroDto.introRequest introRequest) {
         return introRepository.save(introRequest.toEntity());
     }
 }

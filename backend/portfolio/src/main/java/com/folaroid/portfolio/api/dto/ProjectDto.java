@@ -9,9 +9,10 @@ public class ProjectDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Request{
+    public static class projectRequest{
         private Long pjtNo;
         private Portfolio portfolio;
+//        private Long pfNo;
         private String pjtTitle;
         private String pjtSubTitle;
         private String pjtUrl;
@@ -22,6 +23,7 @@ public class ProjectDto {
         public Project toEntity(){
             Project project = Project.builder()
                     .pjtNo(pjtNo)
+//                    .pfNo(pfNo)
                     .portfolio(portfolio)
                     .pjtTitle(pjtTitle)
                     .pjtSubtitle(pjtSubTitle)
@@ -37,6 +39,7 @@ public class ProjectDto {
     @Getter
     public static class Response{
         private Long pjtNo;
+        private Long pfNo;
         private Portfolio portfolio;
         private String pjtTitle;
         private String pjtSubTitle;
@@ -47,6 +50,7 @@ public class ProjectDto {
 
         public Response(Project project){
             this.pjtNo = project.getPjtNo();
+//            this.pfNo = project.getPfNo();
             this.portfolio = project.getPortfolio();
             this.pjtTitle = project.getPjtTitle();
             this.pjtSubTitle = project.getPjtSubtitle();

@@ -10,7 +10,7 @@ public class PortfolioDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Request{
+    public static class portfolioRequest{
         private Long pfNo;
         private Long userNo;
         private Integer pfPrivacy;
