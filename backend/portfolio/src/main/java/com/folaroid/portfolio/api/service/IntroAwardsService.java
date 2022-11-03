@@ -5,5 +5,5 @@ import com.folaroid.portfolio.api.dto.IntroAwardsDto;
 
 public interface IntroAwardsService {
     Long saveIntroAwards(IntroAwardsDto.introAwardsRequest introAwardsRequest);
-    void deleteIntroAwards(Long introArchivingNo);
+    void deleteIntroAwards(Long introAwardsNo);
 }

@@ -25,8 +25,8 @@ public class IntroAwardsServiceImpl implements IntroAwardsService{
 
     @Transactional
     @Override
-    public void deleteIntroAwards(Long introArchivingNo) {
-        IntroAwards introAwards = introAwardsRepository.findById(introArchivingNo).orElseThrow(()->
+    public void deleteIntroAwards(Long introAwardsNo) {
+        IntroAwards introAwards = introAwardsRepository.findById(introAwardsNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 자격증이 없습니다."));
         introAwardsRepository.delete(introAwards);
     }
