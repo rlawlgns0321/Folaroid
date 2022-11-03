@@ -3,7 +3,12 @@ import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const ProjectBodyItem = ({project}) => {
+const ProjectBodyItem = ({project, onDeleteProject}) => {
+
+    const onDeleteClick = () => {
+        onDeleteProject(project.id);
+    }
+
     return (
         <Card sx={{ minWidth: 355, width: 355 }}>
             <Skeleton variant="rectangular" width={355} height={200} />
@@ -15,7 +20,7 @@ const ProjectBodyItem = ({project}) => {
             >
                 <Grid sx={{pl:2, fontWeight: "bold"}}>{project.name}</Grid>
                 <Grid>
-                    <IconButton aria-label="delete" size="large">
+                    <IconButton aria-label="delete" size="large" onClick={onDeleteClick}>
                         <DeleteIcon fontSize="inherit" />
                     </IconButton>
                 </Grid>

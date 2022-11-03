@@ -11,14 +11,18 @@ const ItemWrap = styled(Grid)`
     margin-bottom: 20px;
 `;
 
-const ProjectBody = ({ projects }) => {
+const ProjectBody = ({ projects, onDeleteProject }) => {
     return (
         <Grid container>
-            {projects.map((project) => (
-                <ItemWrap item xs={6} key={project.id}>
-                    <ProjectBodyItem project={project}/>
-                </ItemWrap>
-            ))}
+            {projects &&
+                projects.map((project) => (
+                    <ItemWrap item xs={6} key={project.id}>
+                        <ProjectBodyItem
+                            project={project}
+                            onDeleteProject={onDeleteProject}
+                        />
+                    </ItemWrap>
+                ))}
             <ItemWrap item xs={6}>
                 <ProjectAdd />
             </ItemWrap>

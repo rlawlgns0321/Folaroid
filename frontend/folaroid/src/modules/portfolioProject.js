@@ -1,21 +1,34 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import * as api from '../lib/api/portfolioProjectAPI';
 
-const getPortfolioProjects = createAction(
-    'portfolioProject/GET_PORTFOLIO_PROJECTS'
+export const getProjects = createAsyncThunk(
+    'portfolioProject/GetProjects',
+    async () => {
+        const response = await api.getProjects();
+        return response.data;
+    }
 );
 
-const initialState = {
-    projects: [
-        { id: 1, name: '프로젝트1', lastUpdate: '7일전' },
-        { id: 2, name: '프로젝트2', lastUpdate: '5일전' },
-        { id: 3, name: '프로젝트5', lastUpdate: '27일전' },
-    ],
-};
-
-const portfolioProject = createReducer(initialState, (builder) => {
-    builder.addCase(getPortfolioProjects, (state, action) => {
-
-    });
+export const portfolioProject = createSlice({
+    name: 'portfolioProject',
+    initialState: {
+        projects: [],
+    },
+    reducers: {
+        deleteProject: (state, action) => {
+            return {
+                projects: state.projects.filter(
+                    (project) => project.id !== action.payload
+                ),
+            };
+        },
+    },
+    extraReducers: {
+        [getProjects.fulfilled.type]: (state, action) => {
+            console.log('action', action);
+            state.projects = action.payload;
+        },
+    },
 });
 
-export default portfolioProject;
+export default portfolioProject.reducer;
