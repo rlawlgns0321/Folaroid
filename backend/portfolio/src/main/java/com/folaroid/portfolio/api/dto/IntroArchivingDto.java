@@ -11,11 +11,11 @@ public class IntroArchivingDto {
     @Builder
     public static class introArchivingRequest{
         private Long introArchivingNo;
-        private Intro intro;
+        private Long introNo;
         private String archivingName;
         private String archivingLink;
 
-        public IntroArchiving toEntity(){
+        public IntroArchiving toEntity(Intro intro){
             IntroArchiving introArchiving = IntroArchiving.builder()
                     .introArchivingNo(introArchivingNo)
                     .intro(intro)
