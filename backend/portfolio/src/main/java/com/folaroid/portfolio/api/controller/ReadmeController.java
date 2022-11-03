@@ -22,6 +22,8 @@ public class ReadmeController {
             while ((line = rd.readLine()) != null) {
 
                 if (line.length() != 0) {
+                    if (line.charAt(0) == '!') //link, image parsing
+                        continue;
                     if (line.length() > 2   //header parsing
                         && (line.charAt(0) == '='
                         || line.charAt(0) == '-')
@@ -29,7 +31,7 @@ public class ReadmeController {
                         && line.charAt(1) == line.charAt(2))
                         continue;
 
-                    if (line.length() > 2   //codeblock parsing
+                    else if (line.length() > 2   //codeblock parsing
                         && line.charAt(0) == '`'
                         && line.charAt(0) == line.charAt(1)
                         && line.charAt(1) == line.charAt(2)) {
