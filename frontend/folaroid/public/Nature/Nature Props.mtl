@@ -1,0 +1,28 @@
+# Blender MTL File: 'Lowpoly_nature_plant.blend'
+# Material Count: 2
+
+newmtl Lowpoly_Plant
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.007576 0.007576 0.007576
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures\\Low_poly_Plant_Basecolor.png
+map_d textures\\Low_poly_Plant_Basecolor.png
+
+newmtl Lowpoly_naural
+Ns 784.000007
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures\\Low_poly_texture.png
+map_Ks textures\\Low_poly_metalic_specular.png
+map_Ns textures\\Low_poly_roughness.png
+refl textures\\Low_poly_metalic_specular.png

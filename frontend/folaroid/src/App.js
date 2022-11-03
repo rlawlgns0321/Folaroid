@@ -12,7 +12,7 @@ import { ThemeProvider } from '@mui/material/styles';
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <div style={{ height: '100vh' }}>
+            <div>
                 <Routes>
                     <Route path="/" element={<MainPage />} exact />
                     <Route path="/callback" element={<CallBackpage />} />
