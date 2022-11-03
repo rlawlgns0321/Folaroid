@@ -1,8 +1,11 @@
 package com.folaroid.portfolio.api.service;
 
+import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.IntroLanguageDto;
+import com.folaroid.portfolio.api.dto.IntroStackDto;
 import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.IntroLanguage;
+import com.folaroid.portfolio.db.entity.IntroStack;
 import com.folaroid.portfolio.db.repository.IntroLanguageRepository;
 import com.folaroid.portfolio.db.repository.IntroRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -27,8 +32,8 @@ public class IntroLanguageService {
         return introLanguageRepository.save(introLanguage).getIntroLanguageNo();
     }
     @Transactional
-    public IntroLanguage find(IntroLanguageDto.IntroLanguageNo request) {
-        return introLanguageRepository.findById(request.getIntroLanguageNo()).get();
+    public List<IntroLanguage> find(IntroDto.IntroNoDto request) {
+        return introLanguageRepository.findAllByIntroNo(request.getIntroNo());
     }
     @Transactional
     public void delete(Long introLanguageNo) {
