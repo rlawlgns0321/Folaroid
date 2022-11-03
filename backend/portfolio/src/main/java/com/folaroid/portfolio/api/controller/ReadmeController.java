@@ -22,7 +22,7 @@ public class ReadmeController {
             while ((line = rd.readLine()) != null) {
 
                 if (line.length() != 0) {
-                    if (line.length() > 2
+                    if (line.length() > 2   //header parsing
                         && (line.charAt(0) == '='
                         || line.charAt(0) == '-')
                         && line.charAt(0) == line.charAt(1)
