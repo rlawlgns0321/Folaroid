@@ -23,6 +23,13 @@ public class ReadmeController {
 
                 if (line.length() != 0) {
                     if (line.length() > 2
+                        && (line.charAt(0) == '='
+                        || line.charAt(0) == '-')
+                        && line.charAt(0) == line.charAt(1)
+                        && line.charAt(1) == line.charAt(2))
+                        continue;
+
+                    if (line.length() > 2   //codeblock parsing
                         && line.charAt(0) == '`'
                         && line.charAt(0) == line.charAt(1)
                         && line.charAt(1) == line.charAt(2)) {
