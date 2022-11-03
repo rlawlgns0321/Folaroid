@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,7 +104,10 @@ public class OAuthController {
        map.put("jwt", responseToken.getAccessToken());
        map.put("github_id", responseUserInfo.getLogin());
        map.put("email", responseUserInfo.getEmail());
-       System.out.println(readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md"));
+       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
+
+       for (int i = 0 ; i < tmp.size() ; i++)
+        System.out.println(tmp.get(i));
        System.out.println(responseToken.getAccessToken());
        return map;
    }
