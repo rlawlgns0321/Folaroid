@@ -20,6 +20,7 @@ public class ReadmeController {
             conn.setRequestMethod("GET");
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((line = rd.readLine()) != null) {
+                if (line.length() != 0)
                 res.add(line);
             }
             rd.close();
