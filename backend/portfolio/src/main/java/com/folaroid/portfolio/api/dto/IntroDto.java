@@ -53,4 +53,12 @@ public class IntroDto {
 //            this.introPersonalData = intro.getIntroPersonalData();
         }
     }
+
+
+
+    @Getter
+    @AllArgsConstructor
+    public static class IntroNoDto {
+        private Long introNo;
+    }
 }

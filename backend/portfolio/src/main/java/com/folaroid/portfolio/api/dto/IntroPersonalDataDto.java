@@ -22,7 +22,6 @@ public class IntroPersonalDataDto {
                     .introPersonalDataNo(introPersonalDataNo)
                     .personalDataName(personalDataName)
                     .personalDataBirth(personaDataBirth)
-                    .personalDataEmail(personalDataEmail)
                     .personalDataPhone(personalDataPhone)
                     //.intro(intro)
                     .build();
@@ -43,7 +42,6 @@ public class IntroPersonalDataDto {
             this.introPersonalDataNo = introPersonalData.getIntroPersonalDataNo();
             this.personalDataName = introPersonalData.getPersonalDataName();
             this.personaDataBirth = introPersonalData.getPersonalDataBirth();
-            this.personalDataEmail = introPersonalData.getPersonalDataEmail();
             this.personalDataPhone = introPersonalData.getPersonalDataPhone();
             //this.intro = introPersonalData.getIntro();
         }

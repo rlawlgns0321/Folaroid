@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserGithubId(String userGithubId);
 
-    @Query("SELECT i from Intro i where i.pfNo IS NULL and i.userNo = :userNo")
-    Long findUserDefaultData(Long userNo);
+
 
 }
