@@ -6,6 +6,7 @@ import com.folaroid.portfolio.api.service.IntroPersonalDataService;
 import com.folaroid.portfolio.api.service.IntroService;
 import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.IntroPersonalData;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Api(value = "자기소개", tags={"Intro"})
 @RequestMapping("/intro")
 @RequiredArgsConstructor
 @RestController
