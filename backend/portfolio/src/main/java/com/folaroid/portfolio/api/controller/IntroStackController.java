@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.api.controller;
 
+import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.service.IntroStackService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.folaroid.portfolio.api.dto.IntroStackDto.*;
 
@@ -30,8 +33,8 @@ public class IntroStackController {
             notes="조회",
             httpMethod = "GET")
     @GetMapping("/intro_stack")
-    public ResponseEntity<StackNameDto> find(@RequestBody IntroStackNoDto request){
-        StackNameDto introStackDto = introStackService.find(request);
+    public ResponseEntity<List<StackNameDto>> find(@RequestBody IntroDto.IntroNoDto request){
+        List<StackNameDto> introStackDto = introStackService.find(request);
         return new ResponseEntity<>(introStackDto, HttpStatus.OK);
     }
 

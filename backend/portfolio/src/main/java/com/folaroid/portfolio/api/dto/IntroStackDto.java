@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.api.dto;
 
+import com.folaroid.portfolio.db.entity.HashTag;
 import com.folaroid.portfolio.db.entity.IntroStack;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,10 +21,10 @@ public class IntroStackDto {
         private Long hashNo;
         private String hashName;
 
-        public StackNameDto(IntroStack introStack, String hashName) {
+        public StackNameDto(IntroStack introStack, HashTag hashTag) {
             this.introNo = introStack.getIntroNo();
             this.hashNo = introStack.getHashNo();
-            this.hashName = hashName;
+            this.hashName = hashTag.getHashName();
         }
     }
 
