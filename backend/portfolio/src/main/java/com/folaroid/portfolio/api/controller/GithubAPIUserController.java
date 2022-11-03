@@ -34,7 +34,6 @@ public class GithubAPIUserController {
         return new HttpEntity<>(userInfoRequestHeaders);
     }
 
-    @PostMapping("/signup")
     private GithubUser getUserInfo(OAuthToken oAuthToken)  {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -44,9 +43,9 @@ public class GithubAPIUserController {
                 getUserInfoEntity(oAuthToken),
                 GithubUser.class
         );
-        System.out.println("get User Info Success?");
-        userService.save(new UserSignupReq(userInfoResponse.getBody().getLogin(), userInfoResponse.getBody().getEmail()));
-        System.out.println("get User Info Success!");
+        //System.out.println("get User Info Success?");
+        //userService.save(new UserSignupReq(userInfoResponse.getBody().getLogin(), userInfoResponse.getBody().getEmail()));
+        //System.out.println("get User Info Success!");
         return userInfoResponse.getBody();
 
     }
