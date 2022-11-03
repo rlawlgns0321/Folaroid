@@ -3,10 +3,7 @@ import { React, Suspense, useEffect, useState } from 'react';
 import { Canvas, useThree, useFrame, useLoader } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei';
-import { Camera, TextureLoader } from 'three';
-import { Tween } from 'react-gsap';
-import { Scroll, ScrollControls } from '@react-three/drei';
-
+import { gsap } from 'gsap';
 export const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -22,7 +19,7 @@ export function Player() {
     );
 }
 export function Scene(props) {
-    const floor = useLoader(TextureLoader, 'images/grid.jpg');
+    //const floor = useLoader(TextureLoader, 'images/grid.jpg');
     return (
         <mesh
             receiveShadow
@@ -31,7 +28,7 @@ export function Scene(props) {
             scale={100}
         >
             <planeGeometry />
-            <meshBasicMaterial map={floor} />
+            <meshBasicMaterial color="lightgreen" /*map={floor}*/ />
         </mesh>
     );
 }
@@ -49,14 +46,28 @@ export function House(props) {
 }
 useGLTF.preload('/house.gltf');
 
+let currentSection = 0;
+function setSection(position, camera) {
+    const newSection = Math.round(window.scrollY / window.innerHeight);
+    console.log(position);
+    if (currentSection !== newSection) {
+        /*화면이동 */
+        gsap.to(camera.position, {
+            duration: 1,
+            x: position[newSection][0],
+            z: position[newSection][2] + 5,
+        });
+        currentSection = newSection;
+    }
+}
 const Template1 = () => {
-    const [position, setPosition] = useState([
+    const position = [
         [-5, 0, -20],
         [7, 0, 10],
         [-10, 0, 0],
         [10, 0, -10],
         [-5, 0, 20],
-    ]);
+    ];
 
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -65,8 +76,10 @@ const Template1 = () => {
         1000
     );
     camera.position.set(-5, 2, 25);
-
     //스크롤
+    window.addEventListener('scroll', function (event) {
+        setSection(position, camera);
+    });
 
     return (
         <>
@@ -81,14 +94,14 @@ const Template1 = () => {
             >
                 <Suspense fallback={null}>
                     {/* 부드럽게 마우스 이동 */}
-
-                    <OrbitControls
+                    <Scene />
+                    {/* <OrbitControls
                         enableDamping={true}
                         maxDistance={40}
                         minDistance={2}
                         maxPolarAngle={Math.PI / 2}
                         minPolarAngle={Math.PI / 4}
-                    />
+                    /> */}
                     <PerspectiveCamera
                         far={1000}
                         near={0.1}
