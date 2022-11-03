@@ -14,7 +14,7 @@ import ProjectInfoPage from './pages/ProjectInfoPage';
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <div style={{ height: '100vh', width: '100vw', overflowX: 'hidden'}}>
+            <div style={{ height: '100vh', width: '100vw'}}>
                 <Routes>
                     <Route path="/" element={<MainPage />} exact />
                     <Route path="/callback" element={<CallBackpage />} />

@@ -24,7 +24,6 @@ const CertificateInputModule = () => {
     };
 
     const handleSubmit = (event) => {
-        alert(`이름: ${title}`);
         event.preventDefault();
     };
 

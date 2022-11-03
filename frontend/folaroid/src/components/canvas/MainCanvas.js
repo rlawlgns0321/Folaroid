@@ -1,4 +1,4 @@
-import { css } from '@emotion/css';
+// import { css } from '@emotion/css';
 import React, { useRef, useState } from 'react';
 import { Stage, Layer, Line, Text } from 'react-konva';
 
@@ -41,6 +41,7 @@ const MainCanvas = () => {
         console.log(lines);
     };
 
+
     return (
         <div>
             <Stage
@@ -54,7 +55,7 @@ const MainCanvas = () => {
                         <Line
                             key={i}
                             points={line.points}
-                            stroke="blue"
+                            stroke="rgba(15, 76, 132, 1)"
                             strokeWidth={strokeWidth}
                             tension={0.5}
                             lineCap="round"

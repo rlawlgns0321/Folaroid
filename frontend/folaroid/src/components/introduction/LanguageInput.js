@@ -16,6 +16,9 @@ import {
     Select,
     MenuItem
 } from '@mui/material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 function createData(language,title, degree) {
     return { language, title, degree };
@@ -26,6 +29,17 @@ const rows = [
 ];
 
 const LanguageInputModule = () => {
+    const [date, setDate] = useState(dayjs('2000-01-01'));
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(event);
+        const language = event.target[0].value;
+        const title = event.target[2].value;
+        const record = event.target[5].value;
+        const date = event.target[7].value;
+
+    };
     const [language, setLanguage] = useState('');
     const [title, setTitle] = useState('');
     const [degree, setDegree] = useState('');
@@ -38,12 +52,6 @@ const LanguageInputModule = () => {
         setDegree(event.target.value);
     };
 
-
-    
-    const handleSubmit = (event) => {
-        alert(`이름: ${language}`);
-        event.preventDefault();
-    };
 
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
@@ -74,6 +82,26 @@ const LanguageInputModule = () => {
                                 <MenuItem value={'chinese'}>중국어</MenuItem>
                                 <MenuItem value={'etc'}>기타</MenuItem>
                             </Select>
+                        </div>
+                        <div style={{ width: '100%', marginBottom: '10px' }}>
+                            <LocalizationProvider
+                                dateAdapter={AdapterDayjs}
+                                sx={{ width: '40%' }}
+                            >
+                                <DatePicker
+                                    label="취득 년월"
+                                    value={date}
+                                    onChange={(newValue) => {
+                                        setDate(newValue);
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField {...params} />
+                                    )}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </LocalizationProvider>
                         </div>
                         <div>
                             <Button type="submit" variant="contained">
