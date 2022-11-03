@@ -26,7 +26,7 @@ public class IntroAwards {
     private String awardsName;
 
     @Column(name = "awards_date")
-    private LocalDateTime awardsDate;
+    private String awardsDate;
 
     @Column(name = "awards_issuer", length = 50)
     private String awardsIssuer;
