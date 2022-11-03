@@ -22,7 +22,7 @@ public class IntroAwardsController {
      * 마이페이지 - 수상내역 등록
      */
     @PostMapping
-    @ApiOperation(value = "마이페이지 - 자격증 등록", notes = "마이페이지 - 자격증을 등록한다.")
+    @ApiOperation(value = "마이페이지 - 수상 등록", notes = "마이페이지 - 수상을 등록한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 404, message = "없음"),
@@ -37,7 +37,7 @@ public class IntroAwardsController {
      * 마이페이지 - 수상내역 삭제
      */
     @DeleteMapping("{introAwardsNo}")
-    @ApiOperation(value = "마이페이지 - 자격증 등록", notes = "마이페이지 - 자격증을 등록한다.")
+    @ApiOperation(value = "마이페이지 - 수상 삭제", notes = "마이페이지 - 수상 내역을 삭제한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 404, message = "없음"),

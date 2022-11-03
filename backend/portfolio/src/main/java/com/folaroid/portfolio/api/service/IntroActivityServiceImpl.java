@@ -5,9 +5,11 @@ import com.folaroid.portfolio.db.entity.IntroActivity;
 import com.folaroid.portfolio.db.repository.IntroActivityRepository;
 import com.folaroid.portfolio.db.repository.IntroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+@Service
 public class IntroActivityServiceImpl implements IntroActivityService{
     @Autowired
     IntroActivityRepository introActivityRepository;
