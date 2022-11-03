@@ -3,6 +3,7 @@ package com.folaroid.portfolio.api.controller;
 import com.folaroid.portfolio.api.dto.IntroArchivingDto;
 import com.folaroid.portfolio.api.service.IntroArchivingService;
 import com.folaroid.portfolio.db.entity.IntroArchiving;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(value = "자기소개 링크", tags={"IntroArchiving"})
 @RequestMapping("/mypage/intro-archiving")
 @RequiredArgsConstructor
 @RestController

@@ -1,0 +1,9 @@
+package com.folaroid.portfolio.api.service;
+
+import com.folaroid.portfolio.api.dto.IntroCertificationDto;
+
+public interface IntroCertificationService {
+    Long saveIntroCertification(IntroCertificationDto.introCertificationRequest introCertificationRequest);
+    void deleteIntroCertification(Long introCertificationNo);
+
+}
