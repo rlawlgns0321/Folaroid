@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +86,8 @@ public class OAuthController {
         return userInfoResponse.getBody();
 
     }
+
+    //public static ReadmeController readmeTest = new ReadmeController();
    @GetMapping("/callback")
    public Map<String, String> getLogin(String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
@@ -101,6 +104,10 @@ public class OAuthController {
        map.put("jwt", responseToken.getAccessToken());
        map.put("github_id", responseUserInfo.getLogin());
        map.put("email", responseUserInfo.getEmail());
+       //ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
+
+       /*for (int i = 0 ; i < tmp.size() ; i++)
+        System.out.println(tmp.get(i));*/
        System.out.println(responseToken.getAccessToken());
        return map;
    }
