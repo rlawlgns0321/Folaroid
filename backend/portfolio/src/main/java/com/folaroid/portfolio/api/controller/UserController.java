@@ -30,7 +30,7 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - 유저 개인정보",
             notes="생성. 회원 가입 때 개인정보 테이블의 기본키 생성을 위해 기본적으로 요청",
             httpMethod = "POST")
-    @PostMapping("/user_info/mypage")
+    @PostMapping("/user-info/mypage")
     public ResponseEntity<Long> save(@RequestBody UserNoReq request){
         Long introNo = userService.introTableSave(request);
         return new ResponseEntity<>(introNo, HttpStatus.OK);
@@ -39,7 +39,7 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - 유저 개인정보",
             notes="조회. 없으면 없는대로 보내기",
             httpMethod = "GET")
-    @GetMapping("/user_info")
+    @GetMapping("/user-info")
     public ResponseEntity<UserDefaultDto> find(@RequestBody IntroDto.IntroNoDto request) {
         UserDefaultDto userDefaultDto = userService.find(request);
         return new ResponseEntity<>(userDefaultDto, HttpStatus.OK);
@@ -48,7 +48,7 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - 유저 개인정보",
             notes="수정. 등록 버튼 누를 때마다 전체 정보 다 보냄",
             httpMethod = "PUT")
-    @PutMapping("/user_info")
+    @PutMapping("/user-info")
     public ResponseEntity<Long> put(@RequestBody UserDefaultForUpdateDto request) {
         userService.put(request);
         return new ResponseEntity<>(request.getIntroNo(), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - intro_no",
             notes="intro_no 반환",
             httpMethod = "GET")
-    @PutMapping("/user_info/mypage")
+    @PutMapping("/user-info/mypage")
     public ResponseEntity<Long> getIntroNo(@RequestBody UserLoginReq request) {
         Long introNo = userService.getIntroNo(request);
         return new ResponseEntity<>(introNo, HttpStatus.OK);
