@@ -22,6 +22,16 @@ public class ReadmeController {
             while ((line = rd.readLine()) != null) {
 
                 if (line.length() != 0) {
+                   /* if (line.contains("|")) { //table parsing
+                        String tableLine;
+                        while ((tableLine = rd.readLine()).contains("|"))
+                            line += "\n" + tableLine;
+                        res.add(line);
+                        if (tableLine == null)
+                            break;
+                        else
+                            line = tableLine;
+                    }*/
                     if (line.charAt(0) == '!' && line.charAt(1) == '[') { //link, image parsing
                         int imgOpenIdx = 0;
                         int imgCloseIdx = 0;
