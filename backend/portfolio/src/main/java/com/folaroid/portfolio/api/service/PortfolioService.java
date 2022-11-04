@@ -7,7 +7,7 @@ import com.folaroid.portfolio.db.entity.Portfolio;
 import java.util.List;
 
 public interface PortfolioService {
-    Portfolio createPortfolio(PortfolioDto.portfolioRequest portfolioRequest);
+    PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest portfolioRequest);
     void deletePortfolio(Long pfNo);
     void patchPortfolioTemplate(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest);
 

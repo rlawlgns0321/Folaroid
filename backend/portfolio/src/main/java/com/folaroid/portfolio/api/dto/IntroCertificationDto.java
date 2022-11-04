@@ -11,15 +11,17 @@ public class IntroCertificationDto {
     @Builder
     public static class introCertificationRequest{
         private Long introCertificationNo;
+        private Long introNo;
         private String certificationDate;
         private String certificationName;
         private String certificationIssuer;
         private String certificationDetail;
         private String certificationId;
 
-        public IntroCertification toEntity(){
+        public IntroCertification toEntity(Intro intro){
             IntroCertification introCertification = IntroCertification.builder()
                     .introCertificationNo(introCertificationNo)
+                    .intro(intro)
                     .certificationDate(certificationDate)
                     .certificationName(certificationName)
                     .certificationIssuer(certificationIssuer)

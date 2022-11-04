@@ -39,8 +39,8 @@ public class PortfolioController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity createPortfolio(@RequestBody PortfolioDto.portfolioRequest portfolioDtoRequest){
-        Portfolio port = portfolioService.createPortfolio(portfolioDtoRequest);
-    return  ResponseEntity.status(HttpStatus.OK).body(port);
+        PortfolioDto.SavePortfolioDto savePortfolioDto = portfolioService.createPortfolio(portfolioDtoRequest);
+    return  ResponseEntity.status(HttpStatus.OK).body(savePortfolioDto);
     }
 
     /**
