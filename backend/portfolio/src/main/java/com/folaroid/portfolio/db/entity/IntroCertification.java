@@ -1,6 +1,7 @@
 package com.folaroid.portfolio.db.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -18,7 +19,7 @@ public class IntroCertification {
     @Column(name = "intro_certification_no")
     private Long introCertificationNo;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "intro_no")
     private Intro intro;

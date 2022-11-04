@@ -2,6 +2,7 @@ package com.folaroid.portfolio.api.controller;
 
 import com.folaroid.portfolio.api.dto.IntroActivityDto;
 import com.folaroid.portfolio.api.service.IntroActivityService;
+import com.folaroid.portfolio.db.entity.IntroActivity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -11,10 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(value = "자기소개 활동내역", tags={"IntroActivity"})
 @RequestMapping("/intro-activity")
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class IntroActivityController {
     private final IntroActivityService introActivityService;
 
@@ -48,4 +51,18 @@ public class IntroActivityController {
         return ResponseEntity.status(200).body(introActivityNo);
     }
 
+    /**
+     * 마이페이지 - 활동내역 조회
+     */
+    @GetMapping("{introNo}")
+    @ApiOperation(value = "마이페이지 - 활동내역 조회", notes = "마이페이지 - 활동내역을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<IntroActivity>> findIntroActivity(@PathVariable ("introNo") Long introNo){
+        List<IntroActivity> introActivities = introActivityService.findIntroActivity(introNo);
+        return new ResponseEntity<>(introActivities, HttpStatus.OK);
+    }
 }
