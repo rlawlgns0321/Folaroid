@@ -23,10 +23,13 @@ public class UserService {
 
     /** 마이페이지 - 필수 정보 */
     @Transactional
-    public Long introTableSave(UserNoReq request) {
+    public Long MakeIntroAndIntroPersonalDataTable(UserNoReq request) {
         Intro intro = new Intro();
         intro.SaveDefaultUserInfo(request.getUserNo());
-        return introRepository.save(intro).getIntroNo();
+        Long introNo = introRepository.save(intro).getIntroNo();
+        IntroPersonalData introPersonalData = new IntroPersonalData(intro);
+        introPersonalDataRepository.save(introPersonalData);
+        return introNo;
     }
 
 
@@ -41,6 +44,9 @@ public class UserService {
     public void put(UserDefaultForUpdateDto request) {
         IntroPersonalData introPersonalData = introPersonalDataRepository.findById(request.getIntroNo()).get();
         introPersonalData.updateIntroPersonalData(request.getUserName(), request.getUserBirth(), request.getUserPhone());
+        User user = userRepository.findById(introRepository.findById(request.getIntroNo()).get().getUserNo()).get();
+        user.saveEmail(request.getUserEmail());
+        userRepository.save(user);
     }
     @Transactional
     public Long save(UserSignupReq request) {

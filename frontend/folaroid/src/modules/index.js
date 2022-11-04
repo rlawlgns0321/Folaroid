@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import portfolioProject from './portfolioProject';
+import portfolioProjectReducer from './portfolioProject';
+import authReducer from './auth';
 
 const rootReducer = combineReducers({
-    portfolioProject,
+    auth: authReducer,
+    portfolioProject: portfolioProjectReducer,
 });
 
 export default rootReducer;

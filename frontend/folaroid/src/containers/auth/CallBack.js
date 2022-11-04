@@ -1,29 +1,29 @@
 import React, { useEffect } from 'react';
 import qs from 'qs';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserThunk } from '../../modules/auth';
 
 const CallBack = () => {
-    const authUri = `http://localhost:8080/callback`;
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { user, jwt } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const getToken = async () => {
-            const { code } = qs.parse(location.search, {
-                ignoreQueryPrefix: true,
-            });
-            console.log(code);
-            try {
-                const response = await fetch(`${authUri}?code=${code}`);
-                const data = await response.json();
+        const { code } = qs.parse(location.search, {
+            ignoreQueryPrefix: true,
+        });
+        dispatch(getUserThunk(code));
+    }, [location, dispatch]);
 
-                localStorage.setItem('token', data.jwt);
-                console.log(data);
-                navigate('/');
-            } catch (error) {}
-        };
-        getToken();
-    }, [location, navigate, authUri]);
+    useEffect(() => {
+        if (user && jwt) {
+            localStorage.setItem('user', user);
+            localStorage.setItem('jwt', jwt);
+            navigate('/');
+        }
+    }, [user, jwt, navigate]);
 
     return <div>로딩중</div>;
 };

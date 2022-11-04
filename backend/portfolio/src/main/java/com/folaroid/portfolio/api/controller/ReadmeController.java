@@ -22,6 +22,108 @@ public class ReadmeController {
             while ((line = rd.readLine()) != null) {
 
                 if (line.length() != 0) {
+                    if (line.contains("|")) { //table parsing
+                       int barNumber = 0;
+                       for (int i = 0 ; i < line.length() ; i++) {
+                           if (line.charAt(i) == '|')
+                               barNumber++;
+                       }
+                       String headerCheckLine = rd.readLine();
+                       if (headerCheckLine != null && headerCheckLine.contains("|")) {
+                           boolean isTable = true;
+                           boolean passDash = false;
+                           char currentChar = headerCheckLine.charAt(0);
+                           char nextChar;
+
+                           if (currentChar != '|' && currentChar != '-')
+                               isTable = false;
+                           else {
+                               for (int i = 0; i < headerCheckLine.length() - 1; i++) {
+                                   currentChar = headerCheckLine.charAt(i);
+                                   nextChar = headerCheckLine.charAt(i + 1);
+                                   if (nextChar != '|' && nextChar != ':' && nextChar != '-' && nextChar != ' ') {
+                                       isTable = false;
+                                       break;
+                                   }
+                                   if (currentChar == '|') {
+                                       if (passDash)
+                                           passDash = false;
+                                       else {
+                                            isTable = false;
+                                            break;
+                                       }
+                                   }
+                                   else if (currentChar == ':') {
+                                       if (!(nextChar == '-' && !passDash)) {
+                                           isTable = false;
+                                           break;
+                                       }
+                                   }
+                                   else if (currentChar == ' ') {
+                                       if (passDash && nextChar == '-') {
+                                           isTable = false;
+                                           break;
+                                       }
+                                   }
+                                   else if (currentChar == '-') {
+                                        if (!passDash)
+                                            passDash = true;
+                                        if (nextChar == ':') {
+                                            isTable = false;
+                                            break;
+                                        }
+                                   }
+                                   else {
+                                       isTable = false;
+                                       break;
+                                   }
+                               }
+                           }
+                          /* String[] headerCheckSplitLine = headerCheckLine.split("\\|");
+                           System.out.println("barNumber = " + barNumber + " Table col number is " + headerCheckSplitLine.length);
+                           boolean isTable = true;
+                           if (headerCheckSplitLine.length >= barNumber - 1 && headerCheckSplitLine.length <= barNumber + 1) {
+                               for (int i = 0 ; i < headerCheckSplitLine.length ; i++) {
+                                   headerCheckSplitLine[i].replace(" ", "");
+                                   String check = new String(new char[headerCheckSplitLine[i].length()]).replace('\0', '-');
+                                    System.out.println("line is " + headerCheckSplitLine[i] + ", check is : " + check);
+                                   String checkLeft = "";
+                                   String checkRight = "";
+                                   String checkMid = "";
+
+                                   if (headerCheckSplitLine[i].length() > 1) {
+                                       checkLeft = ":" + check.substring(1);
+                                       checkRight = check.substring(1) + ":";
+                                   }
+                                   if (headerCheckSplitLine[i].length() > 2) {
+                                       checkMid = ":" + check.substring(2) + ":";
+                                   }
+
+                                   if (!headerCheckSplitLine[i].equals(check)
+                                           && !(headerCheckSplitLine[i].length() > 1 && headerCheckSplitLine[i].equals(checkLeft))
+                                           && !(headerCheckSplitLine[i].length() > 1 && headerCheckSplitLine[i].equals(checkRight))
+                                           && !(headerCheckSplitLine[i].length() > 2 && headerCheckSplitLine[i].equals(checkMid))) {
+                                       isTable = false;
+                                       break;
+                                   }
+                               }
+                           }*/
+                           if (!isTable) {
+                               res.add(line);
+                               line = headerCheckLine;
+                           }
+                           else {
+                               line += "\n" + headerCheckLine;
+                               String tableLine;
+                               while ((tableLine = rd.readLine()) != null && tableLine.length() != 0)
+                                   line += "\n" + tableLine;
+                               res.add(line);
+                               line = tableLine;
+                           }
+                       }
+                    }
+                    if (line.length() == 0)
+                        continue;
                     if (line.charAt(0) == '!' && line.charAt(1) == '[') { //link, image parsing
                         int imgOpenIdx = 0;
                         int imgCloseIdx = 0;
