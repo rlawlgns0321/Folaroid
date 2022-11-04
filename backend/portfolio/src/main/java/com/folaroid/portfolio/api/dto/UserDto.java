@@ -57,6 +57,7 @@ public class UserDto {
         private String userName;
         private java.sql.Date userBirth;
         private String userPhone;
+        private String userEmail;
 
     }
 
