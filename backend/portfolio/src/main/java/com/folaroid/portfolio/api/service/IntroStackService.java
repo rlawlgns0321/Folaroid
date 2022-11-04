@@ -28,8 +28,8 @@ public class IntroStackService {
         return introStackRepository.save(introStack).getIntroStackNo();
     }
     @Transactional
-    public List<StackNameDto> find(IntroDto.IntroNoDto request) {
-        List<IntroStack> introStacks = introStackRepository.findAllByIntroNo(request.getIntroNo());
+    public List<StackNameDto> find(Long introNo) {
+        List<IntroStack> introStacks = introStackRepository.findAllByIntroNo(introNo);
         List<StackNameDto> result = introStacks.stream()
                 .map(i -> new StackNameDto(i, hashTagRepository.findById(i.getHashNo()).get()))
                 .collect(Collectors.toList());

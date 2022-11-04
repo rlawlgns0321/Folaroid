@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class IntroCertificationServiceImpl implements IntroCertificationService{
@@ -28,5 +29,11 @@ public class IntroCertificationServiceImpl implements IntroCertificationService{
         IntroCertification introCertification = introCertificationRepository.findById(introCertificationNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 자격증이 없습니다."));
         introCertificationRepository.delete(introCertification);
+    }
+
+    @Transactional
+    @Override
+    public List<IntroCertification> findIntroCertification(Long introNo) {
+        return introCertificationRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
 }

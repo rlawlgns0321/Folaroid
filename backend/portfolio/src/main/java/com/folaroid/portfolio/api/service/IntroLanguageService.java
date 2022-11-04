@@ -24,13 +24,13 @@ public class IntroLanguageService {
     public Long save(IntroLanguageDto.IntroLanguageDetail request) {
         IntroLanguage introLanguage = new IntroLanguage();
         Intro intro = introRepository.findById(request.getIntroNo()).get();
-        Date date = Date.valueOf(request.getLanguageDate());
+        java.sql.Date date = java.sql.Date.valueOf(request.getLanguageDate());
         introLanguage.saveIntroLanguage(intro, request.getLanguageName(), request.getLanguageTestName(), request.getLanguageGrade(), date);
         return introLanguageRepository.save(introLanguage).getIntroLanguageNo();
     }
     @Transactional
-    public List<IntroLanguage> find(IntroDto.IntroNoDto request) {
-        return introLanguageRepository.findAllByIntro(introRepository.findById(request.getIntroNo()).get());
+    public List<IntroLanguage> find(Long introNo) {
+        return introLanguageRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
     @Transactional
     public void delete(Long introLanguageNo) {

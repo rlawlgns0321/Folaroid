@@ -2,6 +2,7 @@ package com.folaroid.portfolio.api.controller;
 
 import com.folaroid.portfolio.api.dto.IntroCareerDto;
 import com.folaroid.portfolio.api.service.IntroCareerService;
+import com.folaroid.portfolio.db.entity.IntroCareer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value = "자기소개 경력내역", tags={"IntroCareer"})
 @RequestMapping("/intro-career")
@@ -47,4 +50,20 @@ public class IntroCareerController {
         introCareerService.deleteIntroCareer(introCareerNo);
         return ResponseEntity.status(200).body(introCareerNo);
     }
+
+    /**
+     * 마이페이지 - 경력내역 조회
+     */
+    @GetMapping("{introNo}")
+    @ApiOperation(value = "마이페이지 - 경력내역 조회", notes = "마이페이지 - 경력내역을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<IntroCareer>> findIntroCareer(@PathVariable("introNo") Long introNo){
+        List<IntroCareer> introCareers = introCareerService.findIntroCareer(introNo);
+        return new ResponseEntity<>(introCareers, HttpStatus.OK);
+    }
 }
+

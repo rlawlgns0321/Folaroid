@@ -2,6 +2,7 @@ package com.folaroid.portfolio.api.controller;
 
 import com.folaroid.portfolio.api.dto.IntroSloganDto;
 import com.folaroid.portfolio.api.service.IntroSloganService;
+import com.folaroid.portfolio.db.entity.IntroSlogan;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value = "자기소개 슬로건", tags={"IntroSlogan"})
 @RequestMapping("/intro-slogan")
@@ -49,4 +52,18 @@ public class IntroSloganController {
         return ResponseEntity.status(200).body(introSloganNo);
     }
 
+    /**
+     * 마이페이지 - 슬로건 조회
+     */
+    @GetMapping("{introNo}")
+    @ApiOperation(value = "마이페이지 - 슬로건 조회", notes = "마이페이지 - 슬로건을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<IntroSlogan>> findIntroSlogan(@PathVariable("introNo") Long introNo){
+        List<IntroSlogan> introSlogans = introSloganService.findIntroSlogan(introNo);
+        return new ResponseEntity<>(introSlogans, HttpStatus.OK);
+    }
 }

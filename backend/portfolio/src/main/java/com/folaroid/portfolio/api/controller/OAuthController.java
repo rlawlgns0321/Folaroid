@@ -2,24 +2,24 @@ package com.folaroid.portfolio.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.folaroid.portfolio.api.service.auth.JwtUtil;
+import com.folaroid.portfolio.api.dto.UserDto;
+import com.folaroid.portfolio.api.service.UserService;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
-import com.nimbusds.oauth2.sdk.token.AccessToken;
+import com.folaroid.portfolio.db.entity.User;
+import com.folaroid.portfolio.db.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,12 +32,19 @@ public class OAuthController {
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
 
     private final String USER_REQUEST_URI = "https://api.github.com/user";
+    private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
     @Value("${client-id}")
     private String clientId;
     @Value("${client-secret}")
     private String clientSecret;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private HttpEntity<MultiValueMap<String, String>> getCodeRequestEntity(String code) {
 
@@ -50,6 +57,17 @@ public class OAuthController {
         header.add("Accept", "application/json");
         return new HttpEntity<>(param, header);
     }
+
+    private HttpEntity<MultiValueMap<String, String>> getSignUpRequestEntity(String id, String email) {
+
+        MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
+        param.add("user_github_id", id);
+        param.add("user_email", email);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Accept", "application/json");
+        return new HttpEntity<>(param, header);
+    } //signup request
 
     private OAuthToken getOAuthToken(String code) throws JsonProcessingException {
         HttpEntity<MultiValueMap<String, String>> codeRequestEntity = getCodeRequestEntity(code);
@@ -88,21 +106,35 @@ public class OAuthController {
 
     public static ReadmeController readmeTest = new ReadmeController();
    @GetMapping("/callback")
-   public Map<String, String> getLogin(@RequestParam String code, HttpServletResponse res) throws JsonProcessingException {
+   public Map<String, Object> getLogin(@RequestParam String code, HttpServletResponse res) throws JsonProcessingException {
        OAuthToken responseToken = getOAuthToken(code);
        GithubUser responseUserInfo = getUserInfo(responseToken);
+       HashMap<String, Object> map = new HashMap<>();
+        map.put("jwt", responseToken.getAccessToken());
+       User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
+       if (user != null) {
+           map.put("user",user);
+           //return map;
+       }else{
+            userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
+            map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
+            //return map;
+       }
+      /* RestTemplate restTemplate = new RestTemplate();
+       HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
+       ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
+               USER_SIGNUP_URI,
+               HttpMethod.POST,
+               signUpRequestEntity,
+               Integer.class
+       );
 
-       /*ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", responseToken.getAccessToken())
-               .path("/").sameSite("none").domain("127.0.0.1")
-               .secure(true).httpOnly(true)
-               .maxAge(JwtUtil.TOKEN_VALIDATION_SECOND).build();
-
-       res.setHeader("Set-Cookie", accessTokenCookie.toString()+);*/
-
-       HashMap<String, String> map = new HashMap<>();
-       map.put("jwt", responseToken.getAccessToken());
-       map.put("github_id", responseUserInfo.getLogin());
-       map.put("email", responseUserInfo.getEmail());
+       int userNo = userNoResponse.getBody().intValue();*/
+        // manage "/signup" post request at backend -> activate when needed
+       //map.put("jwt", responseToken.getAccessToken());
+       //map.put("github_id", responseUserInfo.getLogin());
+       //map.put("email", responseUserInfo.getEmail());
+       //map.put("user_no", user_no);
        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/folaroidMDTest/master/README.md");
 
        System.out.println(tmp.size());

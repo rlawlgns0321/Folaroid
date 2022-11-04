@@ -4,11 +4,13 @@ import com.folaroid.portfolio.api.dto.IntroActivityDto;
 import com.folaroid.portfolio.db.entity.IntroActivity;
 import com.folaroid.portfolio.db.repository.IntroActivityRepository;
 import com.folaroid.portfolio.db.repository.IntroRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
+import java.util.List;
+@RequiredArgsConstructor
 @Service
 public class IntroActivityServiceImpl implements IntroActivityService{
     @Autowired
@@ -28,5 +30,11 @@ public class IntroActivityServiceImpl implements IntroActivityService{
         IntroActivity introActivity = introActivityRepository.findById(introActivityNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 활동이 없습니다."));
         introActivityRepository.delete(introActivity);
+    }
+
+    @Transactional
+    @Override
+    public List<IntroActivity> findIntroActivity(Long introNo) {
+        return introActivityRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
 }

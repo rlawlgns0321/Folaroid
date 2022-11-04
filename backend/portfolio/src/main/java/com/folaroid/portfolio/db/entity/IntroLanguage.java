@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -28,12 +29,12 @@ public class IntroLanguage {
 
     private java.sql.Date languageDate;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "intro_no")
     private Intro intro;
 
-    public void saveIntroLanguage(Intro intro, String languageName, String languageTestName, String languageGrade, Date languageDate) {
+    public void saveIntroLanguage(Intro intro, String languageName, String languageTestName, String languageGrade, java.sql.Date languageDate) {
         this.intro = intro;
         this.languageName = languageName;
         this.languageTestName = languageTestName;

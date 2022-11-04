@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class IntroAwardsServiceImpl implements IntroAwardsService{
@@ -28,5 +29,11 @@ public class IntroAwardsServiceImpl implements IntroAwardsService{
         IntroAwards introAwards = introAwardsRepository.findById(introAwardsNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 자격증이 없습니다."));
         introAwardsRepository.delete(introAwards);
+    }
+
+    @Transactional
+    @Override
+    public List<IntroAwards> findIntroAwards(Long introNo) {
+        return introAwardsRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
 }
