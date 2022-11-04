@@ -138,8 +138,10 @@ public class OAuthController {
        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/folaroidMDTest/master/README.md");
 
        System.out.println(tmp.size());
-       for (int i = 0 ; i < tmp.size() ; i++)
-        System.out.println(tmp.get(i));
+       for (int i = 0 ; i < tmp.size() ; i++) {
+           System.out.println(tmp.get(i));
+           System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+       }
        System.out.println(responseToken.getAccessToken());
        return map;
    }
