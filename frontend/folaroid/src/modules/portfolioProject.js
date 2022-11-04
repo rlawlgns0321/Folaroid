@@ -13,6 +13,7 @@ export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
+        isloading:false,
     },
     reducers: {
         deleteProject: (state, action) => {
@@ -22,6 +23,7 @@ export const portfolioProject = createSlice({
                 ),
             };
         },
+        updateProject: () => {}
     },
     extraReducers: {
         [getProjects.fulfilled.type]: (state, action) => {
