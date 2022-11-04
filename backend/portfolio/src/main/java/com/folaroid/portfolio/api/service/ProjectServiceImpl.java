@@ -25,10 +25,9 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Transactional
     @Override
-    public void patchProjectTitle(Long pjNo,Long pjtNo, ProjectDto.projectRequest projectRequest) {
+    public void deleteProject(Long pjtNo) {
         Project project = projectRepository.findById(pjtNo).orElseThrow(()->
-                new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
-        project.updateProjectTitle(projectRequest.getPjtTitle(), projectRequest.getPjtSubTitle());
-
+                new IllegalArgumentException("해당하는 프로젝트가 없습니다."));
+        projectRepository.delete(project);
     }
 }

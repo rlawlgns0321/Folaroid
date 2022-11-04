@@ -21,7 +21,7 @@ public class Project {
     private Long pjtNo;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pf_no")
     private Portfolio portfolio;
 //    @Column(name = "pf_no")
