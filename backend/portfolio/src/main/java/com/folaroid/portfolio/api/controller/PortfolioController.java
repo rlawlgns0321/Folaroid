@@ -46,7 +46,7 @@ public class PortfolioController {
     /**
      * 포트폴리오 삭제
      */
-    @DeleteMapping("{pfNo}")
+    @DeleteMapping("/{pfNo}")
     @ApiOperation(value = "포트폴리오 삭제", notes = "포트폴리오를 삭제한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -61,22 +61,22 @@ public class PortfolioController {
     /**
      * 마이페이지에서 포트폴리오 간단 조회
      */
-    @GetMapping
+    @GetMapping("/{user_no}")
     @ApiOperation(value = "마이페이지 - 포트폴리오", notes = " 간단 조회", httpMethod = "GET")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<List<PortfolioDto.PortfolioSimpleDto>> readSimplePortfolio(@RequestBody UserDto.UserNoReq request){
-        List<PortfolioDto.PortfolioSimpleDto> result = portfolioService.readSimplePortfolio(request);
+    public ResponseEntity<List<PortfolioDto.PortfolioSimpleDto>> readSimplePortfolio(@PathVariable("user_no") Long userNo){
+        List<PortfolioDto.PortfolioSimpleDto> result = portfolioService.readSimplePortfolio(userNo);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
      * 포트폴리오 템플릿 수정
      */
-    @PatchMapping("{pfNo}")
+    @PatchMapping("/{pfNo}")
     @ApiOperation(value = "포트폴리오 템플릿 수정", notes = "포트폴리오 탬플릿을 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -91,7 +91,7 @@ public class PortfolioController {
     /**
      * 포트폴리오 프로젝트 제목, 부제목 수정
      */
-    @PatchMapping("{pfNo}/pjt/{pjtNo}")
+    @PatchMapping("/{pfNo}/pjt/{pjtNo}")
     @ApiOperation(value = "포트폴리오의 프로젝트 Title, SubTitle 수정", notes = "포트폴리오의 프로젝트 Title, SubTitle를 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

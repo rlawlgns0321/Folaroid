@@ -34,7 +34,7 @@ public class IntroStackController {
             httpMethod = "GET")
     @GetMapping("/intro-stack")
     public ResponseEntity<List<StackNameDto>> find(@RequestBody IntroDto.IntroNoDto request){
-        List<StackNameDto> introStackDto = introStackService.find(request);
+        List<StackNameDto> introStackDto = introStackService.find(request.getIntroNo());
         return new ResponseEntity<>(introStackDto, HttpStatus.OK);
     }
 

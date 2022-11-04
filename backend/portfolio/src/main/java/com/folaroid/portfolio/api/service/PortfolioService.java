@@ -11,5 +11,5 @@ public interface PortfolioService {
     void deletePortfolio(Long pfNo);
     void patchPortfolioTemplate(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest);
 
-    List<PortfolioDto.PortfolioSimpleDto> readSimplePortfolio(UserDto.UserNoReq request);
+    List<PortfolioDto.PortfolioSimpleDto> readSimplePortfolio(Long userNo);
 }
