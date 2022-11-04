@@ -29,11 +29,30 @@ public class PortfolioServiceImpl implements PortfolioService{
     public PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest request) {
         Portfolio portfolio = portfolioRepository.save(request.toEntity());
         Intro intro = new Intro();
-        intro.SavePortfolioInfo(portfolio.getPfNo(), portfolio.getUserNo());
-        Long introNo = introRepository.save(intro).getIntroNo();
+        intro.SavePortfolioInfo(portfolio.getPfNo(), request.getUserNo());
+        Long portfolioIntroNo = introRepository.save(intro).getIntroNo();
 //        기존의 개인정보 데이터들을 바로 포트폴리오의 자기소개 정보로 저장할 것.
+        Long userInfoIntroNo = introRepository.findUserDefaultData(request.getUserNo());
+        //포트폴리오 자기소개 이미지 테이블 저장 1:1 - 아직 controller 구현 안됨.
+        //포트폴리오 자기소개 개인정보 테이블 저장 1:1
 
-        return new PortfolioDto.SavePortfolioDto(portfolio, introNo);
+        //포트폴리오 자기소개 기술스택 테이블 저장 1:N
+
+        //포트폴리오 자기소개 어학성적 테이블 저장 1:N
+
+        //포트폴리오 자기소개 링크 테이블 저장 1:N
+
+        //포트폴리오 자기소개 수상내역 테이블 저장 1:N
+
+        //포트폴리오 자기소개 활동 테이블 저장 1:N
+
+        //포트폴리오 자기소개 경력 테이블 저장 1:N
+
+        //포트폴리오 자기소개 학력 테이블 저장 1:N
+
+        //포트폴리오 자기소개 슬로건 테이블 저장 1:1
+
+        return new PortfolioDto.SavePortfolioDto(portfolio, portfolioIntroNo);
     }
 
     @Transactional
@@ -56,8 +75,8 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     @Transactional
-    public List<PortfolioDto.PortfolioSimpleDto> readSimplePortfolio(UserDto.UserNoReq request) {
-        List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(request.getUserNo());
+    public List<PortfolioDto.PortfolioSimpleDto> readSimplePortfolio(Long userNo) {
+        List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(userNo);
         List<PortfolioDto.PortfolioSimpleDto> result = portfolios.stream()
                 .map(i -> new PortfolioDto.PortfolioSimpleDto(i))
                 .collect(Collectors.toList());
