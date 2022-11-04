@@ -4,11 +4,11 @@ import React from 'react';
 import Header from '../components/common/Header';
 import SideBar from '../components/common/SideBar';
 import { Route, Routes } from 'react-router-dom';
-import ProjectSide from '../components/project/ProjectSide';
 import TemplateSide from '../components/template/TemplateSide';
 import IntroSide from '../components/introduction/IntroSide';
-import ProjectBody from '../components/project/ProjectBody';
 import Contents from '../components/common/Contents';
+import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
+import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
 
 const PortFolioPage = () => {
     return (
@@ -30,10 +30,10 @@ const PortFolioPage = () => {
                         border-right: 3px solid black;
                     `}
                 >
-                    <SideBar>
+                    <SideBar isPortfolio>
                         <Routes>
                             <Route path="template" element={<TemplateSide />} />
-                            <Route path="project" element={<ProjectSide />} />
+                            <Route path="project" element={<ProjectSideContainer />} />
                             <Route path="intro" element={<IntroSide />} />
                         </Routes>
                     </SideBar>
@@ -45,7 +45,7 @@ const PortFolioPage = () => {
                 >
                     <Contents title="프로젝트">
                         <Routes>
-                            <Route path="project" element={<ProjectBody />} />
+                            <Route path="project" element={<ProjectBodyContainer />} />
                         </Routes>
                     </Contents>
                 </Grid>

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { penderReducer } from 'redux-pender';
-import name from './name'
+import portfolioProject from './portfolioProject';
 
-export default combineReducers({
-    name,
-    pender: penderReducer
+const rootReducer = combineReducers({
+    portfolioProject,
 });
+
+export default rootReducer;

@@ -1,6 +1,6 @@
 package com.folaroid.portfolio.config;
 
-import org.springframework.beans.factory.annotation.Value;
+/*import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -33,4 +33,4 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         return redisTemplate;
     }
-}
+}*/

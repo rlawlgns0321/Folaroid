@@ -35,9 +35,9 @@ public class IntroLanguageController {
     @ApiOperation(value = "마이페이지 - 공인 어학성적",
             notes="조회",
             httpMethod = "GET")
-    @GetMapping("/intro_language")
-    public ResponseEntity<List<IntroLanguage>> find(@RequestBody IntroDto.IntroNoDto request){
-        List<IntroLanguage> introLanguage = introLanguageService.find(request);
+    @GetMapping("/intro_language/{intro_no}")
+    public ResponseEntity<List<IntroLanguage>> find(@PathVariable("intro_no") Long introNo){
+        List<IntroLanguage> introLanguage = introLanguageService.find(introNo);
         return new ResponseEntity<>(introLanguage, HttpStatus.OK);
     }
 

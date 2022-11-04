@@ -1,9 +1,12 @@
 package com.folaroid.portfolio.api.controller;
 
+import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.PortfolioDto;
 import com.folaroid.portfolio.api.dto.ProjectDto;
+import com.folaroid.portfolio.api.dto.UserDto;
 import com.folaroid.portfolio.api.service.PortfolioService;
 import com.folaroid.portfolio.api.service.ProjectService;
+import com.folaroid.portfolio.db.entity.IntroLanguage;
 import com.folaroid.portfolio.db.entity.Portfolio;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value = "포트폴리오", tags={"portfolio"})
 @RequestMapping("/portfolio")
@@ -34,8 +39,8 @@ public class PortfolioController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity createPortfolio(@RequestBody PortfolioDto.portfolioRequest portfolioDtoRequest){
-        Portfolio port = portfolioService.createPortfolio(portfolioDtoRequest);
-    return  ResponseEntity.status(HttpStatus.OK).body(port);
+        PortfolioDto.SavePortfolioDto savePortfolioDto = portfolioService.createPortfolio(portfolioDtoRequest);
+    return  ResponseEntity.status(HttpStatus.OK).body(savePortfolioDto);
     }
 
     /**
@@ -51,6 +56,21 @@ public class PortfolioController {
     public ResponseEntity<?> deletePortfolio(@PathVariable Long pfNo){
         portfolioService.deletePortfolio(pfNo);
         return ResponseEntity.status(200).body(pfNo);
+    }
+
+    /**
+     * 마이페이지에서 포트폴리오 간단 조회
+     */
+    @GetMapping
+    @ApiOperation(value = "마이페이지 - 포트폴리오", notes = " 간단 조회", httpMethod = "GET")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<PortfolioDto.PortfolioSimpleDto>> readSimplePortfolio(@RequestBody UserDto.UserNoReq request){
+        List<PortfolioDto.PortfolioSimpleDto> result = portfolioService.readSimplePortfolio(request);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.folaroid.portfolio.api.service.auth;
 
-import lombok.RequiredArgsConstructor;
+/*import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -55,4 +55,4 @@ public class RedisUtil {
     public boolean hasKeyBlackList(String key) {
         return redisBlackListTemplate.hasKey(key);
     }
-}
+}*/
