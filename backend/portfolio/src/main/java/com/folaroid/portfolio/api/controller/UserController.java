@@ -21,7 +21,7 @@ public class UserController {
     @ApiOperation(value = "유저 회원가입",
             notes="깃헙으로 로그인하면 자동으로 회원가입 진행. 깃헙에서 얻을 수 있는 정보들은 등록. User Table 생성",
             httpMethod = "POST")
-    @PutMapping("/signup")
+    @PostMapping("/signup")
     public ResponseEntity<Long> signup(@RequestBody UserSignupReq request) {
         Long userNo = userService.save(request);
         return new ResponseEntity<>(userNo, HttpStatus.OK);
