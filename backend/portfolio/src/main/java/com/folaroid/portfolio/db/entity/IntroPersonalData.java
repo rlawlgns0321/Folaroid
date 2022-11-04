@@ -25,13 +25,16 @@ public class IntroPersonalData {
     @Column(length = 15)
     private String personalDataPhone;
 
-//    @OneToOne(mappedBy = "introPersonalData", fetch = LAZY)
-//    private Intro intro;
+    @OneToOne(mappedBy = "introPersonalData", fetch = LAZY)
+    private Intro intro;
 
     public void updateIntroPersonalData(String userName, java.sql.Date userBirth, String userPhone) {
         this.personalDataName = userName;
         this.personalDataBirth = userBirth;
         this.personalDataPhone = userPhone;
+    }
+    public IntroPersonalData(Intro intro) {
+        this.intro = intro;
     }
 }
 
