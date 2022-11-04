@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { React, Suspense, useEffect, useState } from 'react';
-import { Canvas, useThree, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import { useGLTF } from '@react-three/drei';
+import { React, Suspense, useEffect, useRef } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { PerspectiveCamera } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import { gsap } from 'gsap';
 export const sizes = {
     width: window.innerWidth,
@@ -10,7 +10,7 @@ export const sizes = {
 };
 //Camera effect
 
-export function Player() {
+export function Model() {
     return (
         <mesh position={[2, -0.5, 0]} receiveShadow scale={0.5}>
             <sphereGeometry />
@@ -18,6 +18,7 @@ export function Player() {
         </mesh>
     );
 }
+
 export function Scene(props) {
     //const floor = useLoader(TextureLoader, 'images/grid.jpg');
     return (
@@ -46,10 +47,26 @@ export function House(props) {
 }
 useGLTF.preload('/house.gltf');
 
+export function Tree1(props) {
+    const { nodes, materials } = useGLTF('/models/tree1.gltf');
+    return (
+        <group {...props} dispose={null}>
+            <mesh
+                geometry={nodes.tree009.geometry}
+                material={materials.Lowpoly_naural}
+                position={[-0.01, 0, 0]}
+                scale={1.61}
+            />
+        </group>
+    );
+}
+
+useGLTF.preload('/tree1.gltf');
+
 let currentSection = 0;
 function setSection(position, camera) {
     const newSection = Math.round(window.scrollY / window.innerHeight);
-    console.log(position);
+    console.log(newSection, currentSection);
     if (currentSection !== newSection) {
         /*화면이동 */
         gsap.to(camera.position, {
@@ -60,13 +77,16 @@ function setSection(position, camera) {
         currentSection = newSection;
     }
 }
+function setModal() {
+    /*alert('프로젝트를 띄울거임');*/
+}
 const Template1 = () => {
     const position = [
-        [-5, 0, -20],
+        [-5, 0, 20],
         [7, 0, 10],
         [-10, 0, 0],
         [10, 0, -10],
-        [-5, 0, 20],
+        [-5, 0, -20],
     ];
 
     const camera = new THREE.PerspectiveCamera(
@@ -79,6 +99,7 @@ const Template1 = () => {
     //스크롤
     window.addEventListener('scroll', function (event) {
         setSection(position, camera);
+        setModal();
     });
 
     return (

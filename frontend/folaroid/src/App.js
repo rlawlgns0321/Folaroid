@@ -6,6 +6,7 @@ import MyPage from './pages/MyPage';
 import './index.css';
 import BaseIntro from './pages/BaseIntro';
 import Template1 from './pages/Template1';
+import Template2 from './pages/Template2';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/intro" element={<BaseIntro />} />
                     <Route path="/tem1" element={<Template1 />} />
+                    <Route path="/tem2" element={<Template2 />} />
                 </Routes>
             </div>
         </ThemeProvider>
