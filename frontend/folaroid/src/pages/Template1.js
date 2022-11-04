@@ -33,7 +33,6 @@ export function Scene(props) {
         </mesh>
     );
 }
-
 export function House(props) {
     const { nodes, materials } = useGLTF('/models/house.gltf');
     return (
@@ -41,6 +40,7 @@ export function House(props) {
             <mesh
                 geometry={nodes.Cube.geometry}
                 material={materials.Material}
+                onClick={() => console.log('click')}
             ></mesh>
         </group>
     );
@@ -64,10 +64,12 @@ export function Tree1(props) {
 useGLTF.preload('/tree1.gltf');
 
 let currentSection = 0;
+let flag = 0;
 function setSection(position, camera) {
     const newSection = Math.round(window.scrollY / window.innerHeight);
-    console.log(newSection, currentSection);
+
     if (currentSection !== newSection) {
+        flag = 1;
         /*화면이동 */
         gsap.to(camera.position, {
             duration: 1,
@@ -75,6 +77,7 @@ function setSection(position, camera) {
             z: position[newSection][2] + 5,
         });
         currentSection = newSection;
+        flag = 0;
     }
 }
 function setModal() {
@@ -96,10 +99,18 @@ const Template1 = () => {
         1000
     );
     camera.position.set(-5, 2, 25);
+
     //스크롤
     window.addEventListener('scroll', function (event) {
         setSection(position, camera);
         setModal();
+    });
+    //클릭
+    window.addEventListener('click', function (event) {
+        if (flag === 0) {
+            this.alert(currentSection);
+        }
+        //리스트인덱스에 맞는 모달을 만들거임
     });
 
     return (
@@ -123,6 +134,7 @@ const Template1 = () => {
                         maxPolarAngle={Math.PI / 2}
                         minPolarAngle={Math.PI / 4}
                     /> */}
+                    5
                     <PerspectiveCamera
                         far={1000}
                         near={0.1}
