@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class IntroSlogan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long introSloganNo;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "intro_no")
     private Intro intro;

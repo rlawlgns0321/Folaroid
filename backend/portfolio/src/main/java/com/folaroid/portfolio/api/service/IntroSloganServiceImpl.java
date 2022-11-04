@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class IntroSloganServiceImpl implements IntroSloganService{
@@ -28,5 +29,11 @@ public class IntroSloganServiceImpl implements IntroSloganService{
         IntroSlogan introSlogan = introSloganRepository.findById(introSloganNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 슬로건이 없습니다."));
         introSloganRepository.delete(introSlogan);
+    }
+
+    @Transactional
+    @Override
+    public List<IntroSlogan> findIntroSlogan(Long introNo) {
+        return introSloganRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
 }

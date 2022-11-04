@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class IntroCareerServiceImpl implements IntroCareerService{
@@ -29,5 +30,11 @@ public class IntroCareerServiceImpl implements IntroCareerService{
         IntroCareer introCareer = introCareerRepository.findById(introCareerNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 경력사항이 없습니다."));
         introCareerRepository.delete(introCareer);
+    }
+
+    @Transactional
+    @Override
+    public List<IntroCareer> findIntroCareer(Long introNo) {
+        return introCareerRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
 }

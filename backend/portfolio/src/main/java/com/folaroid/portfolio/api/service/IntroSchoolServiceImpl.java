@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class IntroSchoolServiceImpl implements IntroSchoolService{
@@ -28,5 +29,11 @@ public class IntroSchoolServiceImpl implements IntroSchoolService{
         IntroSchool introSchool = introSchoolRepository.findById(introSchoolNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 학력이 없습니다."));
         introSchoolRepository.delete(introSchool);
+    }
+
+    @Transactional
+    @Override
+    public List<IntroSchool> findIntroSchool(Long introNo) {
+        return introSchoolRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
 }
