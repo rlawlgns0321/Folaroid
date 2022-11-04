@@ -140,7 +140,6 @@ public class OAuthController {
        for (int i = 0 ; i < tmp.size() ; i++)
         System.out.println(tmp.get(i));
        System.out.println(responseToken.getAccessToken());*/
-       res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
        return map;
    }
 }

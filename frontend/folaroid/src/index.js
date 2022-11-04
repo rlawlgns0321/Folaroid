@@ -7,9 +7,23 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './modules';
 import { Provider } from 'react-redux';
+import { auth } from './modules/auth';
 
-const store = configureStore({ reducer: rootReducer});
+const store = configureStore({ reducer: rootReducer });
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function loadUser() {
+    try {
+        console.log('loadUser');
+        const user = localStorage.getItem('user');
+        if (!user) return;
+        store.dispatch(auth.actions.tempSetUser({ user }));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+loadUser();
 
 root.render(
     <Provider store={store}>

@@ -8,7 +8,7 @@ const CallBack = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { user, jwt } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         const { code } = qs.parse(location.search, {
@@ -18,12 +18,11 @@ const CallBack = () => {
     }, [location, dispatch]);
 
     useEffect(() => {
-        if (user && jwt) {
-            localStorage.setItem('user', user);
-            localStorage.setItem('jwt', jwt);
+        if (user) {
+            localStorage.setItem('user',JSON.stringify(user));
             navigate('/');
         }
-    }, [user, jwt, navigate]);
+    }, [user,  navigate]);
 
     return <div>로딩중</div>;
 };

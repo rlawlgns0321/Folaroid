@@ -9,14 +9,18 @@ export const getUserThunk = createAsyncThunk('auth/GetUser', async (code) => {
 export const auth = createSlice({
     name: 'auth',
     initialState: {
-        jwt: null,
         user: null,
     },
-    reducers: {},
+    reducers: {
+        tempSetUser: (state, { payload }) => {
+            state.user = JSON.parse(payload.user);
+        },
+    },
     extraReducers: {
-        [getUserThunk.fulfilled.type]: (state, {payload}) => {
-            state.jwt = payload.jwt;
+        [getUserThunk.fulfilled.type]: (state, { payload }) => {
+            console.log(payload);
             state.user = payload.user;
+            state.user.jwt = payload.jwt;
         },
     },
 });
