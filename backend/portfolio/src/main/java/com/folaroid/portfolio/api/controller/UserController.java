@@ -32,7 +32,7 @@ public class UserController {
             httpMethod = "POST")
     @PostMapping("/user-info/mypage")
     public ResponseEntity<Long> save(@RequestBody UserNoReq request){
-        Long introNo = userService.introTableSave(request);
+        Long introNo = userService.MakeIntroAndIntroPersonalDataTable(request);
         return new ResponseEntity<>(introNo, HttpStatus.OK);
     }
 

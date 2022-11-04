@@ -23,10 +23,13 @@ public class UserService {
 
     /** 마이페이지 - 필수 정보 */
     @Transactional
-    public Long introTableSave(UserNoReq request) {
+    public Long MakeIntroAndIntroPersonalDataTable(UserNoReq request) {
         Intro intro = new Intro();
         intro.SaveDefaultUserInfo(request.getUserNo());
-        return introRepository.save(intro).getIntroNo();
+        Long introNo = introRepository.save(intro).getIntroNo();
+        IntroPersonalData introPersonalData = new IntroPersonalData(intro);
+        introPersonalDataRepository.save(introPersonalData);
+        return introNo;
     }
 
 
