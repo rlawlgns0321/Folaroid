@@ -20,7 +20,7 @@ public class ReadmeController {
             conn.setRequestMethod("GET");
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((line = rd.readLine()) != null) {
-
+                System.out.println(line);
                 if (line.length() != 0) {
                     if (line.contains("|")) { //table parsing
                        int barNumber = 0;
@@ -54,7 +54,7 @@ public class ReadmeController {
                                        }
                                    }
                                    else if (currentChar == ':') {
-                                       if (!(nextChar == '-' && !passDash)) {
+                                       if (nextChar == '-' && passDash) {
                                            isTable = false;
                                            break;
                                        }
@@ -68,10 +68,7 @@ public class ReadmeController {
                                    else if (currentChar == '-') {
                                         if (!passDash)
                                             passDash = true;
-                                        if (nextChar == ':') {
-                                            isTable = false;
-                                            break;
-                                        }
+
                                    }
                                    else {
                                        isTable = false;
