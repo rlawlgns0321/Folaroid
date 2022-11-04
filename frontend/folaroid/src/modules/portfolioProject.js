@@ -13,17 +13,15 @@ export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
-        isloading:false,
+        isloading: false,
     },
     reducers: {
         deleteProject: (state, action) => {
-            return {
-                projects: state.projects.filter(
-                    (project) => project.id !== action.payload
-                ),
-            };
+            state.projects = state.projects.filter(
+                (project) => project.id !== action.payload
+            );
         },
-        updateProject: () => {}
+        updateProject: () => {},
     },
     extraReducers: {
         [getProjects.fulfilled.type]: (state, action) => {

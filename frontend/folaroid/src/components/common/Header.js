@@ -67,7 +67,9 @@ const Header = () => {
                 <MenuBtn>
                     <RouteBtn to="/others">포트폴리오 열람</RouteBtn>
                 </MenuBtn>
-                <MenuBtn>포트폴리오 제작</MenuBtn>
+                <MenuBtn>
+                    <RouteBtn to="/portfolio/intro">포트폴리오 제작</RouteBtn>
+                </MenuBtn>
                 <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
             </Grid>
             <SignInDialog open={open} onClose={handleClose} />

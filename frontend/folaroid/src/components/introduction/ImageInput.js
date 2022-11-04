@@ -74,6 +74,7 @@ function ReadImage(props) {
         <Card style={{ width: '80%', margin: '10px' }}>
             <CardHeader title="사진" />
             <CardContent>
+                <img src='props.image'></img>
                 <Box>{props.image}</Box>
             </CardContent>
         </Card>

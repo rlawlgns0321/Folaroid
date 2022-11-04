@@ -24,5 +24,34 @@
             "lastUpdate": "6개월전",
             "description": "영화추천사이트"
         }
-    ]
+    ],
+
+    "intro": {
+        "intro_no": "",
+        "intro_content": "",
+        "pf_no": "",
+        "user_no": "",
+        "intro_image": {
+            "intro_image_no": "",
+            "intro_image_location": "",
+            "intro_no": ""
+        },
+        "intro_stack": [
+            {
+                "intro_stack_no": "",
+                "intro_no": "",
+                "hash_no": ""
+            },
+            {
+                "intro_stack_no": "",
+                "intro_no": "",
+                "hash_no": ""
+            },
+            {
+                "intro_stack_no": "",
+                "intro_no": "",
+                "hash_no": ""
+            }
+        ]
+    }
 }
