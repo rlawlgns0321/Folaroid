@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class Project {
     @Column(name = "pjt_no")
     private Long pjtNo;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pf_no")
     private Portfolio portfolio;
@@ -44,7 +45,7 @@ public class Project {
     @Column(name = "pjt_image_location", length = 2083)
     private String pjtImageLocation;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "pjt_json", columnDefinition = "TEXT")
     private String pjtJson;
 
     public void updateProjectTitle(String pjtTitle, String pjtSubtitle){
