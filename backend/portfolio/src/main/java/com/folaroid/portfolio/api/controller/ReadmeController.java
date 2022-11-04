@@ -22,15 +22,30 @@ public class ReadmeController {
             while ((line = rd.readLine()) != null) {
 
                 if (line.length() != 0) {
-                   /* if (line.contains("|")) { //table parsing
-                        String tableLine;
-                        while ((tableLine = rd.readLine()).contains("|"))
-                            line += "\n" + tableLine;
-                        res.add(line);
-                        if (tableLine == null)
-                            break;
-                        else
-                            line = tableLine;
+                    /*if (line.contains("|")) { //table parsing
+                       int barNumber = 0;
+                       for (int i = 0 ; i < line.length() ; i++) {
+                           if (line.charAt(i) == '|')
+                               barNumber++;
+                       }
+                       String headerCheckLine = rd.readLine();
+                       if (headerCheckLine != null && headerCheckLine.contains("|")) {
+                           String[] headerCheckSplitLine = headerCheckLine.split("|");
+                           System.out.println("Table col number is " + headerCheckSplitLine.length);
+                           if (headerCheckSplitLine.length >= barNumber - 1 && headerCheckSplitLine.length <= barNumber + 1) {
+                               for (int i = 0 ; i < headerCheckSplitLine.length ; i++) {
+                                   headerCheckSplitLine[i].replace(" ", "");
+                                   String check = new String(new char[headerCheckSplitLine[i].length()]).replace('\0', '-');
+                                   String checkLeft = ":" + check.substring(1);
+                                   String checkRight = check.substring(1) + ":";
+                                   String checkMid = ":" + check.substring(2) + ":";
+                                   if (!headerCheckSplitLine[i].equals(check) && !headerCheckSplitLine[i].equals(checkLeft)
+                                           && !headerCheckSplitLine[i].equals(checkRight)
+                                           && !headerCheckSplitLine[i].equals(checkMid))
+                                       break;
+                               }
+                           }
+                       }
                     }*/
                     if (line.charAt(0) == '!' && line.charAt(1) == '[') { //link, image parsing
                         int imgOpenIdx = 0;
