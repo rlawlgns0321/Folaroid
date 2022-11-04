@@ -9,5 +9,5 @@ public interface IntroArchivingService {
     Long saveIntroArchiving(IntroArchivingDto.introArchivingRequest introArchivingRequest);
     void deleteIntroArchiving(Long introArchivingNo);
 
-    List<IntroArchivingDto.introArchivingResponse> readAllIntroArchiving(Long introNo);
+    List<IntroArchivingDto.introArchivingResponse> readAllIntroArchiving(Long zz);
 }
