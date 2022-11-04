@@ -33,7 +33,7 @@ public class IntroLanguage {
     @JoinColumn(name = "intro_no")
     private Intro intro;
 
-    public void saveIntroLanguage(Intro intro, String languageName, String languageTestName, String languageGrade, Date languageDate) {
+    public void saveIntroLanguage(Intro intro, String languageName, String languageTestName, String languageGrade, java.sql.Date languageDate) {
         this.intro = intro;
         this.languageName = languageName;
         this.languageTestName = languageTestName;
