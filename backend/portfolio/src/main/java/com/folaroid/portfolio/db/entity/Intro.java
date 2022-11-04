@@ -27,6 +27,8 @@ public class Intro {
 
     private Long pfNo;
 
+
+
 //    private Long portfolioTemplatesNo;
 
 //    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
