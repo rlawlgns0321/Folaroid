@@ -2,7 +2,7 @@ package com.folaroid.portfolio.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.folaroid.portfolio.api.service.auth.JwtUtil;
+//import com.folaroid.portfolio.api.service.auth.JwtUtil;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.nimbusds.oauth2.sdk.token.AccessToken;
