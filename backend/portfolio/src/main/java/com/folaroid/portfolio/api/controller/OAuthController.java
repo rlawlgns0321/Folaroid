@@ -99,14 +99,17 @@ public class OAuthController {
        OAuthToken responseToken = getOAuthToken(code);
        GithubUser responseUserInfo = getUserInfo(responseToken);
 
-      /*RestTemplate restTemplate = new RestTemplate();
+      /* RestTemplate restTemplate = new RestTemplate();
        HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
        ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
                USER_SIGNUP_URI,
                HttpMethod.POST,
                signUpRequestEntity,
                Integer.class
-       );*/ // manage "/signup" post request at backend -> activate when needed
+       );
+
+       int userNo = userNoResponse.getBody().intValue();*/
+        // manage "/signup" post request at backend -> activate when needed
 
        HashMap<String, String> map = new HashMap<>();
        map.put("jwt", responseToken.getAccessToken());
