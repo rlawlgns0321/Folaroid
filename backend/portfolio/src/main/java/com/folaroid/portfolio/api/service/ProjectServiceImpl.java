@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
-@Service("projectService")
+@Service
 public class ProjectServiceImpl implements ProjectService{
     @Autowired
     ProjectRepository projectRepository;
@@ -29,5 +30,11 @@ public class ProjectServiceImpl implements ProjectService{
         Project project = projectRepository.findById(pjtNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 프로젝트가 없습니다."));
         projectRepository.delete(project);
+    }
+
+    @Transactional
+    @Override
+    public List<Project> findALlProject(Long pfNo) {
+        return projectRepository.findAllByPortfolio(portfolioRepository.findById(pfNo).get());
     }
 }

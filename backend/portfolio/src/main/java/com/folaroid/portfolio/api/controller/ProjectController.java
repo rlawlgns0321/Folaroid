@@ -2,6 +2,7 @@ package com.folaroid.portfolio.api.controller;
 
 import com.folaroid.portfolio.api.dto.ProjectDto;
 import com.folaroid.portfolio.api.service.ProjectService;
+import com.folaroid.portfolio.db.entity.Project;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value = "프로젝트", tags={"Project"})
 @RequestMapping("/project")
@@ -46,5 +49,20 @@ public class ProjectController {
     public ResponseEntity<?> deleteProject(@PathVariable Long pjtNo){
         projectService.deleteProject(pjtNo);
         return ResponseEntity.status(200).body(pjtNo);
+    }
+
+    /**
+     * 프로젝트 전체 조회
+     */
+    @GetMapping("{pfNo}")
+    @ApiOperation(value = "프로젝트 전체 조회", notes = "프로젝트를 전체 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<Project>> findAllProject(@PathVariable("pfNo")Long pfNo){
+        List<Project> projects = projectService.findALlProject(pfNo);
+        return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 }
