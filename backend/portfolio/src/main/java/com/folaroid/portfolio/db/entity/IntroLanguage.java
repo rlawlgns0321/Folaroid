@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -28,7 +29,7 @@ public class IntroLanguage {
 
     private java.sql.Date languageDate;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "intro_no")
     private Intro intro;
