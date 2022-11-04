@@ -1,9 +1,9 @@
 package com.folaroid.portfolio.api.controller;
-
+/*
 import com.folaroid.portfolio.api.service.auth.AuthService;
-import com.folaroid.portfolio.api.service.auth.CookieUtil;
-import com.folaroid.portfolio.api.service.auth.JwtUtil;
-import com.folaroid.portfolio.api.service.auth.RedisUtil;
+//import com.folaroid.portfolio.api.service.auth.CookieUtil;
+//import com.folaroid.portfolio.api.service.auth.JwtUtil;
+//import com.folaroid.portfolio.api.service.auth.RedisUtil;
 import com.folaroid.portfolio.db.entity.User;
 import com.folaroid.portfolio.db.repository.UserRepository;
 import io.swagger.annotations.Api;
@@ -24,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final CookieUtil cookieUtil;
+    //private final CookieUtil cookieUtil;
     private final AuthService authService;
-    private final JwtUtil jwtUtil;
-    private final RedisUtil redisUtil;
+    //private final JwtUtil jwtUtil;
+    //private final RedisUtil redisUtil;
 
     private final UserRepository userRepository;
 
@@ -166,6 +166,6 @@ public class AuthController {
 //    }
 
 
-}
+}*/
 
 

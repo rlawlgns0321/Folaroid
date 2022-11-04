@@ -34,7 +34,7 @@ const SloganInputModule = () => {
               <TextField
               multiline
               placeholder='취준생 화이팅!'
-              style={{ width: '40%' }}
+              style={{ width: '90%' }}
               onChange={handleChangeSlogan}
               rows={2}
               maxRows={4}/>

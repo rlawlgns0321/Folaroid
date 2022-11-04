@@ -1,5 +1,5 @@
 package com.folaroid.portfolio.api.service.auth;
-
+/*
 import com.folaroid.portfolio.db.entity.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -94,4 +94,4 @@ public class JwtUtil {
         }
         return false;
     }
-}
+}*/

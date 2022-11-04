@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
+import {
+  Button,
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  TextField,
+} from '@mui/material';
+
 
 const ImageInputModule = ({ onInsert }) => {
   const [image, setImage] = useState('');

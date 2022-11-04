@@ -27,6 +27,7 @@ const Header = () => {
         <Grid
             sx={{
                 width: '100vw',
+                height: '7vh',
             }}
             container
             justifyContent="space-between"

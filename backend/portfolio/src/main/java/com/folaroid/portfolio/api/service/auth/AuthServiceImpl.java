@@ -1,5 +1,5 @@
 package com.folaroid.portfolio.api.service.auth;
-
+/*
 import com.folaroid.portfolio.db.entity.User;
 import com.folaroid.portfolio.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final SaltUtil saltUtil;
 
-    private final RedisUtil redisUtil;
+    //private final RedisUtil redisUtil;
     private final JwtUtil jwtUtil;
 
     //회원가입
@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void logout(String accessToken, String refreshToken) {
-        redisUtil.setBlackList(accessToken, "accessToken", jwtUtil.getExpiration(accessToken));
+        //redisUtil.setBlackList(accessToken, "accessToken", jwtUtil.getExpiration(accessToken));
     }
 
-}
+}*/
