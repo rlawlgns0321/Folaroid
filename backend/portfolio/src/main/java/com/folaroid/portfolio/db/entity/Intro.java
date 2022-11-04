@@ -46,4 +46,9 @@ public class Intro {
     public void SaveDefaultUserInfo(long userNo) {
         this.userNo = userNo;
     }
+
+    public void SavePortfolioInfo(Long pfNo, Long userNo) {
+        this.pfNo = pfNo;
+        this.userNo = userNo;
+    }
 }

@@ -20,8 +20,42 @@ public class ReadmeController {
             conn.setRequestMethod("GET");
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((line = rd.readLine()) != null) {
-                if (line.length() != 0)
-                res.add(line);
+
+                if (line.length() != 0) {
+                    if (line.charAt(0) == '!' && line.charAt(1) == '[') { //link, image parsing
+                        int imgOpenIdx = 0;
+                        int imgCloseIdx = 0;
+                        while (imgOpenIdx < line.length() - 1 && !(line.charAt(imgOpenIdx) == ']' && line.charAt(imgOpenIdx + 1) == '('))
+                            imgOpenIdx++;
+                        if (imgOpenIdx != line.length() - 1) {
+                            imgCloseIdx = imgOpenIdx;
+                            while (imgCloseIdx < line.length() && line.charAt(imgCloseIdx) != ')')
+                                imgCloseIdx++;
+                            if (imgCloseIdx != line.length())
+                                line = line.substring(imgOpenIdx + 2, imgCloseIdx);
+                        }
+                        //continue;
+                    }
+                    else if (line.length() > 2   //header parsing
+                        && (line.charAt(0) == '='
+                        || line.charAt(0) == '-')
+                        && line.charAt(0) == line.charAt(1)
+                        && line.charAt(1) == line.charAt(2))
+                        continue;
+
+                    else if (line.length() > 2   //codeblock parsing
+                        && line.charAt(0) == '`'
+                        && line.charAt(0) == line.charAt(1)
+                        && line.charAt(1) == line.charAt(2)) {
+                        String codeLine;
+                        while ((codeLine = rd.readLine()) != null) {
+                            line += "\n" + codeLine;
+                            if (codeLine.length() > 2 && codeLine.substring(codeLine.length() - 3).equals("```"))
+                                break;
+                        }
+                    }
+                    res.add(line);
+                }
             }
             rd.close();
         } catch (Exception e) {
