@@ -63,8 +63,9 @@ public class IntroArchivingController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public List<IntroArchivingDto.introArchivingResponse> readAllIntroArchiving(Long introNo){
-        return introArchivingService.readAllIntroArchiving(introNo);
+    public ResponseEntity<List<IntroArchiving>> findIntroArchiving(@PathVariable("introNo") Long introNo){
+        List<IntroArchiving> introArchivings = introArchivingService.findIntroArchiving(introNo);
+        return new ResponseEntity<>(introArchivings, HttpStatus.OK);
     }
 
 }

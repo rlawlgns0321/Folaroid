@@ -39,16 +39,10 @@ public class IntroArchivingServiceImpl implements IntroArchivingService {
 
     @Transactional
     @Override
-    public List<IntroArchivingDto.introArchivingResponse> readAllIntroArchiving(Long Intro) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "introArchivingNo");
-        List<IntroArchiving> introArchiving = introArchivingRepository.findAll(sort);
-        List<IntroArchivingDto.introArchivingResponse> resIntroArchivingDtoList = new ArrayList<>();
-        for(IntroArchiving introA : introArchiving){
-            IntroArchivingDto.introArchivingResponse resIntroArchivingDto = new IntroArchivingDto.introArchivingResponse(introA);
-            resIntroArchivingDtoList.add(resIntroArchivingDto);
-        }
-        return resIntroArchivingDtoList;
+    public List<IntroArchiving> findIntroArchiving(Long introNo) {
+        return introArchivingRepository.findAllByIntro(introRepository.findById(introNo).get());
     }
+
 }
 
 
