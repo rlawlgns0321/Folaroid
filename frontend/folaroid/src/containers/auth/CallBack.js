@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import qs from 'qs';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { authCode } from '../../lib/api/authAPI';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserThunk } from '../../modules/auth';
 
 const CallBack = () => {
-    const authUri = `http://localhost:8080/callback`;
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -15,8 +14,8 @@ const CallBack = () => {
         const { code } = qs.parse(location.search, {
             ignoreQueryPrefix: true,
         });
-        dispatch(authCode(code));
-    }, [location, authUri, dispatch]);
+        dispatch(getUserThunk(code));
+    }, [location, dispatch]);
 
     useEffect(() => {
         if (user && jwt) {

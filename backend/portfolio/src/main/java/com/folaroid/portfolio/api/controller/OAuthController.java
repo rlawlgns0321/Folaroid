@@ -26,7 +26,6 @@ import java.util.Map;
 
 @RestController
 @PropertySource("classpath:application-security.properties")
-@CrossOrigin
 public class OAuthController {
     private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
@@ -110,7 +109,7 @@ public class OAuthController {
        OAuthToken responseToken = getOAuthToken(code);
        GithubUser responseUserInfo = getUserInfo(responseToken);
        HashMap<String, Object> map = new HashMap<>();
-        map.put("jwt", responseToken.getAccessToken());
+       map.put("jwt", responseToken.getAccessToken());
        User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
        if (user != null) {
            map.put("user",user);
@@ -129,7 +128,7 @@ public class OAuthController {
                Integer.class
        );
 
-       int userNo = userNoResponse.getBody().intValue();*/
+       int userNo = userNoResponse.getBody().intValue();
         // manage "/signup" post request at backend -> activate when needed
        //map.put("jwt", responseToken.getAccessToken());
        //map.put("github_id", responseUserInfo.getLogin());
@@ -140,7 +139,8 @@ public class OAuthController {
        System.out.println(tmp.size());
        for (int i = 0 ; i < tmp.size() ; i++)
         System.out.println(tmp.get(i));
-       System.out.println(responseToken.getAccessToken());
+       System.out.println(responseToken.getAccessToken());*/
+       res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
        return map;
    }
 }
