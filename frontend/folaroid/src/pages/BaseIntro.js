@@ -2,19 +2,12 @@ import React from 'react';
 import '../components/introduction/base_introduction.css';
 import { Grid } from '@mui/material';
 import { css } from '@emotion/css';
-import { Route, Routes } from 'react-router-dom';
+// import { Route, Routes } from 'react-router-dom';
 import Header from '../components/common/Header';
 import SideBar from '../components/common/SideBar';
-import ProjectSide from '../components/project/ProjectSide';
-import TemplateSide from '../components/template/TemplateSide';
 import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
-
-// import Sidebar from '../components/introduction/Sidebar';
-import NameInput from '../components/introduction/NameInput';
-// import BirthInput from '../components/introduction/BirthInput';
-// import EmailInput from '../components/introduction/EmailInput';
-// import PhoneInput from '../components/introduction/PhoneInput';
+import PersonalInput from '../components/introduction/PersonalInput'
 import StackInput from '../components/introduction/StackInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
@@ -55,7 +48,7 @@ function BaseIntro() {
                     `}
                 >
                     <Contents title={title}>
-                      <NameInput></NameInput>
+                      <PersonalInput></PersonalInput>
                       <ImageInput></ImageInput>
                       <SloganInput></SloganInput>
                       <StackInput></StackInput>

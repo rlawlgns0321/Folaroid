@@ -11,20 +11,36 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-// import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { createPersonal } from '../../modules/intro/personal';
 
-function BaseInput(props) {
+const initialState = {
+    intro_personal_data_no: null,
+    persona_data_birth: '',
+    personal_data_email: '',
+    personal_data_name: '',
+    personal_data_phone: '',
+};
+
+function PersonalInput(props) {
     const [birth, setBirth] = useState(dayjs('2000-01-01'));
+    const [personal, setPersonal] = useState(initialState);
 
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setPersonal({ ...personal, [name]: value });
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event);
-        const name = event.target[0].value;
+        // console.log(event);
+        // const name = event.target[0].value;
         const birth = event.target[2].value;
-        const email = event.target[5].value;
-        const phone = event.target[7].value;
-        console.log(name, birth, email, phone);
-        props.onCreate(name, birth, email, phone);
+        // const email = event.target[5].value;
+        // const phone = event.target[7].value;
+        console.log(birth);
+        setPersonal({ ...personal, personal_data_birth: birth });
+        console.log(personal);
+        props.onCreate(personal);
     };
 
     return (
@@ -45,12 +61,14 @@ function BaseInput(props) {
                                 <TextField
                                     label="이름"
                                     placeholder="이름"
-                                    name="name"
+                                    name="personal_data_name"
                                     size="medium"
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
                                     style={{ width: '40%' }}
+                                    onChange={handleInputChange}
+                                    value={personal.personal_data_name || ''}
                                 />
                             </div>
                             <div style={{ width: '100%', margin: '20px' }}>
@@ -62,7 +80,7 @@ function BaseInput(props) {
                                         label="생년월일"
                                         inputFormat="YYYY년 MM월 DD일"
                                         value={birth}
-                                        name="birth"
+                                        name="personal_data_birth"
                                         onChange={(newValue) => {
                                             setBirth(newValue);
                                         }}
@@ -77,7 +95,8 @@ function BaseInput(props) {
                                     label="이메일"
                                     type="email"
                                     placeholder="example@ssafy.com"
-                                    name="email"
+                                    name="personal_data_email"
+                                    onChange={handleInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -89,7 +108,8 @@ function BaseInput(props) {
                                 <TextField
                                     label="연락처"
                                     type="tel"
-                                    name="phone"
+                                    name="personal_data_phone"
+                                    onChange={handleInputChange}
                                     placeholder="010-0000-0000"
                                     InputLabelProps={{
                                         shrink: true,
@@ -133,42 +153,63 @@ function ReadName(props) {
 
 function ViewName() {
     const [mode, setMode] = useState('CREATE');
-    const [value, setValue] = useState([
-        {
-            github_id: '',
-            name: '',
-            birth: '',
-            email: '',
-            phone: '',
-        },
-    ]);
+    const [value, setValue] = useState({
+        intro_personal_data_no: null,
+        persona_data_birth: '',
+        personal_data_email: '',
+        personal_data_name: '',
+        personal_data_phone: '',
+    });
+    const dispatch = useDispatch();
 
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <BaseInput
-                onCreate={(_name, _birth, _email, _phone) => {
+            <PersonalInput
+                onCreate={(personal) => {
+                    console.log(personal);
                     const newValue = {
-                        name: _name,
-                        birth: _birth,
-                        email: _email,
-                        phone: _phone,
+                        intro_personal_data_no: personal.intro_personal_data_no,
+                        personal_data_birth: personal.personal_data_birth,
+                        personal_data_email: personal.personal_data_email,
+                        personal_data_name: personal.personal_data_name,
+                        personal_data_phone: personal.personal_data_phone,
                     };
+                    console.log(newValue);
                     setValue(newValue);
+                    console.log({value});
+                    dispatch(createPersonal({ personal }))
+                        .then((data) => {
+                            console.log(data);
+                            setValue({
+                                intro_personal_data_no:
+                                    data.intro_personal_data_no,
+                                persona_data_birth: data.persona_data_birth,
+                                personal_data_email: data.personal_data_email,
+                                personal_data_name: data.personal_data_name,
+                                personal_data_phone: data.personal_data_phone,
+                            });
+                            setMode('READ');
+                        })
+                        .catch((e) => {
+                            console.log(e);
+                        });
+                    
                     setMode('READ');
                     // newValues.push(newValue);
                     // setValues(newValues)
                 }}
-            ></BaseInput>
+            ></PersonalInput>
         );
     } else if (mode === 'READ') {
         console.log({ value });
+        console.log(value.personal_data_name)
         content = (
             <ReadName
-                name={value.name}
-                birth={value.birth}
-                email={value.email}
-                phone={value.phone}
+                name={value.personal_data_name}
+                birth={value.persona_data_birth}
+                email={value.personal_data_email}
+                phone={value.personal_data_phone}
             ></ReadName>
         );
     }
