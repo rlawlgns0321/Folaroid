@@ -15,6 +15,9 @@ export const auth = createSlice({
         tempSetUser: (state, { payload }) => {
             state.user = JSON.parse(payload.user);
         },
+        clearUser: (state, {payload}) => {
+            state.user = null;
+        }
     },
     extraReducers: {
         [getUserThunk.fulfilled.type]: (state, { payload }) => {

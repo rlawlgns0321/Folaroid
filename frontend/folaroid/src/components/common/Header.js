@@ -12,7 +12,7 @@ const MenuBtn = styled.button`
     background-color: white;
 `;
 
-const Header = () => {
+const Header = ({ user, onLogout }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -21,6 +21,10 @@ const Header = () => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleLogout = () => {
+        onLogout();
     };
 
     return (
@@ -54,9 +58,13 @@ const Header = () => {
             >
                 <MenuBtn>포트폴리오 열람</MenuBtn>
                 <MenuBtn>포트폴리오 제작</MenuBtn>
-                <MenuBtn onClick={handleClickOpen} >로그인</MenuBtn>
+                {user ? (
+                    <MenuBtn onClick={handleLogout}>로그아웃</MenuBtn>
+                ) : (
+                    <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
+                )}
             </Grid>
-            <SignInDialog open={open} onClose={handleClose}/>
+            <SignInDialog open={open} onClose={handleClose} />
         </Grid>
     );
 };
