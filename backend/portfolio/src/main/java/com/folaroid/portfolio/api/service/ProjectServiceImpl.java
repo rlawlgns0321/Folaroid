@@ -46,4 +46,18 @@ public class ProjectServiceImpl implements ProjectService{
         return new ProjectDto.projectResponse(project);
     }
 
+    @Transactional
+    @Override
+    public void patchProject(Long pjtNo, ProjectDto.projectRequest projectRequest) {
+        Project project = projectRepository.findById(pjtNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
+        project.updateProject(projectRequest.getPjtTitle(),
+                projectRequest.getPjtSubtitle(),
+                projectRequest.getPjtUrl(),
+                projectRequest.getPjtGithubUrl(),
+                projectRequest.getPjtStar(),
+                projectRequest.getPjtImageLocation(),
+                projectRequest.getPjtJson());
+    }
+
 }

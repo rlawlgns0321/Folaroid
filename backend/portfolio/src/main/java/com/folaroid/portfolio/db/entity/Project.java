@@ -52,4 +52,14 @@ public class Project {
         this.pjtTitle = pjtTitle;
         this.pjtSubtitle = pjtSubtitle;
     }
+
+    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtImageLocation, String pjtJson){
+        this.pjtTitle = pjtTitle;
+        this.pjtSubtitle = pjtSubtitle;
+        this.pjtUrl = pjtUrl;
+        this.pjtGithubUrl = pjtGithubUrl;
+        this.pjtStar = pjtStar;
+        this.pjtImageLocation = pjtImageLocation;
+        this.pjtJson = pjtJson;
+    }
 }

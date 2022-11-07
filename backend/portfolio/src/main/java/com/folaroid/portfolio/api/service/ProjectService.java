@@ -15,4 +15,6 @@ public interface ProjectService {
 
     ProjectDto.projectResponse findProject(Long pjtNo);
 
+    void patchProject(Long pjtNo, ProjectDto.projectRequest projectRequest);
+
 }
