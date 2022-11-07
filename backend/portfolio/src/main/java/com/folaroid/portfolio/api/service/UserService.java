@@ -34,9 +34,9 @@ public class UserService {
 
 
     @Transactional(readOnly = true)
-    public UserDefaultDto find(IntroDto.IntroNoDto request) {
-        Intro intro = introRepository.findById(request.getIntroNo()).get();
-        IntroPersonalData introPersonalData = introPersonalDataRepository.findById(request.getIntroNo()).get();
+    public UserDefaultDto find(Long introNo) {
+        Intro intro = introRepository.findById(introNo).get();
+        IntroPersonalData introPersonalData = introPersonalDataRepository.findById(introNo).get();
         return new UserDefaultDto(userRepository.findById(intro.getUserNo()).get(), introPersonalData);
     }
 
@@ -55,8 +55,8 @@ public class UserService {
         return userRepository.save(user).getUserNo();
     }
 
-    public Long getIntroNo(UserLoginReq request) {
-        User user = userRepository.findByUserGithubId(request.getUserGithubId());
+    public Long getIntroNo(String userGithubId) {
+        User user = userRepository.findByUserGithubId(userGithubId);
         return introRepository.findUserDefaultData(user.getUserNo());
     }
 }
