@@ -22,7 +22,7 @@ const RouteBtn = styled(Link)`
     text-decoration: none;
 `;
 
-const Header = () => {
+const Header = ({ user, onLogout }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -31,6 +31,10 @@ const Header = () => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleLogout = () => {
+        onLogout();
     };
 
     return (
@@ -70,7 +74,11 @@ const Header = () => {
                 <MenuBtn>
                     <RouteBtn to="/portfolio/intro">포트폴리오 제작</RouteBtn>
                 </MenuBtn>
-                <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
+                {user ? (
+                    <MenuBtn onClick={handleLogout}>로그아웃</MenuBtn>
+                ) : (
+                    <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
+                )}
             </Grid>
             <SignInDialog open={open} onClose={handleClose} />
         </Grid>
