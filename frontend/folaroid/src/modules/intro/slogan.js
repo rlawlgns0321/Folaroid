@@ -1,6 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../../lib/api/baseIntroAPI';
 
+export const getSlogan = createAsyncThunk(
+    'slogan/getSlogan',
+    async ({intro_no}) => {
+        const response = await api.getSlogan(intro_no);
+        return response.data;
+    }
+)
+
 export const createSlogan = createAsyncThunk(
     'slogan/createSlogan',
     async (data) => {
@@ -19,19 +27,11 @@ export const deleteSlogan = createAsyncThunk(
     }
 );
 
-// export const findByGithub = createAsyncThunk(
-//     'personal/findByGithub', //  action의 type
-//     async ({ user_github_id }) => {
-//         const response = await api.findByGithub(user_github_id);
-//         return response.data;
-//     }
-// );
 
 export const slogan = createSlice({
     name: 'slogan',
     initialState: {
         intro_slogan_no: null,
-        intro_no: '',
         sloganContent: '',
     },
     reducers: {},
@@ -40,18 +40,16 @@ export const slogan = createSlice({
             state.sloganContent = action.payload.sloganContent;
         },
         [createSlogan.fulfilled.type]: (state, action) => {
+            state.intro_slogan_no = action.payload.intro_slogan_no
             state.sloganContent = action.payload.sloganContent
         },
-        [deletePersonal.fulfilled.type]: (state, action) => {
+        [deleteSlogan.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = {
                 intro_slogan_no: null,
-                intro_no: ''
+                sloganContent: '',
             };
-        },
-        [findByGithub.fulfilled]: (state, action) => {
-            return [...action.payload];
-        },
+        }
     },
 });
 
