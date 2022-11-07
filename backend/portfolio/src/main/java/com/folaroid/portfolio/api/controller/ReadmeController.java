@@ -153,6 +153,12 @@ public class ReadmeController {
                                 break;
                         }
                     }
+
+                    else if (line.charAt(0) == '>') { //quotes parsing
+                        String quoteLine;
+                        while ((quoteLine = rd.readLine()) != null && quoteLine.charAt(0) == '>')
+                            line += "\n" + quoteLine;
+                    }
                     res.add(line);
                 }
             }
