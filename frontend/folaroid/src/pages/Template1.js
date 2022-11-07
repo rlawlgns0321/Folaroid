@@ -10,15 +10,6 @@ export const sizes = {
 };
 //Camera effect
 
-export function Model() {
-    return (
-        <mesh position={[2, -0.5, 0]} receiveShadow scale={0.5}>
-            <sphereGeometry />
-            <meshLambertMaterial color={'pink'} />
-        </mesh>
-    );
-}
-
 export function Scene(props) {
     //const floor = useLoader(TextureLoader, 'images/grid.jpg');
     return (
