@@ -25,8 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
     private final ProjectService projectService;
-    private final FileService fileService;
-    private final PjtImageRepository pjtImageRepository;
+
 
     /**
      * 프로젝트 등록
@@ -100,18 +99,5 @@ public class ProjectController {
     public ResponseEntity<?> patchProject(@PathVariable Long pjtNo, @RequestBody ProjectDto.projectRequest projectRequest){
         projectService.patchProject(pjtNo, projectRequest);
         return ResponseEntity.status(200).body(pjtNo);
-    }
-
-    @PostMapping("/project-images/{pjt-no}")
-    @ApiOperation(value = "포트폴리오 이미지 저장", notes = "포트폴리오 이미지를 저장한다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 404, message = "없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo, @RequestPart(value = "file", required = true) List<MultipartFile> multipartFile)  throws IOException {
-
-        List<String> fileNameList = fileService.uploadImg(pjtNo, multipartFile);
-        return new ResponseEntity<>(fileNameList, HttpStatus.OK);
     }
 }

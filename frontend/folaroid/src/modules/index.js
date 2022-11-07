@@ -1,8 +1,16 @@
 import { combineReducers } from 'redux';
-import portfolioProject from './portfolioProject';
+import authReducer from './auth';
+import portfolioProjectReducer from './portfolioProject';
+import personalReducer from './intro/personal'
+import sloganReducer from './intro/slogan'
 
 const rootReducer = combineReducers({
-    portfolioProject,
+    auth: authReducer,
+    portfolioProject: portfolioProjectReducer,
+    personal: personalReducer,
+    slogan: sloganReducer
+
 });
 
 export default rootReducer;
+    

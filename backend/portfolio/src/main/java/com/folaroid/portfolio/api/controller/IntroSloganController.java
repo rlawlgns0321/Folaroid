@@ -62,8 +62,8 @@ public class IntroSloganController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<List<IntroSlogan>> findIntroSlogan(@PathVariable("introNo") Long introNo){
-        List<IntroSlogan> introSlogans = introSloganService.findIntroSlogan(introNo);
-        return new ResponseEntity<>(introSlogans, HttpStatus.OK);
+    public ResponseEntity<IntroSlogan> findIntroSlogan(@PathVariable("introNo") Long introNo){
+        IntroSlogan introSlogan = introSloganService.findIntroSlogan(introNo);
+        return new ResponseEntity<>(introSlogan, HttpStatus.OK);
     }
 }

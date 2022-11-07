@@ -9,7 +9,10 @@ import com.folaroid.portfolio.api.service.UserService;
 import com.folaroid.portfolio.api.vo.GithubRepo;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
+import com.folaroid.portfolio.db.entity.Intro;
+import com.folaroid.portfolio.db.entity.IntroPersonalData;
 import com.folaroid.portfolio.db.entity.User;
+import com.folaroid.portfolio.db.repository.IntroPersonalDataRepository;
 import com.folaroid.portfolio.db.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +43,7 @@ public class OAuthController {
     private final String USER_REQUEST_URI = "https://api.github.com/user";
     //private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
+
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
     @Value("${client-id}")
     private String clientId;
@@ -54,6 +58,9 @@ public class OAuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private IntroPersonalDataRepository introPersonalDataRepository;
 
     private HttpEntity<MultiValueMap<String, String>> getCodeRequestEntity(String code) {
 
@@ -120,13 +127,20 @@ public class OAuthController {
        User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
        if (user != null) {
            map.put("user",user);
-       }else{
+           //return map;
+       }
+       else{
             System.out.println("New User!!");
             Long createUserPk = userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
             map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
             IntroDto.introRequest introDto = new IntroDto.introRequest();
             introDto.setUserNo(createUserPk);
-            introService.createIntro(introDto);
+            Intro intro = introService.createIntro(introDto);
+           Long introNo = intro.getIntroNo();
+            IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
+           introPersonalDataRepository.save(introPersonalData);
+           map.put("introNo", introNo);
+            //return map;
        }
 
        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");

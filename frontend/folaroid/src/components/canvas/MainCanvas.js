@@ -1,4 +1,4 @@
-import { css } from '@emotion/css';
+// import { css } from '@emotion/css';
 import React, { useRef, useState } from 'react';
 import { Stage, Layer, Line, Text } from 'react-konva';
 
@@ -10,10 +10,10 @@ const MainCanvas = () => {
     const [cnt, setCnt] = useState(0);
 
     const handleMouseMove = (e) => {
-        if (cnt === 200) {
-            isDrawing.current = false;
+        // if (cnt === 200) {
+        //     isDrawing.current = false;
 
-        }
+        // }
 
         // no drawing - skipping
         if (!isDrawing.current) {
@@ -41,6 +41,7 @@ const MainCanvas = () => {
         console.log(lines);
     };
 
+
     return (
         <div>
             <Stage
@@ -54,7 +55,7 @@ const MainCanvas = () => {
                         <Line
                             key={i}
                             points={line.points}
-                            stroke="#df4b26"
+                            stroke="rgba(15, 76, 132, 1)"
                             strokeWidth={strokeWidth}
                             tension={0.5}
                             lineCap="round"

@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
+import {
+  Button,
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  TextField,
+} from '@mui/material';
 
-const SloganInputModule = () => {
-  const [slogan, setSlogan] = useState('');
-
-  const handleChangeSlogan = (event) => {
-    setSlogan(event.target.value);
-  };
+function SloganInput(props) {
 
   const handleSubmit = (event) => {
-    alert(`이름: ${slogan}`);
     event.preventDefault();
+    const content = event.target[0].value;
+    props.onCreate(content)
   };
 
   return (
     <Card style={{ width: '80%', margin: '10px' }}>
-      <CardHeader action={<Button>추가</Button>} title="슬로건" />
+      <CardHeader title="슬로건" />
       <CardContent>
         <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
           <div
@@ -32,10 +31,13 @@ const SloganInputModule = () => {
           >
             <div style={{ width: '100%' }}>
               <TextField
+              label="슬로건"
+              InputLabelProps={{
+                shrink: true,
+              }}
               multiline
               placeholder='취준생 화이팅!'
               style={{ width: '90%' }}
-              onChange={handleChangeSlogan}
               rows={2}
               maxRows={4}/>
             </div>
@@ -51,4 +53,37 @@ const SloganInputModule = () => {
   );
 };
 
-export default SloganInputModule;
+function ReadSlogan(props) {
+  return (
+      <Card style={{ width: '80%', margin: '10px' }}>
+          <CardHeader title="슬로건" />
+          <CardContent>
+              <Box>{props.slogan}</Box>
+          </CardContent>
+      </Card>
+  );
+}
+
+function ViewSlogan() {
+  const [mode, setMode] = useState('CREATE');
+  const [slogan, setSlogan] = useState('');
+
+  let content = null;
+  if (mode === 'CREATE') {
+      content = 
+          <SloganInput
+              onCreate={(_slogan) => {
+                  const newSlogan = _slogan;
+                  setSlogan(newSlogan);
+                  setMode('READ')
+              }}
+          ></SloganInput>
+  } else if (mode === 'READ') {
+    console.log({slogan})
+    content = <ReadSlogan slogan={slogan}></ReadSlogan>
+  }
+
+  return content
+}
+
+export default ViewSlogan;

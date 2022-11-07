@@ -43,6 +43,18 @@ public class PortfolioController {
     return  ResponseEntity.status(HttpStatus.OK).body(savePortfolioDto);
     }
 
+    @GetMapping("/{pfNo}")
+    @ApiOperation(value = "포트폴리오 자기소개 접근자", notes = "포트폴리오 자기소개의 intro_no를 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity getPortfolioIntroNo(@PathVariable Long pfNo){
+        Long introNo = portfolioService.getPortfolioIntroNo(pfNo);
+        return  ResponseEntity.status(HttpStatus.OK).body(introNo);
+    }
+
     /**
      * 포트폴리오 삭제
      */
@@ -61,7 +73,7 @@ public class PortfolioController {
     /**
      * 마이페이지에서 포트폴리오 간단 조회
      */
-    @GetMapping("/{user_no}")
+    @GetMapping("/all/{user_no}")
     @ApiOperation(value = "마이페이지 - 포트폴리오", notes = " 간단 조회", httpMethod = "GET")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

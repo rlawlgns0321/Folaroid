@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../lib/api/portfolioProjectAPI';
 
-export const getProjects = createAsyncThunk(
+export const getProjectsThunk = createAsyncThunk(
     'portfolioProject/GetProjects',
     async () => {
         const response = await api.getProjects();
@@ -13,19 +13,18 @@ export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
+        isloading: false,
     },
     reducers: {
         deleteProject: (state, action) => {
-            return {
-                projects: state.projects.filter(
-                    (project) => project.id !== action.payload
-                ),
-            };
+            state.projects = state.projects.filter(
+                (project) => project.id !== action.payload
+            );
         },
+        updateProject: () => {},
     },
     extraReducers: {
-        [getProjects.fulfilled.type]: (state, action) => {
-            console.log('action', action);
+        [getProjectsThunk.fulfilled.type]: (state, action) => {
             state.projects = action.payload;
         },
     },

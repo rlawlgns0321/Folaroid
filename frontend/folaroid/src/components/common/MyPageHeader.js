@@ -21,7 +21,6 @@ const MyPageHeader = () => {
                     border: 0;
                     padding-left: 1rem;
                     padding-right: 1rem;
-                }
                 `}
             >
                 마이페이지
