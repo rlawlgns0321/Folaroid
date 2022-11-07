@@ -14,7 +14,7 @@ public class ProjectDto {
         private Long pfNo;
 //        private Long pfNo;
         private String pjtTitle;
-        private String pjtSubTitle;
+        private String pjtSubtitle;
         private String pjtUrl;
         private String pjtGithubUrl;
         private Integer pjtStar;
@@ -26,7 +26,7 @@ public class ProjectDto {
                     .pjtNo(pjtNo)
                     .portfolio(portfolio)
                     .pjtTitle(pjtTitle)
-                    .pjtSubtitle(pjtSubTitle)
+                    .pjtSubtitle(pjtSubtitle)
                     .pjtUrl(pjtUrl)
                     .pjtGithubUrl(pjtGithubUrl)
                     .pjtStar(pjtStar)
@@ -35,6 +35,16 @@ public class ProjectDto {
                     .build();
             return project;
         }
+        @Builder
+        public projectRequest(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtImageLocation, String pjtJson){
+            this.pjtTitle = pjtTitle;
+            this.pjtSubtitle = pjtSubtitle;
+            this.pjtUrl = pjtUrl;
+            this.pjtGithubUrl = pjtGithubUrl;
+            this.pjtStar = pjtStar;
+            this.pjtImageLocation = pjtImageLocation;
+            this.pjtJson = pjtJson;
+        }
 
     }
     @Getter
@@ -42,7 +52,7 @@ public class ProjectDto {
         private Long pjtNo;
         private Long pfNo;
         private String pjtTitle;
-        private String pjtSubTitle;
+        private String pjtSubtitle;
         private String pjtUrl;
         private String pjtGithubUrl;
         private Integer pjtStar;
@@ -54,7 +64,7 @@ public class ProjectDto {
             this.pjtNo = project.getPjtNo();
             this.pfNo = project.getPortfolio().getPfNo();
             this.pjtTitle = project.getPjtTitle();
-            this.pjtSubTitle = project.getPjtSubtitle();
+            this.pjtSubtitle = project.getPjtSubtitle();
             this.pjtUrl = project.getPjtUrl();
             this.pjtGithubUrl = project.getPjtGithubUrl();
             this.pjtStar = project.getPjtStar();
