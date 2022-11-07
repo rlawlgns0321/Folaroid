@@ -33,7 +33,8 @@ public class PortfolioServiceImpl implements PortfolioService{
         Long portfolioIntroNo = introRepository.save(intro).getIntroNo();
 //        기존의 개인정보 데이터들을 바로 포트폴리오의 자기소개 정보로 저장할 것.
         Long userInfoIntroNo = introRepository.findUserDefaultData(request.getUserNo());
-        //포트폴리오 자기소개 이미지 테이블 저장 1:1 - 아직 controller 구현 안됨.
+        //포트폴리오 자기소개 이미지 테이블 저장 1:1
+
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N
@@ -54,6 +55,13 @@ public class PortfolioServiceImpl implements PortfolioService{
 
         return new PortfolioDto.SavePortfolioDto(portfolio, portfolioIntroNo);
     }
+    @Transactional
+    @Override
+    public Long getPortfolioIntroNo(Long pfNo) {
+        Long userNo = portfolioRepository.findById(pfNo).get().getUserNo();
+        return introRepository.findByPfNoAndUserNo(pfNo, userNo);
+    }
+
 
     @Transactional
     @Override
