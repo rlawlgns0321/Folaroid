@@ -159,7 +159,15 @@ public class ReadmeController {
                         while ((quoteLine = rd.readLine()) != null && quoteLine.charAt(0) == '>')
                             line += "\n" + quoteLine;
                     }
-                    res.add(line);
+
+                    else if ((line.charAt(0) == '-' //unordered list parsing
+                    || line.charAt(0) == '*'
+                    || line.charAt(0) == '+')) {
+                        String unorderedListLine;
+                        while ((unorderedListLine = rd.readLine()) != null && unorderedListLine.length() != 0) {
+                            line += "\n" + unorderedListLine;
+                        }
+                    }
                 }
             }
             rd.close();
