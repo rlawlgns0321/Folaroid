@@ -19,20 +19,6 @@ const PortFolioItem = ({ num }) => {
         <div>
             <Divider />
             <ListItem>
-                <ListItemSecondaryAction>
-                    <IconButton edge="end">
-                        <VisibilityIcon />
-                    </IconButton>
-                    <IconButton edge="end">
-                        <CreateIcon />
-                    </IconButton>
-                    <IconButton edge="end">
-                        <ContentCopyIcon />
-                    </IconButton>
-                    <IconButton edge="end">
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItemSecondaryAction>
                 <ListItemAvatar>
                     <Avatar>
                         <WebIcon />
@@ -47,6 +33,20 @@ const PortFolioItem = ({ num }) => {
                     primary={`포트폴리오 ${num + 1}`}
                     secondary={`작성날짜`}
                 />
+                <ListItemSecondaryAction>
+                    <IconButton edge="end">
+                        <VisibilityIcon />
+                    </IconButton>
+                    <IconButton edge="end">
+                        <CreateIcon />
+                    </IconButton>
+                    <IconButton edge="end">
+                        <ContentCopyIcon />
+                    </IconButton>
+                    <IconButton edge="end">
+                        <DeleteIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
             </ListItem>
             <Divider />
         </div>
