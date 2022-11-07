@@ -11,7 +11,7 @@ public class PjtImageDto {
 
         public pjtImageResponse(PjtImage pjtImage){
             this.pjtImageNo = pjtImage.getPjtImageNo();
-            this.pjtNo = pjtImage.getProject().getPjtNo();
+            this.pjtNo = pjtImage.getPjtNo();
             this.pjtImageLocation = pjtImage.getPjtImageLocation();
         }
     }

@@ -53,13 +53,13 @@ public class Project {
         this.pjtSubtitle = pjtSubtitle;
     }
 
-    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtImageLocation, String pjtJson){
+    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtOneImageLocation, String pjtJson){
         this.pjtTitle = pjtTitle;
         this.pjtSubtitle = pjtSubtitle;
         this.pjtUrl = pjtUrl;
         this.pjtGithubUrl = pjtGithubUrl;
         this.pjtStar = pjtStar;
-        this.pjtImageLocation = pjtImageLocation;
+        this.pjtOneImageLocation = pjtOneImageLocation;
         this.pjtJson = pjtJson;
     }
 }
