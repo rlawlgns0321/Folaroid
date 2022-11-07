@@ -19,10 +19,11 @@ public class IntroSlogan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long introSloganNo;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+    //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "intro_no")
+//    private Intro intro;
+    private Long introNo;
 
     @Column(name = "slogan_content", columnDefinition = "TEXT")
     private String sloganContent;

@@ -9,5 +9,5 @@ public interface IntroSloganService {
     Long saveIntroSlogan(IntroSloganDto.introSloganRequest introSloganRequest);
     void deleteIntroSlogan(Long introSloganNo);
 
-    List<IntroSlogan> findIntroSlogan(Long introNo);
+    IntroSlogan findIntroSlogan(Long introNo);
 }
