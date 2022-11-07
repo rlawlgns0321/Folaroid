@@ -6,6 +6,7 @@ export const getUserThunk = createAsyncThunk('auth/GetUser', async (code) => {
     let userGithubId = userResponse.data.user.userGithubId;
     let userIntroNoResponse = await api.introNo(userGithubId);
     userResponse.data.intro_no = userIntroNoResponse.data;
+    console.log(userResponse.data);
     return userResponse.data;
 });
 
@@ -27,6 +28,7 @@ export const auth = createSlice({
             console.log(payload);
             state.user = payload.user;
             state.user.jwt = payload.jwt;
+            state.user.intro_no = payload.intro_no;
         },
     },
 });

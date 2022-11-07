@@ -7,7 +7,7 @@ const authCode = (code) => {
 };
 
 const introNo = (userGithubId) => {
-    return api.get(`/user-info/mypage?userGithubId=${userGithubId}`);
+    return api.get(`/user-info/mypage/${userGithubId}`);
 };
 
 export { authCode, introNo };
