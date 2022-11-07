@@ -8,9 +8,13 @@ import lombok.Setter;
 public class GithubRepo {
 
     private String name;
+    private String id;
     private String html_url;
     private String description;
     private String created_at;
     private String updated_at;
     private int stargazers_count;
+    private int watchers_count;
+    private String languages_url;
+
 }
