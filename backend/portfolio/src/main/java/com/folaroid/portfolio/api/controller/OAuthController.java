@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -162,13 +165,23 @@ public class OAuthController {
    }
 
     @GetMapping("/getRepos")
-    public Map<String, Object> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public List<Object> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
 
         String requestReposUrl = responseUserInfo.getRepos_url();
+        RestTemplate restTemplate = new RestTemplate();
+
         HashMap<String, Object> map = new HashMap<>();
+        ResponseEntity<List<Object>> userInfoResponse = restTemplate.exchange(
+                requestReposUrl,
+                HttpMethod.GET,
+                getUserInfoEntity(responseToken),
+                new ParameterizedTypeReference<List<Object>>() {}
+        );
+
+        return userInfoResponse.getBody();
         /*map.put("jwt", responseToken.getAccessToken());
         User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
         if (user != null) {
@@ -206,6 +219,5 @@ public class OAuthController {
         System.out.println(responseUserInfo.getRepos_url());
         System.out.println(responseUserInfo.getPublic_repos());
         return map;*/
-        return map;
     }
 }
