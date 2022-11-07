@@ -3,6 +3,7 @@ import * as api from '../lib/api/authAPI';
 
 export const getUserThunk = createAsyncThunk('auth/GetUser', async (code) => {
     const response = await api.authCode(code);
+    
     return response.data;
 });
 

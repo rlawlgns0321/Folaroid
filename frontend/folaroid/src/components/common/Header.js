@@ -3,6 +3,7 @@ import React from 'react';
 import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import SignInDialog from '../dialog/SignInDialog';
+import AccountMenu from './AccountMenu';
 
 const MenuBtn = styled.button`
     font-size: 1rem;
@@ -23,15 +24,12 @@ const Header = ({ user, onLogout }) => {
         setOpen(false);
     };
 
-    const handleLogout = () => {
-        onLogout();
-    };
-
     return (
         <Grid
             sx={{
                 width: '100vw',
                 height: '7vh',
+                px: 3,
             }}
             container
             justifyContent="space-between"
@@ -50,7 +48,7 @@ const Header = ({ user, onLogout }) => {
                 folaroid
             </button>
             <Grid
-                sx={{ width: '35vw' }}
+                sx={{ width: '25vw' }}
                 container
                 direction="row"
                 justifyContent="space-between"
@@ -59,7 +57,7 @@ const Header = ({ user, onLogout }) => {
                 <MenuBtn>포트폴리오 열람</MenuBtn>
                 <MenuBtn>포트폴리오 제작</MenuBtn>
                 {user ? (
-                    <MenuBtn onClick={handleLogout}>로그아웃</MenuBtn>
+                    <AccountMenu onLogout={onLogout}/>
                 ) : (
                     <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
                 )}
