@@ -39,10 +39,10 @@ public class PortfolioServiceImpl implements PortfolioService{
         //포트폴리오 자기소개 이미지 테이블 저장 1:1
 
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
-        IntroPersonalData userInfo = introPersonalDataRepository.findByIntroNo(userInfoIntroNo);
-        IntroPersonalData portfolioInfo = new IntroPersonalData(portfolioIntroNo);
-        portfolioInfo.updateIntroPersonalData(userInfo.getPersonalDataName(), userInfo.getPersonalDataBirth(), userInfo.getPersonalDataPhone());
-        introPersonalDataRepository.save(portfolioInfo);
+        IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(userInfoIntroNo);
+        IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(portfolioIntroNo);
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        introPersonalDataRepository.save(portfolioInfoPersonalData);
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N
         List<IntroStack> userInfos = introStackRepository.findAllByIntroNo(userInfoIntroNo);
@@ -60,10 +60,10 @@ public class PortfolioServiceImpl implements PortfolioService{
         //포트폴리오 자기소개 학력 테이블 저장 1:N
 
         //포트폴리오 자기소개 슬로건 테이블 저장 1:1
-//        IntroSlogan userInfo = introSloganRepository.findByIntroNo(userInfoIntroNo);
-//        IntroPersonalData portfolioInfo = new IntroPersonalData(portfolioIntroNo);
-//        portfolioInfo.updateIntroPersonalData(userInfo.getPersonalDataName(), userInfo.getPersonalDataBirth(), userInfo.getPersonalDataPhone());
-//        introPersonalDataRepository.save(portfolioInfo);
+        IntroSlogan userInfoSlogan = introSloganRepository.findByIntroNo(userInfoIntroNo);
+        IntroSlogan portfolioInfoSlogan = new IntroSlogan(portfolioIntroNo);
+        portfolioInfoSlogan.updateIntroSlogan(userInfoSlogan.getSloganContent());
+        introSloganRepository.save(portfolioInfoSlogan);
 
 
         return new PortfolioDto.SavePortfolioDto(portfolio, portfolioIntroNo);
