@@ -20,6 +20,6 @@ public class PjtImageServiceImpl implements PjtImageService{
     @Transactional
     @Override
     public List<PjtImage> findPjtImage(Long pjtNo) {
-        return pjtImageRepository.findAllByProject(projectRepository.findById(pjtNo).get());
+        return pjtImageRepository.findAllByPjtNo(pjtNo);
     }
 }
