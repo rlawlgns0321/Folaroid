@@ -106,9 +106,6 @@ public class OAuthController {
                 getUserInfoEntity(oAuthToken),
                 GithubUser.class
         );
-        //System.out.println("get User Info Success?");
-        //userService.save(new UserSignupReq(userInfoResponse.getBody().getLogin(), userInfoResponse.getBody().getEmail()));
-        //System.out.println("get User Info Success!");
         return userInfoResponse.getBody();
 
     }
@@ -123,7 +120,6 @@ public class OAuthController {
        User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
        if (user != null) {
            map.put("user",user);
-           //return map;
        }else{
             System.out.println("New User!!");
             Long createUserPk = userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
@@ -131,23 +127,8 @@ public class OAuthController {
             IntroDto.introRequest introDto = new IntroDto.introRequest();
             introDto.setUserNo(createUserPk);
             introService.createIntro(introDto);
-            //return map;
        }
-      /* RestTemplate restTemplate = new RestTemplate();
-       HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
-       ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
-               USER_SIGNUP_URI,
-               HttpMethod.POST,
-               signUpRequestEntity,
-               Integer.class
-       );
 
-       int userNo = userNoResponse.getBody().intValue();*/
-        // manage "/signup" post request at backend -> activate when needed
-       //map.put("jwt", responseToken.getAccessToken());
-       //map.put("github_id", responseUserInfo.getLogin());
-       //map.put("email", responseUserInfo.getEmail());
-       //map.put("user_no", user_no);
        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
 
        System.out.println(tmp.size());
@@ -202,42 +183,5 @@ public class OAuthController {
         );
 
         return userInfoResponse.getBody();
-        /*map.put("jwt", responseToken.getAccessToken());
-        User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
-        if (user != null) {
-            map.put("user",user);
-            //return map;
-        }else{
-            userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
-            map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
-            //return map;
-        }*/
-      /* RestTemplate restTemplate = new RestTemplate();
-       HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
-       ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
-               USER_SIGNUP_URI,
-               HttpMethod.POST,
-               signUpRequestEntity,
-               Integer.class
-       );
-
-       int userNo = userNoResponse.getBody().intValue();
-        // manage "/signup" post request at backend -> activate when needed
-        //map.put("jwt", responseToken.getAccessToken());
-        //map.put("github_id", responseUserInfo.getLogin());
-        //map.put("email", responseUserInfo.getEmail());
-        //map.put("user_no", user_no);
-        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
-
-        System.out.println(tmp.size());
-        for (int i = 0 ; i < tmp.size() ; i++) {
-            System.out.println(tmp.get(i));
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        }
-        System.out.println(responseToken.getAccessToken());
-        System.out.println(responseUserInfo.getAvatar_url());
-        System.out.println(responseUserInfo.getRepos_url());
-        System.out.println(responseUserInfo.getPublic_repos());
-        return map;*/
     }
 }
