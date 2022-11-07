@@ -1,11 +1,15 @@
 body {
   margin: 0;
+  /*overflow: hidden; /*스크롤
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/*스크롤바 안보이게*/
+/* ::-webkit-scrollbar {
+  display: none;} */
 
 ::-webkit-scrollbar{
   display: block;
@@ -34,4 +38,23 @@ code {
 
 h1 {
   font-family: 'S-CoreDream-3Light';
+}
+
+/*템플릿1*/
+.sections {
+	position: relative;
+	z-index: 1;
+}
+.section {
+	box-sizing: border-box;
+	padding: 5rem;
+	height: 100vh;
+}
+.section h2 {
+	margin: 0;
+	font-size: 10vmin;
+  font-family: 'S-CoreDream-3Light';
+}
+.section:nth-child(odd) {
+	text-align: right;
 }

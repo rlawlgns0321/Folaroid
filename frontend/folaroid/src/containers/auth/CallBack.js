@@ -1,34 +1,30 @@
 import React, { useEffect } from 'react';
 import qs from 'qs';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserThunk } from '../../modules/auth';
 
 const CallBack = () => {
-    const authUri = `BE와협의한 주소`;
     const location = useLocation();
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const getToken = async () => {
-            const { code } = qs.parse(location.search, {
-                ignoreQueryPrefix: true,
-            });
-            console.log(code);
-            // try {
-            //     const response = await fetch(`${authUri}?code=${code}`);
-            //     const data = await response.json();
+        const { code } = qs.parse(location.search, {
+            ignoreQueryPrefix: true,
+        });
+        dispatch(getUserThunk(code));
+    }, [location, dispatch]);
 
-            //     localStorage.setItem('token', data.jwt);
-            //     localStorage.setItem('ProfileURL', data.avatar_url);
-
-            //     history.push('/');
-            // } catch (error) {}
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem('user',JSON.stringify(user));
             navigate('/');
-        };
-        getToken();
-    }, [location, navigate, authUri]);
+        }
+    }, [user,  navigate]);
 
     return <div>로딩중</div>;
 };
 
-export default  CallBack;
+export default CallBack;

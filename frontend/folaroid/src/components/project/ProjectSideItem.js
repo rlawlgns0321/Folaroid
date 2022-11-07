@@ -20,7 +20,12 @@ const Header = styled.div`
     align-items: center;
 `;
 
-const ProjectSideItem = () => {
+const ProjectSideItem = ({project, onDeleteProject}) => {
+
+    const onDeleteClick = () => {
+        onDeleteProject(project.id);
+    }
+
     return (
         <ItemBox>
             <Grid
@@ -45,14 +50,14 @@ const ProjectSideItem = () => {
                             color: #248bea;
                         `}
                     >
-                        프로젝트명
+                        {project.name}
                     </div>
                 </Header>
-                <IconButton aria-label="delete" size="large">
+                <IconButton aria-label="delete" size="large" onClick={onDeleteClick}>
                     <DeleteIcon fontSize="inherit" />
                 </IconButton>
             </Grid>
-            <Grid sx={{ my: 1 }}>프로젝트 소개~~</Grid>
+            <Grid sx={{ my: 1 }}>{project.description}</Grid>
             <Grid>
                 <div
                     className={css`
@@ -60,7 +65,7 @@ const ProjectSideItem = () => {
                         color: #838282;
                     `}
                 >
-                    마지막 업데이트
+                    마지막 업데이트 {project.lastUpdate}
                 </div>
             </Grid>
         </ItemBox>

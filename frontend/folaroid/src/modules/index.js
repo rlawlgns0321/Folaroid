@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import { penderReducer } from 'redux-pender';
-import name from './name'
+import portfolioProjectReducer from './portfolioProject';
+import authReducer from './auth';
 
-export default combineReducers({
-    name,
-    pender: penderReducer
+const rootReducer = combineReducers({
+    auth: authReducer,
+    portfolioProject: portfolioProjectReducer,
 });
+
+export default rootReducer;

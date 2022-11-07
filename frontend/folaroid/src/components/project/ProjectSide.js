@@ -1,16 +1,17 @@
 import React from 'react';
 import ProjectSideItem from './ProjectSideItem';
 
-const ProjectSide = () => {
+const ProjectSide = ({ projects, onDeleteProject }) => {
     return (
         <div>
-            <ProjectSideItem/>
-            <ProjectSideItem/>
-            <ProjectSideItem/>
-            <ProjectSideItem/>
-            <ProjectSideItem/>
-            <ProjectSideItem/>
-            <ProjectSideItem/>
+            {projects &&
+                projects.map((project) => (
+                    <ProjectSideItem
+                        key={project.id}
+                        project={project}
+                        onDeleteProject={onDeleteProject}
+                    />
+                ))}
         </div>
     );
 };

@@ -6,6 +6,8 @@ import MyPage from './pages/MyPage';
 import BaseIntro from './pages/BaseIntro';
 import OthersPage from './pages/OthersPage';
 import './index.css';
+import Template1 from './pages/Template1';
+import Template2 from './pages/Template2';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 import PortFolioPage from './pages/PortFolioPage';
@@ -23,6 +25,8 @@ function App() {
                     <Route path="/portfolio/*" element={<PortFolioPage />}/>
                     <Route path="/others" element={<OthersPage />}/>
                     <Route path="/projectinfo" element={<ProjectInfoPage />} />
+                    <Route path="/tem1" element={<Template1 />} />
+                    <Route path="/tem2" element={<Template2 />} />
                 </Routes>
             </div>
         </ThemeProvider>

@@ -1,7 +1,7 @@
 package com.folaroid.portfolio.api.dto;
 
+import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.Portfolio;
-import com.folaroid.portfolio.db.entity.PortfolioTemplates;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ public class PortfolioDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Request{
+    public static class portfolioRequest{
         private Long pfNo;
         private Long userNo;
         private Integer pfPrivacy;
@@ -53,6 +53,28 @@ public class PortfolioDto {
             this.pfImageLocation = portfolio.getPfImageLocation();
         }
     }
+    @Getter
+    @AllArgsConstructor
+    public static class PortfolioSimpleDto {
+        private Long pfNo;
+        private LocalDateTime updated_at;
 
+        public PortfolioSimpleDto(Portfolio portfolio) {
+            this.pfNo = portfolio.getPfNo();
+            this.updated_at = portfolio.getUpdatedAt();
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class SavePortfolioDto {
+        private Long pfNo;
+        private Long introNo;
+
+        public SavePortfolioDto(Portfolio portfolio, Long introNo) {
+            this.pfNo = portfolio.getPfNo();
+            this.introNo = introNo;
+        }
+    }
 
 }

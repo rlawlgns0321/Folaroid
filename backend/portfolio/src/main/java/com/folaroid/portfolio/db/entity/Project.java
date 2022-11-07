@@ -1,22 +1,30 @@
 package com.folaroid.portfolio.db.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
+@Builder
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pjt_no")
     private Long pjtNo;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pf_no")
     private Portfolio portfolio;
+//    @Column(name = "pf_no")
+//    private Long pfNo;
 
     @Column(name = "pjt_title", length = 100)
     private String pjtTitle;
@@ -35,4 +43,12 @@ public class Project {
 
     @Column(name = "pjt_image_location", length = 2083)
     private String pjtImageLocation;
+
+    @Column(columnDefinition = "TEXT")
+    private String pjtJson;
+
+    public void updateProjectTitle(String pjtTitle, String pjtSubtitle){
+        this.pjtTitle = pjtTitle;
+        this.pjtSubtitle = pjtSubtitle;
+    }
 }

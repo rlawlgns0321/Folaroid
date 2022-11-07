@@ -1,18 +1,23 @@
 package com.folaroid.portfolio.db.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Getter @Setter
+@Getter
+@Builder
 public class IntroArchiving {
 
     @Id @GeneratedValue
     //@Column(name = "intro_archiving_no")
     private Long introArchivingNo;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "intro_no")
     private Intro intro;
