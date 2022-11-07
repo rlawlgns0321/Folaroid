@@ -1,8 +1,11 @@
 package com.folaroid.portfolio.api.controller;
 
 import com.folaroid.portfolio.api.dto.ProjectDto;
+import com.folaroid.portfolio.api.service.FileService;
 import com.folaroid.portfolio.api.service.ProjectService;
+import com.folaroid.portfolio.db.entity.PjtImage;
 import com.folaroid.portfolio.db.entity.Project;
+import com.folaroid.portfolio.db.repository.PjtImageRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,9 +13,10 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Api(value = "프로젝트", tags={"Project"})
@@ -21,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
     private final ProjectService projectService;
+
 
     /**
      * 프로젝트 등록

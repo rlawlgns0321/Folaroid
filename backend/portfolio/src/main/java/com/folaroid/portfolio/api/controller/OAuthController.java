@@ -6,6 +6,7 @@ import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.UserDto;
 import com.folaroid.portfolio.api.service.IntroService;
 import com.folaroid.portfolio.api.service.UserService;
+import com.folaroid.portfolio.api.vo.GithubRepo;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.folaroid.portfolio.db.entity.Intro;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,8 +27,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -163,24 +167,53 @@ public class OAuthController {
            System.out.println(tmp.get(i));
            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        }
-       System.out.println(responseToken.getAccessToken());
-       System.out.println(responseToken.getTokenType());
-       System.out.println(responseToken.getBearer());
-       System.out.println(responseToken.getScope());
-       System.out.println(responseUserInfo.getAvatar_url());
-       System.out.println(responseUserInfo.getRepos_url());
-       System.out.println(responseUserInfo.getPublic_repos());
+
+       OAuthToken testToken = new OAuthToken();
+       testToken.setAccessToken(responseToken.getAccessToken());
+
+       String requestReposUrl = responseUserInfo.getRepos_url();
+       RestTemplate restTemplate = new RestTemplate();
+
+       ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
+               requestReposUrl,
+               HttpMethod.GET,
+               getUserInfoEntity(responseToken),
+               new ParameterizedTypeReference<List<GithubRepo>>() {}
+       );
+
+       for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
+           System.out.println(userInfoResponse.getBody().get(i).getName());
+           System.out.println(userInfoResponse.getBody().get(i).getDescription());
+           System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
+           System.out.println("=================================");
+       }
+       //System.out.println(responseToken.getAccessToken());
+       //System.out.println(responseToken.getTokenType());
+       //System.out.println(responseToken.getBearer());
+       //System.out.println(responseToken.getScope());
+       //System.out.println(responseUserInfo.getAvatar_url());
+       //System.out.println(responseUserInfo.getRepos_url());
+       //System.out.println(responseUserInfo.getPublic_repos());
        return map;
    }
 
     @GetMapping("/getRepos")
-    public Map<String, Object> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public List<GithubRepo> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
 
         String requestReposUrl = responseUserInfo.getRepos_url();
-        HashMap<String, Object> map = new HashMap<>();
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
+                requestReposUrl,
+                HttpMethod.GET,
+                getUserInfoEntity(responseToken),
+                new ParameterizedTypeReference<List<GithubRepo>>() {}
+        );
+
+        return userInfoResponse.getBody();
         /*map.put("jwt", responseToken.getAccessToken());
         User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
         if (user != null) {
@@ -218,6 +251,5 @@ public class OAuthController {
         System.out.println(responseUserInfo.getRepos_url());
         System.out.println(responseUserInfo.getPublic_repos());
         return map;*/
-        return map;
     }
 }

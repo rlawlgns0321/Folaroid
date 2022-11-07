@@ -42,8 +42,8 @@ public class Project {
     @Column(name = "pjt_star")
     private Integer pjtStar;
 
-    @Column(name = "pjt_image_location", length = 2083)
-    private String pjtImageLocation;
+    @Column(name = "pjt_one_image_location", length = 2083)
+    private String pjtOneImageLocation; // 프로젝트 대표이미지
 
     @Column(name = "pjt_json", columnDefinition = "TEXT")
     private String pjtJson;
@@ -53,13 +53,13 @@ public class Project {
         this.pjtSubtitle = pjtSubtitle;
     }
 
-    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtImageLocation, String pjtJson){
+    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtOneImageLocation, String pjtJson){
         this.pjtTitle = pjtTitle;
         this.pjtSubtitle = pjtSubtitle;
         this.pjtUrl = pjtUrl;
         this.pjtGithubUrl = pjtGithubUrl;
         this.pjtStar = pjtStar;
-        this.pjtImageLocation = pjtImageLocation;
+        this.pjtOneImageLocation = pjtOneImageLocation;
         this.pjtJson = pjtJson;
     }
 }
