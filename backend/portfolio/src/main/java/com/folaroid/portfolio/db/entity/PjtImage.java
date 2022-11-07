@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
@@ -16,7 +17,7 @@ public class PjtImage {
     private Long pjtImageNo;
 
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pjf_no")
     private Project project;
