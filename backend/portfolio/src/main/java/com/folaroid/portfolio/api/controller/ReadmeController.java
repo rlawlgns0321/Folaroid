@@ -20,7 +20,6 @@ public class ReadmeController {
             conn.setRequestMethod("GET");
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((line = rd.readLine()) != null) {
-                System.out.println(line);
                 if (!isEmptyLine(line)) {
                     if (line.contains("|")) { //table parsing
                        int barNumber = 0;
@@ -175,7 +174,6 @@ public class ReadmeController {
                             if (line.charAt(i) == '.' && line.charAt(i + 1) == ' ') {
                                 String orderedListLine;
                                 while ((orderedListLine = rd.readLine()) != null && !isEmptyLine(orderedListLine)) {
-                                    System.out.println(orderedListLine + " " + orderedListLine.length());
                                     line += "\n" + orderedListLine;
                                 }
                                 break;

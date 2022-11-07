@@ -38,8 +38,8 @@ public class Portfolio {
     @Column(name = "portfolio_templates_no")
     private Long portfolioTemplatesNo;
 
-    @Column(name = "pf_image_location", length = 2083)
-    private String pfImageLocation;
+//    @Column(name = "pf_image_location", length = 2083)
+//    private String pfImageLocation;
 
     public void updatePortfolioTemplate(Long portfolioTemplatesNo){
         this.portfolioTemplatesNo = portfolioTemplatesNo;
