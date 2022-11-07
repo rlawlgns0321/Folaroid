@@ -1,7 +1,6 @@
 package com.folaroid.portfolio.api.service;
 
 import com.folaroid.portfolio.api.dto.ProjectDto;
-import com.folaroid.portfolio.db.entity.Portfolio;
 import com.folaroid.portfolio.db.entity.Project;
 import com.folaroid.portfolio.db.repository.PortfolioRepository;
 import com.folaroid.portfolio.db.repository.ProjectRepository;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -37,4 +37,13 @@ public class ProjectServiceImpl implements ProjectService{
     public List<Project> findALlProject(Long pfNo) {
         return projectRepository.findAllByPortfolio(portfolioRepository.findById(pfNo).get());
     }
+
+    @Transactional
+    @Override
+    public ProjectDto.projectResponse findProject(Long pjtNo) {
+        Project project = projectRepository.findById(pjtNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
+        return new ProjectDto.projectResponse(project);
+    }
+
 }

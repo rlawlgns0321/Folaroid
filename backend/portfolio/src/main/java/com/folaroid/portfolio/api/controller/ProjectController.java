@@ -65,4 +65,18 @@ public class ProjectController {
         List<Project> projects = projectService.findALlProject(pfNo);
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+
+    /**
+     * 프로젝트 상세 조회
+     */
+    @GetMapping("detail/{pjtNo}")
+    @ApiOperation(value = "프로젝트 상세 조회", notes = "프로젝트를 상세 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<ProjectDto.projectResponse> findProject(@PathVariable Long pjtNo){
+        return ResponseEntity.status(200).body(projectService.findProject(pjtNo));
+    }
 }
