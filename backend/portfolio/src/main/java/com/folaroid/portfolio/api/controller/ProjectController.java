@@ -73,6 +73,35 @@ public class ProjectController {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
+    /**
+     * 프로젝트 상세 조회
+     */
+    @GetMapping("detail/{pjtNo}")
+    @ApiOperation(value = "프로젝트 상세 조회", notes = "프로젝트를 상세 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<ProjectDto.projectResponse> findProject(@PathVariable Long pjtNo){
+        return ResponseEntity.status(200).body(projectService.findProject(pjtNo));
+    }
+
+    /**
+     * 프로젝트 수정
+     */
+    @PatchMapping("detail/{pjtNo}")
+    @ApiOperation(value = "프로젝트 상세 수정", notes = "프로젝트를 상세 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> patchProject(@PathVariable Long pjtNo, @RequestBody ProjectDto.projectRequest projectRequest){
+        projectService.patchProject(pjtNo, projectRequest);
+        return ResponseEntity.status(200).body(pjtNo);
+    }
+
     @PostMapping("/project-images/{pjt-no}")
     @ApiOperation(value = "포트폴리오 이미지 저장", notes = "포트폴리오 이미지를 저장한다.")
     @ApiResponses({

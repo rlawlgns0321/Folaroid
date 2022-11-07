@@ -2,7 +2,9 @@ package com.folaroid.portfolio.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.UserDto;
+import com.folaroid.portfolio.api.service.IntroService;
 import com.folaroid.portfolio.api.service.UserService;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
@@ -42,6 +44,9 @@ public class OAuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IntroService introService;
 
     @Autowired
     private UserRepository userRepository;
@@ -116,8 +121,12 @@ public class OAuthController {
            map.put("user",user);
            //return map;
        }else{
-            userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
+            System.out.println("New User!!");
+            Long createUserPk = userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
             map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
+            IntroDto.introRequest introDto = new IntroDto.introRequest();
+            introDto.setUserNo(createUserPk);
+            introService.createIntro(introDto);
             //return map;
        }
       /* RestTemplate restTemplate = new RestTemplate();
@@ -135,7 +144,7 @@ public class OAuthController {
        //map.put("github_id", responseUserInfo.getLogin());
        //map.put("email", responseUserInfo.getEmail());
        //map.put("user_no", user_no);
-       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/folaroidMDTest/master/README.md");
+       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
 
        System.out.println(tmp.size());
        for (int i = 0 ; i < tmp.size() ; i++) {
@@ -143,6 +152,60 @@ public class OAuthController {
            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        }
        System.out.println(responseToken.getAccessToken());
+       System.out.println(responseToken.getTokenType());
+       System.out.println(responseToken.getBearer());
+       System.out.println(responseToken.getScope());
+       System.out.println(responseUserInfo.getAvatar_url());
+       System.out.println(responseUserInfo.getRepos_url());
+       System.out.println(responseUserInfo.getPublic_repos());
        return map;
    }
+
+    @GetMapping("/getRepos")
+    public Map<String, Object> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
+        OAuthToken responseToken = new OAuthToken();
+        responseToken.setAccessToken(accessToken);
+        GithubUser responseUserInfo = getUserInfo(responseToken);
+
+        String requestReposUrl = responseUserInfo.getRepos_url();
+        HashMap<String, Object> map = new HashMap<>();
+        /*map.put("jwt", responseToken.getAccessToken());
+        User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
+        if (user != null) {
+            map.put("user",user);
+            //return map;
+        }else{
+            userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
+            map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
+            //return map;
+        }*/
+      /* RestTemplate restTemplate = new RestTemplate();
+       HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
+       ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
+               USER_SIGNUP_URI,
+               HttpMethod.POST,
+               signUpRequestEntity,
+               Integer.class
+       );
+
+       int userNo = userNoResponse.getBody().intValue();
+        // manage "/signup" post request at backend -> activate when needed
+        //map.put("jwt", responseToken.getAccessToken());
+        //map.put("github_id", responseUserInfo.getLogin());
+        //map.put("email", responseUserInfo.getEmail());
+        //map.put("user_no", user_no);
+        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
+
+        System.out.println(tmp.size());
+        for (int i = 0 ; i < tmp.size() ; i++) {
+            System.out.println(tmp.get(i));
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        }
+        System.out.println(responseToken.getAccessToken());
+        System.out.println(responseUserInfo.getAvatar_url());
+        System.out.println(responseUserInfo.getRepos_url());
+        System.out.println(responseUserInfo.getPublic_repos());
+        return map;*/
+        return map;
+    }
 }
