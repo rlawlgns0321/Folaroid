@@ -27,4 +27,12 @@ public class IntroSlogan {
 
     @Column(name = "slogan_content", columnDefinition = "TEXT")
     private String sloganContent;
+
+    public IntroSlogan(Long introNo) {
+        this.introNo = introNo;
+    }
+
+    public void updateIntroSlogan(String sloganContent) {
+        this.sloganContent = sloganContent;
+    }
 }
