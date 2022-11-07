@@ -39,9 +39,9 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - 유저 개인정보",
             notes="조회. 없으면 없는대로 보내기",
             httpMethod = "GET")
-    @GetMapping("/user-info")
-    public ResponseEntity<UserDefaultDto> find(@RequestBody IntroDto.IntroNoDto request) {
-        UserDefaultDto userDefaultDto = userService.find(request);
+    @GetMapping("/user-info/{introNo}")
+    public ResponseEntity<UserDefaultDto> find(@PathVariable Long introNo) {
+        UserDefaultDto userDefaultDto = userService.find(introNo);
         return new ResponseEntity<>(userDefaultDto, HttpStatus.OK);
     }
 
@@ -59,9 +59,9 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - intro_no",
             notes="intro_no 반환",
             httpMethod = "GET")
-    @GetMapping("/user-info/mypage")
-    public ResponseEntity<Long> getIntroNo(@RequestBody UserLoginReq request) {
-        Long introNo = userService.getIntroNo(request);
+    @GetMapping("/user-info/mypage/{user_github_id}")
+    public ResponseEntity<Long> getIntroNo(@PathVariable("user_github_id") String userGithubId) {
+        Long introNo = userService.getIntroNo(userGithubId);
         return new ResponseEntity<>(introNo, HttpStatus.OK);
     }
 
