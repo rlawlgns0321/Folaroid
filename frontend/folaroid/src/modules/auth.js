@@ -25,7 +25,6 @@ export const auth = createSlice({
     },
     extraReducers: {
         [getUserThunk.fulfilled.type]: (state, { payload }) => {
-            console.log(payload);
             state.user = payload.user;
             state.user.jwt = payload.jwt;
             state.user.intro_no = payload.intro_no;

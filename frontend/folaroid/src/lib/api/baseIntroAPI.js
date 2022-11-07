@@ -3,7 +3,7 @@ import { instance } from './client';
 const api = instance();
 
 const getPersonal = (intro_no) => {
-    return api.get(`/user-info`, intro_no);
+    return api.get(`/user-info/${intro_no}`);
 };
 
 const createPersonal = (data) => {
@@ -114,7 +114,6 @@ const deleteSchool = (intro_school_no) => {
     return api.delete(`/intro-school/${intro_school_no}`);
 };
 
-
 export {
     findByGithub,
     getPersonal,
@@ -143,5 +142,5 @@ export {
     deleteLanguage,
     getSchool,
     createSchool,
-    deleteSchool
+    deleteSchool,
 };
