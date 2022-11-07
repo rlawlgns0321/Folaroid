@@ -34,11 +34,11 @@ import java.util.Map;
 @PropertySource("classpath:application-security.properties")
 @CrossOrigin
 public class OAuthController {
-    private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
+    //private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
 
     private final String USER_REQUEST_URI = "https://api.github.com/user";
-    private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
+    //private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
     @Value("${client-id}")
@@ -167,7 +167,7 @@ public class OAuthController {
    }
 
     @GetMapping("/repos")
-    public List<GithubRepo> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public List<GithubRepo> getRepos(@RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
@@ -186,7 +186,7 @@ public class OAuthController {
     }
 
     @GetMapping("/repo")
-    public GithubRepo getRepo(@RequestParam String accessToken, @RequestParam String id, HttpServletResponse res) throws JsonProcessingException {
+    public GithubRepo getRepo(@RequestParam String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
