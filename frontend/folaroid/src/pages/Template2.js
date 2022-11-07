@@ -13,7 +13,6 @@ export function Planet1() {
 
     return (
         <>
-            <ambientLight intensity={0.2} />
             <mesh
                 ref={planetRef}
                 position={[10, -1, -7]}
@@ -25,7 +24,7 @@ export function Planet1() {
                 <meshStandardMaterial
                     map={pastelMap}
                     metalness={0.3}
-                    roughness={0.6}
+                    roughness={0.7}
                 />
             </mesh>
         </>
@@ -41,7 +40,6 @@ export function Planet2() {
 
     return (
         <>
-            <ambientLight intensity={0.2} />
             <mesh
                 ref={planetRef}
                 position={[25, 10, -25]}
@@ -60,16 +58,15 @@ export function Planet2() {
     );
 }
 export function Planet3() {
-    const pastelMap = useTexture('images/planet4.jpg');
+    const pastelMap = useTexture('images/pastel_blue.jpg');
     const planetRef = useRef();
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
-        planetRef.current.rotation.y = elapsedTime / 6;
+        planetRef.current.rotation.y = elapsedTime / 5;
     });
 
     return (
         <>
-            <ambientLight intensity={0.2} />
             <mesh
                 ref={planetRef}
                 position={[-5, 10, -25]}
@@ -88,16 +85,15 @@ export function Planet3() {
     );
 }
 export function Planet4() {
-    const pastelMap = useTexture('images/planet3.png');
+    const pastelMap = useTexture('images/planet4.jpg');
     const planetRef = useRef();
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
-        planetRef.current.rotation.y = elapsedTime / 0.2;
+        planetRef.current.rotation.y = elapsedTime / 4;
     });
 
     return (
         <>
-            <ambientLight intensity={0.1} />
             <mesh
                 ref={planetRef}
                 position={[-10, 1, -7]}
@@ -108,7 +104,7 @@ export function Planet4() {
 
                 <meshStandardMaterial
                     map={pastelMap}
-                    metalness={0.7}
+                    metalness={0.3}
                     roughness={0.7}
                 />
             </mesh>
@@ -125,7 +121,6 @@ export function Planet5() {
 
     return (
         <>
-            <ambientLight intensity={0.1} />
             <mesh
                 ref={planetRef}
                 position={[0, -1.5, 0]}
@@ -136,7 +131,7 @@ export function Planet5() {
 
                 <meshStandardMaterial
                     map={pastelMap}
-                    metalness={0.7}
+                    metalness={0.8}
                     roughness={0.7}
                 />
             </mesh>
@@ -158,10 +153,11 @@ const Template2 = () => {
                     radius={300}
                     depth={60}
                     count={20000}
-                    factor={7}
-                    saturation={0}
+                    factor={5}
+                    saturation={10}
                     fade={true}
                 />
+                <ambientLight intensity={0.5} />
                 <Planet1 />
                 <Planet2 />
                 <Planet3 />
