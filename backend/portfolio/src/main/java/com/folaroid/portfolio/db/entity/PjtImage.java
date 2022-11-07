@@ -16,11 +16,15 @@ public class PjtImage {
     private Long pjtImageNo;
 
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pjf_no")
-    private Project project;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "pjf_no")
+    private Long pjtNo;
 
     @Column(name = "pjt_image_location", length = 2083)
     private String pjtImageLocation;
+    public void saveImage(Long pjtNo, String pjtImageLocation) {
+        this.pjtNo = pjtNo;
+        this.pjtImageLocation = pjtImageLocation;
+    }
 }

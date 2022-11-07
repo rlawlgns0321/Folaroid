@@ -42,8 +42,8 @@ public class Project {
     @Column(name = "pjt_star")
     private Integer pjtStar;
 
-    @Column(name = "pjt_image_location", length = 2083)
-    private String pjtImageLocation;
+    @Column(name = "pjt_one_image_location", length = 2083)
+    private String pjtOneImageLocation; // 프로젝트 대표이미지
 
     @Column(name = "pjt_json", columnDefinition = "TEXT")
     private String pjtJson;
