@@ -20,8 +20,8 @@ public class ReadmeController {
             conn.setRequestMethod("GET");
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((line = rd.readLine()) != null) {
-
-                if (line.length() != 0) {
+                System.out.println(line);
+                if (!isEmptyLine(line)) {
                     if (line.contains("|")) { //table parsing
                        int barNumber = 0;
                        for (int i = 0 ; i < line.length() ; i++) {
@@ -54,7 +54,7 @@ public class ReadmeController {
                                        }
                                    }
                                    else if (currentChar == ':') {
-                                       if (!(nextChar == '-' && !passDash)) {
+                                       if (nextChar == '-' && passDash) {
                                            isTable = false;
                                            break;
                                        }
@@ -68,10 +68,7 @@ public class ReadmeController {
                                    else if (currentChar == '-') {
                                         if (!passDash)
                                             passDash = true;
-                                        if (nextChar == ':') {
-                                            isTable = false;
-                                            break;
-                                        }
+
                                    }
                                    else {
                                        isTable = false;
@@ -115,7 +112,7 @@ public class ReadmeController {
                            else {
                                line += "\n" + headerCheckLine;
                                String tableLine;
-                               while ((tableLine = rd.readLine()) != null && tableLine.length() != 0)
+                               while ((tableLine = rd.readLine()) != null && isEmptyLine(tableLine))
                                    line += "\n" + tableLine;
                                res.add(line);
                                line = tableLine;
@@ -156,6 +153,38 @@ public class ReadmeController {
                                 break;
                         }
                     }
+
+                    else if (line.charAt(0) == '>') { //quotes parsing
+                        String quoteLine;
+                        while ((quoteLine = rd.readLine()) != null && quoteLine.charAt(0) == '>')
+                            line += "\n" + quoteLine;
+                    }
+
+                    else if ((line.charAt(0) == '-' //unordered list parsing
+                    || line.charAt(0) == '*'
+                    || line.charAt(0) == '+') && line.charAt(1) == ' ') {
+                        String unorderedListLine;
+                        while ((unorderedListLine = rd.readLine()) != null && !isEmptyLine(unorderedListLine)) {
+                            line += "\n" + unorderedListLine;
+                        }
+                    }
+
+                    else if (line.charAt(0) >= '0' && line.charAt(0) <= '9') { //ordered list parsing
+                        for (int i = 1 ; i < line.length() - 1 ; i++) {
+
+                            if (line.charAt(i) == '.' && line.charAt(i + 1) == ' ') {
+                                String orderedListLine;
+                                while ((orderedListLine = rd.readLine()) != null && !isEmptyLine(orderedListLine)) {
+                                    System.out.println(orderedListLine + " " + orderedListLine.length());
+                                    line += "\n" + orderedListLine;
+                                }
+                                break;
+                            }
+                            else if (line.charAt(i) < '0' || line.charAt(i) > '9')
+                                break;
+                        }
+                    }
+
                     res.add(line);
                 }
             }
@@ -166,4 +195,15 @@ public class ReadmeController {
         return res;
     }
 
+    public boolean isEmptyLine(String a) {
+        int emptyNum = 0;
+        for (int i = 0 ; i < a.length() ; i++) {
+            if (a.charAt(i) == ' ' || a.charAt(i) == '\t')
+                emptyNum++;
+        }
+        if (emptyNum == a.length())
+            return true;
+        else
+            return false;
+    }
 }
