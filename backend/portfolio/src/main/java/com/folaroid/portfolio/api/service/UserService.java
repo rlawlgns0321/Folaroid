@@ -27,7 +27,7 @@ public class UserService {
         Intro intro = new Intro();
         intro.SaveDefaultUserInfo(request.getUserNo());
         Long introNo = introRepository.save(intro).getIntroNo();
-        IntroPersonalData introPersonalData = new IntroPersonalData(intro);
+        IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
         introPersonalDataRepository.save(introPersonalData);
         return introNo;
     }
