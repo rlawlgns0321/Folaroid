@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../../lib/api/baseIntroAPI';
 
-export const getSlogan = createAsyncThunk(
-    'slogan/getSlogan'
-    async ()
-)
+// export const getSlogan = createAsyncThunk(
+//     'slogan/getSlogan'
+//     async ()
+// )
 
 export const createSlogan = createAsyncThunk(
     'personal/createPersonal',
