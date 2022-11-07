@@ -24,7 +24,6 @@ public class Intro {
     private String introContent;
 
     private Long userNo;
-
     private Long pfNo;
 
 
