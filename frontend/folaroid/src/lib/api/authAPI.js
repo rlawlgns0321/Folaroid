@@ -6,4 +6,8 @@ const authCode = (code) => {
     return api.get(`/callback?code=${code}`);
 };
 
-export { authCode };
+const introNo = (userGithubId) => {
+    return api.get(`/user-info/mypage?userGithubId=${userGithubId}`);
+};
+
+export { authCode, introNo };

@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../lib/api/authAPI';
 
 export const getUserThunk = createAsyncThunk('auth/GetUser', async (code) => {
-    const response = await api.authCode(code);
-    
-    return response.data;
+    let userResponse = await api.authCode(code);
+    let userGithubId = userResponse.data.user.userGithubId;
+    let userIntroNoResponse = await api.introNo(userGithubId);
+    userResponse.data.intro_no = userIntroNoResponse.data;
+    return userResponse.data;
 });
 
 export const auth = createSlice({

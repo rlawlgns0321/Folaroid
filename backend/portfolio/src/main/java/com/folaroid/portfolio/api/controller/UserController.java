@@ -59,8 +59,8 @@ public class UserController {
     @ApiOperation(value = "마이페이지 - intro_no",
             notes="intro_no 반환",
             httpMethod = "GET")
-    @PutMapping("/user-info/mypage")
-    public ResponseEntity<Long> getIntroNo(@RequestBody UserLoginReq request) {
+    @GetMapping("/user-info/mypage")
+    public ResponseEntity<Long> getIntroNo(@RequestParam UserLoginReq request) {
         Long introNo = userService.getIntroNo(request);
         return new ResponseEntity<>(introNo, HttpStatus.OK);
     }
