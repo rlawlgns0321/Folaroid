@@ -135,7 +135,7 @@ public class OAuthController {
        //map.put("github_id", responseUserInfo.getLogin());
        //map.put("email", responseUserInfo.getEmail());
        //map.put("user_no", user_no);
-       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/folaroidMDTest/master/README.md");
+       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/Escape101/master/README.md");
 
        System.out.println(tmp.size());
        for (int i = 0 ; i < tmp.size() ; i++) {
@@ -143,6 +143,9 @@ public class OAuthController {
            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        }
        System.out.println(responseToken.getAccessToken());
+       System.out.println(responseUserInfo.getAvatar_url());
+       System.out.println(responseUserInfo.getRepos_url());
+       System.out.println(responseUserInfo.getPublic_repos());
        return map;
    }
 }
