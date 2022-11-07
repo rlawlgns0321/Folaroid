@@ -168,6 +168,22 @@ public class ReadmeController {
                             line += "\n" + unorderedListLine;
                         }
                     }
+
+                    else if (line.charAt(0) >= '0' && line.charAt(0) <= 9) { //ordered list parsing
+                        for (int i = 1 ; i < line.length() - 1 ; i++) {
+                            if (line.charAt(i) < '0' || line.charAt(i) > '9')
+                                break;
+                            if (line.charAt(i) == '.' && line.charAt(i + 1) == ' ') {
+                                String orderedListLine;
+                                while ((orderedListLine = rd.readLine()) != null && orderedListLine.length() != 0) {
+                                    line += "\n" + orderedListLine;
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    res.add(line);
                 }
             }
             rd.close();
