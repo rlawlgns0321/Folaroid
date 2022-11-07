@@ -1,68 +1,53 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../../lib/api/baseIntroAPI';
 
-// export const getSlogan = createAsyncThunk(
-//     'slogan/getSlogan'
-//     async ()
-// )
-
 export const createSlogan = createAsyncThunk(
-    'personal/createPersonal',
+    'slogan/createSlogan',
     async (data) => {
-        const response = await api.createPersonal(data);
+        const response = await api.createSlogan(data);
+        console.log(response);
         return response.data;
     }
 );
 
 export const deleteSlogan = createAsyncThunk(
-    'personal/deletePersonal',
-    async ({ intro_personal_data_no }) => {
-        const response = await api.deletePersonal(intro_personal_data_no);
+    'slogan/deleteSlogan',
+    async ({ intro_slogan_no }) => {
+        const response = await api.deletePersonal(intro_slogan_no);
+        console.log(response);
         return response.data;
     }
 );
 
-export const findByGithub = createAsyncThunk(
-    'personal/findByGithub', //  action의 type
-    async ({ user_github_id }) => {
-        const response = await api.findByGithub(user_github_id);
-        return response.data;
-    }
-);
+// export const findByGithub = createAsyncThunk(
+//     'personal/findByGithub', //  action의 type
+//     async ({ user_github_id }) => {
+//         const response = await api.findByGithub(user_github_id);
+//         return response.data;
+//     }
+// );
 
-export const personalSlice = createSlice({
-    name: 'personal',
+export const slogan = createSlice({
+    name: 'slogan',
     initialState: {
-        intro_personal_data_no: null,
-        persona_data_birth: '',
-        personal_data_email: '',
-        personal_data_name: '',
-        personal_data_phone: '',
+        intro_slogan_no: null,
+        intro_no: '',
+        sloganContent: '',
     },
+    reducers: {},
     extraReducers: {
-        // [getPersonal.fulfilled]: (state, action) => {
-        //     state.intro_personal_data_no = action.payload.intro_personal_data_no;
-        //     state.persona_data_birth = action.payload.persona_data_birth
-        //     state.personal_data_email = action.payload.personal_data_email
-        //     state.personal_data_name = action.payload.personal_data_name
-        //     state.personal_data_phone = action.payload.personal_data_phone
-        // },
-        [createPersonal.fulfilled.type]: (state, action) => {
-            state.intro_personal_data_no = action.payload.intro_personal_data_no;
-            state.persona_data_birth = action.payload.persona_data_birth
-            state.personal_data_email = action.payload.personal_data_email
-            state.personal_data_name = action.payload.personal_data_name
-            state.personal_data_phone = action.payload.personal_data_phone
+        [getSlogan.fulfilled]: (state, action) => {
+            state.sloganContent = action.payload.sloganContent;
+        },
+        [createSlogan.fulfilled.type]: (state, action) => {
+            state.sloganContent = action.payload.sloganContent
         },
         [deletePersonal.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = {
-                intro_personal_data_no: null,
-                persona_data_birth: '',
-                personal_data_email: '',
-                personal_data_name: '',
-                personal_data_phone: '',
-            }
+                intro_slogan_no: null,
+                intro_no: ''
+            };
         },
         [findByGithub.fulfilled]: (state, action) => {
             return [...action.payload];
@@ -70,4 +55,4 @@ export const personalSlice = createSlice({
     },
 });
 
-export default personalSlice.reducer;
+export default slogan.reducer;

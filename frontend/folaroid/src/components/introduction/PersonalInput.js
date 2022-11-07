@@ -167,7 +167,7 @@ function ViewName() {
         content = (
             <PersonalInput
                 onCreate={(personal) => {
-                    console.log(personal);
+                    console.log('personal', personal);
                     const newValue = {
                         intro_personal_data_no: personal.intro_personal_data_no,
                         personal_data_birth: personal.personal_data_birth,
@@ -175,12 +175,12 @@ function ViewName() {
                         personal_data_name: personal.personal_data_name,
                         personal_data_phone: personal.personal_data_phone,
                     };
-                    console.log(newValue);
-                    setValue(newValue);
-                    console.log({value});
+                    // console.log(newValue);
+                    // setValue(newValue);
+                    // console.log({value});
                     dispatch(createPersonal({ personal }))
                         .then((data) => {
-                            console.log(data);
+                            console.log('dispatch data', data);
                             setValue({
                                 intro_personal_data_no:
                                     data.intro_personal_data_no,

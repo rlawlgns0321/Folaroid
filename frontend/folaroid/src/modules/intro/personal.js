@@ -33,24 +33,18 @@ export const findByGithub = createAsyncThunk(
     }
 );
 
-export const personalSlice = createSlice({
+export const personal = createSlice({
     name: 'personal',
     initialState: {
-        intro_personal_data_no: null,
+        intro_peprsonal_data_no : null,
         persona_data_birth: '',
         personal_data_email: '',
         personal_data_name: '',
         personal_data_phone: '',
     },
     extraReducers: {
-        // [getPersonal.fulfilled]: (state, action) => {
-        //     state.intro_personal_data_no = action.payload.intro_personal_data_no;
-        //     state.persona_data_birth = action.payload.persona_data_birth
-        //     state.personal_data_email = action.payload.personal_data_email
-        //     state.personal_data_name = action.payload.personal_data_name
-        //     state.personal_data_phone = action.payload.personal_data_phone
-        // },
         [createPersonal.fulfilled.type]: (state, action) => {
+            console.log('fulfilled',action.payload)
             state.intro_personal_data_no = action.payload.intro_personal_data_no;
             state.persona_data_birth = action.payload.persona_data_birth
             state.personal_data_email = action.payload.personal_data_email
@@ -73,4 +67,4 @@ export const personalSlice = createSlice({
     },
 });
 
-export default personalSlice.reducer;
+export default personal.reducer;
