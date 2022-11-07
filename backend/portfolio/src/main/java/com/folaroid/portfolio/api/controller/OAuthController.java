@@ -166,7 +166,7 @@ public class OAuthController {
        return map;
    }
 
-    @GetMapping("/getRepos")
+    @GetMapping("/repos")
     public List<GithubRepo> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
@@ -183,5 +183,31 @@ public class OAuthController {
         );
 
         return userInfoResponse.getBody();
+    }
+
+    @GetMapping("/repo")
+    public GithubRepo getRepo(@RequestParam String accessToken, @RequestParam String id, HttpServletResponse res) throws JsonProcessingException {
+        OAuthToken responseToken = new OAuthToken();
+        responseToken.setAccessToken(accessToken);
+        GithubUser responseUserInfo = getUserInfo(responseToken);
+
+        String requestReposUrl = responseUserInfo.getRepos_url();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
+                requestReposUrl,
+                HttpMethod.GET,
+                getUserInfoEntity(responseToken),
+                new ParameterizedTypeReference<List<GithubRepo>>() {}
+        );
+
+        for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
+            if (id.equals(userInfoResponse.getBody().get(i).getId()))
+                return userInfoResponse.getBody().get(i);
+        }
+
+        return null;
+
     }
 }
