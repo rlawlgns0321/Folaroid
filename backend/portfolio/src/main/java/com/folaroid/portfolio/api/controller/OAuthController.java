@@ -6,6 +6,7 @@ import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.UserDto;
 import com.folaroid.portfolio.api.service.IntroService;
 import com.folaroid.portfolio.api.service.UserService;
+import com.folaroid.portfolio.api.vo.GithubRepo;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.folaroid.portfolio.db.entity.User;
@@ -154,18 +155,38 @@ public class OAuthController {
            System.out.println(tmp.get(i));
            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        }
-       System.out.println(responseToken.getAccessToken());
-       System.out.println(responseToken.getTokenType());
-       System.out.println(responseToken.getBearer());
-       System.out.println(responseToken.getScope());
-       System.out.println(responseUserInfo.getAvatar_url());
-       System.out.println(responseUserInfo.getRepos_url());
-       System.out.println(responseUserInfo.getPublic_repos());
+
+       OAuthToken testToken = new OAuthToken();
+       testToken.setAccessToken(responseToken.getAccessToken());
+
+       String requestReposUrl = responseUserInfo.getRepos_url();
+       RestTemplate restTemplate = new RestTemplate();
+
+       ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
+               requestReposUrl,
+               HttpMethod.GET,
+               getUserInfoEntity(responseToken),
+               new ParameterizedTypeReference<List<GithubRepo>>() {}
+       );
+
+       for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
+           System.out.println(userInfoResponse.getBody().get(i).getName());
+           System.out.println(userInfoResponse.getBody().get(i).getDescription());
+           System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
+           System.out.println("=================================");
+       }
+       //System.out.println(responseToken.getAccessToken());
+       //System.out.println(responseToken.getTokenType());
+       //System.out.println(responseToken.getBearer());
+       //System.out.println(responseToken.getScope());
+       //System.out.println(responseUserInfo.getAvatar_url());
+       //System.out.println(responseUserInfo.getRepos_url());
+       //System.out.println(responseUserInfo.getPublic_repos());
        return map;
    }
 
     @GetMapping("/getRepos")
-    public List<Object> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public List<GithubRepo> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
@@ -173,12 +194,11 @@ public class OAuthController {
         String requestReposUrl = responseUserInfo.getRepos_url();
         RestTemplate restTemplate = new RestTemplate();
 
-        HashMap<String, Object> map = new HashMap<>();
-        ResponseEntity<List<Object>> userInfoResponse = restTemplate.exchange(
+        ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
                 requestReposUrl,
                 HttpMethod.GET,
                 getUserInfoEntity(responseToken),
-                new ParameterizedTypeReference<List<Object>>() {}
+                new ParameterizedTypeReference<List<GithubRepo>>() {}
         );
 
         return userInfoResponse.getBody();
