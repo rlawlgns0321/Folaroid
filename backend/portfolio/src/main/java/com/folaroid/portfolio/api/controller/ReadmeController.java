@@ -1,5 +1,7 @@
 package com.folaroid.portfolio.api.controller;
 
+import org.springframework.util.MultiValueMap;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,12 +10,12 @@ import java.util.ArrayList;
 
 public class ReadmeController {
 
-    public ArrayList<String> getMDContent (String urlString) {
+    public MultiValueMap<String, String> getMDContent (String urlString) {
         URL url; // The URL to read
         HttpURLConnection conn; // The actual connection to the web page
         BufferedReader rd; // Used to read results from the web page
         String line; // An individual line of the web page HTML
-        ArrayList<String> res = new ArrayList<>(); // A long string containing all the HTML
+        MultiValueMap<String, String> res = null; // A long string containing all the HTML
         try {
             url = new URL(urlString);
             conn = (HttpURLConnection) url.openConnection();
@@ -105,7 +107,7 @@ public class ReadmeController {
                                }
                            }*/
                            if (!isTable) {
-                               res.add(line);
+                               res.add("md", line);
                                line = headerCheckLine;
                            }
                            else {
@@ -113,7 +115,7 @@ public class ReadmeController {
                                String tableLine;
                                while ((tableLine = rd.readLine()) != null && isEmptyLine(tableLine))
                                    line += "\n" + tableLine;
-                               res.add(line);
+                               res.add("md", line);
                                line = tableLine;
                            }
                        }
@@ -183,7 +185,7 @@ public class ReadmeController {
                         }
                     }
 
-                    res.add(line);
+                    res.add("md", line);
                 }
             }
             rd.close();
