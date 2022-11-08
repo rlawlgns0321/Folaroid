@@ -8,4 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface IntroRepository extends JpaRepository<Intro, Long> {
     @Query("SELECT i.introNo from Intro i where i.pfNo IS NULL and i.userNo = :userNo")
     Long findUserDefaultData(@Param("userNo") Long userNo);
+
+    @Query("SELECT i.introNo from Intro i where i.pfNo = :pfNo and i.userNo = :userNo")
+    Long findByPfNoAndUserNo(@Param("pfNo") Long pfNo, @Param("userNo") Long userNo);
 }

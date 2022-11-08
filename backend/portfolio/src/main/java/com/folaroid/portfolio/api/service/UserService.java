@@ -36,7 +36,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserDefaultDto find(Long introNo) {
         Intro intro = introRepository.findById(introNo).get();
-        IntroPersonalData introPersonalData = introPersonalDataRepository.findById(introNo).get();
+        IntroPersonalData introPersonalData = introPersonalDataRepository.findByIntroNo(introNo);
         return new UserDefaultDto(userRepository.findById(intro.getUserNo()).get(), introPersonalData);
     }
 

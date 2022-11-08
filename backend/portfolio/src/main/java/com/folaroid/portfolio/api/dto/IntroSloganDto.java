@@ -20,7 +20,7 @@ public class IntroSloganDto {
         public IntroSlogan toEntity(Intro intro){
             IntroSlogan introSlogan = IntroSlogan.builder()
                     .introSloganNo(introSloganNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .sloganContent(sloganContent)
                     .build();
             return introSlogan;
@@ -34,7 +34,7 @@ public class IntroSloganDto {
 
         public introSloganResponse(IntroSlogan introSlogan){
             this.introSloganNo = introSlogan.getIntroSloganNo();
-            this.introNo = introSlogan.getIntro().getIntroNo();
+            this.introNo = introSlogan.getIntroNo();
             this.sloganContent = introSlogan.getSloganContent();
         }
     }

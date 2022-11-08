@@ -3,7 +3,7 @@ import { instance } from './client';
 const api = instance();
 
 const getPersonal = (intro_no) => {
-    return api.get(`/user-info`, intro_no);
+    return api.get(`/user-info/${intro_no}`);
 };
 
 const createPersonal = (data) => {
