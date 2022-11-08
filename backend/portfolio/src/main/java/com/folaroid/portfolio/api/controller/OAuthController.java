@@ -28,9 +28,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @PropertySource("classpath:application-security.properties")
@@ -227,6 +225,21 @@ public class OAuthController {
                             + "/" + target.getDefault_branch()
                             + "README.md";
                     target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
+                    List<String> imageUrls = new ArrayList<>();
+                    Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
+
+                    for (int j = 0 ; j < imageUrls.size() ; j++) {
+                        if (!imageUrls.get(j).substring(0, 8).equals("https://")
+                        && !imageUrls.get(j).substring(0, 7).equals("http://")) {
+                            imageUrls.set(j, "https://github.com/"
+                                    + responseUserInfo.getLogin() + "/"
+                                    + target.getName() + "/raw/"
+                                    + target.getDefault_branch() + "/"
+                                    + imageUrls.get(j));
+                        }
+                    }
+
+                    target.setImagesUrl(imageUrls);
                     return target;
                 }
             }
