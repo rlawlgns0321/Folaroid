@@ -140,13 +140,13 @@ public class OAuthController {
             //return map;
        }
 
-       List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
+       //List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
 
-       System.out.println(tmp.size());
+       /*System.out.println(tmp.size());
        for (int i = 0 ; i < tmp.size() ; i++) {
            System.out.println(tmp.get(i));
            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-       }
+       }*/
 
        OAuthToken testToken = new OAuthToken();
        testToken.setAccessToken(responseToken.getAccessToken());
