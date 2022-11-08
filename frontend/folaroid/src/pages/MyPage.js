@@ -1,4 +1,3 @@
-import MyPageHeader from '../components/common/MyPageHeader';
 import MyPageHeaderContainer from '../containers/common/MyPageHeaderContainer';
 import HeaderContainer from '../containers/header/HeaderContainer';
 import BaseIntroContainer from '../containers/personal/BaseIntroContainer';

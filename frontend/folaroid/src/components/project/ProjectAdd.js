@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import styled from '@emotion/styled';
 import ProjectListDialog from './dialog/ProjectListDialog';
+import ProjectlistDialogConatiner from '../../containers/Project/dialog/ProjectlistDialogConatiner';
 
 const AddBtn = styled(Grid)`
     display: flex;
@@ -31,7 +32,7 @@ const ProjectAdd = () => {
             <AddBtn onClick={handleClickOpen}>
                 <AddIcon />
             </AddBtn>
-            <ProjectListDialog open={open} onClose={handleClose}/>
+            <ProjectlistDialogConatiner open={open} onClose={handleClose}/>
         </div>
     );
 };

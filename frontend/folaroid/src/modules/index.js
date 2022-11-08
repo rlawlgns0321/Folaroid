@@ -4,6 +4,7 @@ import portfolioProjectReducer from './portfolioProject';
 import personalReducer from './intro/personal';
 import sloganReducer from './intro/slogan';
 import portfolioReducer from './portfolio';
+import githubReducer from './github';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     personal: personalReducer,
     slogan: sloganReducer,
     portfolio: portfolioReducer,
+    github: githubReducer,
 });
 
 export default rootReducer;
