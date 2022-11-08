@@ -28,9 +28,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -143,7 +142,7 @@ public class OAuthController {
             //return map;
        }
 
-       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
+       List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
 
        System.out.println(tmp.size());
        for (int i = 0 ; i < tmp.size() ; i++) {
@@ -164,11 +163,13 @@ public class OAuthController {
                new ParameterizedTypeReference<List<GithubRepo>>() {}
        );
 
-       for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
-           System.out.println(userInfoResponse.getBody().get(i).getName());
-           System.out.println(userInfoResponse.getBody().get(i).getDescription());
-           System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
-           System.out.println("=================================");
+       if (userInfoResponse.getBody() != null) {
+           for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
+                System.out.println(userInfoResponse.getBody().get(i).getName());
+                System.out.println(userInfoResponse.getBody().get(i).getDescription());
+                System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
+                System.out.println("=================================");
+           }
        }
        //System.out.println(responseToken.getAccessToken());
        //System.out.println(responseToken.getTokenType());
@@ -216,16 +217,18 @@ public class OAuthController {
                 new ParameterizedTypeReference<List<GithubRepo>>() {}
         );
 
-        for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
-            if (id.equals(userInfoResponse.getBody().get(i).getId())) {
-                GithubRepo target = userInfoResponse.getBody().get(i);
-                //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
-                String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
-                        + "/" + target.getName()
-                        + "/" + target.getDefault_branch()
-                        + "README.md";
-                target.setReadmeContent(readmeTest.getMDContent(targetReadme));
-                return target;
+        if (userInfoResponse.getBody() != null) {
+            for (int i = 0; i < userInfoResponse.getBody().size(); i++) {
+                if (id.equals(userInfoResponse.getBody().get(i).getId())) {
+                    GithubRepo target = userInfoResponse.getBody().get(i);
+                    //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
+                    String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
+                            + "/" + target.getName()
+                            + "/" + target.getDefault_branch()
+                            + "README.md";
+                    target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
+                    return target;
+                }
             }
         }
 
