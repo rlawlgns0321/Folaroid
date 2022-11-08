@@ -3,7 +3,7 @@ import React from 'react';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const ProjectListItem = () => {
+const ProjectListItem = ({ repo }) => {
     return (
         <Grid
             container
@@ -21,11 +21,11 @@ const ProjectListItem = () => {
             >
                 <Grid sx={{ display: 'flex', flexDirection: 'column', mr: 3 }}>
                     <Grid sx={{ fontSize: '1.2rem', color: '#248BEA' }}>
-                        프로젝트 이름
+                        {repo.name}
                     </Grid>
-                    <Grid sx={{ fontSize: '0.8rem' }}>마지막 업데이트</Grid>
+                    <Grid sx={{ fontSize: '0.8rem' }}>{repo.updated_at}</Grid>
                 </Grid>
-                <Grid>프로젝트 설명~~~</Grid>
+                <Grid>{repo.description}</Grid>
             </Grid>
             <Grid>
                 <Checkbox {...label} />

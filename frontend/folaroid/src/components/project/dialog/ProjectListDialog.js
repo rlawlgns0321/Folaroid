@@ -2,7 +2,7 @@ import { Button, Dialog, Grid, Typography } from '@mui/material';
 import React from 'react';
 import ProjectListItem from './ProjectListItem';
 
-const ProjectListDialog = ({ onClose, open }) => {
+const ProjectListDialog = ({ onClose, open, repos }) => {
     const handleClose = () => {
         onClose();
     };
@@ -20,14 +20,17 @@ const ProjectListDialog = ({ onClose, open }) => {
                 >
                     프로젝트 선택
                 </Typography>
-                <ProjectListItem />
-                <ProjectListItem />
-                <ProjectListItem />
-                <ProjectListItem />
-                <ProjectListItem />
-                <ProjectListItem />
-                <Grid sx={{ display: 'flex', justifyContent: 'flex-end', width:'100%' }}>
-                    <Button variant='contained'>확인</Button>
+                {repos.map((repo, key) => {
+                    return <ProjectListItem key={key} repo={repo} />;
+                })}
+                <Grid
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        width: '100%',
+                    }}
+                >
+                    <Button variant="contained">확인</Button>
                 </Grid>
             </Grid>
         </Dialog>

@@ -5,8 +5,8 @@ const instance = () => {
 };
 
 const getToken = () => {
-    let user =JSON.parse(localStorage.getItem('user'));
-    return user.token;
+    let user = JSON.parse(localStorage.getItem('user'));
+    return user.jwt;
 }
 
 const server = axios.create({ baseURL: process.env.REACT_APP_BASE_URL });

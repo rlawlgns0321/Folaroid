@@ -14,7 +14,7 @@ export const github = createSlice({
     reducers: {},
     extraReducers: {
         [getReposThunk.fulfilled.type]: (state, action) => {
-            console.log(action.payload);
+            state.repos = action.payload;
         },
     },
 });
