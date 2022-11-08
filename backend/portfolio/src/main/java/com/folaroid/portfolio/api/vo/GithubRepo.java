@@ -17,5 +17,6 @@ public class GithubRepo {
     private int watchers_count;
     private String languages_url;
     private String[] readmeContent;
+    private String default_branch;
 
 }
