@@ -33,7 +33,7 @@ public class IntroSloganServiceImpl implements IntroSloganService{
 
     @Transactional
     @Override
-    public List<IntroSlogan> findIntroSlogan(Long introNo) {
-        return introSloganRepository.findAllByIntro(introRepository.findById(introNo).get());
+    public IntroSlogan findIntroSlogan(Long introNo) {
+        return introSloganRepository.findByIntroNo(introNo);
     }
 }

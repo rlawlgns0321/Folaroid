@@ -28,20 +28,17 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @PropertySource("classpath:application-security.properties")
 @CrossOrigin
 public class OAuthController {
-    private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
+    //private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
 
     private final String USER_REQUEST_URI = "https://api.github.com/user";
-    private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
+    //private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
@@ -113,9 +110,6 @@ public class OAuthController {
                 getUserInfoEntity(oAuthToken),
                 GithubUser.class
         );
-        //System.out.println("get User Info Success?");
-        //userService.save(new UserSignupReq(userInfoResponse.getBody().getLogin(), userInfoResponse.getBody().getEmail()));
-        //System.out.println("get User Info Success!");
         return userInfoResponse.getBody();
 
     }
@@ -145,22 +139,8 @@ public class OAuthController {
            map.put("introNo", introNo);
             //return map;
        }
-      /* RestTemplate restTemplate = new RestTemplate();
-       HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
-       ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
-               USER_SIGNUP_URI,
-               HttpMethod.POST,
-               signUpRequestEntity,
-               Integer.class
-       );
 
-       int userNo = userNoResponse.getBody().intValue();*/
-        // manage "/signup" post request at backend -> activate when needed
-       //map.put("jwt", responseToken.getAccessToken());
-       //map.put("github_id", responseUserInfo.getLogin());
-       //map.put("email", responseUserInfo.getEmail());
-       //map.put("user_no", user_no);
-       ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
+       List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
 
        System.out.println(tmp.size());
        for (int i = 0 ; i < tmp.size() ; i++) {
@@ -181,11 +161,13 @@ public class OAuthController {
                new ParameterizedTypeReference<List<GithubRepo>>() {}
        );
 
-       for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
-           System.out.println(userInfoResponse.getBody().get(i).getName());
-           System.out.println(userInfoResponse.getBody().get(i).getDescription());
-           System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
-           System.out.println("=================================");
+       if (userInfoResponse.getBody() != null) {
+           for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
+                System.out.println(userInfoResponse.getBody().get(i).getName());
+                System.out.println(userInfoResponse.getBody().get(i).getDescription());
+                System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
+                System.out.println("=================================");
+           }
        }
        //System.out.println(responseToken.getAccessToken());
        //System.out.println(responseToken.getTokenType());
@@ -197,8 +179,8 @@ public class OAuthController {
        return map;
    }
 
-    @GetMapping("/getRepos")
-    public List<GithubRepo> getRepos(@RequestParam String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    @GetMapping("/repos")
+    public List<GithubRepo> getRepos(@RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
@@ -214,42 +196,56 @@ public class OAuthController {
         );
 
         return userInfoResponse.getBody();
-        /*map.put("jwt", responseToken.getAccessToken());
-        User user = userRepository.findByUserGithubId(responseUserInfo.getLogin());
-        if (user != null) {
-            map.put("user",user);
-            //return map;
-        }else{
-            userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
-            map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
-            //return map;
-        }*/
-      /* RestTemplate restTemplate = new RestTemplate();
-       HttpEntity<MultiValueMap<String, String>> signUpRequestEntity = getSignUpRequestEntity(responseUserInfo.getLogin(), responseUserInfo.getEmail());
-       ResponseEntity<Integer> userNoResponse = restTemplate.exchange(
-               USER_SIGNUP_URI,
-               HttpMethod.POST,
-               signUpRequestEntity,
-               Integer.class
-       );
+    }
 
-       int userNo = userNoResponse.getBody().intValue();
-        // manage "/signup" post request at backend -> activate when needed
-        //map.put("jwt", responseToken.getAccessToken());
-        //map.put("github_id", responseUserInfo.getLogin());
-        //map.put("email", responseUserInfo.getEmail());
-        //map.put("user_no", user_no);
-        ArrayList<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md");
+    @GetMapping("/repo")
+    public GithubRepo getRepo(@RequestParam String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
+        OAuthToken responseToken = new OAuthToken();
+        responseToken.setAccessToken(accessToken);
+        GithubUser responseUserInfo = getUserInfo(responseToken);
 
-        System.out.println(tmp.size());
-        for (int i = 0 ; i < tmp.size() ; i++) {
-            System.out.println(tmp.get(i));
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        String requestReposUrl = responseUserInfo.getRepos_url();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
+                requestReposUrl,
+                HttpMethod.GET,
+                getUserInfoEntity(responseToken),
+                new ParameterizedTypeReference<List<GithubRepo>>() {}
+        );
+
+        if (userInfoResponse.getBody() != null) {
+            for (int i = 0; i < userInfoResponse.getBody().size(); i++) {
+                if (id.equals(userInfoResponse.getBody().get(i).getId())) {
+                    GithubRepo target = userInfoResponse.getBody().get(i);
+                    //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
+                    String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
+                            + "/" + target.getName()
+                            + "/" + target.getDefault_branch()
+                            + "README.md";
+                    target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
+                    List<String> imageUrls = new ArrayList<>();
+                    Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
+
+                    for (int j = 0 ; j < imageUrls.size() ; j++) {
+                        if (!imageUrls.get(j).substring(0, 8).equals("https://")
+                        && !imageUrls.get(j).substring(0, 7).equals("http://")) {
+                            imageUrls.set(j, "https://github.com/"
+                                    + responseUserInfo.getLogin() + "/"
+                                    + target.getName() + "/raw/"
+                                    + target.getDefault_branch() + "/"
+                                    + imageUrls.get(j));
+                        }
+                    }
+
+                    target.setImagesUrl(imageUrls);
+                    return target;
+                }
+            }
         }
-        System.out.println(responseToken.getAccessToken());
-        System.out.println(responseUserInfo.getAvatar_url());
-        System.out.println(responseUserInfo.getRepos_url());
-        System.out.println(responseUserInfo.getPublic_repos());
-        return map;*/
+
+        return null;
+
     }
 }

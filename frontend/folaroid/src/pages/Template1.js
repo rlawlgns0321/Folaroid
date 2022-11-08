@@ -1,36 +1,41 @@
 import * as THREE from 'three';
 import { React, Suspense, useEffect, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { PerspectiveCamera } from '@react-three/drei';
-import { useGLTF, useAnimations } from '@react-three/drei';
+import { Canvas, useLoader } from '@react-three/fiber';
+import {
+    PerspectiveCamera,
+    useTexture,
+    useGLTF,
+    useAnimations,
+} from '@react-three/drei';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
+import { AmbientLight, DirectionalLight } from 'three';
 export const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
 };
 //Camera effect
 
-export function Model() {
-    return (
-        <mesh position={[2, -0.5, 0]} receiveShadow scale={0.5}>
-            <sphereGeometry />
-            <meshLambertMaterial color={'pink'} />
-        </mesh>
-    );
-}
-
 export function Scene(props) {
-    //const floor = useLoader(TextureLoader, 'images/grid.jpg');
+    const obj = useLoader(OBJLoader, 'models/NatureBase.obj');
+    const floor = useTexture('images/grid.jpg');
     return (
-        <mesh
-            receiveShadow
-            position-y={-1}
-            rotation-x={-Math.PI / 2}
-            scale={100}
-        >
-            <planeGeometry />
-            <meshBasicMaterial color="lightgreen" /*map={floor}*/ />
-        </mesh>
+        <primitive
+            object={obj}
+            scale={5}
+            position-y={1}
+            position-z={-180}
+            rotation-x={-Math.PI}
+        />
+        // <mesh
+        //     receiveShadow
+        //     position-y={-1}
+        //     rotation-x={-Math.PI / 2}
+        //     scale={100}
+        // >
+        //     <planeGeometry />
+        //     <meshBasicMaterial castShadow map={floor} />
+        // </mesh>
     );
 }
 export function House(props) {
@@ -74,7 +79,7 @@ function setSection(position, camera) {
         gsap.to(camera.position, {
             duration: 1,
             x: position[newSection][0],
-            z: position[newSection][2] + 5,
+            z: position[newSection][2],
         });
         currentSection = newSection;
         flag = 0;
@@ -85,11 +90,11 @@ function setModal() {
 }
 const Template1 = () => {
     const position = [
+        [-5, 0, 40],
         [-5, 0, 20],
-        [7, 0, 10],
-        [-10, 0, 0],
-        [10, 0, -10],
+        [-5, 0, 0],
         [-5, 0, -20],
+        [-5, 0, -40],
     ];
 
     const camera = new THREE.PerspectiveCamera(
@@ -105,13 +110,13 @@ const Template1 = () => {
         setSection(position, camera);
         setModal();
     });
-    //클릭
-    window.addEventListener('click', function (event) {
-        if (flag === 0) {
-            this.alert(currentSection);
-        }
-        //리스트인덱스에 맞는 모달을 만들거임
-    });
+    // //클릭
+    // window.addEventListener('click', function (event) {
+    //     if (flag === 0) {
+    //         this.alert(currentSection);
+    //     }
+    //     //리스트인덱스에 맞는 모달을 만들거임
+    // });
 
     return (
         <>
@@ -121,7 +126,7 @@ const Template1 = () => {
                     position: 'fixed',
                     left: '0',
                     top: '0',
-                    background: 'rgb(243, 245, 215)',
+                    background: 'lightblue',
                 }}
             >
                 <Suspense fallback={null}>
@@ -134,7 +139,6 @@ const Template1 = () => {
                         maxPolarAngle={Math.PI / 2}
                         minPolarAngle={Math.PI / 4}
                     /> */}
-                    5
                     <PerspectiveCamera
                         far={1000}
                         near={0.1}
@@ -142,13 +146,24 @@ const Template1 = () => {
                         aspect={sizes.width / sizes.height}
                         position={[0, 0, 2]}
                     />
+                    <directionalLight
+                        castShadow
+                        position={[0, 10, 0]}
+                        intensity={4}
+                        shadow-mapSize-width={1024}
+                        shadow-mapSize-height={1024}
+                        shadow-camera-far={50}
+                        shadow-camera-left={-100}
+                        shadow-camera-right={100}
+                        shadow-camera-top={100}
+                        shadow-camera-bottom={-100}
+                    />
+                    <ambientLight intensity={0.3} />
                     <House position={position[0]} />
                     <House position={position[1]} />
                     <House position={position[2]} />
                     <House position={position[3]} />
                     <House position={position[4]} />
-                    <ambientLight intensity={0.5} />
-                    <spotLight position={[10, 15, 10]} angle={0.3} />
                 </Suspense>
             </Canvas>
             <div className="sections">
