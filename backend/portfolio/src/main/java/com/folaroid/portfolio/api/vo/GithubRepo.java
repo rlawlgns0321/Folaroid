@@ -16,5 +16,6 @@ public class GithubRepo {
     private int stargazers_count;
     private int watchers_count;
     private String languages_url;
+    private String[] readmeContent;
 
 }
