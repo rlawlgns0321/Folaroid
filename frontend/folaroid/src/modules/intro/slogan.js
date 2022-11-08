@@ -3,7 +3,7 @@ import * as api from '../../lib/api/baseIntroAPI';
 
 export const getSlogan = createAsyncThunk(
     'slogan/getSlogan',
-    async ({ introNo }) => {
+    async (introNo) => {
         const response = await api.getSlogan(introNo);
         return response.data;
     }
@@ -20,8 +20,8 @@ export const createSlogan = createAsyncThunk(
 
 export const deleteSlogan = createAsyncThunk(
     'slogan/deleteSlogan',
-    async ({ intro_slogan_no }) => {
-        const response = await api.deletePersonal(intro_slogan_no);
+    async (introSloganNo) => {
+        const response = await api.deleteSlogan(introSloganNo);
         console.log(response);
         return response.data;
     }
@@ -35,19 +35,17 @@ export const slogan = createSlice({
     },
     reducers: {},
     extraReducers: {
-        [getSlogan.fulfilled]: (state, action) => {
-            state = action.payload;
+        [getSlogan.fulfilled.type]: (state, action) => {
+            state.introSloganNo = action.payload.introSloganNo;
+            state.sloganContent = action.payload.sloganContent;
         },
         [createSlogan.fulfilled.type]: (state, action) => {
             state.introSloganNo = action.payload.introSloganNo;
             state.sloganContent = action.payload.sloganContent;
         },
         [deleteSlogan.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = {
-                introSloganNo: null,
-                sloganContent: '',
-            };
+            state.introSloganNo = null
+            state.sloganContent = ''
         },
     },
 });

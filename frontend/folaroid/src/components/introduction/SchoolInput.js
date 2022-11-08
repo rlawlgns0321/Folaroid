@@ -14,6 +14,11 @@ import Paper from '@mui/material/Paper';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import {
+    creaetSchool,
+    getSchool,
+    deleteSchool
+} from '../../modules/intro/school'
 
 function SchoolInput(props) {
     const [admission, setAdmission] = useState(dayjs('2000-01-01'));

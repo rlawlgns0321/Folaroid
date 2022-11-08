@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Button,
     Box,
@@ -8,9 +8,20 @@ import {
     TextField,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSlogan } from '../../modules/intro/slogan';
+import {
+    createSlogan,
+    getSlogan,
+    deleteSlogan,
+} from '../../modules/intro/slogan';
 
 function SloganInput(props) {
+    const intro_no = useSelector((state) => state.auth.user.intro_no);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getSlogan(intro_no));
+    }, [dispatch, intro_no]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const content = event.target[0].value;
@@ -56,38 +67,85 @@ function SloganInput(props) {
 }
 
 function ReadSlogan(props) {
+    const intro_no = useSelector((state) => state.auth.user.intro_no);
+    const slogan = useSelector((state) => state.slogan);
+    const dispatch = useDispatch();
+
+    const onDeleteClick = (introSloganNo) => {
+        dispatch(deleteSlogan(introSloganNo));
+        console.log('ondeleteclick', slogan);
+    };
+
+    useEffect(() => {
+        console.log('이거', intro_no);
+        dispatch(getSlogan(intro_no));
+    }, [dispatch, intro_no]);
+
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
             <CardHeader title="슬로건" />
-            <CardContent>
-                <Box>{props.slogan}</Box>
+            <CardContent
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+                <Box>{slogan.sloganContent}</Box>
+                <Button onClick={() => onDeleteClick(slogan.introSloganNo)}>
+                    삭제
+                </Button>
             </CardContent>
         </Card>
     );
 }
 
 function ViewSlogan() {
-    const sloganContent = useSelector((state) => state.slogan.sloganContent);
+    const slogan = useSelector((state) => state.slogan);
     const intro_no = useSelector((state) => state.auth.user.intro_no);
-    console.log('이거', intro_no, sloganContent);
     const [mode, setMode] = useState('CREATE');
-    const [slogan, setSlogan] = useState(sloganContent);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        console.log('이거', intro_no);
+        dispatch(getSlogan(intro_no));
+    }, [dispatch, intro_no]);
+
     let content = null;
+
+    if (slogan.sloganContent && mode === 'CREATE') {
+        setMode('READ');
+    } else if (slogan.sloganContent === '' && mode === 'READ') {
+        setMode('CREATE');
+    }
+
+    function checkMode() {
+        if (slogan.sloganContent === '' && mode === 'READ') {
+            setMode('CREATE');
+        }
+    }
+
     if (mode === 'CREATE') {
         content = (
             <SloganInput
                 onCreate={(_slogan) => {
-                    dispatch(createSlogan({ introNo: intro_no, sloganContent: _slogan }));
-                    setSlogan(_slogan)  
-                    setMode('READ');
+                    dispatch(
+                        createSlogan({
+                            introNo: intro_no,
+                            sloganContent: _slogan,
+                        })
+                    ).then(dispatch(getSlogan(intro_no)).then(setMode('READ')));
                 }}
             ></SloganInput>
         );
     } else if (mode === 'READ') {
         console.log({ slogan });
-        content = <ReadSlogan slogan={slogan}></ReadSlogan>;
+        content = (
+            <ReadSlogan
+                onClick={(box) => {
+                    setMode(box);
+                    console.log('delete', mode);
+                    console.log('delete', slogan);
+                    checkMode();
+                }}
+            ></ReadSlogan>
+        );
     }
 
     return content;
