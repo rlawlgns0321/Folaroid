@@ -6,4 +6,8 @@ const readSimplePortfolio = (userNo) => {
     return api.get(`/portfolio/all/${userNo}`);
 };
 
-export { readSimplePortfolio };
+const createPortfolio = (param) => {
+    return api.post(`/portfolio`, param);
+}
+
+export { readSimplePortfolio, createPortfolio };
