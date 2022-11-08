@@ -3,6 +3,8 @@ package com.folaroid.portfolio.api.vo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 public class GithubRepo {
@@ -16,7 +18,7 @@ public class GithubRepo {
     private int stargazers_count;
     private int watchers_count;
     private String languages_url;
-    private String[] readmeContent;
+    private ArrayList<String> readmeContent;
     private String default_branch;
 
 }
