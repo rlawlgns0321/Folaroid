@@ -134,7 +134,8 @@ public class ReadmeController {
                             if (imgCloseIdx != line.length())
                                 line = line.substring(imgOpenIdx + 2, imgCloseIdx);
                         }
-                        //continue;
+                        res.add("image", line);
+                        continue;
                     }
                     else if (line.length() > 2   //header parsing
                         && (line.charAt(0) == '='
