@@ -217,8 +217,16 @@ public class OAuthController {
         );
 
         for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
-            if (id.equals(userInfoResponse.getBody().get(i).getId()))
-                return userInfoResponse.getBody().get(i);
+            if (id.equals(userInfoResponse.getBody().get(i).getId())) {
+                GithubRepo target = userInfoResponse.getBody().get(i);
+                //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
+                String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
+                        + "/" + target.getName()
+                        + "/" + target.getDefault_branch()
+                        + "README.md";
+                target.setReadmeContent(readmeTest.getMDContent(targetReadme));
+                return target;
+            }
         }
 
         return null;
