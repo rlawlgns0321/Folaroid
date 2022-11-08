@@ -199,7 +199,7 @@ public class OAuthController {
     }
 
     @GetMapping("/repo")
-    public GithubRepo getRepo(@RequestParam String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public GithubRepo getRepo(@RequestParam("pjt_id") String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
