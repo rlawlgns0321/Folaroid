@@ -1,4 +1,4 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OrbitControls, Stars, useTexture } from '@react-three/drei';
@@ -41,6 +41,32 @@ export function Planet({
             <Ecliptic xRadius={xRadius} zRadius={zRadius} />
         </>
     );
+}
+
+export function PlanetClick() {
+    const [zoom, setZoom] = useState(false);
+    const [focus, setFocus] = useState(true);
+    const mouse = new THREE.Vector3();
+    useFrame((state) => {
+        const step = 0.05;
+        zoom ? mouse.set(focus.x, focus.y, focus.z + 0.2) : mouse.set(0, 0, 5);
+        state.camera.position.lerp(mouse, step);
+        state.camera.lookAt(0, 0, 0);
+        state.camera.updateProjectionMatrix();
+    });
+    // const zoomToView = (focusRef) => {
+    //     setZoom(!zoom);
+    //     setFocus(focusRef.current.position);
+    //   };
+    //   return (
+    // //     <instancedMesh>
+    // //       {momentsData.map((moment, i) => {
+    // //         // Set position here so it isn't reset on state change
+    // //         // for individual moment.
+    // //         return <Moment key={i} data={moment} zoomToView={zoomToView} />;
+    // //       })}
+    // //     </instancedMesh>
+    // //   );
 }
 export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
     const points = [];
@@ -91,6 +117,7 @@ const Template2 = () => {
                         <Planet planet={planet} key={planet.id} />
                     ))}
                     <pointLight position={[10, 10, 10]} />
+                    <OrbitControls enableZoom={false} />
                 </Suspense>
             </Canvas>
         </>
