@@ -20,7 +20,7 @@ const ProjectListDialog = ({ onClose, open, repos }) => {
                 >
                     프로젝트 선택
                 </Typography>
-                {repos.map((repo, key) => {
+                {repos && repos.map((repo, key) => {
                     return <ProjectListItem key={key} repo={repo} />;
                 })}
                 <Grid

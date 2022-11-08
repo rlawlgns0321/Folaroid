@@ -23,7 +23,11 @@ export const portfolio = createSlice({
         simple: [],
         pf: null,
     },
-    reducers: {},
+    reducers: {
+        clearPf: (state, action) => {
+            state.pf = null;
+        },
+    },
     extraReducers: {
         [getSimplePortfolioListThunk.fulfilled.type]: (state, action) => {
             state.simple = action.payload;
