@@ -21,7 +21,7 @@ export const portfolio = createSlice({
     name: 'portfolio',
     initialState: {
         simple: [],
-        pf: {},
+        pf: null,
     },
     reducers: {},
     extraReducers: {
@@ -29,8 +29,7 @@ export const portfolio = createSlice({
             state.simple = action.payload;
         },
         [createPortfolioThunk.fulfilled.type]: (state, action) => {
-            state.pf.pfNo = action.payload.pfNo;
-            state.pf.introNo = action.payload.introNo;
+            state.pf = action.payload;
         },
     },
 });
