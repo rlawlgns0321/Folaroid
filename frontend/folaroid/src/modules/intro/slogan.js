@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../../lib/api/baseIntroAPI';
 
-// export const getSlogan = createAsyncThunk(
-//     'slogan/getSlogan',
-//     async ({ intro_no }) => {
-//         const response = await api.getSlogan(intro_no);
-//         return response.data;
-//     }
-// );
+export const getSlogan = createAsyncThunk(
+    'slogan/getSlogan',
+    async ({ introNo }) => {
+        const response = await api.getSlogan(introNo);
+        return response.data;
+    }
+);
 
 export const createSlogan = createAsyncThunk(
     'slogan/createSlogan',
@@ -30,22 +30,22 @@ export const deleteSlogan = createAsyncThunk(
 export const slogan = createSlice({
     name: 'slogan',
     initialState: {
-        intro_slogan_no: null,
+        introSloganNo: null,
         sloganContent: '',
     },
     reducers: {},
     extraReducers: {
-        // [getSlogan.fulfilled]: (state, action) => {
-        //     state.sloganContent = action.payload.sloganContent;
-        // },
+        [getSlogan.fulfilled]: (state, action) => {
+            state = action.payload;
+        },
         [createSlogan.fulfilled.type]: (state, action) => {
-            state.intro_slogan_no = action.payload.intro_slogan_no;
+            state.introSloganNo = action.payload.introSloganNo;
             state.sloganContent = action.payload.sloganContent;
         },
         [deleteSlogan.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = {
-                intro_slogan_no: null,
+                introSloganNo: null,
                 sloganContent: '',
             };
         },

@@ -58,11 +58,11 @@ const getAwards = (intro_no) => {
     return api.get(`/intro-awards/${intro_no}`);
 };
 
-const createAwards = (data) => {
+const createAward = (data) => {
     return api.post(`/intro-awards`, data);
 };
 
-const deleteAwards = (intro_awards_no) => {
+const deleteAward = (intro_awards_no) => {
     return api.delete(`/intro-awards/${intro_awards_no}`);
 };
 
@@ -114,7 +114,6 @@ const deleteSchool = (intro_school_no) => {
     return api.delete(`/intro-school/${intro_school_no}`);
 };
 
-
 export {
     findByGithub,
     getPersonal,
@@ -130,8 +129,8 @@ export {
     createArchiving,
     deleteArchiving,
     getAwards,
-    createAwards,
-    deleteAwards,
+    createAward,
+    deleteAward,
     getCareer,
     createCareer,
     deleteCareer,
@@ -143,5 +142,5 @@ export {
     deleteLanguage,
     getSchool,
     createSchool,
-    deleteSchool
+    deleteSchool,
 };

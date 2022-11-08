@@ -74,19 +74,14 @@ function ViewSlogan() {
     const [slogan, setSlogan] = useState(sloganContent);
     const dispatch = useDispatch();
 
-    // const onCreateSlogan = ({intro_no, sloganContent}) => {
-    //   dispatch(slogan.actions.createSlogan({intro_no, sloganContent}))
-    // }
     let content = null;
     if (mode === 'CREATE') {
         content = (
             <SloganInput
                 onCreate={(_slogan) => {
                     dispatch(createSlogan({ introNo: intro_no, sloganContent: _slogan }));
-                    
+                    setSlogan(_slogan)  
                     setMode('READ');
-                    // }
-                    // );
                 }}
             ></SloganInput>
         );
