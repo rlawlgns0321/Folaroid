@@ -16,7 +16,7 @@ export function Planet({
         textureMap,
     },
 }) {
-    const planetRef = React.useRef();
+    const planetRef = useRef();
     const texture = useTexture(textureMap);
     useFrame(({ clock }) => {
         const t = clock.getElapsedTime() * speed + offset;
@@ -31,7 +31,6 @@ export function Planet({
         <>
             <mesh ref={planetRef} receiveShadow scale={1}>
                 <sphereGeometry args={[size, 32, 32]} />
-
                 <meshStandardMaterial
                     map={texture}
                     metalness={0.3}
@@ -54,19 +53,19 @@ export function PlanetClick() {
         state.camera.lookAt(0, 0, 0);
         state.camera.updateProjectionMatrix();
     });
-    // const zoomToView = (focusRef) => {
-    //     setZoom(!zoom);
-    //     setFocus(focusRef.current.position);
-    //   };
-    //   return (
-    // //     <instancedMesh>
-    // //       {momentsData.map((moment, i) => {
-    // //         // Set position here so it isn't reset on state change
-    // //         // for individual moment.
-    // //         return <Moment key={i} data={moment} zoomToView={zoomToView} />;
-    // //       })}
-    // //     </instancedMesh>
-    // //   );
+    const zoomToView = (focusRef) => {
+        setZoom(!zoom);
+        setFocus(focusRef.current.position);
+    };
+    //return (
+    //     <instancedMesh>
+    //       {momentsData.map((moment, i) => {
+    //         // Set position here so it isn't reset on state change
+    //         // for individual moment.
+    //         return <Moment key={i} data={moment} zoomToView={zoomToView} />;
+    //       })}
+    //     </instancedMesh>
+    //   );
 }
 export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
     const points = [];
@@ -112,10 +111,10 @@ const Template2 = () => {
                         saturation={10}
                         fade={true}
                     />
-                    <ambientLight intensity={0.5} />
                     {planetData.map((planet) => (
                         <Planet planet={planet} key={planet.id} />
                     ))}
+                    <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <OrbitControls enableZoom={false} />
                 </Suspense>

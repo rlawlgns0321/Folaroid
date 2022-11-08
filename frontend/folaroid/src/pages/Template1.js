@@ -1,17 +1,14 @@
 import * as THREE from 'three';
-import { React, Suspense, useEffect, useRef } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { React, Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import {
     PerspectiveCamera,
-    useTexture,
+    //useTexture,
     useGLTF,
-    useAnimations,
     OrbitControls,
 } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+//import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
-import { AmbientLight, DirectionalLight } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 export const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -20,7 +17,7 @@ export const sizes = {
 
 export function Scene(props) {
     const obj = useGLTF('models/map.glb');
-    const floor = useTexture('images/grid.jpg');
+    //const floor = useTexture('images/grid.jpg');
     return (
         <primitive
             object={obj.scene}
