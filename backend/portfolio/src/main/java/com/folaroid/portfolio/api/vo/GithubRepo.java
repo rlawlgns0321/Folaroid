@@ -20,6 +20,6 @@ public class GithubRepo {
     private String languages_url;
     private List<String> readmeContent;
     private String default_branch;
-    private String[] imagesUrl;
+    private List<String> imagesUrl;
 
 }
