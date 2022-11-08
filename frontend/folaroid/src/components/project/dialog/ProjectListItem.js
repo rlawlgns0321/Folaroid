@@ -14,6 +14,7 @@ const ProjectListItem = ({ repo }) => {
                 py: 1,
                 borderTop: '1px solid #999999',
                 borderBottom: '1px solid #999999',
+                cursor:'pointer',
             }}
         >
             <Grid

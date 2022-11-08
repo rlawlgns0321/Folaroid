@@ -10,7 +10,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import WebIcon from '@mui/icons-material/Web';
 import { ListItemSecondaryAction } from '@mui/material';
-const PortFolioItem = ({ num }) => {
+const PortFolioItem = ({ pf, onDeleteClick }) => {
     //보기 => router 포폴페이지
     //수정 => 제작페이지
     //복사 =? 같은 포폴페이지가 아래 추가됨
@@ -30,7 +30,7 @@ const PortFolioItem = ({ num }) => {
                         fontWeight: 'bold',
                     }}
                     secondaryTypographyProps={{ fontWeight: 'bold' }}
-                    primary={`포트폴리오 ${num + 1}`}
+                    primary={`포트폴리오 ${pf.pfNo + 1}`}
                     secondary={`작성날짜`}
                 />
                 <ListItemSecondaryAction>
@@ -43,7 +43,7 @@ const PortFolioItem = ({ num }) => {
                     <IconButton edge="end">
                         <ContentCopyIcon />
                     </IconButton>
-                    <IconButton edge="end">
+                    <IconButton edge="end" onClick={() => onDeleteClick()}>
                         <DeleteIcon />
                     </IconButton>
                 </ListItemSecondaryAction>

@@ -1,6 +1,6 @@
 import { Grid, List } from '@mui/material';
 import React from 'react';
-import PortFolioItem from './PortFolioItem';
+import PortfolioItemContainer from '../../containers/portfolio/PortfolioItemContainer';
 
 const PortfolioList = ({ portfolioList }) => {
     return (
@@ -14,8 +14,8 @@ const PortfolioList = ({ portfolioList }) => {
             <Grid container spacing={2} style={{}}>
                 <Grid item xs={12} md={12}>
                     <List>
-                        {portfolioList.map((value, key) => {
-                            return <PortFolioItem key={key} num={value} />;
+                        {portfolioList.map((pf, key) => {
+                            return <PortfolioItemContainer key={key} pf={pf} />;
                         })}
                     </List>
                 </Grid>

@@ -139,7 +139,7 @@ public class OAuthController {
            map.put("introNo", introNo);
             //return map;
        }
-
+        /*
        List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
 
        System.out.println(tmp.size());
@@ -169,6 +169,8 @@ public class OAuthController {
                 System.out.println("=================================");
            }
        }
+       */
+         
        //System.out.println(responseToken.getAccessToken());
        //System.out.println(responseToken.getTokenType());
        //System.out.println(responseToken.getBearer());

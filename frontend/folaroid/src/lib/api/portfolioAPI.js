@@ -8,6 +8,10 @@ const readSimplePortfolio = (userNo) => {
 
 const createPortfolio = (param) => {
     return api.post(`/portfolio`, param);
-}
+};
 
-export { readSimplePortfolio, createPortfolio };
+const deletePortfolio = (pfNo) => {
+    return api.delete(`/portfolio/${pfNo}`);
+};
+
+export { readSimplePortfolio, createPortfolio, deletePortfolio };

@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createPortfolio, readSimplePortfolio } from '../lib/api/portfolioAPI';
+import {
+    createPortfolio,
+    deletePortfolio,
+    readSimplePortfolio,
+} from '../lib/api/portfolioAPI';
 
 export const getSimplePortfolioListThunk = createAsyncThunk(
     'portfolio/SIMPLE_LIST',
@@ -14,6 +18,14 @@ export const createPortfolioThunk = createAsyncThunk(
     async (userNo) => {
         const response = await createPortfolio({ userNo });
         return response.data;
+    }
+);
+
+export const deletePortFolioThunk = createAsyncThunk(
+    'portfolio/DELETE_PORTFOLIO',
+    async (pfNo) => {
+        const response = await deletePortfolio(pfNo);
+        return { pfNo, response: response.data };
     }
 );
 
@@ -34,6 +46,9 @@ export const portfolio = createSlice({
         },
         [createPortfolioThunk.fulfilled.type]: (state, action) => {
             state.pf = action.payload;
+        },
+        [deletePortFolioThunk.fulfilled.type]: (state, {payload}) => {
+            state.simple = state.simple.filter((pf) => pf.pfNo !== payload.pfNo);
         },
     },
 });
