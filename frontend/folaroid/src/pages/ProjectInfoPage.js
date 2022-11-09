@@ -8,13 +8,16 @@ import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/popover2/lib/css/blueprint-popover2.css';
 import { createStore } from 'polotno/model/store';
+import HeaderContainer from '../containers/header/HeaderContainer'
 
-const store = createStore({ key: 'T1WpCy6ZxCmMCkt12c0T' });
+const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
 
 const ProjectInfoPage = () => {
 
     return (
-        <PolotnoContainer style={{ width: '100vw', height: '100vh' }}>
+        <>
+        <HeaderContainer/>
+        <PolotnoContainer style={{ width: '100vw', height: '97vh' }}>
             <SidePanelWrap>
                 <SidePanel store={store} />
             </SidePanelWrap>
@@ -24,6 +27,7 @@ const ProjectInfoPage = () => {
                 <ZoomButtons store={store} />
             </WorkspaceWrap>
         </PolotnoContainer>
+        </>
     );
 };
 

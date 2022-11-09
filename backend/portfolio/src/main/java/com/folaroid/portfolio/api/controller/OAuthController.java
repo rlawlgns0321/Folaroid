@@ -136,7 +136,7 @@ public class OAuthController {
             introPersonalDataRepository.save(introPersonalData);
             map.put("introNo", introNo);
        }
-
+/*
        OAuthToken testToken = new OAuthToken();
        testToken.setAccessToken(responseToken.getAccessToken());
 
