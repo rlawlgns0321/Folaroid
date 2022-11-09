@@ -212,7 +212,7 @@ public class OAuthController {
                     String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
                             + "/" + target.getName()
                             + "/" + target.getDefault_branch()
-                            + "README.md";
+                            + "/README.md";
                     target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
                     List<String> imageUrls = new ArrayList<>();
                     Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
