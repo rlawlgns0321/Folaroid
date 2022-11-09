@@ -38,7 +38,6 @@ const MainCanvas = () => {
         setStrokeWidth(strokeWidth + 1);
 
         setCnt(cnt + 1);
-        console.log(lines);
     };
 
 

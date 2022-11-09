@@ -1,7 +1,6 @@
 import { css } from '@emotion/css';
 import { Grid } from '@mui/material';
 import React from 'react';
-import Header from '../components/common/Header';
 import SideBar from '../components/common/SideBar';
 import { Route, Routes } from 'react-router-dom';
 import TemplateSide from '../components/template/TemplateSide';
@@ -9,11 +8,12 @@ import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
 import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
+import HeaderContainer from '../containers/header/HeaderContainer';
 
 const PortFolioPage = () => {
     return (
         <div>
-            <Header />
+            <HeaderContainer />
             <Grid
                 container
                 sx={{
