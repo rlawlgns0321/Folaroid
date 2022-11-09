@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,30 +14,41 @@ import Paper from '@mui/material/Paper';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import {
+    createSchool,
+    getSchool,
+    deleteSchool,
+} from '../../modules/intro/school';
+import { useDispatch, useSelector } from 'react-redux';
+
+const initialState = {
+    schoolName: '',
+    schoolDegree: '',
+    schoolMajor: '',
+    schoolAdmissionDate: '',
+    schoolGraduationDate: '',
+    schoolCredit: '',
+    schoolMaxCredit: '',
+};
 
 function SchoolInput(props) {
     const [admission, setAdmission] = useState(dayjs('2000-01-01'));
     const [graduation, setGraduation] = useState(dayjs('2000-01-01'));
+    const [school, setSchool] = useState(initialState);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setSchool({ ...school, [name]: value });
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event);
-        const school = event.target[0].value;
-        const major = event.target[2].value;
-        const degree = event.target[4].value;
         const admission = event.target[6].value;
         const graduation = event.target[9].value;
-        const credit = event.target[12].value;
-        const maxCredit = event.target[14].value;
-        props.onCreate(
-            school,
-            major,
-            degree,
-            admission,
-            graduation,
-            credit,
-            maxCredit
-        );
+        setSchool({ ...school, schoolAdmissionDate: admission });
+        setSchool({ ...school, schoolGraduationDate: graduation });
+        console.log('create', school);
+        props.onCreate(school);
     };
 
     return (
@@ -62,30 +73,34 @@ function SchoolInput(props) {
                                     shrink: true,
                                 }}
                                 style={{ width: '40%' }}
+                                name="schoolName"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
                             <TextField
                                 label="학위"
                                 placeholder="학위"
-                                name="degree"
                                 size="medium"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                                 style={{ width: '40%' }}
+                                name="schoolDegree"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
                             <TextField
                                 label="전공"
                                 placeholder="전공"
-                                name="major"
                                 size="medium"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                                 style={{ width: '40%' }}
+                                name="schoolMajor"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
@@ -97,7 +112,7 @@ function SchoolInput(props) {
                                     label="입학일"
                                     inputFormat="YYYY년 MM월"
                                     value={admission}
-                                    name="admission"
+                                    name="schoolAdmissionDate"
                                     onChange={(newValue) => {
                                         setAdmission(newValue);
                                     }}
@@ -116,7 +131,7 @@ function SchoolInput(props) {
                                     label="졸업일"
                                     inputFormat="YYYY년 MM월"
                                     value={graduation}
-                                    name="graduation"
+                                    name="schoolGraduationDate"
                                     onChange={(newValue) => {
                                         setGraduation(newValue);
                                     }}
@@ -138,6 +153,8 @@ function SchoolInput(props) {
                                     shrink: true,
                                 }}
                                 style={{ width: '40%' }}
+                                name="schoolCredit"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
@@ -152,6 +169,8 @@ function SchoolInput(props) {
                                     shrink: true,
                                 }}
                                 style={{ width: '40%' }}
+                                name="schoolMaxCredit"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div
@@ -174,6 +193,31 @@ function SchoolInput(props) {
 }
 
 function ReadSchool(props) {
+    const dispatch = useDispatch();
+
+    const onDeleteClick = (introSchoolNo) => {
+        dispatch(deleteSchool(introSchoolNo));
+    };
+
+    const rowItems = props.school.map((item) => (
+        <TableRow key={item.introSchoolNo}>
+            <TableCell align="center">{item.schoolName}</TableCell>
+            <TableCell align="center">{item.schoolMajor}</TableCell>
+            <TableCell align="center">{item.schoolDegree}</TableCell>
+            <TableCell align="center">{item.schoolAdmissionDate}</TableCell>
+            <TableCell align="center">{item.schoolGraduationDate}</TableCell>
+            <TableCell align="center">
+                {item.schoolCredit}/{item.schoolMaxCredit}
+            </TableCell>
+            <TableCell style={{ display:'flex', justifyContent:'center'}}  algin="center">
+                <Button onClick={() => onDeleteClick(item.introSchoolNo)}>
+                    삭제
+                </Button>
+            </TableCell>
+        </TableRow>
+    ));
+
+
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
             <CardHeader
@@ -200,29 +244,11 @@ function ReadSchool(props) {
                                 <TableCell align="center">입학</TableCell>
                                 <TableCell align="center">졸업</TableCell>
                                 <TableCell align="center">학점</TableCell>
+                                <TableCell align="center">삭제</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow key={props.school}>
-                                <TableCell align="center">
-                                    {props.school}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.major}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.degree}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.admission}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.graduation}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.credit}/{props.maxCredit}
-                                </TableCell>
-                            </TableRow>
+                            {rowItems}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -232,51 +258,41 @@ function ReadSchool(props) {
 }
 
 function ViewName() {
+    const school = useSelector((state) => state.school);
+    const intro_no = useSelector((state) => state.auth.user.intro_no);
     const [mode, setMode] = useState('CREATE');
-    const [value, setValue] = useState([{}]);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('스쿨', intro_no);
+        dispatch(getSchool(intro_no));
+    }, [dispatch, intro_no]);
 
     let content = null;
     if (mode === 'CREATE') {
         content = (
             <SchoolInput
-                onCreate={(
-                    _school,
-                    _major,
-                    _degree,
-                    _admission,
-                    _graduation,
-                    _credit,
-                    _maxCredit
-                ) => {
-                    const newValue = {
-                        school: _school,
-                        major: _major,
-                        degree: _degree,
-                        admission: _admission,
-                        graduation: _graduation,
-                        credit: _credit,
-                        maxCredit: _maxCredit,
-                    };
-                    setValue(newValue);
+                onCreate={(_school) => {
+                    dispatch(
+                        createSchool({
+                            introNo: intro_no,
+                            schoolName: _school.schoolName,
+                            schoolDegree: _school.schoolDegree,
+                            schoolMajor: _school.schoolMajor,
+                            schoolAdmissionDate: _school.schoolAdmissionDate,
+                            schoolGraduationDate: _school.schoolGraduationDate,
+                            schoolCredit: _school.schoolCredit,
+                            schoolMaxCredit: _school.schoolMaxCredit,
+                        })
+                    );
                     setMode('READ');
-                    // newValues.push(newValue);
-                    // setValues(newValues)
                 }}
             ></SchoolInput>
         );
     } else if (mode === 'READ') {
-        console.log({ value });
-        content = (
-            <ReadSchool
-                school={value.school}
-                major={value.major}
-                degree={value.degree}
-                admission={value.admission}
-                graduation={value.graduation}
-                credit={value.credit}
-                maxCredit={value.maxCredit}
-            ></ReadSchool>
-        );
+        console.log({ school });
+        content =   
+        <ReadSchool school={school}></ReadSchool>;
     }
 
     return content;

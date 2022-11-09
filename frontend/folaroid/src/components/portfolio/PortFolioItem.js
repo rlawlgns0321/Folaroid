@@ -10,7 +10,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import WebIcon from '@mui/icons-material/Web';
 import { ListItemSecondaryAction } from '@mui/material';
-const PortFolioItem = ({ pf, onDeleteClick }) => {
+const PortfolioItem = ({ pf, onDeleteClick }) => {
     //보기 => router 포폴페이지
     //수정 => 제작페이지
     //복사 =? 같은 포폴페이지가 아래 추가됨
@@ -52,4 +52,4 @@ const PortFolioItem = ({ pf, onDeleteClick }) => {
         </div>
     );
 };
-export default PortFolioItem;
+export default PortfolioItem;
