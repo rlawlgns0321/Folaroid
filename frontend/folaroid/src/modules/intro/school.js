@@ -3,8 +3,9 @@ import * as api from '../../lib/api/baseIntroAPI';
 
 export const getSchool = createAsyncThunk(
     'school/getSchool',
-    async ({ introNo }) => {
+    async (introNo) => {
         const response = await api.getSchool(introNo);
+        console.log(response.data)
         return response.data;
     }
 );
@@ -20,7 +21,7 @@ export const createSchool = createAsyncThunk(
 
 export const deleteSchool = createAsyncThunk(
     'school/deleteSchool',
-    async ({ introSchoolNo }) => {
+    async (introSchoolNo) => {
         const response = await api.deleteSchool(introSchoolNo);
         console.log(response);
         return response.data;
@@ -33,7 +34,7 @@ export const school = createSlice({
     reducers: {},
     extraReducers: {
         [getSchool.fulfilled]: (state, action) => {
-            state = action.payload;
+            return action.payload;
         },
         [createSchool.fulfilled.type]: (state, action) =>
             state.push({

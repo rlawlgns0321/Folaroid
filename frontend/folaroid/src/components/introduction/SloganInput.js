@@ -15,12 +15,6 @@ import {
 } from '../../modules/intro/slogan';
 
 function SloganInput(props) {
-    const intro_no = useSelector((state) => state.auth.user.intro_no);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getSlogan(intro_no));
-    }, [dispatch, intro_no]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -67,19 +61,11 @@ function SloganInput(props) {
 }
 
 function ReadSlogan(props) {
-    const intro_no = useSelector((state) => state.auth.user.intro_no);
-    const slogan = useSelector((state) => state.slogan);
     const dispatch = useDispatch();
 
     const onDeleteClick = (introSloganNo) => {
         dispatch(deleteSlogan(introSloganNo));
-        console.log('ondeleteclick', slogan);
     };
-
-    useEffect(() => {
-        console.log('이거', intro_no);
-        dispatch(getSlogan(intro_no));
-    }, [dispatch, intro_no]);
 
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
@@ -87,8 +73,8 @@ function ReadSlogan(props) {
             <CardContent
                 style={{ display: 'flex', justifyContent: 'space-between' }}
             >
-                <Box>{slogan.sloganContent}</Box>
-                <Button onClick={() => onDeleteClick(slogan.introSloganNo)}>
+                <Box>{props.sloganContent}</Box>
+                <Button onClick={() => onDeleteClick(props.introSloganNo)}>
                     삭제
                 </Button>
             </CardContent>
@@ -109,16 +95,10 @@ function ViewSlogan() {
 
     let content = null;
 
-    if (slogan.sloganContent && mode === 'CREATE') {
+    if (slogan.introSloganNo && mode === 'CREATE') {
         setMode('READ');
-    } else if (slogan.sloganContent === '' && mode === 'READ') {
+    } else if (!slogan.introSloganNo && mode === 'READ') {
         setMode('CREATE');
-    }
-
-    function checkMode() {
-        if (slogan.sloganContent === '' && mode === 'READ') {
-            setMode('CREATE');
-        }
     }
 
     if (mode === 'CREATE') {
@@ -130,7 +110,8 @@ function ViewSlogan() {
                             introNo: intro_no,
                             sloganContent: _slogan,
                         })
-                    ).then(dispatch(getSlogan(intro_no)).then(setMode('READ')));
+                    );
+                    setMode('READ');
                 }}
             ></SloganInput>
         );
@@ -138,12 +119,8 @@ function ViewSlogan() {
         console.log({ slogan });
         content = (
             <ReadSlogan
-                onClick={(box) => {
-                    setMode(box);
-                    console.log('delete', mode);
-                    console.log('delete', slogan);
-                    checkMode();
-                }}
+                sloganContent={slogan.sloganContent}
+                introSloganNo={slogan.introSloganNo}
             ></ReadSlogan>
         );
     }
