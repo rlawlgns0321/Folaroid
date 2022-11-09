@@ -8,12 +8,16 @@ const ProjectlistDialogConatiner = ({ open, handleClose }) => {
     const repos = useSelector((state) => state.github.repos);
 
     useEffect(() => {
-        dispatch(getReposThunk());
-    }, [dispatch]);
+        if (open) dispatch(getReposThunk());
+    }, [dispatch, open]);
 
     return (
         <div>
-            <ProjectListDialog repos={repos} open={open} onClose={handleClose} />
+            <ProjectListDialog
+                repos={repos}
+                open={open}
+                onClose={handleClose}
+            />
         </div>
     );
 };

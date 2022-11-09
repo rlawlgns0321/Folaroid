@@ -11,10 +11,21 @@ export const github = createSlice({
     initialState: {
         repos: null,
     },
-    reducers: {},
+    reducers: {
+        changeSelect: (state, { payload }) => {
+            state.repos = state.repos.map((repo) => {
+                repo.checked = false;
+                return repo;
+            });
+            state.repos[payload].checked = true;
+        },
+    },
     extraReducers: {
-        [getReposThunk.fulfilled.type]: (state, action) => {
-            state.repos = action.payload;
+        [getReposThunk.fulfilled.type]: (state, { payload }) => {
+            state.repos = payload.map((repo) => {
+                repo.checked = false;
+                return repo;
+            });
         },
     },
 });

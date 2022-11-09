@@ -1,6 +1,6 @@
 import { Button, Dialog, Grid, Typography } from '@mui/material';
 import React from 'react';
-import ProjectListItem from './ProjectListItem';
+import ProjectListItemConatiner from '../../../containers/Project/dialog/ProjectListItemContainer';
 
 const ProjectListDialog = ({ onClose, open, repos }) => {
     const handleClose = () => {
@@ -9,7 +9,7 @@ const ProjectListDialog = ({ onClose, open, repos }) => {
 
     return (
         <Dialog fullWidth maxWidth={'md'} onClose={handleClose} open={open}>
-            <Grid sx={{ my: 5, px: 3 }} container>
+            <Grid sx={{ my: 5, px: 3 }} container direction="column">
                 <Typography
                     sx={{
                         fontWeight: 'bold',
@@ -20,9 +20,24 @@ const ProjectListDialog = ({ onClose, open, repos }) => {
                 >
                     프로젝트 선택
                 </Typography>
-                {repos && repos.map((repo, key) => {
-                    return <ProjectListItem key={key} repo={repo} />;
-                })}
+                <Grid
+                    sx={{
+                        height: '400px',
+                        maxHeight: '400px',
+                        overflowY: 'scroll',
+                    }}
+                >
+                    {repos &&
+                        repos.map((repo, key) => {
+                            return (
+                                <ProjectListItemConatiner
+                                    key={key}
+                                    num={key}
+                                    repo={repo}
+                                />
+                            );
+                        })}
+                </Grid>
                 <Grid
                     sx={{
                         display: 'flex',
