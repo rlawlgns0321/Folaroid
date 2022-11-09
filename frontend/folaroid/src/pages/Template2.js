@@ -1,8 +1,9 @@
-import React, { useRef, Suspense, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, Suspense, useState, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OrbitControls, Stars, useTexture } from '@react-three/drei';
 import planetData from '../components/common/PlanetData';
+import { Camera } from 'three';
 
 export function Planet({
     planet: {
@@ -15,6 +16,7 @@ export function Planet({
         rotationSpeed,
         textureMap,
     },
+    zoomToView,
 }) {
     const planetRef = useRef();
     const texture = useTexture(textureMap);
@@ -26,10 +28,16 @@ export function Planet({
         planetRef.current.position.z = z;
         planetRef.current.rotation.y += rotationSpeed;
     });
-
     return (
         <>
-            <mesh ref={planetRef} receiveShadow scale={1}>
+            <mesh
+                ref={planetRef}
+                receiveShadow
+                scale={1}
+                onClick={(e) => {
+                    zoomToView(e.object.position);
+                }}
+            >
                 <sphereGeometry args={[size, 32, 32]} />
                 <meshStandardMaterial
                     map={texture}
@@ -42,31 +50,6 @@ export function Planet({
     );
 }
 
-export function PlanetClick() {
-    const [zoom, setZoom] = useState(false);
-    const [focus, setFocus] = useState(true);
-    const mouse = new THREE.Vector3();
-    useFrame((state) => {
-        const step = 0.05;
-        zoom ? mouse.set(focus.x, focus.y, focus.z + 0.2) : mouse.set(0, 0, 5);
-        state.camera.position.lerp(mouse, step);
-        state.camera.lookAt(0, 0, 0);
-        state.camera.updateProjectionMatrix();
-    });
-    const zoomToView = (focusRef) => {
-        setZoom(!zoom);
-        setFocus(focusRef.current.position);
-    };
-    //return (
-    //     <instancedMesh>
-    //       {momentsData.map((moment, i) => {
-    //         // Set position here so it isn't reset on state change
-    //         // for individual moment.
-    //         return <Moment key={i} data={moment} zoomToView={zoomToView} />;
-    //       })}
-    //     </instancedMesh>
-    //   );
-}
 export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
     const points = [];
     for (let index = 0; index < 64; index++) {
@@ -91,10 +74,15 @@ export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
 }
 
 const Template2 = () => {
+    const [position1, setPosition1] = useState([0, 20, 25]);
+    function zoomToView(pos) {
+        console.log(pos);
+        console.log(position1);
+    }
     return (
         <>
             <Canvas
-                camera={{ position: [0, 20, 25], fov: 45 }}
+                camera={{ position: position1, fov: 45 }}
                 style={{
                     position: 'fixed',
                     left: '0',
@@ -102,6 +90,7 @@ const Template2 = () => {
                     background: 'black',
                 }}
             >
+                \\
                 <Suspense fallback={null}>
                     <Stars
                         radius={300}
@@ -111,9 +100,18 @@ const Template2 = () => {
                         saturation={10}
                         fade={true}
                     />
+                    {/* 반복문을 위한 map함수 각 행성 호출 */}
                     {planetData.map((planet) => (
-                        <Planet planet={planet} key={planet.id} />
+                        <Planet
+                            zoomToView={zoomToView}
+                            planet={planet}
+                            key={planet.id}
+                        />
                     ))}
+                    <directionalLight
+                        position={[150, 150, 150]}
+                        intensity={0.55}
+                    />
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <OrbitControls enableZoom={false} />
