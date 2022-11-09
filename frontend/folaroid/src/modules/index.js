@@ -10,6 +10,8 @@ import languageReducer from './intro/language'
 import personalReducer from './intro/personal'
 import schoolReducer from './intro/school'
 import sloganReducer from './intro/slogan'
+import portfolioReducer from './portfolio';
+import githubReducer from './github';
 
 
 const rootReducer = combineReducers({
@@ -23,8 +25,9 @@ const rootReducer = combineReducers({
     language: languageReducer,
     personal: personalReducer,
     school: schoolReducer,
-    slogan: sloganReducer
+    slogan: sloganReducer,
+    portfolio: portfolioReducer,
+    github: githubReducer,
 });
 
 export default rootReducer;
-    
