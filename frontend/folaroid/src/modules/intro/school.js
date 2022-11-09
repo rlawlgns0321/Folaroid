@@ -5,7 +5,7 @@ export const getSchool = createAsyncThunk(
     'school/getSchool',
     async (introNo) => {
         const response = await api.getSchool(introNo);
-        console.log(response.data)
+        console.log(response.data);
         return response.data;
     }
 );
@@ -14,8 +14,17 @@ export const createSchool = createAsyncThunk(
     'school/createSchool',
     async (data) => {
         const response = await api.createSchool(data);
-        console.log(response);
-        return response.data;
+        console.log('학교create', response.data);
+        return {
+            introSchoolNo: response.data,
+            schoolAdmissionDate: data.schoolAdmissionDate,
+            schoolCredit: data.schoolCredit,
+            schoolDegree: data.schoolDegree,
+            schoolGraduationDate: data.schoolGraduationDate,
+            schoolMajor: data.schoolMajor,
+            schoolMaxCredit: data.schoolMaxCredit,
+            schoolName: data.schoolName,
+        };
     }
 );
 
@@ -38,6 +47,7 @@ export const school = createSlice({
         },
         [createSchool.fulfilled.type]: (state, action) =>
             state.push({
+                introSchoolNo: action.payload.introSchoolNo,
                 schoolAdmissionDate: action.payload.schoolAdmissionDate,
                 schoolCredit: action.payload.schoolCredit,
                 schoolDegree: action.payload.schoolDegree,

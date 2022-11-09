@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import PortfolioItem from '../../components/portfolio/PortfolioItem';
+import PortfolioItem from '../../components/portfolio/PortFolioItem';
 import { deletePortFolioThunk } from '../../modules/portfolio';
 
 const PortfolioItemContainer = ({pf}) => {

@@ -47,28 +47,9 @@ function SchoolInput(props) {
         const graduation = event.target[9].value;
         setSchool({ ...school, schoolAdmissionDate: admission });
         setSchool({ ...school, schoolGraduationDate: graduation });
-        console.log(school);
+        console.log('create', school);
         props.onCreate(school);
     };
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     console.log(event);
-    //     const school = event.target[0].value;
-    //     const major = event.target[2].value;
-    //     const degree = event.target[4].value;
-    //     const credit = event.target[12].value;
-    //     const maxCredit = event.target[14].value;
-    //     props.onCreate(
-    //         school,
-    //         major,
-    //         degree,
-    //         admission,
-    //         graduation,
-    //         credit,
-    //         maxCredit
-    //     );
-    // };
 
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
@@ -212,19 +193,30 @@ function SchoolInput(props) {
 }
 
 function ReadSchool(props) {
-    const intro_no = useSelector((state) => state.auth.user.intro_no);
-    const school = useSelector((state) => state.school);
     const dispatch = useDispatch();
 
     const onDeleteClick = (introSchoolNo) => {
         dispatch(deleteSchool(introSchoolNo));
-        console.log('ondeleteclick', school);
     };
 
-    useEffect(() => {
-        console.log('이거', intro_no);
-        dispatch(getSchool(intro_no));
-    }, [dispatch, intro_no]);
+    const rowItems = props.school.map((item) => (
+        <TableRow key={item.introSchoolNo}>
+            <TableCell align="center">{item.schoolName}</TableCell>
+            <TableCell align="center">{item.schoolMajor}</TableCell>
+            <TableCell align="center">{item.schoolDegree}</TableCell>
+            <TableCell align="center">{item.schoolAdmissionDate}</TableCell>
+            <TableCell align="center">{item.schoolGraduationDate}</TableCell>
+            <TableCell align="center">
+                {item.schoolCredit}/{item.schoolMaxCredit}
+            </TableCell>
+            <TableCell style={{ display:'flex', justifyContent:'center'}}  algin="center">
+                <Button onClick={() => onDeleteClick(item.introSchoolNo)}>
+                    삭제
+                </Button>
+            </TableCell>
+        </TableRow>
+    ));
+
 
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
@@ -256,35 +248,7 @@ function ReadSchool(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow key={props.name}>
-                                <TableCell align="center">
-                                    {props.name}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.major}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.degree}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.admission}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.graduation}
-                                </TableCell>
-                                <TableCell align="center">
-                                    {props.credit}/{props.maxCredit}
-                                </TableCell>
-                                <TableCell algin="center">
-                                    <Button
-                                        onClick={() =>
-                                            onDeleteClick(school.introSchoolNo)
-                                        }
-                                    >
-                                        삭제
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
+                            {rowItems}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -302,7 +266,6 @@ function ViewName() {
     useEffect(() => {
         console.log('스쿨', intro_no);
         dispatch(getSchool(intro_no));
-        console.log(school)
     }, [dispatch, intro_no]);
 
     let content = null;
@@ -328,17 +291,8 @@ function ViewName() {
         );
     } else if (mode === 'READ') {
         console.log({ school });
-        content = (
-            <ReadSchool
-                school={school[0].schoolName}
-                major={school[0].schoolMajor}
-                degree={school[0].schoolDegree}
-                admission={school[0].schoolAdmission}
-                graduation={school[0].schoolGraduation}
-                credit={school[0].schoolCredit}
-                maxCredit={school[0].schoolMaxCredit}
-            ></ReadSchool>
-        );
+        content =   
+        <ReadSchool school={school}></ReadSchool>;
     }
 
     return content;
