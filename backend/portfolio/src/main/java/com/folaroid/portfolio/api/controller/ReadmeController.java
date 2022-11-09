@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.api.controller;
 
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ public class ReadmeController {
         HttpURLConnection conn; // The actual connection to the web page
         BufferedReader rd; // Used to read results from the web page
         String line; // An individual line of the web page HTML
-        MultiValueMap<String, String> res = null; // A long string containing all the HTML
+        MultiValueMap<String, String> res = new LinkedMultiValueMap<>(); // A long string containing all the HTML
         try {
             url = new URL(urlString);
             conn = (HttpURLConnection) url.openConnection();
@@ -157,7 +158,7 @@ public class ReadmeController {
                                 break;
                         }
                     }
-
+                    System.out.println(line);
                     res.add("md", line);
                 }
             }
