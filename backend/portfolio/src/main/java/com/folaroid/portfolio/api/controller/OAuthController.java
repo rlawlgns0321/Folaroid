@@ -259,7 +259,7 @@ public class OAuthController {
                         }
                     }
 
-                    //target.setImagesUrl(imageUrls);
+                    target.setImagesUrl(imageUrls);
                     return target;
                 }
             }
