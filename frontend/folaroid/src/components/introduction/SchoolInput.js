@@ -209,14 +209,16 @@ function ReadSchool(props) {
             <TableCell align="center">
                 {item.schoolCredit}/{item.schoolMaxCredit}
             </TableCell>
-            <TableCell style={{ display:'flex', justifyContent:'center'}}  algin="center">
+            <TableCell
+                style={{ display: 'flex', justifyContent: 'center' }}
+                algin="center"
+            >
                 <Button onClick={() => onDeleteClick(item.introSchoolNo)}>
                     삭제
                 </Button>
             </TableCell>
         </TableRow>
     ));
-
 
     return (
         <Card style={{ width: '80%', margin: '10px' }}>
@@ -247,9 +249,7 @@ function ReadSchool(props) {
                                 <TableCell align="center">삭제</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {rowItems}
-                        </TableBody>
+                        <TableBody>{rowItems}</TableBody>
                     </Table>
                 </TableContainer>
             </CardContent>
@@ -267,6 +267,13 @@ function ViewName() {
         console.log('스쿨', intro_no);
         dispatch(getSchool(intro_no));
     }, [dispatch, intro_no]);
+
+
+    if (school && mode === 'CREATE') {
+        setMode('READ');
+    } else if (!school && mode === 'READ') {
+        setMode('CREATE');
+    }
 
     let content = null;
     if (mode === 'CREATE') {
@@ -291,8 +298,29 @@ function ViewName() {
         );
     } else if (mode === 'READ') {
         console.log({ school });
-        content =   
-        <ReadSchool school={school}></ReadSchool>;
+        content = (
+            <div>
+                <SchoolInput
+                    onCreate={(_school) => {
+                        dispatch(
+                            createSchool({
+                                introNo: intro_no,
+                                schoolName: _school.schoolName,
+                                schoolDegree: _school.schoolDegree,
+                                schoolMajor: _school.schoolMajor,
+                                schoolAdmissionDate:
+                                    _school.schoolAdmissionDate,
+                                schoolGraduationDate:
+                                    _school.schoolGraduationDate,
+                                schoolCredit: _school.schoolCredit,
+                                schoolMaxCredit: _school.schoolMaxCredit,
+                            })
+                        );
+                    }}
+                ></SchoolInput>
+                <ReadSchool school={school}></ReadSchool>;
+            </div>
+        );
     }
 
     return content;
