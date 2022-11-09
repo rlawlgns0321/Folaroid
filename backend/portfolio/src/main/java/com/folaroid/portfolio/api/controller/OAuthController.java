@@ -34,11 +34,9 @@ import java.util.*;
 @PropertySource("classpath:application-security.properties")
 @CrossOrigin
 public class OAuthController {
-    //private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
 
     private final String USER_REQUEST_URI = "https://api.github.com/user";
-    //private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
@@ -133,19 +131,10 @@ public class OAuthController {
             IntroDto.introRequest introDto = new IntroDto.introRequest();
             introDto.setUserNo(createUserPk);
             Intro intro = introService.createIntro(introDto);
-           Long introNo = intro.getIntroNo();
+            Long introNo = intro.getIntroNo();
             IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
-           introPersonalDataRepository.save(introPersonalData);
-           map.put("introNo", introNo);
-            //return map;
-       }
-        /*
-       List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
-
-       System.out.println(tmp.size());
-       for (int i = 0 ; i < tmp.size() ; i++) {
-           System.out.println(tmp.get(i));
-           System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            introPersonalDataRepository.save(introPersonalData);
+            map.put("introNo", introNo);
        }
 
        OAuthToken testToken = new OAuthToken();
@@ -201,7 +190,7 @@ public class OAuthController {
     }
 
     @GetMapping("/repo")
-    public GithubRepo getRepo(@RequestParam String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public GithubRepo getRepo(@RequestParam("pjt_id") String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
