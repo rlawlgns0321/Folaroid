@@ -17,7 +17,7 @@ const ProjectInfoPage = () => {
     return (
         <>
         <HeaderContainer/>
-        <PolotnoContainer style={{ width: '100vw', height: '97vh' }}>
+        <PolotnoContainer style={{ width: '100vw', height: '93vh' }}>
             <SidePanelWrap>
                 <SidePanel store={store} />
             </SidePanelWrap>

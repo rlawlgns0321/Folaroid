@@ -136,7 +136,7 @@ public class OAuthController {
             introPersonalDataRepository.save(introPersonalData);
             map.put("introNo", introNo);
        }
-/*
+        /*
        OAuthToken testToken = new OAuthToken();
        testToken.setAccessToken(responseToken.getAccessToken());
 
@@ -158,7 +158,7 @@ public class OAuthController {
                 System.out.println("=================================");
            }
        }
-
+        */
          
        //System.out.println(responseToken.getAccessToken());
        //System.out.println(responseToken.getTokenType());
@@ -214,9 +214,9 @@ public class OAuthController {
                     String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
                             + "/" + target.getName()
                             + "/" + target.getDefault_branch()
-                            + "README.md";
+                            + "/README.md";
                     target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
-                    List<String> imageUrls = new ArrayList<>();
+                   /* List<String> imageUrls = new ArrayList<>();
                     Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
 
                     for (int j = 0 ; j < imageUrls.size() ; j++) {
@@ -228,9 +228,9 @@ public class OAuthController {
                                     + target.getDefault_branch() + "/"
                                     + imageUrls.get(j));
                         }
-                    }
+                    }*/
 
-                    target.setImagesUrl(imageUrls);
+                    //target.setImagesUrl(imageUrls);
                     return target;
                 }
             }
