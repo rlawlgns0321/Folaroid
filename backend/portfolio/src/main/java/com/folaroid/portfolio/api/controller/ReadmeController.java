@@ -77,35 +77,7 @@ public class ReadmeController {
                                    }
                                }
                            }
-                          /* String[] headerCheckSplitLine = headerCheckLine.split("\\|");
-                           System.out.println("barNumber = " + barNumber + " Table col number is " + headerCheckSplitLine.length);
-                           boolean isTable = true;
-                           if (headerCheckSplitLine.length >= barNumber - 1 && headerCheckSplitLine.length <= barNumber + 1) {
-                               for (int i = 0 ; i < headerCheckSplitLine.length ; i++) {
-                                   headerCheckSplitLine[i].replace(" ", "");
-                                   String check = new String(new char[headerCheckSplitLine[i].length()]).replace('\0', '-');
-                                    System.out.println("line is " + headerCheckSplitLine[i] + ", check is : " + check);
-                                   String checkLeft = "";
-                                   String checkRight = "";
-                                   String checkMid = "";
 
-                                   if (headerCheckSplitLine[i].length() > 1) {
-                                       checkLeft = ":" + check.substring(1);
-                                       checkRight = check.substring(1) + ":";
-                                   }
-                                   if (headerCheckSplitLine[i].length() > 2) {
-                                       checkMid = ":" + check.substring(2) + ":";
-                                   }
-
-                                   if (!headerCheckSplitLine[i].equals(check)
-                                           && !(headerCheckSplitLine[i].length() > 1 && headerCheckSplitLine[i].equals(checkLeft))
-                                           && !(headerCheckSplitLine[i].length() > 1 && headerCheckSplitLine[i].equals(checkRight))
-                                           && !(headerCheckSplitLine[i].length() > 2 && headerCheckSplitLine[i].equals(checkMid))) {
-                                       isTable = false;
-                                       break;
-                                   }
-                               }
-                           }*/
                            if (!isTable) {
                                res.add("md", line);
                                line = headerCheckLine;
