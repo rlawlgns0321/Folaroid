@@ -13,7 +13,7 @@ const Intro = ({ icon, children }) => {
                 <Typography>{children.value}</Typography>
             </Grid>
             <Grid item xs={8} md={8}>
-                <Typography align="left">데이터받을곳</Typography>
+                <Typography align="left">{children.data}</Typography>
             </Grid>
         </Grid>
     );
