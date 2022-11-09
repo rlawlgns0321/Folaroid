@@ -2,7 +2,7 @@ import { Button, Dialog, Grid, Typography } from '@mui/material';
 import React from 'react';
 import ProjectListItemConatiner from '../../../containers/Project/dialog/ProjectListItemContainer';
 
-const ProjectListDialog = ({ onClose, open, repos }) => {
+const ProjectListDialog = ({ onClose, open, repos, handleSubmit }) => {
     const handleClose = () => {
         onClose();
     };
@@ -45,7 +45,9 @@ const ProjectListDialog = ({ onClose, open, repos }) => {
                         width: '100%',
                     }}
                 >
-                    <Button variant="contained">확인</Button>
+                    <Button variant="contained" onClick={() => handleSubmit()}>
+                        확인
+                    </Button>
                 </Grid>
             </Grid>
         </Dialog>

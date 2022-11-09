@@ -1,10 +1,13 @@
-import { instance } from "./client";
-
+import { instance } from './client';
 
 const api = instance();
 
-const getProjects = () => {
-    return api.get(`/projects`);
-}
+const getProjects = (pfNo) => {
+    return api.get(`/project/${pfNo}`);
+};
 
-export {getProjects}
+const deleteProject = (pjtNo) => {
+    return api.delete(`/project/${pjtNo}`);
+};
+
+export { getProjects, deleteProject };
