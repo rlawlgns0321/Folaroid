@@ -19,7 +19,7 @@ public class IntroAwards {
     private Long introAwardsNo;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "intro_no")
     private Intro intro;
 
