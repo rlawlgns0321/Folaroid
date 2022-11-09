@@ -34,11 +34,9 @@ import java.util.*;
 @PropertySource("classpath:application-security.properties")
 @CrossOrigin
 public class OAuthController {
-    //private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
 
     private final String USER_REQUEST_URI = "https://api.github.com/user";
-    //private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
