@@ -131,20 +131,11 @@ public class OAuthController {
             IntroDto.introRequest introDto = new IntroDto.introRequest();
             introDto.setUserNo(createUserPk);
             Intro intro = introService.createIntro(introDto);
-           Long introNo = intro.getIntroNo();
+            Long introNo = intro.getIntroNo();
             IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
-           introPersonalDataRepository.save(introPersonalData);
-           map.put("introNo", introNo);
-            //return map;
+            introPersonalDataRepository.save(introPersonalData);
+            map.put("introNo", introNo);
        }
-
-       //List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
-
-       /*System.out.println(tmp.size());
-       for (int i = 0 ; i < tmp.size() ; i++) {
-           System.out.println(tmp.get(i));
-           System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-       }*/
 
        OAuthToken testToken = new OAuthToken();
        testToken.setAccessToken(responseToken.getAccessToken());
