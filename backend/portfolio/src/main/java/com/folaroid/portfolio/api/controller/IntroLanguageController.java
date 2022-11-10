@@ -26,9 +26,8 @@ public class IntroLanguageController {
             notes="등록",
             httpMethod = "POST")
     @PostMapping("/intro-language")
-    public ResponseEntity<Long> save(@RequestBody IntroLanguageDto.IntroLanguageDetail request){
-        System.out.println(request.getLanguageDate());
-        Long introLanguageNo = introLanguageService.save(request);
+    public ResponseEntity<Long> save(@RequestBody IntroLanguageDto.introLanguageRequest introLanguageRequest){
+        Long introLanguageNo = introLanguageService.save(introLanguageRequest);
         return new ResponseEntity<>(introLanguageNo, HttpStatus.OK);
     }
 

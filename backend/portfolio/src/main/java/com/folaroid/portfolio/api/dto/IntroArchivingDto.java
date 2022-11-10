@@ -5,6 +5,10 @@ import com.folaroid.portfolio.db.entity.IntroArchiving;
 import lombok.*;
 
 public class IntroArchivingDto {
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class introArchivingRequest{
         private Long introArchivingNo;
         private Long introNo;
@@ -38,3 +42,4 @@ public class IntroArchivingDto {
         }
     }
 }
+

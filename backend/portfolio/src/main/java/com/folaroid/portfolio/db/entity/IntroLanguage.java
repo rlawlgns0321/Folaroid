@@ -33,6 +33,7 @@ public class IntroLanguage {
     @Column(length = 10)
     private String languageGrade;
 
+    @Column
     private String languageDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
