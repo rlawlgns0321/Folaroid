@@ -30,7 +30,9 @@ public class IntroLanguageService {
     }
     @Transactional
     public void delete(Long introLanguageNo) {
-        introLanguageRepository.deleteById(introLanguageNo);
+        IntroLanguage introLanguage = introLanguageRepository.findById(introLanguageNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 언어가 없습니다."));
+        introLanguageRepository.delete(introLanguage);
     }
 
 
