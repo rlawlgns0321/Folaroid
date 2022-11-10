@@ -4,5 +4,5 @@ import com.folaroid.portfolio.db.entity.IntroImage;
 import org.springframework.data.jpa.repository.JpaRepository;;
 
 public interface IntroImageRepository extends JpaRepository<IntroImage, Long> {
-
+    IntroImage findByIntroNo(Long introNo);
 }

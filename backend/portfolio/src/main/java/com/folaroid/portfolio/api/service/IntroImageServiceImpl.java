@@ -11,6 +11,9 @@ public class IntroImageServiceImpl implements IntroImageService{
     @Autowired
     IntroImageRepository introImageRepository;
 
+    public IntroImageDto.IntroImageResponse findIntroImage(Long introNo) {
+        return new IntroImageDto.IntroImageResponse(introNo, introImageRepository.findByIntroNo(introNo).getIntroImageLocation());
+    }
 //    @Override
 //    public void putIntroImage(Long introNo, IntroImageDto.Request introImageRequest) {
 //        IntroImage introImage = introImageRepository.findById(introNo).orElseThrow(()->

@@ -29,4 +29,8 @@ public class IntroImage {
         this.introNo = introNo;
         this.introImageLocation = introImageLocation;
     }
+
+    public void IntroImageLocationSave(String introImageLocation) {
+        this.introImageLocation = introImageLocation;
+    }
 }

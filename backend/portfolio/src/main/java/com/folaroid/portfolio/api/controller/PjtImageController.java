@@ -3,7 +3,6 @@ package com.folaroid.portfolio.api.controller;
 import com.folaroid.portfolio.api.service.FileService;
 import com.folaroid.portfolio.api.service.PjtImageService;
 import com.folaroid.portfolio.db.entity.PjtImage;
-import com.folaroid.portfolio.db.repository.PjtImageRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -50,7 +49,7 @@ public class PjtImageController {
     })
     public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo, @RequestPart(value = "file", required = true) List<MultipartFile> multipartFile)  throws IOException {
 
-        List<String> fileNameList = fileService.uploadImg(pjtNo, multipartFile);
+        List<String> fileNameList = fileService.uploadImages(pjtNo, multipartFile);
         return new ResponseEntity<>(fileNameList, HttpStatus.OK);
     }
 }
