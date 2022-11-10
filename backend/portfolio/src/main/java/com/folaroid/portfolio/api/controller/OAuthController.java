@@ -257,11 +257,11 @@ public class OAuthController {
                     for (int j = 0 ; j < imageUrls.size() ; j++) {
                         if (!imageUrls.get(j).substring(0, 8).equals("https://")
                         && !imageUrls.get(j).substring(0, 7).equals("http://")) {
-                            imageUrls.set(j, getBase64( "https://github.com/"
+                            imageUrls.set(j, "https://raw.githubusercontent.com/"
                                     + responseUserInfo.getLogin() + "/"
-                                    + target.getName() + "/raw/"
+                                    + target.getName() + "/"
                                     + target.getDefault_branch() + "/"
-                                    + imageUrls.get(j)));
+                                    + imageUrls.get(j));
                         }
                     }
 
