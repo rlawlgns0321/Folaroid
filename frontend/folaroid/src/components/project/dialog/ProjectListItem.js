@@ -1,36 +1,41 @@
+import { css } from '@emotion/css';
 import { Checkbox, Grid } from '@mui/material';
 import React from 'react';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-const ProjectListItem = () => {
+const ProjectListItem = ({ repo, onSelect }) => {
     return (
-        <Grid
-            container
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            sx={{
-                my: 1,
-                py: 1,
-                borderTop: '1px solid #999999',
-                borderBottom: '1px solid #999999',
-            }}
+        <div
+            className={css`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 8px 0px;
+                padding: 8px 0px;
+                border-top: 1px solid #999999;
+                border-bottom: 1px solid #999999;
+                cursor: pointer;
+                width: 100%;
+                height: 50px;
+            `}
+            onClick={() => onSelect()}
         >
             <Grid
                 sx={{ display: 'flex', direction: 'row', alignItems: 'center' }}
             >
                 <Grid sx={{ display: 'flex', flexDirection: 'column', mr: 3 }}>
                     <Grid sx={{ fontSize: '1.2rem', color: '#248BEA' }}>
-                        프로젝트 이름
+                        {repo.name}
                     </Grid>
-                    <Grid sx={{ fontSize: '0.8rem' }}>마지막 업데이트</Grid>
+                    <Grid sx={{ fontSize: '0.8rem' }}>{repo.updated_at}</Grid>
                 </Grid>
-                <Grid>프로젝트 설명~~~</Grid>
+                <Grid>{repo.description}</Grid>
             </Grid>
             <Grid>
-                <Checkbox {...label} />
+                <Checkbox
+                    checked={repo.checked}
+                />
             </Grid>
-        </Grid>
+        </div>
     );
 };
 
