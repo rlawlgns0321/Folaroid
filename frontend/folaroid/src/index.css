@@ -58,6 +58,3 @@ h1 {
 .section:nth-child(odd) {
 	text-align: right;
 }
-.uni {
-  background-color: black;
-}

@@ -1,15 +1,14 @@
 import * as THREE from 'three';
-import { React, Suspense, useEffect, useRef } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { React, Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import {
     PerspectiveCamera,
-    useTexture,
+    //useTexture,
     useGLTF,
-    useAnimations,
+    OrbitControls,
 } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+//import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
-import { AmbientLight, DirectionalLight } from 'three';
 export const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -17,15 +16,16 @@ export const sizes = {
 //Camera effect
 
 export function Scene(props) {
-    const obj = useLoader(OBJLoader, 'models/NatureBase.obj');
-    const floor = useTexture('images/grid.jpg');
+    const obj = useGLTF('models/map2.glb');
+    //const floor = useTexture('images/grid.jpg');
     return (
         <primitive
-            object={obj}
-            scale={5}
-            position-y={1}
-            position-z={-180}
-            rotation-x={-Math.PI}
+            object={obj.scene}
+            scale={7}
+            position-x={70}
+            position-y={-10}
+            position-z={-30}
+            // rotation-x={-Math.PI / 1}
         />
         // <mesh
         //     receiveShadow
@@ -52,22 +52,6 @@ export function House(props) {
 }
 useGLTF.preload('/house.gltf');
 
-export function Tree1(props) {
-    const { nodes, materials } = useGLTF('/models/tree1.gltf');
-    return (
-        <group {...props} dispose={null}>
-            <mesh
-                geometry={nodes.tree009.geometry}
-                material={materials.Lowpoly_naural}
-                position={[-0.01, 0, 0]}
-                scale={1.61}
-            />
-        </group>
-    );
-}
-
-useGLTF.preload('/tree1.gltf');
-
 let currentSection = 0;
 let flag = 0;
 function setSection(position, camera) {
@@ -90,10 +74,10 @@ function setModal() {
 }
 const Template1 = () => {
     const position = [
-        [-5, 0, 40],
-        [-5, 0, 20],
-        [-5, 0, 0],
-        [-5, 0, -20],
+        [-7, -5, 12],
+        [-7, -5, -25],
+        [10, 5, -80],
+        [75, 6.5, -115],
         [-5, 0, -40],
     ];
 
@@ -104,7 +88,6 @@ const Template1 = () => {
         1000
     );
     camera.position.set(-5, 2, 25);
-
     //스크롤
     window.addEventListener('scroll', function (event) {
         setSection(position, camera);
@@ -132,24 +115,18 @@ const Template1 = () => {
                 <Suspense fallback={null}>
                     {/* 부드럽게 마우스 이동 */}
                     <Scene />
-                    {/* <OrbitControls
+                    <OrbitControls
                         enableDamping={true}
-                        maxDistance={40}
-                        minDistance={2}
+                        // maxDistance={0}
+                        // minDistance={0}
                         maxPolarAngle={Math.PI / 2}
                         minPolarAngle={Math.PI / 4}
-                    /> */}
-                    <PerspectiveCamera
-                        far={1000}
-                        near={0.1}
-                        fov={75}
-                        aspect={sizes.width / sizes.height}
-                        position={[0, 0, 2]}
+                        enableZoom={true}
                     />
                     <directionalLight
                         castShadow
-                        position={[0, 10, 0]}
-                        intensity={4}
+                        position={[80, 80, 30]}
+                        intensity={0.1}
                         shadow-mapSize-width={1024}
                         shadow-mapSize-height={1024}
                         shadow-camera-far={50}
@@ -158,15 +135,15 @@ const Template1 = () => {
                         shadow-camera-top={100}
                         shadow-camera-bottom={-100}
                     />
-                    <ambientLight intensity={0.3} />
+                    <ambientLight intensity={1} />
                     <House position={position[0]} />
                     <House position={position[1]} />
                     <House position={position[2]} />
                     <House position={position[3]} />
-                    <House position={position[4]} />
+                    {/* <House position={position[4]} /> */}
                 </Suspense>
             </Canvas>
-            <div className="sections">
+            {/* <div className="sections">
                 <section className="section">
                     <h2>01</h2>
                 </section>
@@ -182,7 +159,7 @@ const Template1 = () => {
                 <section className="section">
                     <h2>05</h2>
                 </section>
-            </div>
+            </div> */}
         </>
     );
 };
