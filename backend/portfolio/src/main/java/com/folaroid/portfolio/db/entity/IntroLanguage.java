@@ -36,8 +36,8 @@ public class IntroLanguage {
     @Column
     private String languageDate;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 }

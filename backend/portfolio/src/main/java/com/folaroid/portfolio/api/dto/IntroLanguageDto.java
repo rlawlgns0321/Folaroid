@@ -25,7 +25,7 @@ public class IntroLanguageDto {
                     .languageTestName(languageTestName)
                     .languageGrade(languageGrade)
                     .languageDate(languageDate)
-                    .intro(intro)
+                    .introNo(introNo)
                     .build();
             return introLanguage;
         }
@@ -45,7 +45,7 @@ public class IntroLanguageDto {
             this.languageTestName = introLanguage.getLanguageTestName();
             this. languageGrade = introLanguage.getLanguageGrade();
             this.languageDate = introLanguage.getLanguageDate();
-            this.introNo = introLanguage.getIntro().getIntroNo();
+            this.introNo = introLanguage.getIntroNo();
         }
     }
 
