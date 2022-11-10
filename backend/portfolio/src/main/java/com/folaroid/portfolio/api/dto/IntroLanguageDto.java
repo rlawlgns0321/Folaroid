@@ -15,7 +15,7 @@ public class IntroLanguageDto {
         private String languageName;
         private String languageTestName;
         private String languageGrade;
-        private String languageDate;
+        private java.sql.Date languageDate;
         private Long introNo;
 
         public IntroLanguage toEntity(Intro intro){
@@ -36,7 +36,7 @@ public class IntroLanguageDto {
         private String languageName;
         private String languageTestName;
         private String languageGrade;
-        private String languageDate;
+        private java.sql.Date languageDate;
         private Long introNo;
 
         public introLanguageResponse(IntroLanguage introLanguage){

@@ -34,10 +34,21 @@ public class IntroLanguage {
     private String languageGrade;
 
     @Column
-    private String languageDate;
+    private java.sql.Date languageDate;
 
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 //    @ManyToOne(fetch = LAZY)
 //    @JoinColumn(name = "intro_no")
     private Long introNo;
+
+    public IntroLanguage(Long introNo) {
+        this.introNo = introNo;
+    }
+
+    public void saveOtherData(String languageName, String languageTestName, String languageGrade, java.sql.Date languageDate) {
+        this.languageName = languageName;
+        this.languageTestName = languageTestName;
+        this.languageGrade = languageGrade;
+        this.languageDate = languageDate;
+    }
 }

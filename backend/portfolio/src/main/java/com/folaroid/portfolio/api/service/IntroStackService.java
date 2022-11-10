@@ -23,8 +23,7 @@ public class IntroStackService {
 
     @Transactional
     public Long save(StackNoDto request) {
-        IntroStack introStack = new IntroStack();
-        introStack.saveIntroStack(request.getIntroNo(), request.getHashNo());
+        IntroStack introStack = new IntroStack(request.getIntroNo(), request.getHashNo());
         return introStackRepository.save(introStack).getIntroStackNo();
     }
     @Transactional
