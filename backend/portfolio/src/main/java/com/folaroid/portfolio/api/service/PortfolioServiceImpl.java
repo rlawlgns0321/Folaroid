@@ -60,11 +60,12 @@ public class PortfolioServiceImpl implements PortfolioService{
         //포트폴리오 자기소개 학력 테이블 저장 1:N
 
         //포트폴리오 자기소개 슬로건 테이블 저장 1:1
+        /*
         IntroSlogan userInfoSlogan = introSloganRepository.findByIntroNo(userInfoIntroNo);
         IntroSlogan portfolioInfoSlogan = new IntroSlogan(portfolioIntroNo);
         portfolioInfoSlogan.updateIntroSlogan(userInfoSlogan.getSloganContent());
         introSloganRepository.save(portfolioInfoSlogan);
-
+        */
 
         return new PortfolioDto.SavePortfolioDto(portfolio, portfolioIntroNo);
     }
