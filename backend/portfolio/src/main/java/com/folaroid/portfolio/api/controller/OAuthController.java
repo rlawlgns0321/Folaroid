@@ -253,21 +253,24 @@ public class OAuthController {
                             + "/" + target.getDefault_branch()
                             + "/README.md";
                     target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
-                    List<String> imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
-                    Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
+                    List<String> imageUrls;
+                    if (readmeTest.getMDContent(targetReadme).get("image") != null) {
+                        imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
+                        Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
 
-                    for (int j = 0 ; j < imageUrls.size() ; j++) {
-                        if (!imageUrls.get(j).substring(0, 8).equals("https://")
-                        && !imageUrls.get(j).substring(0, 7).equals("http://")) {
-                            imageUrls.set(j, "https://github.com/"
-                                    + responseUserInfo.getLogin() + "/"
-                                    + target.getName() + "/raw/"
-                                    + target.getDefault_branch() + "/"
-                                    + imageUrls.get(j));
+                        for (int j = 0; j < imageUrls.size(); j++) {
+                            if (!imageUrls.get(j).substring(0, 8).equals("https://")
+                                    && !imageUrls.get(j).substring(0, 7).equals("http://")) {
+                                imageUrls.set(j, "https://github.com/"
+                                        + responseUserInfo.getLogin() + "/"
+                                        + target.getName() + "/raw/"
+                                        + target.getDefault_branch() + "/"
+                                        + imageUrls.get(j));
+                            }
                         }
-                    }
 
-                    target.setImagesUrl(imageUrls);
+                        target.setImagesUrl(imageUrls);
+                    }
                     return target;
                 }
             }
