@@ -8,6 +8,7 @@ import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
 import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
+import PortfolioIntro from '../components/portfolio_intro/PortfolioIntro';
 import HeaderContainer from '../containers/header/HeaderContainer';
 
 const PortFolioPage = () => {
@@ -33,7 +34,10 @@ const PortFolioPage = () => {
                     <SideBar isPortfolio>
                         <Routes>
                             <Route path="template" element={<TemplateSide />} />
-                            <Route path="project" element={<ProjectSideContainer />} />
+                            <Route
+                                path="project"
+                                element={<ProjectSideContainer />}
+                            />
                             <Route path="intro" element={<IntroSide />} />
                         </Routes>
                     </SideBar>
@@ -45,7 +49,14 @@ const PortFolioPage = () => {
                 >
                     <Contents title="프로젝트">
                         <Routes>
-                            <Route path="project" element={<ProjectBodyContainer />} />
+                            <Route
+                                path="project"
+                                element={<ProjectBodyContainer />}
+                            />
+                            <Route
+                                path="intro"
+                                element={<PortfolioIntro/>}
+                            />
                         </Routes>
                     </Contents>
                 </Grid>

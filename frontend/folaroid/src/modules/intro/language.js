@@ -26,7 +26,7 @@ export const createLanguage = createAsyncThunk(
 
 export const deleteLanguage = createAsyncThunk(
     'language/deleteLanguage',
-    async ({ introLanguageNo }) => {
+    async ( introLanguageNo ) => {
         const response = await api.deleteLanguage(introLanguageNo);
         console.log(response);
         return response.data;
