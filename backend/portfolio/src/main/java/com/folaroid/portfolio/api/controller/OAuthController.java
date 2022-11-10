@@ -10,8 +10,10 @@ import com.folaroid.portfolio.api.vo.GithubRepo;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.folaroid.portfolio.db.entity.Intro;
+import com.folaroid.portfolio.db.entity.IntroImage;
 import com.folaroid.portfolio.db.entity.IntroPersonalData;
 import com.folaroid.portfolio.db.entity.User;
+import com.folaroid.portfolio.db.repository.IntroImageRepository;
 import com.folaroid.portfolio.db.repository.IntroPersonalDataRepository;
 import com.folaroid.portfolio.db.repository.UserRepository;
 import org.slf4j.Logger;
@@ -62,6 +64,10 @@ public class OAuthController {
 
     @Autowired
     private IntroPersonalDataRepository introPersonalDataRepository;
+
+    @Autowired
+    private IntroImageRepository introImageRepository;
+
 
     private HttpEntity<MultiValueMap<String, String>> getCodeRequestEntity(String code) {
 
@@ -141,6 +147,8 @@ public class OAuthController {
             IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
             introPersonalDataRepository.save(introPersonalData);
             map.put("introNo", introNo);
+           IntroImage introImage = new IntroImage(introNo, responseUserInfo.getAvatar_url());
+           introImageRepository.save(introImage);
        }
         /*
        OAuthToken testToken = new OAuthToken();
@@ -163,7 +171,7 @@ public class OAuthController {
                 System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
                 System.out.println("=================================");
            }
-       }
+       }*/
 
        /*if (userInfoResponse.getBody() != null) {
            for (int i = 0; i < userInfoResponse.getBody().size(); i++) {
