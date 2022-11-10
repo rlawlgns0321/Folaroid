@@ -28,8 +28,14 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.*;
 
 @RestController
@@ -144,8 +150,8 @@ public class OAuthController {
            IntroImage introImage = new IntroImage(introNo, responseUserInfo.getAvatar_url());
            introImageRepository.save(introImage);
        }
-
-       /*OAuthToken testToken = new OAuthToken();
+        /*
+       OAuthToken testToken = new OAuthToken();
        testToken.setAccessToken(responseToken.getAccessToken());
 
        String requestReposUrl = responseUserInfo.getRepos_url();
@@ -259,9 +265,9 @@ public class OAuthController {
                     for (int j = 0 ; j < imageUrls.size() ; j++) {
                         if (!imageUrls.get(j).substring(0, 8).equals("https://")
                         && !imageUrls.get(j).substring(0, 7).equals("http://")) {
-                            imageUrls.set(j, "https://github.com/"
+                            imageUrls.set(j, "https://raw.githubusercontent.com/"
                                     + responseUserInfo.getLogin() + "/"
-                                    + target.getName() + "/raw/"
+                                    + target.getName() + "/"
                                     + target.getDefault_branch() + "/"
                                     + imageUrls.get(j));
                         }
@@ -275,5 +281,30 @@ public class OAuthController {
 
         return null;
 
+    }
+
+    String getBase64(String exampleUrl){
+       try {
+           URL url = new URL(exampleUrl);
+           BufferedImage img = ImageIO.read(url);
+           // URL을 통해 File 생성
+           File file = new File("downloaded.jpg");
+           ImageIO.write(img, "png", file);
+
+           InputStream finput = new FileInputStream(file);
+           byte[] imageBytes = new byte[(int) file.length()];
+           finput.read(imageBytes, 0, imageBytes.length);
+           finput.close();
+           String filePathName = exampleUrl.replace("file:///", "");
+           String fileExtName = filePathName.substring(filePathName.lastIndexOf(".") + 1);
+           // Base64
+           String imageStr = Base64.getEncoder().encodeToString(imageBytes);
+           // 밑에 changeString은 img 태그안에 쓰이는 용입니다. 위에만 참고하셔도 괜찮아요!
+           String changeString = "data:image/"+ fileExtName +";base64, "+ imageStr;
+           return changeString;
+       }catch (Exception e) {
+           e.printStackTrace();
+       }
+        return null;
     }
 }

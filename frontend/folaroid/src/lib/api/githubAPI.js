@@ -2,7 +2,7 @@ import { getToken, instance } from './client';
 
 const api = instance();
 
-const repo = (pjt_id) => {
+const getRepo = (pjt_id) => {
     return api.get(`/repo?pjt_id=${pjt_id}`, {
         headers: {
             Authorization: getToken(),
@@ -10,7 +10,7 @@ const repo = (pjt_id) => {
     });
 };
 
-const repos = () => {
+const getRepos = () => {
     return api.get(`/repos`, {
         headers: {
             Authorization: getToken(),
@@ -18,4 +18,4 @@ const repos = () => {
     });
 };
 
-export { repos, repo };
+export { getRepos, getRepo };

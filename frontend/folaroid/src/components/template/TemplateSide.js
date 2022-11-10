@@ -1,9 +1,14 @@
 import React from 'react';
 
 const TemplateSide = () => {
+
+    const change = (e) => {
+        console.log(e.target.value);
+    }
+
     return (
         <div>
-            템플릿
+            <input type="text" onChange={change}/>
         </div>
     );
 };

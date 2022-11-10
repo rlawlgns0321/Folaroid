@@ -1,21 +1,23 @@
+import { css } from '@emotion/css';
 import { Checkbox, Grid } from '@mui/material';
 import React from 'react';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-const ProjectListItem = ({ repo }) => {
+const ProjectListItem = ({ repo, onSelect }) => {
     return (
-        <Grid
-            container
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            sx={{
-                my: 1,
-                py: 1,
-                borderTop: '1px solid #999999',
-                borderBottom: '1px solid #999999',
-                cursor:'pointer',
-            }}
+        <div
+            className={css`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 8px 0px;
+                padding: 8px 0px;
+                border-top: 1px solid #999999;
+                border-bottom: 1px solid #999999;
+                cursor: pointer;
+                width: 100%;
+                height: 50px;
+            `}
+            onClick={() => onSelect()}
         >
             <Grid
                 sx={{ display: 'flex', direction: 'row', alignItems: 'center' }}
@@ -29,9 +31,11 @@ const ProjectListItem = ({ repo }) => {
                 <Grid>{repo.description}</Grid>
             </Grid>
             <Grid>
-                <Checkbox {...label} />
+                <Checkbox
+                    checked={repo.checked}
+                />
             </Grid>
-        </Grid>
+        </div>
     );
 };
 

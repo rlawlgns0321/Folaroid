@@ -1,15 +1,15 @@
 import { Button, Dialog, Grid, Typography } from '@mui/material';
 import React from 'react';
-import ProjectListItem from './ProjectListItem';
+import ProjectListItemConatiner from '../../../containers/Project/dialog/ProjectListItemContainer';
 
-const ProjectListDialog = ({ onClose, open, repos }) => {
+const ProjectListDialog = ({ onClose, open, repos, handleSubmit }) => {
     const handleClose = () => {
         onClose();
     };
 
     return (
         <Dialog fullWidth maxWidth={'md'} onClose={handleClose} open={open}>
-            <Grid sx={{ my: 5, px: 3 }} container>
+            <Grid sx={{ my: 5, px: 3 }} container direction="column">
                 <Typography
                     sx={{
                         fontWeight: 'bold',
@@ -20,9 +20,24 @@ const ProjectListDialog = ({ onClose, open, repos }) => {
                 >
                     프로젝트 선택
                 </Typography>
-                {repos && repos.map((repo, key) => {
-                    return <ProjectListItem key={key} repo={repo} />;
-                })}
+                <Grid
+                    sx={{
+                        height: '400px',
+                        maxHeight: '400px',
+                        overflowY: 'scroll',
+                    }}
+                >
+                    {repos &&
+                        repos.map((repo, key) => {
+                            return (
+                                <ProjectListItemConatiner
+                                    key={key}
+                                    num={key}
+                                    repo={repo}
+                                />
+                            );
+                        })}
+                </Grid>
                 <Grid
                     sx={{
                         display: 'flex',
@@ -30,7 +45,9 @@ const ProjectListDialog = ({ onClose, open, repos }) => {
                         width: '100%',
                     }}
                 >
-                    <Button variant="contained">확인</Button>
+                    <Button variant="contained" onClick={() => handleSubmit()}>
+                        확인
+                    </Button>
                 </Grid>
             </Grid>
         </Dialog>
