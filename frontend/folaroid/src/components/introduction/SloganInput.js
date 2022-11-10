@@ -7,12 +7,13 @@ import {
     CardContent,
     TextField,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createSlogan,
     getSlogan,
     deleteSlogan,
 } from '../../modules/intro/slogan';
+import { useLocation } from 'react-router-dom';
 
 function SloganInput(props) {
 
@@ -84,7 +85,12 @@ function ReadSlogan(props) {
 
 function ViewSlogan() {
     const slogan = useSelector((state) => state.slogan);
-    const intro_no = useSelector((state) => state.auth.user.intro_no);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 

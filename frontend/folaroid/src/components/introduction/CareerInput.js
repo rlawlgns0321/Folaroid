@@ -17,12 +17,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createCareer,
     getCareer,
     deleteCareer,
 } from '../../modules/intro/career';
+import { useLocation } from 'react-router-dom';
 
 const initialState = {
     careerComName: '',
@@ -204,7 +205,12 @@ function Read(props) {
 
 function View() {
     const career = useSelector((state) => state.career);
-    const introNo = useSelector((state) => state.auth.user.intro_no);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const introNo =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 

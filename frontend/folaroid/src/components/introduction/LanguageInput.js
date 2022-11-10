@@ -24,7 +24,8 @@ import {
     createLanguage,
     deleteLanguage,
 } from '../../modules/intro/language';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 const initialState = {
     languageName: '',
@@ -54,15 +55,15 @@ function LanguageInput(props) {
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
                     }}
                 >
-                    <div style={{ width: '100%', margin:'20px' }}>
+                    <div style={{ width: '100%', margin: '20px' }}>
                         <InputLabel id="demo-simple-select-label">
                             외국어
                         </InputLabel>
                         <Select
-                        style={{width: '90%'}}
+                            style={{ width: '90%' }}
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             name="languageName"
@@ -166,10 +167,11 @@ function ReadLanguage(props) {
                 <Table>
                     <TableHead>
                         <TableRow>
-                        <TableCell align="center">외국어</TableCell>
+                            <TableCell align="center">외국어</TableCell>
                             <TableCell align="center">시험명</TableCell>
                             <TableCell align="center">취득년월</TableCell>
                             <TableCell align="center">점수/등급</TableCell>
+                            <TableCell align="center"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>{rowItems}</TableBody>
@@ -181,12 +183,17 @@ function ReadLanguage(props) {
 
 function ViewLanguage() {
     const language = useSelector((state) => state.language);
-    const intro_no = useSelector((state) => state.auth.user.intro_no);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+    console.log('language no', intro_no)
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('액티비티', intro_no);
         dispatch(getLanguage(intro_no));
     }, [dispatch, intro_no]);
 
@@ -207,6 +214,7 @@ function ViewLanguage() {
                 <CardHeader title="공인어학성적" />
                 <LanguageInput
                     onCreate={(_language) => {
+                        console.log('_language', _language);
                         dispatch(
                             createLanguage({
                                 introNo: intro_no,
@@ -222,10 +230,10 @@ function ViewLanguage() {
             </Card>
         );
     } else if (mode === 'READ') {
-        console.log({ language });
+        console.log('language', { language });
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="활동" />
+                <CardHeader title="공인어학성적" />
                 <LanguageInput
                     onCreate={(_language) => {
                         dispatch(

@@ -21,7 +21,8 @@ import {
     getSchool,
     deleteSchool,
 } from '../../modules/intro/school';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 const initialState = {
     schoolName: '',
@@ -256,7 +257,12 @@ function ReadSchool(props) {
 
 function ViewName() {
     const school = useSelector((state) => state.school);
-    const intro_no = useSelector((state) => state.auth.user.intro_no);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 

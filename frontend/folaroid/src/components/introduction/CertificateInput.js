@@ -17,12 +17,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createCertification,
     getCertification,
     deleteCertification,
 } from '../../modules/intro/certification';
+import { useLocation } from 'react-router-dom';
 
 const initialState = {
     certificationDate: '',
@@ -166,7 +167,9 @@ function Read(props) {
                 style={{ display: 'flex', justifyContent: 'center' }}
                 algin="center"
             >
-                <Button onClick={() => onDeleteClick(item.introCertificationNo)}>
+                <Button
+                    onClick={() => onDeleteClick(item.introCertificationNo)}
+                >
                     삭제
                 </Button>
             </TableCell>
@@ -181,8 +184,12 @@ function Read(props) {
                         <TableRow>
                             <TableCell align="center">자격증명</TableCell>
                             <TableCell align="center">취득날짜</TableCell>
-                            <TableCell align="center">자격증 발급 기관</TableCell>
-                            <TableCell align="center">자격증 고유번호</TableCell>
+                            <TableCell align="center">
+                                자격증 발급 기관
+                            </TableCell>
+                            <TableCell align="center">
+                                자격증 고유번호
+                            </TableCell>
                             <TableCell align="center">취득내용</TableCell>
                             <TableCell align="center"></TableCell>
                         </TableRow>
@@ -196,7 +203,12 @@ function Read(props) {
 
 function View() {
     const certification = useSelector((state) => state.certification);
-    const introNo = useSelector((state) => state.auth.user.intro_no);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const introNo =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
@@ -207,7 +219,11 @@ function View() {
 
     if (certification.length !== 0 && mode === 'CREATE') {
         setMode('READ');
-    } else if (Array.isArray(certification) && certification.length === 0 && mode === 'READ') {
+    } else if (
+        Array.isArray(certification) &&
+        certification.length === 0 &&
+        mode === 'READ'
+    ) {
         setMode('CREATE');
     }
 

@@ -17,12 +17,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createAward,
     getAwards,
     deleteAward,
 } from '../../modules/intro/awards';
+import { useLocation } from 'react-router-dom';
 
 const initialState = {
     awardsDate: '',
@@ -179,14 +180,19 @@ function ReadAwards(props) {
 
 function ViewAwards() {
     const award = useSelector((state) => state.awards);
-    const introNo = useSelector((state) => state.auth.user.intro_no);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('어워드', introNo);
-        dispatch(getAwards(introNo));
-    }, [dispatch, introNo]);
+        console.log('어워드', intro_no);
+        dispatch(getAwards(intro_no));
+    }, [dispatch, intro_no]);
 
     if (award.length !== 0 && mode === 'CREATE') {
         setMode('READ');
@@ -203,7 +209,7 @@ function ViewAwards() {
                     onCreate={(box) => {
                         dispatch(
                             createAward({
-                                introNo: introNo,
+                                introNo: intro_no,
                                 awardsDate: box.awardsDate,
                                 awardsDetail: box.awardsDetail,
                                 awardsIssuer: box.awardsIssuer,
@@ -225,7 +231,7 @@ function ViewAwards() {
                     onCreate={(box) => {
                         dispatch(
                             createAward({
-                                introNo: introNo,
+                                introNo: intro_no,
                                 awardsDate: box.awardsDate,
                                 awardsDetail: box.awardsDetail,
                                 awardsIssuer: box.awardsIssuer,
