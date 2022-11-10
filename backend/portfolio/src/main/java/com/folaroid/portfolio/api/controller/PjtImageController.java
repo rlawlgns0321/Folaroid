@@ -12,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Api(value = "프로젝트 이미지", tags={"PjtImage"})
@@ -47,9 +50,17 @@ public class PjtImageController {
             @ApiResponse(code = 404, message = "없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo, @RequestPart(value = "file", required = true) List<MultipartFile> multipartFile)  throws IOException {
+    public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo,
+//                                                  @RequestParam(value = "files", required = false) List<MultipartFile> files
+                                                  MultipartHttpServletRequest multiRequest
+    )  throws IOException {
 
-        List<String> fileNameList = fileService.uploadImages(pjtNo, multipartFile);
-        return new ResponseEntity<>(fileNameList, HttpStatus.OK);
+        List<MultipartFile> multipartFile = multiRequest.getFiles("files");
+        if (multipartFile == null) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } else {
+            List<String> fileNameList = fileService.uploadImages(pjtNo, multipartFile);
+            return new ResponseEntity<>(fileNameList, HttpStatus.OK);
+        }
     }
 }
