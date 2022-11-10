@@ -1,9 +1,10 @@
-import React, { useRef, Suspense, useState, useEffect } from 'react';
+import React, { useRef, Suspense, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OrbitControls, Stars, useTexture } from '@react-three/drei';
 import planetData from '../components/common/PlanetData';
-import { Camera } from 'three';
+import CameraControls from 'camera-controls'
+CameraControls.install({ THREE })
 
 export function Planet({
     planet: {
@@ -15,11 +16,12 @@ export function Planet({
         offset,
         rotationSpeed,
         textureMap,
-    },
-    zoomToView,
+    }
 }) {
     const planetRef = useRef();
-    const texture = useTexture(textureMap);
+    const texture = useTexture(textureMap);  
+    const [zoom, setZoom] = useState(false)
+    const camera = useThree((state) => state.camera)
     useFrame(({ clock }) => {
         const t = clock.getElapsedTime() * speed + offset;
         const x = xRadius * Math.sin(t);
@@ -35,7 +37,10 @@ export function Planet({
                 receiveShadow
                 scale={1}
                 onClick={(e) => {
-                    zoomToView(e.object.position);
+                    console.log(e.object.position);
+                    console.log(planetRef.current.id/2 - 9);
+                    setZoom(!zoom)
+                    console.log(zoom, camera.position)
                 }}
             >
                 <sphereGeometry args={[size, 32, 32]} />
@@ -76,13 +81,14 @@ export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
 const Template2 = () => {
     const [position1, setPosition1] = useState([0, 20, 25]);
     function zoomToView(pos) {
-        console.log(pos);
-        console.log(position1);
-    }
+         console.log(pos);
+         setPosition1([pos.x, pos.y, pos.z])
+             
+     }
     return (
         <>
-            <Canvas
-                camera={{ position: position1, fov: 45 }}
+            <Canvas 
+                camera={{position:[0,20,25], fov:45}}
                 style={{
                     position: 'fixed',
                     left: '0',
@@ -90,7 +96,7 @@ const Template2 = () => {
                     background: 'black',
                 }}
             >
-                \\
+                
                 <Suspense fallback={null}>
                     <Stars
                         radius={300}
@@ -114,7 +120,7 @@ const Template2 = () => {
                     />
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
-                    <OrbitControls enableZoom={false} />
+                    <OrbitControls enableZoom={true} />
                 </Suspense>
             </Canvas>
         </>
