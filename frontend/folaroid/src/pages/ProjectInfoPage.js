@@ -10,6 +10,7 @@ import '@blueprintjs/popover2/lib/css/blueprint-popover2.css';
 import { createStore } from 'polotno/model/store';
 import HeaderContainer from '../containers/header/HeaderContainer';
 import MdPhotoLibrary from '@meronex/icons/md/MdPhotoLibrary';
+import MdDescription from '@meronex/icons/md/MdDescription';
 import {
     TextSection,
     ElementsSection,
@@ -18,6 +19,7 @@ import {
     SizeSection,
 } from 'polotno/side-panel';
 import { PhotosPanel } from '../components/projectinfo/PhotosPanel';
+import { CopyPanel } from '../components/projectinfo/CopyPanel';
 
 const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
 
@@ -32,8 +34,19 @@ const CustomPhotos = {
     Panel: PhotosPanel,
 };
 
+const CopyText = {
+    name: 'copy',
+    Tab: (props) => (
+        <SectionTab name="CopyText" {...props}>
+            <MdDescription />
+        </SectionTab>
+    ),
+    Panel: CopyPanel,
+};
+
 const sections = [
     TextSection,
+    CopyText,
     CustomPhotos,
     ElementsSection,
     UploadSection,
@@ -48,7 +61,7 @@ const ProjectInfoPage = () => {
             <HeaderContainer />
             <PolotnoContainer style={{ width: '100vw', height: '93vh' }}>
                 <SidePanelWrap>
-                    <SidePanel store={store} sections={sections} />
+                    <SidePanel store={store} sections={sections} defaultSection="text"/>
                 </SidePanelWrap>
                 <WorkspaceWrap>
                     <Toolbar store={store} downloadButtonEnabled />
