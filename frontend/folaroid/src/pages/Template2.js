@@ -1,4 +1,4 @@
-import React, { useRef, Suspense, useState, useEffect } from 'react';
+import React, { useRef, Suspense, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import {
@@ -86,9 +86,6 @@ export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
 
 const Template2 = () => {
     const [position1, setPosition1] = useState([0, 20, 25]);
-    const camera = new THREE.PerspectiveCamera(45, position1, 0.1, 2000);
-    camera.position.set(0, 20, 25);
-
     function zoomToView(pos) {
         console.log(pos);
         setPosition1(pos);
@@ -98,7 +95,7 @@ const Template2 = () => {
     return (
         <>
             <Canvas
-                camera={camera}
+                camera={{ position: [0, 20, 25], fov: 45 }}
                 style={{
                     position: 'fixed',
                     left: '0',
