@@ -29,7 +29,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class FileService {
 
     private final PjtImageRepository pjtImageRepository;
@@ -61,12 +61,13 @@ public class FileService {
 
     @Transactional
     public List<String> uploadImages(Long pjtNo, List<MultipartFile> multipartFile) throws IOException {
-        List<String> fileNameList = new ArrayList<>();
+        List<String> urlList = new ArrayList<>();
 
         //지우고
         List<PjtImage> pjtImages = pjtImageRepository.findAllByPjtNo(pjtNo);
         pjtImages.forEach(pjtImage -> {
             deleteFile(pjtImage.getPjtImageLocation());
+            pjtImageRepository.delete(pjtImage);
         });
 
         //생성
@@ -84,12 +85,13 @@ public class FileService {
             }
             PjtImage pjtImage = new PjtImage();
             //파일 위치에는 이름으로 저장
-            pjtImage.saveImage(pjtNo, fileName);
+            String url = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+            pjtImage.saveImage(pjtNo, url);
             pjtImageRepository.save(pjtImage);
-            fileNameList.add(fileName);
+            urlList.add(url);
         });
 
-        return fileNameList;
+        return urlList;
     }
 
 
@@ -112,12 +114,22 @@ public class FileService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
         //파일 위치에는 이름으로 저장
-        introImage.IntroImageLocationSave(fileName);
+        String url = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+        introImage.IntroImageLocationSave(url);
 
-        return fileName;
+        return url;
     }
 
-    public void deleteFile(String fileName) {
+    public void deleteFile(String url) {
+
+        String fileName = url;
+
+        for (int i = url.length() - 1 ; i >= 0 ; i--) {
+            if (url.charAt(i) == '/') {
+                fileName = url.substring(i+1);
+                break;
+            }
+        }
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
     }
 
