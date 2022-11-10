@@ -8,7 +8,9 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.folaroid.portfolio.db.entity.IntroImage;
 import com.folaroid.portfolio.db.entity.PjtImage;
+import com.folaroid.portfolio.db.repository.IntroImageRepository;
 import com.folaroid.portfolio.db.repository.PjtImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +33,7 @@ import java.util.UUID;
 public class FileService {
 
     private final PjtImageRepository pjtImageRepository;
+    private final IntroImageRepository introImageRepository;
 
     private AmazonS3 amazonS3;
 
@@ -57,7 +60,7 @@ public class FileService {
     }
 
     @Transactional
-    public List<String> uploadImg(Long pjtNo, List<MultipartFile> multipartFile) throws IOException {
+    public List<String> uploadImages(Long pjtNo, List<MultipartFile> multipartFile) throws IOException {
         List<String> fileNameList = new ArrayList<>();
 
         //지우고
@@ -87,6 +90,31 @@ public class FileService {
         });
 
         return fileNameList;
+    }
+
+
+    @Transactional
+    public String introImageUploadImage(Long introNo, MultipartFile multipartFile) throws IOException {
+        //지우고
+        IntroImage introImage = introImageRepository.findByIntroNo(introNo);
+        deleteFile(introImage.getIntroImageLocation());
+
+        //생성
+        String fileName = createFileName(multipartFile.getOriginalFilename());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
+
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+        }
+        //파일 위치에는 이름으로 저장
+        introImage.IntroImageLocationSave(fileName);
+
+        return fileName;
     }
 
     public void deleteFile(String fileName) {
