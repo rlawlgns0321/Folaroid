@@ -6,9 +6,12 @@ import {
     //useTexture,
     useGLTF,
     OrbitControls,
+    Html,
+    Text3D,
 } from '@react-three/drei';
 //import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
+import { Container } from '@mui/system';
 export const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -45,7 +48,6 @@ export function House(props) {
             <mesh
                 geometry={nodes.Cube.geometry}
                 material={materials.Material}
-                onClick={() => console.log('click')}
             ></mesh>
         </group>
     );
@@ -56,18 +58,20 @@ let currentSection = 0;
 let flag = 0;
 function setSection(position, camera) {
     const newSection = Math.round(window.scrollY / window.innerHeight);
-
     if (currentSection !== newSection) {
         flag = 1;
         /*화면이동 */
         gsap.to(camera.position, {
+            rotation: 0,
             duration: 1,
             x: position[newSection][0],
-            z: position[newSection][2],
+            y: position[newSection][1] + 5,
+            z: position[newSection][2] + 15,
         });
         currentSection = newSection;
         flag = 0;
     }
+    console.log(newSection, currentSection);
 }
 function setModal() {
     /*alert('프로젝트를 띄울거임');*/
@@ -78,7 +82,7 @@ const Template1 = () => {
         [-7, -5, -25],
         [10, 5, -80],
         [75, 6.5, -115],
-        [-5, 0, -40],
+        //[-5, 0, -40],
     ];
 
     const camera = new THREE.PerspectiveCamera(
@@ -87,7 +91,7 @@ const Template1 = () => {
         0.1,
         1000
     );
-    camera.position.set(-5, 2, 25);
+    camera.position.set(-7, 0, 27);
     //스크롤
     window.addEventListener('scroll', function (event) {
         setSection(position, camera);
@@ -115,14 +119,7 @@ const Template1 = () => {
                 <Suspense fallback={null}>
                     {/* 부드럽게 마우스 이동 */}
                     <Scene />
-                    <OrbitControls
-                        enableDamping={true}
-                        // maxDistance={0}
-                        // minDistance={0}
-                        maxPolarAngle={Math.PI / 2}
-                        minPolarAngle={Math.PI / 4}
-                        enableZoom={true}
-                    />
+                    <OrbitControls enableZoom={false} />
                     <directionalLight
                         castShadow
                         position={[80, 80, 30]}
@@ -145,16 +142,20 @@ const Template1 = () => {
             </Canvas>
             {/* <div className="sections">
                 <section className="section">
-                    <h2>01</h2>
+                    <h2>Project1</h2>
+                    <div postion={}>click</div>
                 </section>
                 <section className="section">
-                    <h2>02</h2>
+                    <h2>Project2</h2>
+                    <div>click</div>
                 </section>
                 <section className="section">
-                    <h2>03</h2>
+                    <h2>Project3</h2>
+                    <div>click</div>
                 </section>
                 <section className="section">
-                    <h2>04</h2>
+                    <h2>Project4</h2>
+                    <div>click</div>
                 </section>
                 <section className="section">
                     <h2>05</h2>

@@ -58,3 +58,8 @@ h1 {
 .section:nth-child(odd) {
 	text-align: right;
 }
+.section div{
+  display: flex;
+  align-items: flex-end;
+  height: 100vh;
+}
