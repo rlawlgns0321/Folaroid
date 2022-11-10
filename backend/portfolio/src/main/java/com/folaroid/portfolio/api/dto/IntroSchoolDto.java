@@ -15,8 +15,8 @@ public class IntroSchoolDto {
         private String schoolName;
         private String schoolMajor;
         private String schoolDegree;
-        private String schoolAdmissionDate;
-        private String schoolGraduationDate;
+        private java.sql.Date schoolAdmissionDate;
+        private java.sql.Date schoolGraduationDate;
         private Float schoolCredit;
         private Float schoolMaxCredit;
 
@@ -44,8 +44,8 @@ public class IntroSchoolDto {
         private String schoolName;
         private String schoolMajor;
         private String schoolDegree;
-        private String schoolAdmissionDate;
-        private String schoolGraduationDate;
+        private java.sql.Date schoolAdmissionDate;
+        private java.sql.Date schoolGraduationDate;
         private Float schoolCredit;
         private Float schoolMaxCredit;
 

@@ -25,4 +25,12 @@ public class IntroArchiving {
     private String archivingName; // 사용자 관련 링크 이름
     private String archivingLink; // 사용자 관련 링크
 
+    public IntroArchiving(Intro intro) {
+        this.intro = intro;
+    }
+
+    public void saveOtherData(String archivingName, String archivingLink) {
+        this.archivingName = archivingName;
+        this.archivingLink = archivingLink;
+    }
 }
