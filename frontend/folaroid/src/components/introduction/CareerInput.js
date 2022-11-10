@@ -19,17 +19,17 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    createCertification,
-    getCertification,
-    deleteCertification,
-} from '../../modules/intro/certification';
+    createCareer,
+    getCareer,
+    deleteCareer,
+} from '../../modules/intro/career';
 
 const initialState = {
-    certificationDate: '',
-    certificationDetail: '',
-    certificationId: '',
-    certificationIssuer: '',
-    certificationName: '',
+    careerComName: '',
+    careerDate: '',
+    careerDetail: '',
+    careerJob: '',
+    careerResult: '',
 };
 function Input(props) {
     const [box, setBox] = useState(initialState);
@@ -51,16 +51,16 @@ function Input(props) {
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
                     <TextField
-                        label="자격증명"
+                        label="회사명"
                         type="text"
-                        placeholder="자격증명"
+                        placeholder="입력"
                         InputLabelProps={{
                             shrink: true,
                         }}
                         style={{ width: '40%' }}
-                        name="certificationName"
+                        name="careerComeName"
                         onChange={handleInputChange}
-                        value={box.certificationName}
+                        value={box.careerComName}
                     />
                 </div>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
@@ -70,13 +70,13 @@ function Input(props) {
                             sx={{ width: '40%' }}
                         >
                             <DatePicker
-                                label="취득날짜"
-                                name="certificationDate"
-                                value={box.certificationDate}
+                                label="근무날짜"
+                                name="careerDate"
+                                value={box.careerDate}
                                 onChange={(newValue) => {
                                     setBox({
                                         ...box,
-                                        certificationDate:
+                                        careerDate:
                                             dayjs(newValue).toISOString(),
                                     });
                                 }}
@@ -92,30 +92,16 @@ function Input(props) {
                 </div>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
                     <TextField
-                        label="자격증 발급 기관"
+                        label="직무"
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
                             shrink: true,
                         }}
                         style={{ width: '40%' }}
-                        name="certificationIssuer"
+                        name="careerJob"
                         onChange={handleInputChange}
-                        value={box.certificationIssuer}
-                    />
-                </div>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="자격증 고유번호"
-                        type="text"
-                        placeholder="입력"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        style={{ width: '40%' }}
-                        name="certificationId"
-                        onChange={handleInputChange}
-                        value={box.certificationId}
+                        value={box.careerJob}
                     />
                 </div>
                 <div
@@ -127,15 +113,35 @@ function Input(props) {
                     }}
                 >
                     <TextField
-                        label="취득 내용"
+                        label="상세업무 및 성과"
                         multiline
-                        placeholder="취득내용에 관한 사항을 적어주세요."
+                        placeholder="근무내용에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
                         onChange={handleInputChange}
-                        name="certificationDetail"
+                        name="careerResult"
                         rows={2}
                         maxRows={4}
-                        value={box.certificationDetail}
+                        value={box.careerResult}
+                    />
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
+                        width: '100%',
+                    }}
+                >
+                    <TextField
+                        label="기타 설명"
+                        multiline
+                        placeholder="추가 사항에 관한 사항을 적어주세요."
+                        style={{ width: '90%' }}
+                        onChange={handleInputChange}
+                        name="careerDetail"
+                        rows={2}
+                        maxRows={4}
+                        value={box.careerDetail}
                     />
                     <div>
                         <Button type="submit" variant="contained">
@@ -151,22 +157,22 @@ function Input(props) {
 function Read(props) {
     const dispatch = useDispatch();
 
-    const onDeleteClick = (introCertificationNo) => {
-        dispatch(deleteCertification(introCertificationNo));
+    const onDeleteClick = (introCareerNo) => {
+        dispatch(deleteCareer(introCareerNo));
     };
 
-    const rowItems = props.certification.map((item) => (
-        <TableRow key={item.introCertificationNo}>
-            <TableCell align="center">{item.certificationName}</TableCell>
-            <TableCell align="center">{item.certificationDate}</TableCell>
-            <TableCell align="center">{item.certificationIssuer}</TableCell>
-            <TableCell align="center">{item.certificationId}</TableCell>
-            <TableCell align="center">{item.certificationDetail}</TableCell>
+    const rowItems = props.career.map((item) => (
+        <TableRow key={item.introCareerNo}>
+            <TableCell align="center">{item.careerComName}</TableCell>
+            <TableCell align="center">{item.careerDate}</TableCell>
+            <TableCell align="center">{item.careerJob}</TableCell>
+            <TableCell align="center">{item.careerResult}</TableCell>
+            <TableCell align="center">{item.careerDetail}</TableCell>
             <TableCell
                 style={{ display: 'flex', justifyContent: 'center' }}
                 algin="center"
             >
-                <Button onClick={() => onDeleteClick(item.introCertificationNo)}>
+                <Button onClick={() => onDeleteClick(item.introCareerNo)}>
                     삭제
                 </Button>
             </TableCell>
@@ -179,11 +185,13 @@ function Read(props) {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">자격증명</TableCell>
-                            <TableCell align="center">취득날짜</TableCell>
-                            <TableCell align="center">자격증 발급 기관</TableCell>
-                            <TableCell align="center">자격증 고유번호</TableCell>
-                            <TableCell align="center">취득내용</TableCell>
+                            <TableCell align="center">회사명</TableCell>
+                            <TableCell align="center">근무날짜</TableCell>
+                            <TableCell align="center">직무</TableCell>
+                            <TableCell align="center">
+                                상세업무 및 성과
+                            </TableCell>
+                            <TableCell align="center">기타 설명</TableCell>
                             <TableCell align="center"></TableCell>
                         </TableRow>
                     </TableHead>
@@ -195,19 +203,23 @@ function Read(props) {
 }
 
 function View() {
-    const certification = useSelector((state) => state.certification);
+    const career = useSelector((state) => state.career);
     const introNo = useSelector((state) => state.auth.user.intro_no);
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('certification', introNo);
-        dispatch(getCertification(introNo));
+        console.log('career', introNo);
+        dispatch(getCareer(introNo));
     }, [dispatch, introNo]);
 
-    if (certification.length !== 0 && mode === 'CREATE') {
+    if (career.length !== 0 && mode === 'CREATE') {
         setMode('READ');
-    } else if (Array.isArray(certification) && certification.length === 0 && mode === 'READ') {
+    } else if (
+        Array.isArray(career) &&
+        career.length === 0 &&
+        mode === 'READ'
+    ) {
         setMode('CREATE');
     }
 
@@ -215,17 +227,17 @@ function View() {
     if (mode === 'CREATE') {
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="자격증" />
+                <CardHeader title="경력사항" />
                 <Input
                     onCreate={(box) => {
                         dispatch(
-                            createCertification({
+                            createCareer({
                                 introNo: introNo,
-                                certificationDate: box.certificationDate,
-                                certificationDetail: box.certificationDetail,
-                                certificationIssuer: box.certificationIssuer,
-                                certificationId: box.certificationId,
-                                certificationName: box.certificationName,
+                                careerComName: box.careerComName,
+                                careerDate: box.careerDate,
+                                careerJob: box.careerJob,
+                                careerResult: box.careerResult,
+                                careerDetail: box.careerDetail,
                             })
                         );
                         setMode('READ');
@@ -234,26 +246,26 @@ function View() {
             </Card>
         );
     } else if (mode === 'READ') {
-        console.log({ certification });
+        console.log({ career });
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="자격증" />
+                <CardHeader title="경력사항" />
                 <Input
                     onCreate={(box) => {
                         dispatch(
-                            createCertification({
+                            createCareer({
                                 introNo: introNo,
-                                certificationDate: box.certificationDate,
-                                certificationDetail: box.certificationDetail,
-                                certificationIssuer: box.certificationIssuer,
-                                certificationId: box.certificationId,
-                                certificationName: box.certificationName,
+                                careerComName: box.careerComName,
+                                careerDate: box.careerDate,
+                                careerJob: box.careerJob,
+                                careerResult: box.careerResult,
+                                careerDetail: box.careerDetail,
                             })
                         );
                         setMode('READ');
                     }}
                 ></Input>
-                <Read certification={certification}></Read>
+                <Read career={career}></Read>
             </Card>
         );
     }

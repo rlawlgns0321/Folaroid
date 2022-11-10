@@ -3,7 +3,7 @@ import * as api from '../../lib/api/baseIntroAPI';
 
 export const getCertification = createAsyncThunk(
     'certification/getCertification',
-    async ({ introNo }) => {
+    async (introNo) => {
         const response = await api.getCertification(introNo);
         return response.data;
     }
@@ -14,13 +14,20 @@ export const createCertification = createAsyncThunk(
     async (data) => {
         const response = await api.createCertification(data);
         console.log(response);
-        return response.data;
+        return {
+            introCertificationNo: response.data,
+            certificationDate: data.certificationDate,
+            certificationDetail: data.certificationDetail,
+            certificationId: data.certificationId,
+            certificationIssuer: data.certificationIssuer,
+            certificationName: data.certificationName,
+        };
     }
 );
 
 export const deleteCertification = createAsyncThunk(
     'certification/deleteCertification',
-    async ({ introCertificationNo }) => {
+    async (introCertificationNo) => {
         const response = await api.deleteCertification(introCertificationNo);
         console.log(response);
         return response.data;
@@ -33,9 +40,9 @@ export const certification = createSlice({
     reducers: {},
     extraReducers: {
         [getCertification.fulfilled]: (state, action) => {
-            state = action.payload;
+            return action.payload;
         },
-        [createCertification.fulfilled.type]: (state, action) =>
+        [createCertification.fulfilled.type]: (state, action) => {
             state.push({
                 certificationDate: action.payload.certificationDate,
                 certificationDetail: action.payload.certificationDetail,
@@ -43,7 +50,8 @@ export const certification = createSlice({
                 certificationIssuer: action.payload.certificationIssuer,
                 certificationName: action.payload.certificationName,
                 introCertificationNo: action.payload.introCertificationNo,
-            }),
+            });
+        },
         [deleteCertification.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = state.filter(

@@ -3,7 +3,7 @@ import * as api from '../../lib/api/baseIntroAPI';
 
 export const getActivity = createAsyncThunk(
     'activity/getActivity',
-    async ({ intro_no }) => {
+    async (intro_no) => {
         const response = await api.getActivity(intro_no);
         return response.data;
     }
@@ -14,13 +14,19 @@ export const createActivity = createAsyncThunk(
     async (data) => {
         const response = await api.createActivity(data);
         console.log(response);
-        return response.data;
+        return {
+            introActivityNo: response.data,
+            activityDate: data.activityDate,
+            activityDetail: data.activityDetail,
+            activityName: data.activityName,
+            activityUrl: data.activityUrl,
+        };
     }
 );
 
 export const deleteActivity = createAsyncThunk(
     'activity/deleteActivity',
-    async ({ introActivityNo }) => {
+    async (introActivityNo) => {
         const response = await api.deleteActivity(introActivityNo);
         console.log(response);
         return response.data;
@@ -33,21 +39,22 @@ export const activity = createSlice({
     reducers: {},
     extraReducers: {
         [getActivity.fulfilled]: (state, action) => {
-            state = action.payload
+            return action.payload;
         },
-        [createActivity.fulfilled.type]: (state, action) => 
-        state.push({
-            introActivityNo : action.payload.introActivityNo,
-            activityDate : action.payload.activityDate,
-            activityDetail : action.payload.activityDate,
-            activityName : action.payload.activityName,
-            activityUrl : action.payload.activityUrl,
-        }),
+        [createActivity.fulfilled.type]: (state, action) => {
+            state.push({
+                introActivityNo: action.payload.introActivityNo,
+                activityDate: action.payload.activityDate,
+                activityDetail: action.payload.activityDetail,
+                activityName: action.payload.activityName,
+                activityUrl: action.payload.activityUrl,
+            });
+        },
         [deleteActivity.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = state.filter(
                 (activity) => activity.introActivityNo !== action.payload
-            )
+            );
         },
     },
 });
