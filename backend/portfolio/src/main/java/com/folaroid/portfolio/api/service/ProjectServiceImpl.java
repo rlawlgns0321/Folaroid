@@ -60,4 +60,12 @@ public class ProjectServiceImpl implements ProjectService{
                 projectRequest.getPjtJson());
     }
 
+    @Transactional
+    @Override
+    public ProjectDto.ProjectOneImageDto findProjectOneImageLocation(Long pjtNo) {
+        Project project = projectRepository.findById(pjtNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
+        return new ProjectDto.ProjectOneImageDto(pjtNo, project.getPjtOneImageLocation());
+    }
+
 }

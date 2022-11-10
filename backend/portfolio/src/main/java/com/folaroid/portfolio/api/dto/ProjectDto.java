@@ -72,4 +72,15 @@ public class ProjectDto {
             this.pjtJson = project.getPjtJson();
         }
     }
+
+
+    public static class ProjectOneImageDto {
+        private Long pjtNo;
+        private String pjtOneImageLocation;
+
+        public ProjectOneImageDto(Long pjtNo, String pjtOneImageLocation) {
+            this.pjtNo = pjtNo;
+            this.pjtOneImageLocation = pjtOneImageLocation;
+        }
+    }
 }
