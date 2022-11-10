@@ -28,4 +28,8 @@ public class User {
         this.userGithubId = userGithubId;
         this.userEmail = userEmail;
     }
+
+    public void saveEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 }

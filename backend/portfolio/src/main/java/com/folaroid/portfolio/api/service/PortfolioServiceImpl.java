@@ -4,25 +4,25 @@ import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.IntroStackDto;
 import com.folaroid.portfolio.api.dto.PortfolioDto;
 import com.folaroid.portfolio.api.dto.UserDto;
-import com.folaroid.portfolio.db.entity.Intro;
-import com.folaroid.portfolio.db.entity.IntroStack;
-import com.folaroid.portfolio.db.entity.Portfolio;
-import com.folaroid.portfolio.db.repository.IntroRepository;
-import com.folaroid.portfolio.db.repository.PortfolioRepository;
+import com.folaroid.portfolio.db.entity.*;
+import com.folaroid.portfolio.db.repository.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@RequiredArgsConstructor
 @Service("portfolioService")
 public class PortfolioServiceImpl implements PortfolioService{
 
-    @Autowired
-    PortfolioRepository portfolioRepository;
-    @Autowired
-    IntroRepository introRepository;
+
+    private final PortfolioRepository portfolioRepository;
+    private final IntroRepository introRepository;
+    private final IntroPersonalDataRepository introPersonalDataRepository;
+    private final IntroStackRepository introStackRepository;
+    private final IntroSloganRepository introSloganRepository;
 
     @Transactional
     @Override
@@ -30,13 +30,22 @@ public class PortfolioServiceImpl implements PortfolioService{
         Portfolio portfolio = portfolioRepository.save(request.toEntity());
         Intro intro = new Intro();
         intro.SavePortfolioInfo(portfolio.getPfNo(), request.getUserNo());
+        // 새로 만든 introNo
         Long portfolioIntroNo = introRepository.save(intro).getIntroNo();
-//        기존의 개인정보 데이터들을 바로 포트폴리오의 자기소개 정보로 저장할 것.
+        //기존 개인정보 데이터 introNo
         Long userInfoIntroNo = introRepository.findUserDefaultData(request.getUserNo());
-        //포트폴리오 자기소개 이미지 테이블 저장 1:1 - 아직 controller 구현 안됨.
+        // 기존의 개인정보 데이터들을 포트폴리오의 자기소개 정보로 저장할 것.
+
+        //포트폴리오 자기소개 이미지 테이블 저장 1:1
+
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
+        IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(userInfoIntroNo);
+        IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(portfolioIntroNo);
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        introPersonalDataRepository.save(portfolioInfoPersonalData);
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N
+        List<IntroStack> userInfos = introStackRepository.findAllByIntroNo(userInfoIntroNo);
 
         //포트폴리오 자기소개 어학성적 테이블 저장 1:N
 
@@ -51,9 +60,22 @@ public class PortfolioServiceImpl implements PortfolioService{
         //포트폴리오 자기소개 학력 테이블 저장 1:N
 
         //포트폴리오 자기소개 슬로건 테이블 저장 1:1
+        /*
+        IntroSlogan userInfoSlogan = introSloganRepository.findByIntroNo(userInfoIntroNo);
+        IntroSlogan portfolioInfoSlogan = new IntroSlogan(portfolioIntroNo);
+        portfolioInfoSlogan.updateIntroSlogan(userInfoSlogan.getSloganContent());
+        introSloganRepository.save(portfolioInfoSlogan);
+        */
 
         return new PortfolioDto.SavePortfolioDto(portfolio, portfolioIntroNo);
     }
+    @Transactional
+    @Override
+    public Long getPortfolioIntroNo(Long pfNo) {
+        Long userNo = portfolioRepository.findById(pfNo).get().getUserNo();
+        return introRepository.findByPfNoAndUserNo(pfNo, userNo);
+    }
+
 
     @Transactional
     @Override

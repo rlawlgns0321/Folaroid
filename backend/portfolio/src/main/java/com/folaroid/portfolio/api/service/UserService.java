@@ -27,16 +27,16 @@ public class UserService {
         Intro intro = new Intro();
         intro.SaveDefaultUserInfo(request.getUserNo());
         Long introNo = introRepository.save(intro).getIntroNo();
-        IntroPersonalData introPersonalData = new IntroPersonalData(intro);
+        IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
         introPersonalDataRepository.save(introPersonalData);
         return introNo;
     }
 
 
     @Transactional(readOnly = true)
-    public UserDefaultDto find(IntroDto.IntroNoDto request) {
-        Intro intro = introRepository.findById(request.getIntroNo()).get();
-        IntroPersonalData introPersonalData = introPersonalDataRepository.findById(request.getIntroNo()).get();
+    public UserDefaultDto find(Long introNo) {
+        Intro intro = introRepository.findById(introNo).get();
+        IntroPersonalData introPersonalData = introPersonalDataRepository.findByIntroNo(introNo);
         return new UserDefaultDto(userRepository.findById(intro.getUserNo()).get(), introPersonalData);
     }
 
@@ -44,6 +44,9 @@ public class UserService {
     public void put(UserDefaultForUpdateDto request) {
         IntroPersonalData introPersonalData = introPersonalDataRepository.findById(request.getIntroNo()).get();
         introPersonalData.updateIntroPersonalData(request.getUserName(), request.getUserBirth(), request.getUserPhone());
+        User user = userRepository.findById(introRepository.findById(request.getIntroNo()).get().getUserNo()).get();
+        user.saveEmail(request.getUserEmail());
+        userRepository.save(user);
     }
     @Transactional
     public Long save(UserSignupReq request) {
@@ -52,8 +55,8 @@ public class UserService {
         return userRepository.save(user).getUserNo();
     }
 
-    public Long getIntroNo(UserLoginReq request) {
-        User user = userRepository.findByUserGithubId(request.getUserGithubId());
+    public Long getIntroNo(String userGithubId) {
+        User user = userRepository.findByUserGithubId(userGithubId);
         return introRepository.findUserDefaultData(user.getUserNo());
     }
 }

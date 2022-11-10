@@ -2,25 +2,19 @@ import React from 'react';
 import '../components/introduction/base_introduction.css';
 import { Grid } from '@mui/material';
 import { css } from '@emotion/css';
-import { Route, Routes } from 'react-router-dom';
+// import { Route, Routes } from 'react-router-dom';
 import Header from '../components/common/Header';
 import SideBar from '../components/common/SideBar';
-import ProjectSide from '../components/project/ProjectSide';
-import TemplateSide from '../components/template/TemplateSide';
 import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
-
-// import Sidebar from '../components/introduction/Sidebar';
-import NameInput from '../components/introduction/NameInput';
-import BirthInput from '../components/introduction/BirthInput';
-import EmailInput from '../components/introduction/EmailInput';
-import StackInput from '../components/introduction/StackInput';
-import PhoneInput from '../components/introduction/PhoneInput';
+import PersonalInput from '../components/introduction/PersonalInput'
+import ActivityInput from '../components/introduction/ActivityInput'
+// import StackInput from '../components/introduction/StackInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
 import SloganInput from '../components/introduction/SloganInput';
 import LanguageInput from '../components/introduction/LanguageInput';
-import LinkInput from '../components/introduction/LinkInput';
+import ArchivingInput from '../components/introduction/ArchivingInput';
 import CertificateInput from '../components/introduction/CertificateInput';
 import AwardInput from '../components/introduction/AwardInput';
 function BaseIntro() {
@@ -45,12 +39,8 @@ function BaseIntro() {
                         border-right: 3px solid black;
                     `}
                 >
-                    <SideBar>
-                        <Routes>
-                            <Route path="template" element={<TemplateSide />} />
-                            <Route path="project" element={<ProjectSide />} />
-                            <Route path="intro" element={<IntroSide />} />
-                        </Routes>
+                    <SideBar isPortfolio={false}>
+                        <IntroSide/>
                     </SideBar>
                 </Grid>
                 <Grid
@@ -59,18 +49,16 @@ function BaseIntro() {
                     `}
                 >
                     <Contents title={title}>
-                      <NameInput></NameInput>
-                      <BirthInput></BirthInput>
-                      <EmailInput></EmailInput>
-                      <PhoneInput></PhoneInput>
+                      <PersonalInput></PersonalInput>
                       <ImageInput></ImageInput>
                       <SloganInput></SloganInput>
-                      <StackInput></StackInput>
+                      {/* <StackInput></StackInput> */}
                       <SchoolInput></SchoolInput>
                       <LanguageInput></LanguageInput>
-                      <LinkInput></LinkInput>
+                      <ArchivingInput></ArchivingInput>
                       <CertificateInput></CertificateInput>
                       <AwardInput></AwardInput>
+                      <ActivityInput></ActivityInput>
                     </Contents>
                 </Grid>
             </Grid>

@@ -12,4 +12,6 @@ public interface PortfolioService {
     void patchPortfolioTemplate(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest);
 
     List<PortfolioDto.PortfolioSimpleDto> readSimplePortfolio(Long userNo);
+
+    Long getPortfolioIntroNo(Long pfNo);
 }

@@ -24,8 +24,9 @@ public class Intro {
     private String introContent;
 
     private Long userNo;
-
     private Long pfNo;
+
+
 
 //    private Long portfolioTemplatesNo;
 
@@ -33,9 +34,9 @@ public class Intro {
 //    @JoinColumn(name = "intro_image_no")
 //    private IntroImage introImage;
 //
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "intro_personal_data_no")
-    private IntroPersonalData introPersonalData;
+//    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "intro_personal_data_no")
+//    private IntroPersonalData introPersonalData;
 
 //    @OneToMany(mappedBy = "intro")
 //    private List<IntroStack> introStacks = new ArrayList<>();

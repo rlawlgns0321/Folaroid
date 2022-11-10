@@ -1,6 +1,5 @@
 package com.folaroid.portfolio.api.dto;
 
-import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.IntroImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,29 +11,28 @@ public class IntroImageDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Request{
+    public static class introImageRequest{
         private Long introImageNo;
         private String introImageLocation;
-        private Intro intro;
+        private Long introNo;
 
         public IntroImage toEntity(){
             IntroImage introImage = IntroImage.builder()
                     .introImageNo(introImageNo)
                     .introImageLocation(introImageLocation)
-//                    .intro(intro)
+                    .introNo(introNo)
                     .build();
             return introImage;
         }
     }
 
-    public static class Response{
-        private Long introImageNo;
+    public static class IntroImageResponse {
         private String introImageLocation;
-        private Intro intro;
+        private Long introNo;
 
-        public Response(IntroImage introImage){
-            this.introImageNo = introImage.getIntroImageNo();
-            this.introImageLocation = introImage.getIntroImageLocation();
+        public IntroImageResponse(Long introNo, String introImageLocation){
+            this.introNo = introNo;
+            this.introImageLocation = introImageLocation;
 //            this.intro = introImage.getIntro();
         }
     }

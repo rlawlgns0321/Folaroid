@@ -27,7 +27,7 @@ public class PortfolioDto {
                     .updatedAt(updatedAt)
                     //.portfolioTemplates(portfolioTemplates)
                     .portfolioTemplatesNo(portfolioTemplatesNo)
-                    .pfImageLocation(pfImageLocation)
+//                    .pfImageLocation(pfImageLocation)
                     .build();
             return portfolio;
         }
@@ -41,7 +41,7 @@ public class PortfolioDto {
         private LocalDateTime updatedAt;
         //private PortfolioTemplates portfolioTemplates;
         private Long portfolioTemplatesNo;
-        private String pfImageLocation;
+//        private String pfImageLocation;
 
         public Response(Portfolio portfolio){
             this.pfNo = portfolio.getPfNo();
@@ -50,7 +50,7 @@ public class PortfolioDto {
             this.updatedAt = portfolio.getUpdatedAt();
             //this.portfolioTemplates = portfolio.getPortfolioTemplates();
             this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
-            this.pfImageLocation = portfolio.getPfImageLocation();
+//            this.pfImageLocation = portfolio.getPfImageLocation();
         }
     }
     @Getter

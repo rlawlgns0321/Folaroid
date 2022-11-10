@@ -7,7 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 const TabBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
-    color: ${(props) => (props.isActive ? '#000000' : '#c8c8c8')};
+    color: ${(props) => (props.$active ? '#000000' : '#c8c8c8')};
     border: 0;
     background-color: white;
     text-decoration: none;
@@ -51,7 +51,7 @@ const SideBar = ({ children, isPortfolio }) => {
                     >
                         <TabBtn
                             to="/portfolio/intro"
-                            isActive={pathname === '/portfolio/intro'}
+                            $active={pathname === '/portfolio/intro'}
                         >
                             자기소개
                         </TabBtn>
@@ -59,7 +59,7 @@ const SideBar = ({ children, isPortfolio }) => {
                     <SideTab>
                         <TabBtn
                             to="/portfolio/project"
-                            isActive={pathname === '/portfolio/project'}
+                            $active={pathname === '/portfolio/project'}
                         >
                             프로젝트
                         </TabBtn>
@@ -71,7 +71,7 @@ const SideBar = ({ children, isPortfolio }) => {
                     >
                         <TabBtn
                             to="/portfolio/template"
-                            isActive={pathname === '/portfolio/template'}
+                            $active={pathname === '/portfolio/template'}
                         >
                             템플릿
                         </TabBtn>
