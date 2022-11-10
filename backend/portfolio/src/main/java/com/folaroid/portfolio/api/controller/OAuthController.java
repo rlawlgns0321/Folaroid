@@ -10,8 +10,10 @@ import com.folaroid.portfolio.api.vo.GithubRepo;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
 import com.folaroid.portfolio.db.entity.Intro;
+import com.folaroid.portfolio.db.entity.IntroImage;
 import com.folaroid.portfolio.db.entity.IntroPersonalData;
 import com.folaroid.portfolio.db.entity.User;
+import com.folaroid.portfolio.db.repository.IntroImageRepository;
 import com.folaroid.portfolio.db.repository.IntroPersonalDataRepository;
 import com.folaroid.portfolio.db.repository.UserRepository;
 import org.slf4j.Logger;
@@ -34,11 +36,9 @@ import java.util.*;
 @PropertySource("classpath:application-security.properties")
 @CrossOrigin
 public class OAuthController {
-    //private final String REDIRECT_URI = "http://127.0.0.1:3000/callback";
     private final String TOKEN_REQUEST_URI = "https://github.com/login/oauth/access_token";
 
     private final String USER_REQUEST_URI = "https://api.github.com/user";
-    //private final String USER_SIGNUP_URI = "http://127.0.0.1:3000/signup"; //must update when getting final domain
 
 
     Logger logger = LoggerFactory.getLogger(OAuthController.class);
@@ -58,6 +58,10 @@ public class OAuthController {
 
     @Autowired
     private IntroPersonalDataRepository introPersonalDataRepository;
+
+    @Autowired
+    private IntroImageRepository introImageRepository;
+
 
     private HttpEntity<MultiValueMap<String, String>> getCodeRequestEntity(String code) {
 
@@ -133,22 +137,15 @@ public class OAuthController {
             IntroDto.introRequest introDto = new IntroDto.introRequest();
             introDto.setUserNo(createUserPk);
             Intro intro = introService.createIntro(introDto);
-           Long introNo = intro.getIntroNo();
+            Long introNo = intro.getIntroNo();
             IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
-           introPersonalDataRepository.save(introPersonalData);
-           map.put("introNo", introNo);
-            //return map;
-       }
-        /*
-       List<String> tmp = readmeTest.getMDContent("https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md").get("md");
-
-       System.out.println(tmp.size());
-       for (int i = 0 ; i < tmp.size() ; i++) {
-           System.out.println(tmp.get(i));
-           System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            introPersonalDataRepository.save(introPersonalData);
+            map.put("introNo", introNo);
+           IntroImage introImage = new IntroImage(introNo, responseUserInfo.getAvatar_url());
+           introImageRepository.save(introImage);
        }
 
-       OAuthToken testToken = new OAuthToken();
+       /*OAuthToken testToken = new OAuthToken();
        testToken.setAccessToken(responseToken.getAccessToken());
 
        String requestReposUrl = responseUserInfo.getRepos_url();
@@ -168,9 +165,38 @@ public class OAuthController {
                 System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
                 System.out.println("=================================");
            }
-       }
-       */
-         
+       }*/
+
+       /*if (userInfoResponse.getBody() != null) {
+           for (int i = 0; i < userInfoResponse.getBody().size(); i++) {
+               if (userInfoResponse.getBody().get(i).getName().equals("PLEX")) {
+                   GithubRepo target = userInfoResponse.getBody().get(i);
+                   //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
+                   String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
+                           + "/" + target.getName()
+                           + "/" + target.getDefault_branch()
+                           + "/README.md";
+                   target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
+                   List<String> imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
+                   Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
+
+                   for (int j = 0; j < imageUrls.size(); j++) {
+                       if (!imageUrls.get(j).substring(0, 8).equals("https://")
+                               && !imageUrls.get(j).substring(0, 7).equals("http://")) {
+                           imageUrls.set(j, "https://github.com/"
+                                   + responseUserInfo.getLogin() + "/"
+                                   + target.getName() + "/raw/"
+                                   + target.getDefault_branch() + "/"
+                                   + imageUrls.get(j));
+                       }
+                   }
+
+                   target.setImagesUrl(imageUrls);
+                   for (int j = 0; j < target.getImagesUrl().size(); j++)
+                       System.out.println(target.getImagesUrl().get(j));
+               }
+           }
+       }*/
        //System.out.println(responseToken.getAccessToken());
        //System.out.println(responseToken.getTokenType());
        //System.out.println(responseToken.getBearer());
@@ -201,7 +227,7 @@ public class OAuthController {
     }
 
     @GetMapping("/repo")
-    public GithubRepo getRepo(@RequestParam String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
+    public GithubRepo getRepo(@RequestParam("pjt_id") String id, @RequestHeader("Authorization") String accessToken, HttpServletResponse res) throws JsonProcessingException {
         OAuthToken responseToken = new OAuthToken();
         responseToken.setAccessToken(accessToken);
         GithubUser responseUserInfo = getUserInfo(responseToken);
@@ -225,9 +251,9 @@ public class OAuthController {
                     String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
                             + "/" + target.getName()
                             + "/" + target.getDefault_branch()
-                            + "README.md";
+                            + "/README.md";
                     target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
-                    List<String> imageUrls = new ArrayList<>();
+                    List<String> imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
                     Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
 
                     for (int j = 0 ; j < imageUrls.size() ; j++) {

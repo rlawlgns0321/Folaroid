@@ -26,16 +26,15 @@ public class IntroLanguageController {
             notes="등록",
             httpMethod = "POST")
     @PostMapping("/intro-language")
-    public ResponseEntity<Long> save(@RequestBody IntroLanguageDto.IntroLanguageDetail request){
-        System.out.println(request.getLanguageDate());
-        Long introLanguageNo = introLanguageService.save(request);
+    public ResponseEntity<Long> save(@RequestBody IntroLanguageDto.introLanguageRequest introLanguageRequest){
+        Long introLanguageNo = introLanguageService.save(introLanguageRequest);
         return new ResponseEntity<>(introLanguageNo, HttpStatus.OK);
     }
 
     @ApiOperation(value = "마이페이지 - 공인 어학성적",
             notes="조회",
             httpMethod = "GET")
-    @GetMapping("/intro-language") // /{intro_no}
+    @GetMapping("/intro-language/{intro") // /{intro_no}
     public ResponseEntity<List<IntroLanguage>> find(IntroDto.IntroNoDto request){  // @PathVariable("intro_no") Long introNo
         List<IntroLanguage> introLanguage = introLanguageService.find(request.getIntroNo());
         return new ResponseEntity<>(introLanguage, HttpStatus.OK);
