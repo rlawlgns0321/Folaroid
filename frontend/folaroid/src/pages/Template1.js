@@ -16,7 +16,7 @@ export const sizes = {
 //Camera effect
 
 export function Scene(props) {
-    const obj = useGLTF('models/map.glb');
+    const obj = useGLTF('models/map2.glb');
     //const floor = useTexture('images/grid.jpg');
     return (
         <primitive
@@ -74,10 +74,10 @@ function setModal() {
 }
 const Template1 = () => {
     const position = [
-        [-5, 0, 40],
-        [-5, 0, 20],
-        [-5, 0, 0],
-        [-5, 0, -20],
+        [-7, -5, 12],
+        [-7, -5, -25],
+        [10, 5, -80],
+        [75, 6.5, -115],
         [-5, 0, -40],
     ];
 
@@ -88,7 +88,6 @@ const Template1 = () => {
         1000
     );
     camera.position.set(-5, 2, 25);
-
     //스크롤
     window.addEventListener('scroll', function (event) {
         setSection(position, camera);
@@ -124,17 +123,10 @@ const Template1 = () => {
                         minPolarAngle={Math.PI / 4}
                         enableZoom={true}
                     />
-                    <PerspectiveCamera
-                        far={1000}
-                        near={0.1}
-                        fov={75}
-                        aspect={sizes.width / sizes.height}
-                        position={[0, 0, 2]}
-                    />
                     <directionalLight
                         castShadow
-                        position={[0, 10, 0]}
-                        intensity={4}
+                        position={[80, 80, 30]}
+                        intensity={0.1}
                         shadow-mapSize-width={1024}
                         shadow-mapSize-height={1024}
                         shadow-camera-far={50}
@@ -143,12 +135,12 @@ const Template1 = () => {
                         shadow-camera-top={100}
                         shadow-camera-bottom={-100}
                     />
-                    <ambientLight intensity={0.3} />
+                    <ambientLight intensity={1} />
                     <House position={position[0]} />
                     <House position={position[1]} />
                     <House position={position[2]} />
                     <House position={position[3]} />
-                    <House position={position[4]} />
+                    {/* <House position={position[4]} /> */}
                 </Suspense>
             </Canvas>
             {/* <div className="sections">
