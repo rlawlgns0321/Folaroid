@@ -21,12 +21,8 @@ public class IntroLanguageService {
     private final IntroLanguageRepository introLanguageRepository;
     private final IntroRepository introRepository;
     @Transactional
-    public Long save(IntroLanguageDto.IntroLanguageDetail request) {
-        IntroLanguage introLanguage = new IntroLanguage();
-        Intro intro = introRepository.findById(request.getIntroNo()).get();
-        java.sql.Date date = java.sql.Date.valueOf(request.getLanguageDate());
-        introLanguage.saveIntroLanguage(intro, request.getLanguageName(), request.getLanguageTestName(), request.getLanguageGrade(), date);
-        return introLanguageRepository.save(introLanguage).getIntroLanguageNo();
+    public Long save(IntroLanguageDto.introLanguageRequest introLanguageRequest) {
+        return introLanguageRepository.save(introLanguageRequest.toEntity(introRepository.findById(introLanguageRequest.getIntroNo()).get())).getIntroLanguageNo();
     }
     @Transactional
     public List<IntroLanguage> find(Long introNo) {
@@ -34,7 +30,9 @@ public class IntroLanguageService {
     }
     @Transactional
     public void delete(Long introLanguageNo) {
-        introLanguageRepository.deleteById(introLanguageNo);
+        IntroLanguage introLanguage = introLanguageRepository.findById(introLanguageNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 언어가 없습니다."));
+        introLanguageRepository.delete(introLanguage);
     }
 
 

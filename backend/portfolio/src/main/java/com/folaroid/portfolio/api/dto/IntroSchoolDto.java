@@ -23,7 +23,7 @@ public class IntroSchoolDto {
         public IntroSchool toEntity(Intro intro){
             IntroSchool introSchool = IntroSchool.builder()
                     .introSchoolNo(introSchoolNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .schoolName(schoolName)
                     .schoolMajor(schoolMajor)
                     .schoolDegree(schoolDegree)
@@ -51,7 +51,7 @@ public class IntroSchoolDto {
 
         public introSchoolResponse(IntroSchool introSchool){
             this.introSchoolNo = introSchool.getIntroSchoolNo();
-            this.introNo = introSchool.getIntro().getIntroNo();
+            this.introNo = introSchool.getIntroNo();
             this.schoolName = introSchool.getSchoolName();
             this.schoolMajor = introSchool.getSchoolMajor();
             this.schoolDegree = introSchool.getSchoolDegree();

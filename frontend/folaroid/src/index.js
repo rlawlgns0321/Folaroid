@@ -8,8 +8,20 @@ import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './modules';
 import { Provider } from 'react-redux';
 import { auth } from './modules/auth';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
-const store = configureStore({ reducer: rootReducer });
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({ reducer: persistedReducer });
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function loadUser() {
@@ -24,12 +36,15 @@ function loadUser() {
 }
 
 loadUser();
+let persistor = persistStore(store);
 
 root.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </PersistGate>
     </Provider>
 );
 

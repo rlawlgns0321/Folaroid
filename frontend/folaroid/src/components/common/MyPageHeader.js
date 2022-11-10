@@ -2,10 +2,8 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
 import { css } from '@emotion/css';
-const MyPageHeader = () => {
-    const onClick = () => {
-        alert('새 포트폴리오 작성 페이지로 이동');
-    };
+const MyPageHeader = ({onCreateClick}) => {
+
     return (
         <Grid
             container
@@ -29,7 +27,7 @@ const MyPageHeader = () => {
                 variant="outlined"
                 size="large"
                 style={{ backgroundColor: 'white', color: 'black' }}
-                onClick={onClick}
+                onClick={() => onCreateClick()}
             >
                 새 포트폴리오 작성
             </Button>
