@@ -32,9 +32,9 @@ public class IntroStackController {
     @ApiOperation(value = "마이페이지 - 기술스택",
             notes="조회",
             httpMethod = "GET")
-    @GetMapping("/intro-stack")
-    public ResponseEntity<List<StackNameDto>> find(@RequestBody IntroDto.IntroNoDto request){
-        List<StackNameDto> introStackDto = introStackService.find(request.getIntroNo());
+    @GetMapping("/intro-stack/{intro_no}")
+    public ResponseEntity<List<StackNameDto>> find(@PathVariable("intro_no") Long introNo){
+        List<StackNameDto> introStackDto = introStackService.find(introNo);
         return new ResponseEntity<>(introStackDto, HttpStatus.OK);
     }
 
