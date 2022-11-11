@@ -50,8 +50,7 @@ export const awards = createSlice({
             });
         },
         [deleteAward.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
+            return state.filter(
                 (item) => item.introAwardsNo !== action.payload
             );
         },

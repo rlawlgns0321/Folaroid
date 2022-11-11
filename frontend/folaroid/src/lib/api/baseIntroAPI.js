@@ -6,12 +6,8 @@ const getPersonal = (intro_no) => {
     return api.get(`/user-info/${intro_no}`);
 };
 
-const createPersonal = (data) => {
-    return api.post(`/intro/personal-data`, data);
-};
-
-const deletePersonal = (intro_personal_data_no) => {
-    return api.delete(`/intro/personal-data/${intro_personal_data_no}`);
+const updatePersonal = (data) => {
+    return api.put(`/user-info`, data);
 };
 
 const findByGithub = (user_github_id) => {
@@ -114,11 +110,26 @@ const deleteSchool = (intro_school_no) => {
     return api.delete(`/intro-school/${intro_school_no}`);
 };
 
+const getStack = (intro_no) => {
+    return api.get(`/intro-stack/${intro_no}`);
+};
+
+const createStack = (data) => {
+    return api.post(`/intro-stack`, data);
+};
+
+const deleteStack = (intro_school_no) => {
+    return api.delete(`/intro-stack/${intro_school_no}`);
+};
+
+const getHash = () => {
+    return api.get(`/hash-tag`)
+}
+
 export {
     findByGithub,
     getPersonal,
-    createPersonal,
-    deletePersonal,
+    updatePersonal,
     getSlogan,
     createSlogan,
     deleteSlogan,
@@ -143,4 +154,8 @@ export {
     getSchool,
     createSchool,
     deleteSchool,
+    getStack,
+    createStack,
+    deleteStack,
+    getHash
 };

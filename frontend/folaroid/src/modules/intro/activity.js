@@ -51,8 +51,7 @@ export const activity = createSlice({
             });
         },
         [deleteActivity.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
+            return state.filter(
                 (activity) => activity.introActivityNo !== action.payload
             );
         },

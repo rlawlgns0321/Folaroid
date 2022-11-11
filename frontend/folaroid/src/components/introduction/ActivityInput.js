@@ -169,6 +169,7 @@ function ReadSchool(props) {
                             <TableCell align="center">관련 링크</TableCell>
                             <TableCell align="center">참여기간</TableCell>
                             <TableCell align="center">설명</TableCell>
+                            <TableCell align="center"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>{rowItems}</TableBody>

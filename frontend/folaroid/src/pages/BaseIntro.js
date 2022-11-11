@@ -9,7 +9,7 @@ import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
 import PersonalInput from '../components/introduction/PersonalInput'
 import ActivityInput from '../components/introduction/ActivityInput'
-// import StackInput from '../components/introduction/StackInput';
+import StackInput from '../components/introduction/StackInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
 import SloganInput from '../components/introduction/SloganInput';
@@ -52,7 +52,7 @@ function BaseIntro() {
                       <PersonalInput></PersonalInput>
                       <ImageInput></ImageInput>
                       <SloganInput></SloganInput>
-                      {/* <StackInput></StackInput> */}
+                      <StackInput></StackInput>
                       <SchoolInput></SchoolInput>
                       <LanguageInput></LanguageInput>
                       <ArchivingInput></ArchivingInput>
