@@ -9,18 +9,18 @@ import AccountMenu from './AccountMenu';
 const MenuBtn = styled.button`
     font-size: 1rem;
     font-weight: bold;
-    color: black;
+    color: white;
     border: 0;
-    background-color: white;
+    background-color: inherit;
 `;
 
 const RouteBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
-    color: black;
+    color: white;
     border: 0;
-    background-color: white;
     text-decoration: none;
+    background-color: inherit;
 `;
 
 const Header = ({ user, onLogout }) => {
@@ -51,12 +51,12 @@ const Header = ({ user, onLogout }) => {
                     className={css`
                         font-size: 2rem;
                         font-weight: bold;
-                        color: black;
+                        color: white;
                         border: 0;
-                        background-color: white;
+                        background-color: inherit;
                     `}
                 >
-                    folaroid
+                    Folaroid
                 </button>
             </Link>
             <Grid
@@ -73,7 +73,7 @@ const Header = ({ user, onLogout }) => {
                     <RouteBtn to="/portfolio/intro">포트폴리오 제작</RouteBtn>
                 </MenuBtn>
                 {user ? (
-                    <AccountMenu onLogout={onLogout}/>
+                    <AccountMenu onLogout={onLogout} />
                 ) : (
                     <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
                 )}

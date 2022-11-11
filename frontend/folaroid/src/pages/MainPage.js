@@ -7,11 +7,9 @@ import HeaderContainer from '../containers/header/HeaderContainer';
 
 const MainPage = () => {
     return (
-        <div style={
-            {backgroundColor: 'black'}
-        }>
-            <HeaderContainer/>
-            <MainCanvas/>
+        <div>
+            <HeaderContainer />
+            <MainCanvas />
         </div>
     );
 };
