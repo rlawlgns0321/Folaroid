@@ -61,5 +61,6 @@ h1 {
 .section div{
   display: flex;
   align-items: flex-end;
-  height: 100vh;
+  justify-content: space-around;
+  height: 55vh;
 }
