@@ -12,7 +12,7 @@ public class IntroCertificationDto {
     public static class introCertificationRequest{
         private Long introCertificationNo;
         private Long introNo;
-        private String certificationDate;
+        private java.sql.Date certificationDate;
         private String certificationName;
         private String certificationIssuer;
         private String certificationDetail;
@@ -36,7 +36,7 @@ public class IntroCertificationDto {
     public static class introCertificationResponse{
         private Long introCertificationNo;
         private Long intro;
-        private String certificationDate;
+        private java.sql.Date certificationDate;
         private String certificationName;
         private String certificationIssuer;
         private String certificationDetail;

@@ -14,4 +14,6 @@ public interface PortfolioService {
     List<PortfolioDto.PortfolioSimpleDto> readSimplePortfolio(Long userNo);
 
     Long getPortfolioIntroNo(Long pfNo);
+
+//    PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo);
 }
