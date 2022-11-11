@@ -71,10 +71,10 @@ function LanguageInput(props) {
                             label="Age"
                             onChange={handleInputChange}
                         >
-                            <MenuItem value={'english'}>영어</MenuItem>
-                            <MenuItem value={'japanese'}>일본어</MenuItem>
-                            <MenuItem value={'chinese'}>중국어</MenuItem>
-                            <MenuItem value={'etc'}>기타</MenuItem>
+                            <MenuItem value={'영어'}>영어</MenuItem>
+                            <MenuItem value={'일본어'}>일본어</MenuItem>
+                            <MenuItem value={'중국어'}>중국어</MenuItem>
+                            <MenuItem value={'기타'}>기타</MenuItem>
                         </Select>
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
@@ -100,8 +100,9 @@ function LanguageInput(props) {
                                 onChange={(newValue) => {
                                     setLanguage({
                                         ...language,
-                                        languageDate:
-                                            dayjs(newValue).toISOString(),
+                                        languageDate: dayjs(newValue)
+                                            .toISOString()
+                                            .substring(0, 10),
                                     });
                                 }}
                                 renderInput={(params) => (
@@ -189,7 +190,7 @@ function ViewLanguage() {
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
             : store.getState().portfolio.pf.introNo;
-    console.log('language no', intro_no)
+    console.log('language no', intro_no);
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 

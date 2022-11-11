@@ -76,8 +76,9 @@ function AwardInput(props) {
                                 onChange={(newValue) => {
                                     setAward({
                                         ...award,
-                                        awardsDate:
-                                            dayjs(newValue).toISOString(),
+                                        awardsDate: dayjs(newValue)
+                                            .toISOString()
+                                            .substring(0, 10),
                                     });
                                 }}
                                 renderInput={(params) => (
@@ -216,7 +217,7 @@ function ViewAwards() {
                                 awardsName: box.awardsName,
                             })
                         );
-                        console.log(award)
+                        console.log(award);
                         setMode('READ');
                     }}
                 ></AwardInput>

@@ -152,8 +152,9 @@ function SchoolInput(props) {
                                     onChange={(newValue) => {
                                         setSchool({
                                             ...school,
-                                            schoolAdmissionDate:
-                                                dayjs(newValue).toISOString(),
+                                            schoolAdmissionDate: dayjs(newValue)
+                                                .toISOString()
+                                                .substring(0, 10),
                                         });
                                     }}
                                     renderInput={(params) => (
@@ -176,8 +177,11 @@ function SchoolInput(props) {
                                     onChange={(newValue) => {
                                         setSchool({
                                             ...school,
-                                            schoolGraduationDate:
-                                                dayjs(newValue).toISOString(),
+                                            schoolGraduationDate: dayjs(
+                                                newValue
+                                            )
+                                                .toISOString()
+                                                .substring(0, 10),
                                         });
                                     }}
                                     renderInput={(params) => (

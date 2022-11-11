@@ -59,7 +59,7 @@ function Input(props) {
                             shrink: true,
                         }}
                         style={{ width: '40%' }}
-                        name="careerComeName"
+                        name="careerComName"
                         onChange={handleInputChange}
                         value={box.careerComName}
                     />
@@ -111,6 +111,7 @@ function Input(props) {
                         justifyContent: 'space-between',
                         flexDirection: 'row',
                         width: '100%',
+                        marginBottom: '10px'
                     }}
                 >
                     <TextField
@@ -119,6 +120,9 @@ function Input(props) {
                         placeholder="근무내용에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
                         onChange={handleInputChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         name="careerResult"
                         rows={2}
                         maxRows={4}
@@ -131,6 +135,7 @@ function Input(props) {
                         justifyContent: 'space-between',
                         flexDirection: 'row',
                         width: '100%',
+                        marginBottom: '10px'
                     }}
                 >
                     <TextField
@@ -139,6 +144,9 @@ function Input(props) {
                         placeholder="추가 사항에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
                         onChange={handleInputChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         name="careerDetail"
                         rows={2}
                         maxRows={4}

@@ -17,6 +17,7 @@ import LanguageInput from '../components/introduction/LanguageInput';
 import ArchivingInput from '../components/introduction/ArchivingInput';
 import CertificateInput from '../components/introduction/CertificateInput';
 import AwardInput from '../components/introduction/AwardInput';
+import CareerInput from '../components/introduction/CareerInput'
 function BaseIntro() {
     const title = '기본정보';
 
@@ -59,6 +60,7 @@ function BaseIntro() {
                       <CertificateInput></CertificateInput>
                       <AwardInput></AwardInput>
                       <ActivityInput></ActivityInput>
+                      <CareerInput></CareerInput>
                     </Contents>
                 </Grid>
             </Grid>

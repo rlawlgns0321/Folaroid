@@ -77,8 +77,9 @@ function Input(props) {
                                 onChange={(newValue) => {
                                     setBox({
                                         ...box,
-                                        certificationDate:
-                                            dayjs(newValue).toISOString(),
+                                        certificationDate: dayjs(newValue)
+                                            .toISOString()
+                                            .substring(0, 10),
                                     });
                                 }}
                                 renderInput={(params) => (

@@ -126,6 +126,14 @@ const getHash = () => {
     return api.get(`/hash-tag`)
 }
 
+const getImage = (intro_no) => {
+    return api.get(`intro-image/${intro_no}`)
+}
+
+const updateImage = (intro_no, data) => {
+    return api.put(`/intro-image/${intro_no}`, data);
+};
+
 export {
     findByGithub,
     getPersonal,
@@ -157,5 +165,7 @@ export {
     getStack,
     createStack,
     deleteStack,
-    getHash
+    getHash,
+    getImage,
+    updateImage
 };

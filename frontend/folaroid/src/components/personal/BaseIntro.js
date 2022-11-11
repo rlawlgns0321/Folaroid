@@ -7,6 +7,7 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import EventIcon from '@mui/icons-material/Event';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { Link } from 'react-router-dom';
 
 const BaseIntro = ({ baseIntro }) => {
     const icons = [
@@ -37,9 +38,9 @@ const BaseIntro = ({ baseIntro }) => {
         },
     ];
 
-    const onClick = () => {
-        alert('User Data 없으면 alert바를 통해 가게 해버릴까?');
-    };
+    // const onClick = () => {
+    //     alert('User Data 없으면 alert바를 통해 가게 해버릴까?');
+    // };
 
     return (
         <div
@@ -51,11 +52,12 @@ const BaseIntro = ({ baseIntro }) => {
         >
             <Grid container spacing={2} style={{ margin: '1px' }}>
                 <Grid item xs={12} md={12}>
-                    <CreateIcon
-                        onClick={onClick}
-                        edge="end"
-                        style={{ marginLeft: '90%' }}
-                    ></CreateIcon>
+                    <Link to="/intro">
+                        <CreateIcon
+                            edge="end"
+                            style={{ marginLeft: '90%' }}
+                        ></CreateIcon>
+                    </Link>
                 </Grid>
                 {icons.map((value, key) => {
                     return (

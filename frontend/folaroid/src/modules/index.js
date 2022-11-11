@@ -12,6 +12,7 @@ import schoolReducer from './intro/school'
 import sloganReducer from './intro/slogan'
 import portfolioReducer from './portfolio';
 import githubReducer from './github';
+import imageReducer from './intro/image';
 
 
 const rootReducer = combineReducers({
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     slogan: sloganReducer,
     portfolio: portfolioReducer,
     github: githubReducer,
+    image: imageReducer,
 });
 
 export default rootReducer;
