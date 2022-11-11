@@ -138,19 +138,19 @@ function ReadName(props) {
     return (
         <CardContent>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <h1>이름</h1>
+                <h3>이름</h3>
                 <Box style={{ margin: '20px' }}>{userInfo.userName}</Box>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <h1>생년월일</h1>
+                <h3>생년월일</h3>
                 <Box style={{ margin: '20px' }}>{userInfo.userBirth}</Box>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <h1>이메일</h1>
+                <h3>이메일</h3>
                 <Box style={{ margin: '20px' }}>{userInfo.userEmail}</Box>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <h1>전화번호</h1>
+                <h3>전화번호</h3>
                 <Box style={{ margin: '20px' }}>{userInfo.userPhone}</Box>
             </div>
         </CardContent>
