@@ -139,8 +139,14 @@ public class PortfolioServiceImpl implements PortfolioService {
     public void deletePortfolio(Long pfNo) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() ->
                 new IllegalArgumentException("해당 포트폴리오가 존재하지 않습니다."));
-        // 포트폴리오에 존재하는 프로젝트 먼저 삭제하는 코드 작성
-        // ??
+        // 포트폴리오에 존재하는 프로젝트들, 자기소개 테이블까지만 삭제
+
+        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
+        projects.forEach(project -> {
+            projectRepository.delete(project);
+        });
+        introRepository.deleteById(introRepository.findIntroNoByPfNoAndUserNo(pfNo, portfolio.getUserNo()));
+
         portfolioRepository.delete(portfolio);
     }
 
