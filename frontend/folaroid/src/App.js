@@ -10,15 +10,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import PortFolioPage from './pages/PortFolioPage';
 import ProjectInfoPage from './pages/ProjectInfoPage';
 import { useSelector } from 'react-redux';
-import Unity, {UnityContext} from "react-unity-webgl";
-
-
-const unityContext = new UnityContext ({
-  loaderUrl: "Build/release.loader.js",
-  dataUrl: "Build/release.data",
-  frameworkUrl: "Build/release.framework.js",
-  codeUrl: "Build/release.wasm",
-})
 
 function App() {
     const user = useSelector((state) => state.auth.user);
@@ -34,13 +25,6 @@ function App() {
                     <Route path="/portfolio/*" element={user ? <PortFolioPage/> : <Navigate to="/" />} />
                     <Route path="/projectinfo" element={user ? <ProjectInfoPage /> : <Navigate to="/"/>} />
                 </Routes>
-                <Unity style={{
-          width: '90%',
-          height: '100%',
-          justifySelf: 'center',
-          alignSelf: 'center',
-        }}
-        unityContext={unityContext}></Unity>
             </div>
         </ThemeProvider>
     );
