@@ -27,4 +27,13 @@ public class PjtImage {
         this.pjtNo = pjtNo;
         this.pjtImageLocation = pjtImageLocation;
     }
+
+    public PjtImage(PjtImage pjtImage) {
+        this.pjtNo = pjtImage.getPjtNo();
+        this.pjtImageLocation = pjtImage.getPjtImageLocation();
+    }
+
+    public void savePjtNo(Long pjtNo) {
+        this.pjtNo = pjtNo;
+    }
 }

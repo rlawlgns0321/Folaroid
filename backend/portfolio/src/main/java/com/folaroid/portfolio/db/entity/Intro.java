@@ -52,4 +52,14 @@ public class Intro {
         this.pfNo = pfNo;
         this.userNo = userNo;
     }
+
+    public Intro (Intro intro) {
+        this.introContent = intro.getIntroContent();
+        this.userNo = intro.getUserNo();
+        this.pfNo = intro.getPfNo();
+    }
+
+    public void SavePfNo(Long pfNo) {
+        this.pfNo = pfNo;
+    }
 }
