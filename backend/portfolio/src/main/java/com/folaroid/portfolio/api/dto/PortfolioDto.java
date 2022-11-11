@@ -1,6 +1,5 @@
 package com.folaroid.portfolio.api.dto;
 
-import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.Portfolio;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -75,6 +74,12 @@ public class PortfolioDto {
             this.pfNo = portfolio.getPfNo();
             this.introNo = introNo;
         }
+    }
+    @Getter
+    @AllArgsConstructor
+    public static class DuplicatePortfolioDto {
+        private Long pfNo;
+
     }
 
 }

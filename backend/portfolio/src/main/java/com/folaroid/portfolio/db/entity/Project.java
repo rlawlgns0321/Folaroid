@@ -66,4 +66,18 @@ public class Project {
     public void updateImage(String url) {
         this.pjtOneImageLocation = url;
     }
+
+    public Project(Project project) {
+        this.pjtTitle = project.pjtTitle;
+        this.pjtSubtitle = project.pjtSubtitle;
+        this.pjtUrl = project.pjtUrl;
+        this.pjtGithubUrl = project.pjtGithubUrl;
+        this.pjtStar = project.pjtStar;
+        this.pjtOneImageLocation = project.pjtOneImageLocation;
+        this.pjtJson = project.pjtJson;
+    }
+
+    public void updatePortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
 }

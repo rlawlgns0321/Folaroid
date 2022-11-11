@@ -43,5 +43,15 @@ public class Portfolio {
     public void updatePortfolioTemplate(Long portfolioTemplatesNo){
         this.portfolioTemplatesNo = portfolioTemplatesNo;
     }
+    public Portfolio(Portfolio portfolio) {
+        this.userNo = portfolio.userNo;
+        this.pfPrivacy = portfolio.pfPrivacy;
+        this.updatedAt = portfolio.updatedAt;
+        this.portfolioTemplatesNo = portfolio.portfolioTemplatesNo;
+        this.pfName = portfolio.pfName;
+    }
 
+    public void updatePortfolioName(String pfName) {
+        this.pfName = pfName;
+    }
 }
