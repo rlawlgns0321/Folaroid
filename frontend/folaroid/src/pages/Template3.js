@@ -9,16 +9,18 @@ const unityContext = new UnityContext ({
   codeUrl: "Build/release.wasm",
 })
 
-function App() {
+const Template3 = () => {
     return (
-        <Unity style={{
-            width: '90%',
-            height: '100%',
-            justifySelf: 'center',
-            alignSelf: 'center',
-          }}
-          unityContext={unityContext}></Unity>
+        <div className="template3">
+            <Unity style={{
+                width: '90%',
+                height: '100%',
+                justifySelf: 'center',
+                alignSelf: 'center',
+            }}
+            unityContext={unityContext}></Unity>
+        </div>
     );
 }
 
-export default App();
+export default Template3;
