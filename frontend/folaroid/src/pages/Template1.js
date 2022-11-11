@@ -1,11 +1,16 @@
 import * as THREE from 'three';
-import { React, Suspense } from 'react';
+import { React, Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 //import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
 import Button from '@mui/material/Button';
 import styled from 'styled-components';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Typography from '@mui/material/Typography';
 
 const CustomBtn = styled(Button)`
     height: 200px;
@@ -88,7 +93,17 @@ function setButtonDisplay(a, b) {
         //console.log(divtarget.style.display);
     }
 }
-
+const boxstyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 const Template1 = () => {
     const position = [
         [-7, -5, 12],
@@ -115,7 +130,9 @@ const Template1 = () => {
         setButtonDisplay('pjt3', 'div3');
         setButtonDisplay('pjt4', 'div4');
     });
-
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <>
             <Canvas
@@ -158,10 +175,42 @@ const Template1 = () => {
                     <h2 id="pjt1">Project1</h2>
                     <div id="div1">
                         <CustomBtn
+                            onClick={handleOpen}
                             disableRipple
                             variant="text"
                             size="large"
                         ></CustomBtn>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                            style={{ width: '100vw', height: '100vh' }}
+                        >
+                            <Fade in={open}>
+                                <Box sx={boxstyle}>
+                                    <Typography
+                                        id="transition-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                    >
+                                        Text in a modal
+                                    </Typography>
+                                    <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                    >
+                                        Duis mollis, est non commodo luctus,
+                                        nisi erat porttitor ligula.
+                                    </Typography>
+                                </Box>
+                            </Fade>
+                        </Modal>
                     </div>
                 </section>
                 <section className="section">
