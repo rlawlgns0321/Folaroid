@@ -36,4 +36,16 @@ public class IntroCareer {
 
     @Column(name = "career_detail", columnDefinition = "TEXT")
     private String careerDetail;
+
+    public IntroCareer(Intro intro) {
+        this.intro = intro;
+    }
+
+    public void saveOtherData(String careerComName, String careerJob, String careerDate, String careerResult, String careerDetail) {
+        this.careerComName = careerComName;
+        this.careerJob = careerJob;
+        this.careerDate = careerDate;
+        this.careerResult = careerResult;
+        this.careerDetail = careerDetail;
+    }
 }

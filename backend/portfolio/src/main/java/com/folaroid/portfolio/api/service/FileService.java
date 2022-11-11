@@ -10,8 +10,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.folaroid.portfolio.db.entity.IntroImage;
 import com.folaroid.portfolio.db.entity.PjtImage;
+import com.folaroid.portfolio.db.entity.Project;
 import com.folaroid.portfolio.db.repository.IntroImageRepository;
 import com.folaroid.portfolio.db.repository.PjtImageRepository;
+import com.folaroid.portfolio.db.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,7 @@ public class FileService {
 
     private final PjtImageRepository pjtImageRepository;
     private final IntroImageRepository introImageRepository;
+    private final ProjectRepository projectRepository;
 
     private AmazonS3 amazonS3;
 
@@ -92,6 +95,31 @@ public class FileService {
         });
 
         return urlList;
+    }
+
+    @Transactional
+    public String uploadProjectOneImage(Long pjtNo, MultipartFile multipartFile) throws IOException {
+        //지우고
+        Project project = projectRepository.findById(pjtNo).get();
+        deleteFile(project.getPjtOneImageLocation());
+
+        //생성
+        String fileName = createFileName(multipartFile.getOriginalFilename());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
+
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+        }
+        //파일 위치에는 이름으로 저장
+        String url = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+        project.updateImage(url);
+
+        return url;
     }
 
 
@@ -155,5 +183,12 @@ public class FileService {
         } catch (StringIndexOutOfBoundsException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
         }
+    }
+
+    public void deleteProjectOneImageLocation(Long pjtNo) {
+        Project project = projectRepository.findById(pjtNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
+        deleteFile(project.getPjtOneImageLocation());
+        project.updateImage("");
     }
 }

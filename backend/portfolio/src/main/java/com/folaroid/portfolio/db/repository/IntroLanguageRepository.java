@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IntroLanguageRepository extends JpaRepository<IntroLanguage, Long> {
-    List<IntroLanguage> findAllByIntro(Intro intro);
+    List<IntroLanguage> findAllByIntroNo(Long introNo);
 }

@@ -15,7 +15,7 @@ public class IntroLanguageDto {
         private String languageName;
         private String languageTestName;
         private String languageGrade;
-        private String languageDate;
+        private java.sql.Date languageDate;
         private Long introNo;
 
         public IntroLanguage toEntity(Intro intro){
@@ -25,7 +25,7 @@ public class IntroLanguageDto {
                     .languageTestName(languageTestName)
                     .languageGrade(languageGrade)
                     .languageDate(languageDate)
-                    .intro(intro)
+                    .introNo(introNo)
                     .build();
             return introLanguage;
         }
@@ -36,7 +36,7 @@ public class IntroLanguageDto {
         private String languageName;
         private String languageTestName;
         private String languageGrade;
-        private String languageDate;
+        private java.sql.Date languageDate;
         private Long introNo;
 
         public introLanguageResponse(IntroLanguage introLanguage){
@@ -45,7 +45,7 @@ public class IntroLanguageDto {
             this.languageTestName = introLanguage.getLanguageTestName();
             this. languageGrade = introLanguage.getLanguageGrade();
             this.languageDate = introLanguage.getLanguageDate();
-            this.introNo = introLanguage.getIntro().getIntroNo();
+            this.introNo = introLanguage.getIntroNo();
         }
     }
 

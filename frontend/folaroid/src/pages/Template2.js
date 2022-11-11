@@ -1,7 +1,12 @@
-import React, { useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, Suspense, useState, useEffect, useMemo } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { OrbitControls, Stars, useTexture } from '@react-three/drei';
+import {
+    OrbitControls,
+    PerspectiveCamera,
+    Stars,
+    useTexture,
+} from '@react-three/drei';
 import planetData from '../components/common/PlanetData';
 
 export function Planet({
@@ -15,9 +20,12 @@ export function Planet({
         rotationSpeed,
         textureMap,
     },
+    zoomToView,
 }) {
-    const planetRef = React.useRef();
+    const planetRef = useRef();
     const texture = useTexture(textureMap);
+    const [zoom, setZoom] = useState(false);
+    const camera = useThree((state) => state.camera);
     useFrame(({ clock }) => {
         const t = clock.getElapsedTime() * speed + offset;
         const x = xRadius * Math.sin(t);
@@ -29,9 +37,19 @@ export function Planet({
 
     return (
         <>
-            <mesh ref={planetRef} receiveShadow scale={1}>
+            <mesh
+                ref={planetRef}
+                receiveShadow
+                scale={1}
+                onClick={(e) => {
+                    console.log(e.object.position);
+                    console.log(planetRef.current.id / 2 - 9);
+                    setZoom(!zoom);
+                    zoomToView(e.object.position);
+                    console.log(zoom, camera.position);
+                }}
+            >
                 <sphereGeometry args={[size, 32, 32]} />
-
                 <meshStandardMaterial
                     map={texture}
                     metalness={0.3}
@@ -42,6 +60,7 @@ export function Planet({
         </>
     );
 }
+
 export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
     const points = [];
     for (let index = 0; index < 64; index++) {
@@ -66,6 +85,13 @@ export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
 }
 
 const Template2 = () => {
+    const [position1, setPosition1] = useState([0, 20, 25]);
+    function zoomToView(pos) {
+        console.log(pos);
+        setPosition1(pos);
+
+        console.log(position1);
+    }
     return (
         <>
             <Canvas
@@ -86,11 +112,21 @@ const Template2 = () => {
                         saturation={10}
                         fade={true}
                     />
-                    <ambientLight intensity={0.5} />
+                    {/* 반복문을 위한 map함수 각 행성 호출 */}
                     {planetData.map((planet) => (
-                        <Planet planet={planet} key={planet.id} />
+                        <Planet
+                            zoomToView={zoomToView}
+                            planet={planet}
+                            key={planet.id}
+                        />
                     ))}
+                    <directionalLight
+                        position={[150, 150, 150]}
+                        intensity={0.55}
+                    />
+                    <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
+                    <OrbitControls enableZoom={false} />
                 </Suspense>
             </Canvas>
         </>

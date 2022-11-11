@@ -62,4 +62,8 @@ public class Project {
         this.pjtOneImageLocation = pjtOneImageLocation;
         this.pjtJson = pjtJson;
     }
+
+    public void updateImage(String url) {
+        this.pjtOneImageLocation = url;
+    }
 }
