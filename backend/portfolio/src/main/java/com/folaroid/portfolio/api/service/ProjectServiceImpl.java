@@ -1,7 +1,9 @@
 package com.folaroid.portfolio.api.service;
 
 import com.folaroid.portfolio.api.dto.ProjectDto;
+import com.folaroid.portfolio.db.entity.PjtImage;
 import com.folaroid.portfolio.db.entity.Project;
+import com.folaroid.portfolio.db.repository.PjtImageRepository;
 import com.folaroid.portfolio.db.repository.PortfolioRepository;
 import com.folaroid.portfolio.db.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ public class ProjectServiceImpl implements ProjectService{
     ProjectRepository projectRepository;
     @Autowired
     PortfolioRepository portfolioRepository;
+    @Autowired
+    PjtImageRepository pjtImageRepository;
+
+    @Autowired
+    FileService fileService;
 
     @Transactional
     @Override
@@ -29,6 +36,11 @@ public class ProjectServiceImpl implements ProjectService{
     public void deleteProject(Long pjtNo) {
         Project project = projectRepository.findById(pjtNo).orElseThrow(()->
                 new IllegalArgumentException("해당하는 프로젝트가 없습니다."));
+        //프로젝트 이미지 삭제 코드 작성
+        List<PjtImage> pjtImages = pjtImageRepository.findAllByPjtNo(project.getPjtNo());
+        for (PjtImage pjtImage : pjtImages) {
+            fileService.deleteFile(pjtImage.getPjtImageLocation());
+        }
         projectRepository.delete(project);
     }
 

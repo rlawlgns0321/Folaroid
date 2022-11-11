@@ -25,7 +25,7 @@ public class IntroCertification {
     private Intro intro;
 
     @Column(name = "certification_date")
-    private String certificationDate;
+    private java.sql.Date certificationDate;
 
     @Column(name = "certification_name", length = 50)
     private String certificationName;
@@ -38,4 +38,16 @@ public class IntroCertification {
 
     @Column(name = "certification_id", length = 50)
     private String certificationId;
+
+    public void saveOtherData(java.sql.Date certificationDate, String certificationName, String certificationIssuer, String certificationDetail, String certificationId) {
+        this.certificationDate = certificationDate;
+        this.certificationName = certificationName;
+        this.certificationIssuer = certificationIssuer;
+        this.certificationDetail = certificationDetail;
+        this.certificationId = certificationId;
+    }
+
+    public IntroCertification(Intro intro) {
+        this.intro = intro;
+    }
 }
