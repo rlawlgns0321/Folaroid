@@ -6,7 +6,6 @@ import com.folaroid.portfolio.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Port;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +128,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public Long getPortfolioIntroNo(Long pfNo) {
         Long userNo = portfolioRepository.findById(pfNo).get().getUserNo();
-        return introRepository.findByPfNoAndUserNo(pfNo, userNo);
+        return introRepository.findIntroNoByPfNoAndUserNo(pfNo, userNo);
     }
 
 
@@ -161,136 +160,140 @@ public class PortfolioServiceImpl implements PortfolioService {
         return result;
     }
 
-//    @Override
-//    @Transactional
-//    public PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo) {
-//
-//        // 포트폴리오 복제
-//        Portfolio portfolio = portfolioRepository.findById(pfNo).get();
-//        Portfolio duplicatedTempPortfolio = new Portfolio(portfolio);
-//        Long userNo = portfolio.getUserNo();
-//
-//
-//        List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(userNo);
-//        // 빈 리스트 생성
-//        List<String> res = new ArrayList<>();
-//        for (Portfolio eachPortfolio : portfolios) {
-//            // 빈 리스트에 각각의 포트폴리오 이름을 추가
-//            res.add(eachPortfolio.getPfName());
-//        }
-//        Integer i = 1;
-//        String pfName = "";
-//        // while 문을 활용해서
-//        while (true) {
-//            pfName = portfolio.getPfName() + " (" + i + ")";
-//            if (!res.contains(pfName)) {
-//                break;
-//            } else {
-//                i += 1;
-//            }
-//        }
-//        //알고리즘을 거친 pfName으로 이름 설정
-//        duplicatedTempPortfolio.updatePortfolioName(pfName);
-//        // 포트폴리오 저장 및 번호 찾기
-//        Portfolio duplicatedPortfolio = portfolioRepository.save(duplicatedTempPortfolio);
-//        Long duplicatedPfNo = duplicatedPortfolio.getPfNo();
-//
-//        // 각각의 프로젝트 복제
-//        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
-//        // 각각의 프로젝트에서 각각의 프로젝트 이미지 복제
-//        projects.forEach(project -> {
-//            Long pjtNo = project.getPjtNo();
-//            Project duplicatedTempProject = new Project(project);
-//            duplicatedTempProject.updatePortfolio(duplicatedPortfolio);
-//            Project duplicatedProject = projectRepository.save(duplicatedTempProject);
-//            Long duplicatedProjectPjtNo = duplicatedProject.getPjtNo();
-//
-//
-//        });
-//
-//        //포트폴리오에서 유저 번호 찾기
-//
-//        //포트폴리오 번호와 유저 번호로 intro 만들기
-//
-//        // 해당 intro_no로 자기소개 복제
-//
-//        Portfolio portfolio = portfolioRepository.save(request.toEntity());
-//        Intro intro = new Intro();
-//        intro.SavePortfolioInfo(portfolio.getPfNo(), request.getUserNo());
-//        // 새로 만든 introNo
-//        Long portfolioIntroNo = introRepository.save(intro).getIntroNo();
-//        //기존 개인정보 데이터 introNo
-//        Long userInfoIntroNo = introRepository.findUserDefaultData(request.getUserNo());
-//        // 기존의 개인정보 데이터들을 포트폴리오의 자기소개 정보로 저장할 것.
-//
-//        //포트폴리오 자기소개 이미지 테이블 저장 1:1
-//        IntroImage userInfoImage = introImageRepository.findByIntroNo(userInfoIntroNo);
-//        IntroImage portfolioInfoImage = new IntroImage(portfolioIntroNo);
-//        portfolioInfoImage.IntroImageLocationSave(userInfoImage.getIntroImageLocation());
-//        introImageRepository.save(portfolioInfoImage);
-//
-//        //포트폴리오 자기소개 개인정보 테이블 저장 1:1
-//        IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(userInfoIntroNo);
-//        IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(portfolioIntroNo);
-//        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
-//        introPersonalDataRepository.save(portfolioInfoPersonalData);
-//
-//        //포트폴리오 자기소개 기술스택 테이블 저장 1:N
-//        List<IntroStack> userInfoStack = introStackRepository.findAllByIntroNo(userInfoIntroNo);
-//        userInfoStack.forEach(userInfo -> {
-//            IntroStack portfolioIntroStack = new IntroStack(portfolioIntroNo);
-//            portfolioIntroStack.saveOtherData(userInfo.getHashNo());
-//            introStackRepository.save(portfolioIntroStack);
-//        });
-//        //포트폴리오 자기소개 어학성적 테이블 저장 1:N
-//        List<IntroLanguage> userInfoLanguage = introLanguageRepository.findAllByIntroNo(userInfoIntroNo);
-//        userInfoLanguage.forEach(userInfo -> {
-//            IntroLanguage portfolioIntroLanguage = new IntroLanguage(portfolioIntroNo);
-//            portfolioIntroLanguage.saveOtherData(userInfo.getLanguageName(), userInfo.getLanguageTestName(), userInfo.getLanguageGrade(), userInfo.getLanguageDate());
-//            introLanguageRepository.save(portfolioIntroLanguage);
-//        });
-//        //포트폴리오 자기소개 링크 테이블 저장 1:N
-//        List<IntroArchiving> userInfoArchiving = introArchivingRepository.findAllByIntro(intro);
-//        userInfoArchiving.forEach(userInfo -> {
-//            IntroArchiving portfolioIntroArchiving = new IntroArchiving(intro);
-//            portfolioIntroArchiving.saveOtherData(userInfo.getArchivingName(), userInfo.getArchivingLink());
-//            introArchivingRepository.save(portfolioIntroArchiving);
-//        });
-//        //포트폴리오 자기소개 수상내역 테이블 저장 1:N
-//        List<IntroAwards> userInfoAwards = introAwardsRepository.findAllByIntro(intro);
-//        userInfoAwards.forEach(userInfo -> {
-//            IntroAwards portfolioIntroAwards = new IntroAwards(intro);
-//            portfolioIntroAwards.saveOtherData(userInfo.getAwardsName(), userInfo.getAwardsDate(), userInfo.getAwardsIssuer(), userInfo.getAwardsDetail());
-//            introAwardsRepository.save(portfolioIntroAwards);
-//        });
-//        //포트폴리오 자기소개 활동 테이블 저장 1:N
-//        List<IntroActivity> userInfoActivity = introActivityRepository.findAllByIntro(intro);
-//        userInfoActivity.forEach(userInfo -> {
-//            IntroActivity portfolioIntroActivity = new IntroActivity(intro);
-//            portfolioIntroActivity.saveOtherData(userInfo.getActivityName(), userInfo.getActivityDate(), userInfo.getActivityUrl(), userInfo.getActivityDetail());
-//            introActivityRepository.save(portfolioIntroActivity);
-//        });
-//        //포트폴리오 자기소개 경력 테이블 저장 1:N
-//        List<IntroCareer> userInfoCareer = introCareerRepository.findAllByIntro(intro);
-//        userInfoCareer.forEach(userInfo -> {
-//            IntroCareer portfolioIntroCareer = new IntroCareer(intro);
-//            portfolioIntroCareer.saveOtherData(userInfo.getCareerComName(), userInfo.getCareerJob(), userInfo.getCareerDate(), userInfo.getCareerResult(), userInfo.getCareerDetail());
-//            introCareerRepository.save(portfolioIntroCareer);
-//        });
-//        //포트폴리오 자기소개 학력 테이블 저장 1:N
-//        List<IntroSchool> userInfoSchool = introSchoolRepository.findAllByIntroNo(userInfoIntroNo);
-//        userInfoSchool.forEach(userInfo -> {
-//            IntroSchool portfolioIntroSchool = new IntroSchool(portfolioIntroNo);
-//            portfolioIntroSchool.saveOtherData(userInfo.getSchoolName(), userInfo.getSchoolMajor(), userInfo.getSchoolDegree(), userInfo.getSchoolAdmissionDate(), userInfo.getSchoolGraduationDate(), userInfo.getSchoolCredit(), userInfo.getSchoolMaxCredit());
-//            introSchoolRepository.save(portfolioIntroSchool);
-//        });
-//        //포트폴리오 자기소개 슬로건 테이블 저장 1:1
-//        IntroSlogan userInfoSlogan = introSloganRepository.findByIntroNo(userInfoIntroNo);
-//        IntroSlogan portfolioInfoSlogan = new IntroSlogan(portfolioIntroNo);
-//        portfolioInfoSlogan.updateIntroSlogan(userInfoSlogan.getSloganContent());
-//        introSloganRepository.save(portfolioInfoSlogan);
-//
-//
-//        return new PortfolioDto.DuplicatePortfolioDto(duplicatedPfNo);
-//    }
+    @Override
+    @Transactional
+    public PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo) {
+
+        // 포트폴리오 복제
+        Portfolio portfolio = portfolioRepository.findById(pfNo).get();
+        Portfolio duplicatedTempPortfolio = new Portfolio(portfolio);
+        //포트폴리오에서 유저 번호 찾기
+        Long userNo = portfolio.getUserNo();
+
+
+        List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(userNo);
+        // 빈 리스트 생성
+        List<String> res = new ArrayList<>();
+        for (Portfolio eachPortfolio : portfolios) {
+            // 빈 리스트에 각각의 포트폴리오 이름을 추가
+            res.add(eachPortfolio.getPfName());
+        }
+        Integer i = 1;
+        String pfName = "";
+        // while 문을 활용해서
+        while (true) {
+            pfName = portfolio.getPfName() + " (" + i + ")";
+            if (!res.contains(pfName)) {
+                break;
+            } else {
+                i += 1;
+            }
+        }
+        //알고리즘을 거친 pfName으로 이름 설정
+        duplicatedTempPortfolio.updatePortfolioName(pfName);
+        // 포트폴리오 저장 및 번호 찾기
+        Portfolio duplicatedPortfolio = portfolioRepository.save(duplicatedTempPortfolio);
+        Long duplicatedPfNo = duplicatedPortfolio.getPfNo();
+        // 각각의 프로젝트 복제
+        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
+        // 각각의 프로젝트에서 각각의 프로젝트 이미지 복제
+        projects.forEach(project -> {
+            Long pjtNo = project.getPjtNo();
+            Project duplicatedTempProject = new Project(project);
+            duplicatedTempProject.updatePortfolio(duplicatedPortfolio);
+            Project duplicatedProject = projectRepository.save(duplicatedTempProject);
+            Long duplicatedProjectPjtNo = duplicatedProject.getPjtNo();
+            List<PjtImage> pjtImages = pjtImageRepository.findAllByPjtNo(pjtNo);
+            for (PjtImage pjtImage : pjtImages) {
+                PjtImage pjtImageTemp = new PjtImage(pjtImage);
+                pjtImageTemp.savePjtNo(duplicatedProjectPjtNo);
+                //기존 파일 불러오고 이름 바꿔서 독립적으로 저장하기
+
+
+                pjtImageRepository.save(pjtImageTemp);
+            }
+        });
+
+        //기존 포트폴리오의 intro
+        Intro intro = introRepository.findByPfNoAndUserNo(pfNo, userNo);
+
+        // intro 복제
+        Intro introTemp = new Intro(intro);
+        introTemp.SavePfNo(duplicatedPortfolio.getPfNo());
+        // 복제된 introNo
+        Intro duplicatedPortfolioIntro = introRepository.save(introTemp);
+        Long duplicatedPortfolioIntroNo = duplicatedPortfolioIntro.getIntroNo();
+        //기존 introNo
+        Long portfolioIntroNo = intro.getIntroNo();
+        // 기존의 개인정보 데이터들을 포트폴리오의 자기소개 정보로 저장할 것.
+
+        //포트폴리오 자기소개 이미지 테이블 저장 1:1
+        IntroImage userInfoImage = introImageRepository.findByIntroNo(portfolioIntroNo);
+        IntroImage portfolioInfoImage = new IntroImage(duplicatedPortfolioIntroNo);
+        portfolioInfoImage.IntroImageLocationSave(userInfoImage.getIntroImageLocation());
+        introImageRepository.save(portfolioInfoImage);
+
+        //포트폴리오 자기소개 개인정보 테이블 저장 1:1
+        IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(portfolioIntroNo);
+        IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(duplicatedPortfolioIntroNo);
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        introPersonalDataRepository.save(portfolioInfoPersonalData);
+
+        //포트폴리오 자기소개 기술스택 테이블 저장 1:N
+        List<IntroStack> userInfoStack = introStackRepository.findAllByIntroNo(portfolioIntroNo);
+        userInfoStack.forEach(userInfo -> {
+            IntroStack portfolioIntroStack = new IntroStack(duplicatedPortfolioIntroNo);
+            portfolioIntroStack.saveOtherData(userInfo.getHashNo());
+            introStackRepository.save(portfolioIntroStack);
+        });
+        //포트폴리오 자기소개 어학성적 테이블 저장 1:N
+        List<IntroLanguage> userInfoLanguage = introLanguageRepository.findAllByIntroNo(portfolioIntroNo);
+        userInfoLanguage.forEach(userInfo -> {
+            IntroLanguage portfolioIntroLanguage = new IntroLanguage(duplicatedPortfolioIntroNo);
+            portfolioIntroLanguage.saveOtherData(userInfo.getLanguageName(), userInfo.getLanguageTestName(), userInfo.getLanguageGrade(), userInfo.getLanguageDate());
+            introLanguageRepository.save(portfolioIntroLanguage);
+        });
+        //포트폴리오 자기소개 링크 테이블 저장 1:N
+        List<IntroArchiving> userInfoArchiving = introArchivingRepository.findAllByIntro(intro);
+        userInfoArchiving.forEach(userInfo -> {
+            IntroArchiving portfolioIntroArchiving = new IntroArchiving(intro);
+            portfolioIntroArchiving.saveOtherData(userInfo.getArchivingName(), userInfo.getArchivingLink());
+            introArchivingRepository.save(portfolioIntroArchiving);
+        });
+        //포트폴리오 자기소개 수상내역 테이블 저장 1:N
+        List<IntroAwards> userInfoAwards = introAwardsRepository.findAllByIntro(intro);
+        userInfoAwards.forEach(userInfo -> {
+            IntroAwards portfolioIntroAwards = new IntroAwards(intro);
+            portfolioIntroAwards.saveOtherData(userInfo.getAwardsName(), userInfo.getAwardsDate(), userInfo.getAwardsIssuer(), userInfo.getAwardsDetail());
+            introAwardsRepository.save(portfolioIntroAwards);
+        });
+        //포트폴리오 자기소개 활동 테이블 저장 1:N
+        List<IntroActivity> userInfoActivity = introActivityRepository.findAllByIntro(intro);
+        userInfoActivity.forEach(userInfo -> {
+            IntroActivity portfolioIntroActivity = new IntroActivity(intro);
+            portfolioIntroActivity.saveOtherData(userInfo.getActivityName(), userInfo.getActivityDate(), userInfo.getActivityUrl(), userInfo.getActivityDetail());
+            introActivityRepository.save(portfolioIntroActivity);
+        });
+        //포트폴리오 자기소개 경력 테이블 저장 1:N
+        List<IntroCareer> userInfoCareer = introCareerRepository.findAllByIntro(intro);
+        userInfoCareer.forEach(userInfo -> {
+            IntroCareer portfolioIntroCareer = new IntroCareer(intro);
+            portfolioIntroCareer.saveOtherData(userInfo.getCareerComName(), userInfo.getCareerJob(), userInfo.getCareerDate(), userInfo.getCareerResult(), userInfo.getCareerDetail());
+            introCareerRepository.save(portfolioIntroCareer);
+        });
+        //포트폴리오 자기소개 학력 테이블 저장 1:N
+        List<IntroSchool> userInfoSchool = introSchoolRepository.findAllByIntroNo(portfolioIntroNo);
+        userInfoSchool.forEach(userInfo -> {
+            IntroSchool portfolioIntroSchool = new IntroSchool(duplicatedPortfolioIntroNo);
+            portfolioIntroSchool.saveOtherData(userInfo.getSchoolName(), userInfo.getSchoolMajor(), userInfo.getSchoolDegree(), userInfo.getSchoolAdmissionDate(), userInfo.getSchoolGraduationDate(), userInfo.getSchoolCredit(), userInfo.getSchoolMaxCredit());
+            introSchoolRepository.save(portfolioIntroSchool);
+        });
+        //포트폴리오 자기소개 슬로건 테이블 저장 1:1
+        IntroSlogan userInfoSlogan = introSloganRepository.findByIntroNo(portfolioIntroNo);
+        IntroSlogan portfolioInfoSlogan = new IntroSlogan(duplicatedPortfolioIntroNo);
+        portfolioInfoSlogan.updateIntroSlogan(userInfoSlogan.getSloganContent());
+        introSloganRepository.save(portfolioInfoSlogan);
+
+        return new PortfolioDto.DuplicatePortfolioDto(duplicatedPfNo);
+    }
 }
