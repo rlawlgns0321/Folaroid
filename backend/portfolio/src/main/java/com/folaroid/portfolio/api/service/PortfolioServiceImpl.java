@@ -97,7 +97,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         //포트폴리오 자기소개 학력 테이블 저장 1:N
         List<IntroSchool> userInfoSchool = introSchoolRepository.findAllByIntroNo(userInfoIntroNo);
         userInfoSchool.forEach(userInfo -> {
-            IntroSchool portfolioIntroSchool = new IntroSchool(userInfoIntroNo);
+            IntroSchool portfolioIntroSchool = new IntroSchool(portfolioIntroNo);
             portfolioIntroSchool.saveOtherData(userInfo.getSchoolName(),userInfo.getSchoolMajor(),userInfo.getSchoolDegree(),userInfo.getSchoolAdmissionDate(),userInfo.getSchoolGraduationDate(),userInfo.getSchoolCredit(),userInfo.getSchoolMaxCredit());
             introSchoolRepository.save(portfolioIntroSchool);
         });
