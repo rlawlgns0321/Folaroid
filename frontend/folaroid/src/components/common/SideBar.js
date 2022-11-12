@@ -7,9 +7,8 @@ import { Link, useLocation } from 'react-router-dom';
 const TabBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
-    color: ${(props) => (props.$active ? '#000000' : '#c8c8c8')};
+    color: ${(props) => (props.$active ? '#248BEA' : '#c8c8c8')};
     border: 0;
-    background-color: white;
     text-decoration: none;
 `;
 
@@ -28,8 +27,8 @@ const SideBar = ({ children, isPortfolio }) => {
         <Grid
             container
             className={css`
-                height: 92vh;
-                max-height: 92vh;
+                height: 100%;
+                max-height: 100%;
             `}
             direction="column"
         >
@@ -40,15 +39,11 @@ const SideBar = ({ children, isPortfolio }) => {
                     justifyContent="space-around"
                     alignItems="center"
                     className={css`
-                        border-bottom: 3px solid #c8c8c8;
+                        border-bottom: 1px solid #248bea;
                         height: 8%;
                     `}
                 >
-                    <SideTab
-                        className={css`
-                            border-right: 3px solid #c8c8c8;
-                        `}
-                    >
+                    <SideTab>
                         <TabBtn
                             to="/portfolio/intro"
                             $active={pathname === '/portfolio/intro'}
@@ -64,11 +59,7 @@ const SideBar = ({ children, isPortfolio }) => {
                             프로젝트
                         </TabBtn>
                     </SideTab>
-                    <SideTab
-                        className={css`
-                            border-left: 3px solid #c8c8c8;
-                        `}
-                    >
+                    <SideTab>
                         <TabBtn
                             to="/portfolio/template"
                             $active={pathname === '/portfolio/template'}

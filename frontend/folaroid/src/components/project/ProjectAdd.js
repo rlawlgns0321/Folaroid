@@ -8,7 +8,7 @@ const AddBtn = styled(Grid)`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 252px;
+    height: 240px;
     width: 355px;
     background-color: #d9d9d9;
     border-radius: 4px;

@@ -11,7 +11,7 @@ const ItemBox = styled.div`
     margin: auto;
     flex-direction: column;
     margin-top: 10px;
-    border-bottom: 2px solid #c8c8c8;
+    border-bottom: 1px solid #c8c8c8;
 `;
 
 const Header = styled.div`
@@ -19,12 +19,18 @@ const Header = styled.div`
     direction: row;
     align-items: center;
 `;
-
-const ProjectSideItem = ({project, onDeleteProject}) => {
-
+const DeleteBtn = styled.div`
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-right: 10px;
+`;
+const ProjectSideItem = ({ project, onDeleteProject }) => {
     const onDeleteClick = () => {
         onDeleteProject(project.id);
-    }
+    };
 
     return (
         <ItemBox>
@@ -50,14 +56,13 @@ const ProjectSideItem = ({project, onDeleteProject}) => {
                             color: #248bea;
                         `}
                     >
-                        {project.name}
+                        {/* {project.name} */}
+                        프로젝트이름
                     </div>
                 </Header>
-                <IconButton aria-label="delete" size="large" onClick={onDeleteClick}>
-                    <DeleteIcon fontSize="inherit" />
-                </IconButton>
+                <DeleteBtn onClick={onDeleteClick}/>
             </Grid>
-            <Grid sx={{ my: 1 }}>{project.description}</Grid>
+            <Grid sx={{ my: 1, color: 'white' }}>프로젝트 설명</Grid>
             <Grid>
                 <div
                     className={css`
@@ -65,7 +70,8 @@ const ProjectSideItem = ({project, onDeleteProject}) => {
                         color: #838282;
                     `}
                 >
-                    마지막 업데이트 {project.lastUpdate}
+                    {/* 마지막 업데이트 {project.lastUpdate} */}
+                    마지막 업데이트
                 </div>
             </Grid>
         </ItemBox>

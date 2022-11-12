@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import BaseIntroContainer from '../../containers/personal/BaseIntroContainer';
 import PortfolioListContainer from '../../containers/portfolio/PortfolioListContainer';
-import MyInfo from './MyInfo';
-import PortfolioInfo from './PortfolioList';
 
 const Wrap = styled.div`
     width: 80%;
