@@ -8,6 +8,7 @@ import {
     useTexture,
 } from '@react-three/drei';
 import planetData from '../components/common/PlanetData';
+import gsap from 'gsap';
 
 export function Planet({
     planet: {
@@ -42,11 +43,24 @@ export function Planet({
                 receiveShadow
                 scale={1}
                 onClick={(e) => {
-                    console.log(e.object.position);
+                    let pos = e.object.position;
                     console.log(planetRef.current.id / 2 - 9);
                     setZoom(!zoom);
-                    zoomToView(e.object.position);
-                    console.log(zoom, camera.position);
+                    zoom
+                        ? gsap.to(camera.position, {
+                              rotation: 0,
+                              duration: 1,
+                              x: pos.x,
+                              y: pos.y + 5,
+                              z: pos.z + 10,
+                          })
+                        : gsap.to(camera.position, {
+                              rotation: 0,
+                              duration: 1,
+                              x: 0,
+                              y: 20,
+                              z: 25,
+                          });
                 }}
             >
                 <sphereGeometry args={[size, 32, 32]} />
