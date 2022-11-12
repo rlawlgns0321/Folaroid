@@ -1,0 +1,9 @@
+.card-header {
+    background-color: rgba(0, 0, 0, 0.4);
+    text-decoration-color: #1976d2;
+}
+
+.card-content {
+    background-color: rgba(186, 183, 183, 1);
+    text-decoration-color: white;
+}

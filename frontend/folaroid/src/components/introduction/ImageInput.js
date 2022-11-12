@@ -13,22 +13,33 @@ import { getImage, updateImage } from '../../modules/intro/image';
 import { useLocation } from 'react-router-dom';
 
 function ImageInput(props) {
-    const imageForm = new FormData();
-    const [imageSrc, setImageSrc] = useState({
-        imageLocation: imageForm,
-    });
+    const [imageSrc, setImageSrc] = useState(null);
 
+    const handleChange = (e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        setImageSrc(formData)
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event.target.files)
+        for (var key of imageSrc.keys()) {
+            console.log(key)
+        }
+        for (var value of imageSrc.values()){
+            console.log(value);
+        }
         props.onCreate(imageSrc);
     };
 
     return (
         <CardContent>
             <Box>
-                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                <form
+                    onSubmit={handleSubmit}
+                    style={{ margin: '10px' }}
+                    entype="multipart/formdata"
+                >
                     <div
                         style={{
                             width: '100%',
@@ -38,11 +49,11 @@ function ImageInput(props) {
                         }}
                     >
                         <div style={{ width: '100%' }}>
-                            <input
+                            <TextField
                                 type="file"
-                                accept="image/*"
-                                name="imageLocation"
+                                // accept="image/*"
                                 style={{ width: '40%' }}
+                                onChange={handleChange}
                             />
                         </div>
                         <div>
@@ -60,7 +71,12 @@ function ImageInput(props) {
 function ReadImage(props) {
     return (
         <CardContent>
-            <Box>{props.image}</Box>
+            <img
+                style={{ width: '200px', height: '200px' }}
+                src={props.image}
+                alt="사용자 이미지"
+            />
+            {/* <Box>{props.image}</Box> */}
         </CardContent>
     );
 }
@@ -75,21 +91,19 @@ function ViewImage() {
             : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('READ');
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getImage(intro_no));
     }, [dispatch, intro_no]);
+
     let content = null;
     if (mode === 'CREATE') {
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
                 <CardHeader title="사진" />
                 <ImageInput
-                    onCreate={(_image) => {
-                        dispatch(
-                            updateImage(intro_no, {
-                                file: _image.imageLocation,
-                            })
-                        );
+                    onCreate={(formData) => {
+                        dispatch(updateImage(intro_no, formData));
                         setMode('READ');
                     }}
                 ></ImageInput>

@@ -1,5 +1,4 @@
 import React from 'react';
-import '../components/introduction/base_introduction.css';
 import { Grid } from '@mui/material';
 import { css } from '@emotion/css';
 // import { Route, Routes } from 'react-router-dom';
@@ -22,7 +21,7 @@ function BaseIntro() {
     const title = '기본정보';
 
     return (
-        <div>
+        <div style={{color: 'blue'}}>
             <Header />
             <Grid
                 container

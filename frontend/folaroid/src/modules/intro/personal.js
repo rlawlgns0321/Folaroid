@@ -13,6 +13,7 @@ export const updatePersonal = createAsyncThunk(
     'personal/updatePersonal',
     async (data) => {
         const response = await api.updatePersonal(data);
+        console.log(response)
         return {
             userBirth: data.userBirth,
             userName: data.userName,
@@ -48,6 +49,7 @@ export const personal = createSlice({
             state.userBirth = action.payload.userBirth
             state.userEmail = action.payload.userEmail
             state.userPhone = action.payload.userPhone
+            console.log(state)
         },
         [findByGithub.fulfilled]: (state, action) => {
             return [...action.payload];

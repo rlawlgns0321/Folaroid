@@ -1,7 +1,7 @@
 import {
     Divider,
     List,
-    ListItem,
+    // ListItem,
     ListItemButton,
     ListItemText,
 } from '@mui/material';
@@ -11,14 +11,9 @@ const IntroSide = () => {
     return (
         <div>
             <List>
-                <h1>개인 정보</h1>
-                {['이름', '생년월일', '이메일', '연락처'].map((text) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                <ListItemButton disablePadding>
+                    <ListItemText primary="개인 정보" />
+                </ListItemButton>
             </List>
             <Divider />
             <List>
@@ -35,11 +30,9 @@ const IntroSide = () => {
                     '경력사항',
                     '기타',
                 ].map((text) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
+                    <ListItemButton key={text} disablePadding>
+                        <ListItemText primary={text} />
+                    </ListItemButton>
                 ))}
             </List>
         </div>

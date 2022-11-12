@@ -16,15 +16,15 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const initialState = {
-    userBirth: null,
-    userEmail: null,
-    userName: null,
-    userPhone: null,
+    userBirth: '',
+    userEmail: '',
+    userName: '',
+    userPhone: '',
 };
 
 function Update(props) {
-    // const person = props.personal;
-    const [personal, setPersonal] = useState(initialState);
+    const person = props.person;
+    const [personal, setPersonal] = useState(person);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -177,12 +177,13 @@ function ViewName() {
     if (mode === 'CREATE') {
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="기본 정보" />
+                <CardHeader title="개인 정보" />
                 <Update
+                    person={personal}
                     onCreate={(personal) => {
                         dispatch(
                             updatePersonal({
-                                intro_no: intro_no,
+                                introNo: intro_no,
                                 userBirth: personal.userBirth,
                                 userEmail: personal.userEmail,
                                 userName: personal.userName,
@@ -198,7 +199,7 @@ function ViewName() {
     } else if (mode === 'READ') {
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="기본 정보" />
+                <CardHeader title="개인 정보" />
                 <ReadName user={personal}></ReadName>
                 <div>
                     <Button onClick={() => setMode('CREATE')}>수정</Button>

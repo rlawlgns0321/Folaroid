@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './IntroCard.css';
 import {
     Button,
     Card,
@@ -47,7 +48,7 @@ function ActivityInput(props) {
     };
 
     return (
-        <CardContent>
+        <CardContent className="card-content">
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div
                     style={{
@@ -160,7 +161,7 @@ function ReadSchool(props) {
     ));
 
     return (
-        <CardContent>
+        <CardContent className="card-content">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -210,7 +211,7 @@ function ViewName() {
     if (mode === 'CREATE') {
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="활동" />
+                <CardHeader className="card-header" title="활동" titleTypographyProps={{color:'primary', fontWeight: 'bolder', fontSize: '2rem'}}/>
                 <ActivityInput
                     onCreate={(_activity) => {
                         dispatch(
@@ -231,7 +232,7 @@ function ViewName() {
         console.log({ activity });
         content = (
             <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="활동" />
+                <CardHeader className="card-header" title="활동" titleTypographyProps={{color:'primary', fontWeight: 'bolder', fontSize: '2rem'}}/>
                 <ActivityInput
                     onCreate={(_activity) => {
                         dispatch(
