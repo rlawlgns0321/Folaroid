@@ -35,25 +35,30 @@ const Title = styled.div`
     color: #248bea;
 `;
 
-const PortfolioItem = () => {
+const PortfolioItem = ({ pf, onDeleteClick }) => {
     return (
         <Wrap>
             <Info>
                 <Title>포트폴리오 이름</Title>
-                <div>업데이트</div>
+                <div>{pf.updated_at}</div>
             </Info>
             <div>
-                <IconButton edge="end" size="large" sx={{color:"white"}}>
-                    <VisibilityIcon fontSize="inherit"/>
+                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                    <VisibilityIcon fontSize="inherit" />
                 </IconButton>
-                <IconButton edge="end" size="large" sx={{color:"white"}}>
-                    <CreateIcon fontSize="inherit"/>
+                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                    <CreateIcon fontSize="inherit" />
                 </IconButton>
-                <IconButton edge="end" size="large" sx={{color:"white"}}>
-                    <ContentCopyIcon fontSize="inherit"/>
+                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                    <ContentCopyIcon fontSize="inherit" />
                 </IconButton>
-                <IconButton edge="end" size="large" sx={{color:"white"}}>
-                    <DeleteIcon fontSize="inherit"/>
+                <IconButton
+                    edge="end"
+                    size="large"
+                    sx={{ color: 'white' }}
+                    onClick={() => onDeleteClick()}
+                >
+                    <DeleteIcon fontSize="inherit" />
                 </IconButton>
             </div>
         </Wrap>

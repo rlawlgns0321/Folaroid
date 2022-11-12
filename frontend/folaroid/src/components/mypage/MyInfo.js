@@ -29,12 +29,12 @@ const ContentsWrap = styled.div`
     overflow-y: scroll;
 `;
 
-const MyInfo = () => {
+const MyInfo = ({baseIntro}) => {
     return (
         <Wrap>
             <Title>내 프로필</Title>
             <ContentsWrap>
-                <BaseInfo/>
+                <BaseInfo baseIntro={baseIntro}/>
                 <CommitChart/>
             </ContentsWrap>
         </Wrap>

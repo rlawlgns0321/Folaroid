@@ -50,7 +50,7 @@ const InfoSub = styled.div`
     align-items: center;
 `;
 
-const BaseInfo = () => {
+const BaseInfo = ({baseIntro}) => {
     return (
         <Wrap>
             <Image>

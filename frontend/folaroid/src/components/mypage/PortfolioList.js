@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PortfolioItem from './PortfolioItem';
+import PortfolioItemContainer from '../../containers/portfolio/PortfolioItemContainer';
 
 const Wrap = styled.div`
     height: 100%;
@@ -12,7 +12,7 @@ const Wrap = styled.div`
 const TitleBtn = styled.button`
     width: 100%;
     height: 10%;
-    background-color: #248BEA;
+    background-color: #248bea;
     border: 0;
     font-size: 1.4rem;
     font-weight: bold;
@@ -25,28 +25,26 @@ const TitleBtn = styled.button`
 `;
 
 const ContentsWrap = styled.div`
-    width:100%;
+    width: 100%;
     height: 90%;
     max-height: 90%;
     overflow-y: scroll;
 `;
 
-const PortfolioInfo = () => {
+const PortfolioList = ({ portfolioList, onCreateClick }) => {
     return (
         <Wrap>
-            <TitleBtn>포트폴리오 만들기</TitleBtn>
+            <TitleBtn onClick={() => onCreateClick()}>
+                포트폴리오 만들기
+            </TitleBtn>
             <ContentsWrap>
-                <PortfolioItem/>
-                <PortfolioItem/>
-                <PortfolioItem/>
-                <PortfolioItem/>
-                <PortfolioItem/>
-                <PortfolioItem/>
-                <PortfolioItem/>
-                <PortfolioItem/>
+                {portfolioList &&
+                    portfolioList.map((pf, key) => {
+                        return <PortfolioItemContainer key={key} pf={pf} />;
+                    })}
             </ContentsWrap>
         </Wrap>
     );
 };
 
-export default PortfolioInfo;
+export default PortfolioList;

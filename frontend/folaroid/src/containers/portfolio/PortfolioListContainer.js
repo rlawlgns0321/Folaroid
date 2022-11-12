@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PortfolioList from '../../components/portfolio/PortfolioList';
-import { getSimplePortfolioListThunk } from '../../modules/portfolio';
+import { useNavigate } from 'react-router-dom';
+import PortfolioList from '../../components/mypage/PortfolioList';
+import {
+    createPortfolioThunk,
+    getSimplePortfolioListThunk,
+} from '../../modules/portfolio';
 
 const PortfolioListContainer = () => {
     const dispatch = useDispatch();
@@ -11,11 +15,19 @@ const PortfolioListContainer = () => {
     useEffect(() => {
         dispatch(getSimplePortfolioListThunk(user.userNo));
     }, [dispatch, user.userNo]);
+    const navigate = useNavigate();
 
+    const onCreateClick = () => {
+        dispatch(createPortfolioThunk(user.userNo));
+        navigate('/portfolio/intro');
+    };
     return (
-        <div>
-            <PortfolioList portfolioList={portfolioList} />
-        </div>
+        <>
+            <PortfolioList
+                portfolioList={portfolioList}
+                onCreateClick={onCreateClick}
+            />
+        </>
     );
 };
 
