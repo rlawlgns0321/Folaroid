@@ -30,6 +30,7 @@
     "react": "^18.2.0",
     "react-click-outside": "^3.0.1",
     "react-dom": "^18.2.0",
+    "react-github-calendar": "^3.3.4",
     "react-gsap": "^3.2.1",
     "react-hook-form": "^7.38.0",
     "react-icons": "^4.6.0",

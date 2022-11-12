@@ -38,7 +38,7 @@ export const PhotosPanel = observer(({ store }) => {
                 style={{
                     marginBottom: '20px',
                 }}
-            />
+            /> 
             {/* you can create yur own custom component here */}
             {/* but we will use built-in grid component */}
             <ImagesGrid

@@ -8,8 +8,8 @@ import HeaderContainer from '../containers/header/HeaderContainer';
 const MainPage = () => {
     return (
         <div>
-            <HeaderContainer/>
-            <MainCanvas/>
+            <HeaderContainer />
+            <MainCanvas />
         </div>
     );
 };

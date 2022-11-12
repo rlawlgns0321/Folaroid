@@ -10,20 +10,19 @@ const MenuBtn = styled.button`
     font-size: 1rem;
     font-weight: bold;
     font-family: 'S-CoreDream-3Light';
-    color: black;
+    color: white;
     border: 0;
-    background-color: white;
+    background-color: inherit;
 `;
 
 const RouteBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
     font-family: 'S-CoreDream-3Light';
-
-    color: black;
+    color: white;
     border: 0;
-    background-color: white;
     text-decoration: none;
+    background-color: inherit;
 `;
 
 const Header = ({ user, onLogout }) => {
@@ -54,9 +53,9 @@ const Header = ({ user, onLogout }) => {
                     className={css`
                         font-size: 2rem;
                         font-weight: bold;
-                        color: black;
+                        color: white;
                         border: 0;
-                        background-color: white;
+                        background-color: inherit;
                     `}
                 >
                     Folaroid

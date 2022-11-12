@@ -10,22 +10,38 @@ import { ThemeProvider } from '@mui/material/styles';
 import PortFolioPage from './pages/PortFolioPage';
 import ProjectInfoPage from './pages/ProjectInfoPage';
 import { useSelector } from 'react-redux';
+import TestPage from './pages/TestPage';
 
 function App() {
     const user = useSelector((state) => state.auth.user);
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{ height: '100vh', width: '100vw'}}>
+            <TestPage>
                 <Routes>
                     <Route path="/" element={<MainPage />} exact />
                     <Route path="/callback" element={<CallBackpage />} />
-                    <Route path="/mypage" element={user ? <MyPage /> : <Navigate to="/"/>} />
-                    <Route path="/intro" element={user ? <BaseIntro /> : <Navigate to="/"/>} />
-                    <Route path="/portfolio/*" element={user ? <PortFolioPage/> : <Navigate to="/" />} />
-                    <Route path="/projectinfo" element={user ? <ProjectInfoPage /> : <Navigate to="/"/>} />
+                    <Route
+                        path="/mypage"
+                        element={user ? <MyPage /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/intro"
+                        element={user ? <BaseIntro /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/portfolio/*"
+                        element={user ? <PortFolioPage /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/projectinfo"
+                        element={
+                            user ? <ProjectInfoPage /> : <Navigate to="/" />
+                        }
+                    />
+                    <Route path="/test" element={<TestPage/>} />
                 </Routes>
-            </div>
+            </TestPage>
         </ThemeProvider>
     );
 }
