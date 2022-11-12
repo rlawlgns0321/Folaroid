@@ -13,16 +13,15 @@ import { getImage, updateImage } from '../../modules/intro/image';
 import { useLocation } from 'react-router-dom';
 
 function ImageInput(props) {
+    const imageForm = new FormData();
     const [imageSrc, setImageSrc] = useState({
-        imageLocation: '',
+        imageLocation: imageForm,
     });
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setImageSrc({ ...imageSrc, [name]: value });
-    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(event.target.files)
         props.onCreate(imageSrc);
     };
 
@@ -39,14 +38,11 @@ function ImageInput(props) {
                         }}
                     >
                         <div style={{ width: '100%' }}>
-                            <TextField
+                            <input
                                 type="file"
-                                accept="image/jpg,impge/png,image/jpeg,image/gif"
-                                size="medium"
+                                accept="image/*"
                                 name="imageLocation"
-                                onChange={handleInputChange}
                                 style={{ width: '40%' }}
-                                value={imageSrc.imageLocation}
                             />
                         </div>
                         <div>
@@ -90,8 +86,8 @@ function ViewImage() {
                 <ImageInput
                     onCreate={(_image) => {
                         dispatch(
-                            updateImage({
-                                imageLocation: _image.imageLocation,
+                            updateImage(intro_no, {
+                                file: _image.imageLocation,
                             })
                         );
                         setMode('READ');

@@ -23,6 +23,7 @@ const initialState = {
 };
 
 function Update(props) {
+    // const person = props.personal;
     const [personal, setPersonal] = useState(initialState);
 
     const handleInputChange = (event) => {
@@ -190,6 +191,7 @@ function ViewName() {
                         );
                         setMode('READ');
                     }}
+                    personal={personal}
                 ></Update>
             </Card>
         );

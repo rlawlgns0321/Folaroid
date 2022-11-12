@@ -8,8 +8,8 @@ export const getImage = createAsyncThunk('imgae/getImage', async (introNo) => {
 
 export const updateImage = createAsyncThunk(
     'image/updateImage',
-    async (data) => {
-        const response = await api.updateImage(data);
+    async (intro_no, data) => {
+        const response = await api.updateImage(intro_no, data);
         return response.data;
     }
 );
