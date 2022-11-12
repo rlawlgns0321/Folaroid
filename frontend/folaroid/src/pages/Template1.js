@@ -217,29 +217,128 @@ const Template1 = () => {
                     <h2 id="pjt2">Project2</h2>
                     <div id="div2">
                         <CustomBtn
+                            onClick={handleOpen}
                             disableRipple
                             variant="text"
                             size="large"
-                            color="success"
                         ></CustomBtn>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                            style={{ width: '100vw', height: '100vh' }}
+                        >
+                            <Fade in={open}>
+                                <Box sx={boxstyle}>
+                                    <Typography
+                                        id="transition-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                    >
+                                        Text in a modal
+                                    </Typography>
+                                    <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                    >
+                                        Duis mollis, est non commodo luctus,
+                                        nisi erat porttitor ligula.
+                                    </Typography>
+                                </Box>
+                            </Fade>
+                        </Modal>
                     </div>
                 </section>
                 <section className="section"></section>
                 <section className="section">
                     <h2 id="pjt3">Project3</h2>
                     <div id="div3">
-                        <CustomBtn
+                    <CustomBtn
+                            onClick={handleOpen}
                             disableRipple
                             variant="text"
                             size="large"
                         ></CustomBtn>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                            style={{ width: '100vw', height: '100vh' }}
+                        >
+                            <Fade in={open}>
+                                <Box sx={boxstyle}>
+                                    <Typography
+                                        id="transition-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                    >
+                                        Text in a modal
+                                    </Typography>
+                                    <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                    >
+                                        Duis mollis, est non commodo luctus,
+                                        nisi erat porttitor ligula.
+                                    </Typography>
+                                </Box>
+                            </Fade>
+                        </Modal>
                     </div>
                 </section>
                 <section className="section"></section>
                 <section className="section">
                     <h2 id="pjt4">Project4</h2>
                     <div id="div4">
-                        <CustomBtn disableRipple size="large"></CustomBtn>
+                    <CustomBtn
+                            onClick={handleOpen}
+                            disableRipple
+                            variant="text"
+                            size="large"
+                        ></CustomBtn>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                            style={{ width: '100vw', height: '100vh' }}
+                        >
+                            <Fade in={open}>
+                                <Box sx={boxstyle}>
+                                    <Typography
+                                        id="transition-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                    >
+                                        Text in a modal
+                                    </Typography>
+                                    <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                    >
+                                        Duis mollis, est non commodo luctus,
+                                        nisi erat porttitor ligula.
+                                    </Typography>
+                                </Box>
+                            </Fade>
+                        </Modal>
                     </div>
                 </section>
             </div>

@@ -44,7 +44,7 @@ export function Planet({
                 scale={1}
                 onClick={(e) => {
                     let pos = e.object.position;
-                    console.log(planetRef.current.id / 2 - 9);
+                    // console.log(planetRef.current.id / 2 - 9);
                     setZoom(!zoom);
                     zoom
                         ? gsap.to(camera.position, {
@@ -101,10 +101,7 @@ export function Ecliptic({ xRadius = 1, zRadius = 1 }) {
 const Template2 = () => {
     const [position1, setPosition1] = useState([0, 20, 25]);
     function zoomToView(pos) {
-        console.log(pos);
         setPosition1(pos);
-
-        console.log(position1);
     }
     return (
         <>
