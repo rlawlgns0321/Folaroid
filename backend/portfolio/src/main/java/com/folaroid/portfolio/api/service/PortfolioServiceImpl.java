@@ -30,8 +30,9 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final IntroImageRepository introImageRepository;
     private final IntroSchoolRepository introSchoolRepository;
     private final ProjectRepository projectRepository;
-
     private final PjtImageRepository pjtImageRepository;
+    private final FileService fileService;
+
 
     @Transactional
     @Override
@@ -46,10 +47,11 @@ public class PortfolioServiceImpl implements PortfolioService {
         Long userInfoIntroNo = introRepository.findUserDefaultData(request.getUserNo());
         // 기존의 개인정보 데이터들을 포트폴리오의 자기소개 정보로 저장할 것.
 
-        //포트폴리오 자기소개 이미지 테이블 저장 1:1
+
         IntroImage userInfoImage = introImageRepository.findByIntroNo(userInfoIntroNo);
+        //포트폴리오 자기소개 이미지 테이블 저장 1:1 - fileService를 사용해서 기존 파일 불러오고 이름 바꿔서 독립적으로 사진을 저장하기
         IntroImage portfolioInfoImage = new IntroImage(portfolioIntroNo);
-        portfolioInfoImage.IntroImageLocationSave(userInfoImage.getIntroImageLocation());
+        portfolioInfoImage.IntroImageLocationSave(fileService.duplicateImage(userInfoImage.getIntroImageLocation()));
         introImageRepository.save(portfolioInfoImage);
 
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
@@ -137,8 +139,14 @@ public class PortfolioServiceImpl implements PortfolioService {
     public void deletePortfolio(Long pfNo) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() ->
                 new IllegalArgumentException("해당 포트폴리오가 존재하지 않습니다."));
-        // 포트폴리오에 존재하는 프로젝트 먼저 삭제하는 코드 작성
-        // ??
+        // 포트폴리오에 존재하는 프로젝트들, 자기소개 테이블까지만 삭제
+
+        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
+        projects.forEach(project -> {
+            projectRepository.delete(project);
+        });
+        introRepository.deleteById(introRepository.findIntroNoByPfNoAndUserNo(pfNo, portfolio.getUserNo()));
+
         portfolioRepository.delete(portfolio);
     }
 
@@ -206,10 +214,8 @@ public class PortfolioServiceImpl implements PortfolioService {
             List<PjtImage> pjtImages = pjtImageRepository.findAllByPjtNo(pjtNo);
             for (PjtImage pjtImage : pjtImages) {
                 PjtImage pjtImageTemp = new PjtImage(pjtImage);
-                pjtImageTemp.savePjtNo(duplicatedProjectPjtNo);
                 //기존 파일 불러오고 이름 바꿔서 독립적으로 저장하기
-
-
+                pjtImageTemp.saveImage(duplicatedProjectPjtNo, fileService.duplicateImage(pjtImage.getPjtImageLocation()));
                 pjtImageRepository.save(pjtImageTemp);
             }
         });
