@@ -22,6 +22,7 @@ export const portfolioProject = createSlice({
     initialState: {
         projects: [],
         isloading: false,
+        project: {},
     },
     reducers: {
         deleteProject: (state, action) => {
@@ -30,6 +31,15 @@ export const portfolioProject = createSlice({
             );
         },
         updateProject: () => {},
+        crateProject: (state, { payload }) => {
+            state.project = {
+                pfNo: payload.pfNo,
+                pjtGithubUrl: payload.repo.html_url,
+                pjtStar: payload.repo.stargazers_count,
+                pjtTitle: payload.repo.name,
+                pjtSubtitle: payload.repo.description,
+            };
+        },
     },
     extraReducers: {
         [getProjectsThunk.fulfilled.type]: (state, action) => {
