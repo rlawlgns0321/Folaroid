@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { React, Suspense, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { React, Suspense, useState} from 'react';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { useGLTF, Cloud, Center, Text3D } from '@react-three/drei';
 //import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
 import Button from '@mui/material/Button';
@@ -28,23 +28,77 @@ export function Scene(props) {
     const obj = useGLTF('models/map2.glb');
     //const floor = useTexture('images/grid.jpg');
     return (
-        <primitive
-            object={obj.scene}
-            scale={7}
-            position-x={70}
-            position-y={-10}
-            position-z={-30}
-            // rotation-x={-Math.PI / 1}
-        />
-        // <mesh
-        //     receiveShadow
-        //     position-y={-1}
-        //     rotation-x={-Math.PI / 2}
-        //     scale={100}
-        // >
-        //     <planeGeometry />
-        //     <meshBasicMaterial castShadow map={floor} />
-        // </mesh>
+        <group>
+            <primitive
+                object={obj.scene}
+                scale={7}
+                position-x={70}
+                position-y={-10}
+                position-z={-30}
+                // rotation-x={-Math.PI / 1}
+                />
+                <Cloud
+                position={[-50, 10, -10]}
+                opacity={0.5}
+                scale={1.5}
+                speed={0.8}
+                />
+                <Cloud
+                position={[-30, 20, -20]}
+                opacity={0.5}
+                scale={1.5}
+                />
+                <Cloud
+                position={[50, 10, -20]}
+                opacity={0.5}
+                scale={1.5}
+                speed={0.5}
+                />
+                <Cloud
+                position={[0, 30, -40]}
+                opacity={0.5}
+                scale={1.5}
+                />
+                <Cloud
+                position={[-35, 10, -50]}
+                opacity={0.5}
+                scale={1.5}
+                speed={1}
+                />
+                <Cloud
+                position={[40, 30, -70]}
+                opacity={0.3}
+                scale={1.5}
+                speed={1}
+                />
+                <Cloud
+                position={[80, 5, -70]}
+                opacity={0.3}
+                scale={1.5}
+                speed={1}
+                />
+                <Cloud
+                position={[-10, 25, -130]}
+                opacity={0.5}
+                scale={1.5}
+                />
+                <Cloud
+                position={[30, 20, -120]}
+                opacity={0.5}
+                scale={1.5}
+                />
+                <Cloud
+                position={[100, 30, -100]}
+                opacity={0.5}
+                scale={1.5}
+                />
+                <Cloud
+                position={[90, 25, -130]}
+                opacity={0.5}
+                scale={1.5}
+                speed={0.8}
+                />
+        </group>
     );
 }
 export function House(props) {
@@ -59,6 +113,21 @@ export function House(props) {
     );
 }
 useGLTF.preload('/house.gltf');
+
+export function Text(){
+    //const font = new THREE.FontLoader().parse();
+    const textOptions = {
+       //font,
+       size: 5,
+       height: 1
+    };
+    return (
+       <mesh>
+          <textGeometry attach='geometry' args={['three.js', textOptions]} />
+          <meshStandardMaterial attach='material' color="hotpink" />
+        </mesh>
+     )
+ }
 
 let currentSection = 0;
 let flag = 0;
@@ -162,6 +231,12 @@ const Template1 = () => {
                     />
                     <ambientLight intensity={1} />
                     <House position={position[0]} />
+                    {/* <mesh>
+                    <Text3D position={position[0]}>
+                    {`CSS\nIS\nAWESOME`}
+                    </Text3D>
+                    </mesh> */}
+                    
                     <House position={position[1]} />
                     {/* 중간지점 */}
                     <mesh position={position[2]}></mesh>
@@ -259,7 +334,7 @@ const Template1 = () => {
                 <section className="section">
                     <h2 id="pjt3">Project3</h2>
                     <div id="div3">
-                    <CustomBtn
+                        <CustomBtn
                             onClick={handleOpen}
                             disableRipple
                             variant="text"
