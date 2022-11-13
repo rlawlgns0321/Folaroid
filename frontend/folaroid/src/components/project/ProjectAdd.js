@@ -10,8 +10,8 @@ const AddBtn = styled(Grid)`
     justify-content: center;
     height: 240px;
     width: 355px;
-    background-color: #d9d9d9;
-    border-radius: 4px;
+    background-color:rgba(140, 140, 140, 0.35);
+    border-radius: 10px;
     cursor: pointer;
 `;
 

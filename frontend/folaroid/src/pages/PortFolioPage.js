@@ -70,15 +70,9 @@ const PortFolioPage = () => {
                                     path="project"
                                     element={<ProjectBodyContainer />}
                                 />
-
                                 <Route
                                     path="template"
                                     element={<Template1 />}
-                                />
-
-                                <Route
-                                    path="intro"
-                                    element={<PortfolioIntro />}
                                 />
                             </Routes>
                         </Contents>

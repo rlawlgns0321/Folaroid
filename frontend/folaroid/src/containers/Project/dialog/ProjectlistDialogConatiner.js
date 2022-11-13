@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ProjectListDialog from '../../../components/project/dialog/ProjectListDialog';
 import { getReposThunk, getRepoThunk } from '../../../modules/github';
 import {
     createProjectThunk,
-    portfolioProject,
 } from '../../../modules/portfolioProject';
 
 const ProjectlistDialogConatiner = ({ open, handleClose }) => {
@@ -12,13 +12,13 @@ const ProjectlistDialogConatiner = ({ open, handleClose }) => {
     const repos = useSelector((state) => state.github.repos);
     const repo = useSelector((state) => state.github.repo);
     const pf = useSelector((state) => state.portfolio.pf);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (open) dispatch(getReposThunk());
     }, [dispatch, open]);
 
     useEffect(() => {
-        console.log(pf);
         if (open) {
             dispatch(
                 createProjectThunk({
@@ -26,8 +26,9 @@ const ProjectlistDialogConatiner = ({ open, handleClose }) => {
                     repo,
                 })
             );
+            navigate('/projectinfo');
         }
-    }, [repo, pf.pfNo, open, dispatch]);
+    }, [repo, pf, open, dispatch, navigate]);
 
     const handleSubmit = () => {
         let pjtId = null;
