@@ -6,18 +6,20 @@ import { useLocation } from 'react-router-dom';
 
 const Title = styled(Grid)`
     height: 8%;
-    border-bottom: 3px solid #c8c8c8;
+    border-bottom: 1px solid #248BEA;
     font-weight: bold;
-    color: #248bea;
+    color: white;
+    background-color: #248BEA;
     font-size: 1.7rem;
     display: flex;
     align-items: center;
-    padding-left: 7px;
+    padding-left: 15px;
+    border-radius: 0 10px 0 0;
 `;
 
 const Wrap = styled(Grid)`
-    height: 92vh;
-    max-height: 92vh;
+    height: 100%;
+    max-height: 100%;
 `;
 
 const Contents = ({ children }) => {

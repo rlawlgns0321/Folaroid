@@ -1,5 +1,3 @@
-import { css } from '@emotion/css';
-import { Grid } from '@mui/material';
 import React from 'react';
 import SideBar from '../components/common/SideBar';
 import { Route, Routes } from 'react-router-dom';
@@ -10,57 +8,73 @@ import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
 import PortfolioIntro from '../components/portfolio_intro/PortfolioIntro';
 import HeaderContainer from '../containers/header/HeaderContainer';
+import styled from '@emotion/styled';
+import ProjectBody from '../components/project/ProjectBody';
+
+const BodyWrap = styled.div`
+    width: 100vw;
+    height: 93vh;
+    max-height: 93vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ContentsWrap = styled.div`
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+    max-height: 90vh;
+    flex-direction: row;
+    border: 1px solid #2c2b2b;
+    border-radius: 10px;
+`;
+
+const LeftBarWrap = styled.div`
+    width: 20%;
+    background-color: #2c2b2b;
+    border-radius: 10px 0 0 10px;
+`;
+
+const RightBarWrap = styled.div`
+    width: 80%;
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+`;
 
 const PortFolioPage = () => {
     return (
         <div>
             <HeaderContainer />
-            <Grid
-                container
-                sx={{
-                    width: '100vw',
-                    height: '93vh',
-                    maxHeight: '93vh',
-                    borderTop: '3px solid black',
-                }}
-                direction="row"
-            >
-                <Grid
-                    className={css`
-                        width: 20vw;
-                        border-right: 3px solid black;
-                    `}
-                >
-                    <SideBar isPortfolio>
-                        <Routes>
-                            <Route path="template" element={<TemplateSide />} />
-                            <Route
-                                path="project"
-                                element={<ProjectSideContainer />}
-                            />
-                            <Route path="intro" element={<IntroSide />} />
-                        </Routes>
-                    </SideBar>
-                </Grid>
-                <Grid
-                    className={css`
-                        width: 80vw;
-                    `}
-                >
-                    <Contents title="프로젝트">
-                        <Routes>
-                            <Route
-                                path="project"
-                                element={<ProjectBodyContainer />}
-                            />
-                            <Route
-                                path="intro"
-                                element={<PortfolioIntro/>}
-                            />
-                        </Routes>
-                    </Contents>
-                </Grid>
-            </Grid>
+            <BodyWrap>
+                <ContentsWrap>
+                    <LeftBarWrap>
+                        <SideBar isPortfolio>
+                            <Routes>
+                                <Route
+                                    path="template"
+                                    element={<TemplateSide />}
+                                />
+                                <Route
+                                    path="project"
+                                    element={<ProjectSideContainer />}
+                                />
+                                <Route path="intro" element={<IntroSide />} />
+                            </Routes>
+                        </SideBar>
+                    </LeftBarWrap>
+                    <RightBarWrap>
+                        <Contents title="프로젝트">
+                            <Routes>
+                                <Route
+                                    path="project"
+                                    element={<ProjectBody />}
+                                />
+                            </Routes>
+                        </Contents>
+                    </RightBarWrap>
+                </ContentsWrap>
+            </BodyWrap>
         </div>
     );
 };

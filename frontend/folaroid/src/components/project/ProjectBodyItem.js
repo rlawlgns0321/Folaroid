@@ -1,31 +1,57 @@
-import { Card, Grid, IconButton, Skeleton } from '@mui/material';
+import { Card, Grid, IconButton } from '@mui/material';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import styled from '@emotion/styled';
 
+const ItemWrap = styled.div`
+    width: 355px;
+    height: 240px;
+    border-radius: 10px;
+    //border: 1px solid #2c2b2b;
+`;
 
-const ProjectBodyItem = ({project, onDeleteProject}) => {
+const TitleBar = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 16%;
+    width: 100%;
+    background-color: rgba(140, 140, 140, 0.35);
+    border-radius: 10px 10px 0 0;
+`;
 
+const Skeleton = styled.div`
+    width: 100%;
+    height: 84%;
+    background-color: gray;
+    border-radius: 0 0 10px 10px;
+`;
+
+const DeleteBtn = styled.div`
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-right: 10px;
+`;
+
+const ProjectBodyItem = ({ project, onDeleteProject }) => {
     const onDeleteClick = () => {
         onDeleteProject(project.id);
-    }
+    };
 
     return (
-        <Card sx={{ minWidth: 355, width: 355 }}>
-            <Skeleton variant="rectangular" width={355} height={200} />
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                <Grid sx={{pl:2, fontWeight: "bold"}}>{project.name}</Grid>
-                <Grid>
-                    <IconButton aria-label="delete" size="large" onClick={onDeleteClick}>
-                        <DeleteIcon fontSize="inherit" />
-                    </IconButton>
+        <ItemWrap>
+            <TitleBar>
+                <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
+                    프로젝트이름
                 </Grid>
-            </Grid>
-        </Card>
+                <DeleteBtn onClick={onDeleteClick} />
+            </TitleBar>
+            <Skeleton />
+        </ItemWrap>
     );
 };
 
