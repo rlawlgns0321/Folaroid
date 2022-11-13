@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProjectListDialog from '../../../components/project/dialog/ProjectListDialog';
 import { getReposThunk, getRepoThunk } from '../../../modules/github';
-import { portfolioProject } from '../../../modules/portfolioProject';
+import {
+    createProjectThunk,
+    portfolioProject,
+} from '../../../modules/portfolioProject';
 
 const ProjectlistDialogConatiner = ({ open, handleClose }) => {
     const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const ProjectlistDialogConatiner = ({ open, handleClose }) => {
         console.log(pf);
         if (open) {
             dispatch(
-                portfolioProject.actions.crateProject({
+                createProjectThunk({
                     pfNo: pf.pfNo,
                     repo,
                 })
