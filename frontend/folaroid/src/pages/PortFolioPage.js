@@ -10,6 +10,7 @@ import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
 import PortfolioIntro from '../components/portfolio_intro/PortfolioIntro';
 import HeaderContainer from '../containers/header/HeaderContainer';
+import Template1 from './Template1';
 
 const PortFolioPage = () => {
     return (
@@ -56,6 +57,10 @@ const PortFolioPage = () => {
                             <Route
                                 path="intro"
                                 element={<PortfolioIntro/>}
+                            />
+                            <Route
+                                path="template"
+                                element={<Template1/>}
                             />
                         </Routes>
                     </Contents>

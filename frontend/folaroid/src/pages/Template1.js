@@ -1,16 +1,16 @@
 import * as THREE from 'three';
-import { React, Suspense, useState} from 'react';
+import { React, Suspense, useState, useRef, useEffect } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { useGLTF, Cloud, Center, Text3D } from '@react-three/drei';
 //import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { gsap } from 'gsap';
 import Button from '@mui/material/Button';
 import styled from 'styled-components';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Typography from '@mui/material/Typography';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const CustomBtn = styled(Button)`
     height: 200px;
@@ -35,69 +35,69 @@ export function Scene(props) {
                 position-x={70}
                 position-y={-10}
                 position-z={-30}
-                // rotation-x={-Math.PI / 1}
-                />
-                <Cloud
+            // rotation-x={-Math.PI / 1}
+            />
+            <Cloud
                 position={[-50, 10, -10]}
                 opacity={0.5}
                 scale={1.5}
                 speed={0.8}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[-30, 20, -20]}
                 opacity={0.5}
                 scale={1.5}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[50, 10, -20]}
                 opacity={0.5}
                 scale={1.5}
                 speed={0.5}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[0, 30, -40]}
                 opacity={0.5}
                 scale={1.5}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[-35, 10, -50]}
                 opacity={0.5}
                 scale={1.5}
                 speed={1}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[40, 30, -70]}
                 opacity={0.3}
                 scale={1.5}
                 speed={1}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[80, 5, -70]}
                 opacity={0.3}
                 scale={1.5}
                 speed={1}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[-10, 25, -130]}
                 opacity={0.5}
                 scale={1.5}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[30, 20, -120]}
                 opacity={0.5}
                 scale={1.5}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[100, 30, -100]}
                 opacity={0.5}
                 scale={1.5}
-                />
-                <Cloud
+            />
+            <Cloud
                 position={[90, 25, -130]}
                 opacity={0.5}
                 scale={1.5}
                 speed={0.8}
-                />
+            />
         </group>
     );
 }
@@ -108,26 +108,27 @@ export function House(props) {
             <mesh
                 geometry={nodes.Cube.geometry}
                 material={materials.Material}
+                scale={2}
             ></mesh>
         </group>
     );
 }
 useGLTF.preload('/house.gltf');
 
-export function Text(){
+export function Text() {
     //const font = new THREE.FontLoader().parse();
     const textOptions = {
-       //font,
-       size: 5,
-       height: 1
+        //font,
+        size: 5,
+        height: 1
     };
     return (
-       <mesh>
-          <textGeometry attach='geometry' args={['three.js', textOptions]} />
-          <meshStandardMaterial attach='material' color="hotpink" />
+        <mesh>
+            <textGeometry attach='geometry' args={['three.js', textOptions]} />
+            <meshStandardMaterial attach='material' color="hotpink" />
         </mesh>
-     )
- }
+    )
+}
 
 let currentSection = 0;
 let flag = 0;
@@ -152,7 +153,7 @@ function setButtonDisplay(a, b) {
     let target = document.getElementById(a);
     let targetTop = target.getBoundingClientRect().top;
     let divtarget = document.getElementById(b);
-    console.log(target, targetTop, divtarget);
+    // console.log(target, targetTop, divtarget);
     // console.log(window.scrollY);
     if (targetTop >= 30 && targetTop <= 150) {
         divtarget.style.display = 'flex';
@@ -162,25 +163,14 @@ function setButtonDisplay(a, b) {
         //console.log(divtarget.style.display);
     }
 }
-const boxstyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 const Template1 = () => {
     const position = [
-        [-7, -5, 12],
-        [-7, -5, -25],
+        [-7, -4, 12],
+        [-7, -4, -25],
         [15, -5, -25],
-        [10, 5, -80],
+        [10, 6, -80],
         [55, 10, -80],
-        [75, 6.5, -115],
+        [75, 7.5, -115],
     ];
 
     const camera = new THREE.PerspectiveCamera(
@@ -200,10 +190,48 @@ const Template1 = () => {
         setButtonDisplay('pjt4', 'div4');
     });
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [scroll, setScroll] = useState();
+    const handleOpen = () => {
+        setOpen(true);
+        setScroll();
+    };
     const handleClose = () => setOpen(false);
+    const descriptionElementRef = useRef(null);
+    useEffect(() => {
+        if (open) {
+            const { current: descriptionElement } = descriptionElementRef;
+            if (descriptionElement !== null) {
+                descriptionElement.focus();
+            }
+        }
+    }, [open]);
     return (
         <>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+            >
+                <DialogTitle id="scroll-dialog-title">프로젝트이름 가져오기</DialogTitle>
+                <DialogContent>
+                    <DialogContentText
+                        id="scroll-dialog-description"
+                        ref={descriptionElementRef}
+                        tabIndex={-1}
+                    >
+                        {[...new Array(1000)]
+                            .map(
+                                () => `이미지가져오기`,
+                            )
+                            .join('\n')}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
             <Canvas
                 camera={camera}
                 style={{
@@ -236,7 +264,7 @@ const Template1 = () => {
                     {`CSS\nIS\nAWESOME`}
                     </Text3D>
                     </mesh> */}
-                    
+
                     <House position={position[1]} />
                     {/* 중간지점 */}
                     <mesh position={position[2]}></mesh>
@@ -255,37 +283,6 @@ const Template1 = () => {
                             variant="text"
                             size="large"
                         ></CustomBtn>
-                        <Modal
-                            aria-labelledby="transition-modal-title"
-                            aria-describedby="transition-modal-description"
-                            open={open}
-                            onClose={handleClose}
-                            closeAfterTransition
-                            BackdropComponent={Backdrop}
-                            BackdropProps={{
-                                timeout: 500,
-                            }}
-                            style={{ width: '100vw', height: '100vh' }}
-                        >
-                            <Fade in={open}>
-                                <Box sx={boxstyle}>
-                                    <Typography
-                                        id="transition-modal-title"
-                                        variant="h6"
-                                        component="h2"
-                                    >
-                                        Text in a modal
-                                    </Typography>
-                                    <Typography
-                                        id="transition-modal-description"
-                                        sx={{ mt: 2 }}
-                                    >
-                                        Duis mollis, est non commodo luctus,
-                                        nisi erat porttitor ligula.
-                                    </Typography>
-                                </Box>
-                            </Fade>
-                        </Modal>
                     </div>
                 </section>
                 <section className="section">
@@ -297,37 +294,6 @@ const Template1 = () => {
                             variant="text"
                             size="large"
                         ></CustomBtn>
-                        <Modal
-                            aria-labelledby="transition-modal-title"
-                            aria-describedby="transition-modal-description"
-                            open={open}
-                            onClose={handleClose}
-                            closeAfterTransition
-                            BackdropComponent={Backdrop}
-                            BackdropProps={{
-                                timeout: 500,
-                            }}
-                            style={{ width: '100vw', height: '100vh' }}
-                        >
-                            <Fade in={open}>
-                                <Box sx={boxstyle}>
-                                    <Typography
-                                        id="transition-modal-title"
-                                        variant="h6"
-                                        component="h2"
-                                    >
-                                        Text in a modal
-                                    </Typography>
-                                    <Typography
-                                        id="transition-modal-description"
-                                        sx={{ mt: 2 }}
-                                    >
-                                        Duis mollis, est non commodo luctus,
-                                        nisi erat porttitor ligula.
-                                    </Typography>
-                                </Box>
-                            </Fade>
-                        </Modal>
                     </div>
                 </section>
                 <section className="section"></section>
@@ -340,80 +306,18 @@ const Template1 = () => {
                             variant="text"
                             size="large"
                         ></CustomBtn>
-                        <Modal
-                            aria-labelledby="transition-modal-title"
-                            aria-describedby="transition-modal-description"
-                            open={open}
-                            onClose={handleClose}
-                            closeAfterTransition
-                            BackdropComponent={Backdrop}
-                            BackdropProps={{
-                                timeout: 500,
-                            }}
-                            style={{ width: '100vw', height: '100vh' }}
-                        >
-                            <Fade in={open}>
-                                <Box sx={boxstyle}>
-                                    <Typography
-                                        id="transition-modal-title"
-                                        variant="h6"
-                                        component="h2"
-                                    >
-                                        Text in a modal
-                                    </Typography>
-                                    <Typography
-                                        id="transition-modal-description"
-                                        sx={{ mt: 2 }}
-                                    >
-                                        Duis mollis, est non commodo luctus,
-                                        nisi erat porttitor ligula.
-                                    </Typography>
-                                </Box>
-                            </Fade>
-                        </Modal>
                     </div>
                 </section>
                 <section className="section"></section>
                 <section className="section">
                     <h2 id="pjt4">Project4</h2>
                     <div id="div4">
-                    <CustomBtn
+                        <CustomBtn
                             onClick={handleOpen}
                             disableRipple
                             variant="text"
                             size="large"
                         ></CustomBtn>
-                        <Modal
-                            aria-labelledby="transition-modal-title"
-                            aria-describedby="transition-modal-description"
-                            open={open}
-                            onClose={handleClose}
-                            closeAfterTransition
-                            BackdropComponent={Backdrop}
-                            BackdropProps={{
-                                timeout: 500,
-                            }}
-                            style={{ width: '100vw', height: '100vh' }}
-                        >
-                            <Fade in={open}>
-                                <Box sx={boxstyle}>
-                                    <Typography
-                                        id="transition-modal-title"
-                                        variant="h6"
-                                        component="h2"
-                                    >
-                                        Text in a modal
-                                    </Typography>
-                                    <Typography
-                                        id="transition-modal-description"
-                                        sx={{ mt: 2 }}
-                                    >
-                                        Duis mollis, est non commodo luctus,
-                                        nisi erat porttitor ligula.
-                                    </Typography>
-                                </Box>
-                            </Fade>
-                        </Modal>
                     </div>
                 </section>
             </div>
