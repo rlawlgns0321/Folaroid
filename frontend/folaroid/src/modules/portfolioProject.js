@@ -28,8 +28,8 @@ export const createProjectThunk = createAsyncThunk(
             pjtSubtitle: payload.repo.description,
         };
         console.log(pjt);
-
-        // const response = await api.createProject(pjt);
+        const response = await api.createProject(pjt);
+        pjt.pjtNo = response.data;
         return pjt;
     }
 );
@@ -59,13 +59,7 @@ export const portfolioProject = createSlice({
             );
         },
         [createProjectThunk.fulfilled.type]: (state, { payload }) => {
-            state.project = {
-                pfNo: payload.pfNo,
-                pjtGithubUrl: payload.repo.html_url,
-                pjtStar: payload.repo.stargazers_count,
-                pjtTitle: payload.repo.name,
-                pjtSubtitle: payload.repo.description,
-            };
+            state.project = payload;
         },
     },
 });
