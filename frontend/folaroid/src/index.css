@@ -62,3 +62,9 @@ h3 {
 .section:nth-child(odd) {
 	text-align: right;
 }
+.section div{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 55vh;
+}

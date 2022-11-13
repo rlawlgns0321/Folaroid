@@ -9,7 +9,7 @@ const MainPage = () => {
     return (
         <div>
             <HeaderContainer />
-            <MainCanvas />
+            {/* <MainCanvas /> */}
         </div>
     );
 };

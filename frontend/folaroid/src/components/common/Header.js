@@ -9,8 +9,8 @@ import AccountMenu from './AccountMenu';
 const MenuBtn = styled.button`
     font-size: 1rem;
     font-weight: bold;
-    font-family: 'S-CoreDream-3Light';
     color: white;
+    font-family: 'S-CoreDream-3Light';
     border: 0;
     background-color: inherit;
 `;
@@ -18,8 +18,8 @@ const MenuBtn = styled.button`
 const RouteBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
-    font-family: 'S-CoreDream-3Light';
     color: white;
+    font-family: 'S-CoreDream-3Light';
     border: 0;
     text-decoration: none;
     background-color: inherit;
