@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     Table,
@@ -23,6 +22,27 @@ import {
 } from '../../modules/intro/school';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     schoolName: '',
@@ -50,7 +70,7 @@ function SchoolInput(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div
                     style={{
@@ -205,7 +225,7 @@ function SchoolInput(props) {
                     </div>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -238,7 +258,7 @@ function ReadSchool(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -255,7 +275,7 @@ function ReadSchool(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -288,54 +308,59 @@ function ViewName() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="학력" />
-                <SchoolInput
-                    onCreate={(_school) => {
-                        dispatch(
-                            createSchool({
-                                introNo: intro_no,
-                                schoolName: _school.schoolName,
-                                schoolDegree: _school.schoolDegree,
-                                schoolMajor: _school.schoolMajor,
-                                schoolAdmissionDate:
-                                    _school.schoolAdmissionDate,
-                                schoolGraduationDate:
-                                    _school.schoolGraduationDate,
-                                schoolCredit: _school.schoolCredit,
-                                schoolMaxCredit: _school.schoolMaxCredit,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></SchoolInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>학력</CardHeader>
+                <Card>
+                    <SchoolInput
+                        onCreate={(_school) => {
+                            dispatch(
+                                createSchool({
+                                    introNo: intro_no,
+                                    schoolName: _school.schoolName,
+                                    schoolDegree: _school.schoolDegree,
+                                    schoolMajor: _school.schoolMajor,
+                                    schoolAdmissionDate:
+                                        _school.schoolAdmissionDate,
+                                    schoolGraduationDate:
+                                        _school.schoolGraduationDate,
+                                    schoolCredit: _school.schoolCredit,
+                                    schoolMaxCredit: _school.schoolMaxCredit,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></SchoolInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ school });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="학력" />
-                <SchoolInput
-                    onCreate={(_school) => {
-                        dispatch(
-                            createSchool({
-                                introNo: intro_no,
-                                schoolName: _school.schoolName,
-                                schoolDegree: _school.schoolDegree,
-                                schoolMajor: _school.schoolMajor,
-                                schoolAdmissionDate:
-                                    _school.schoolAdmissionDate,
-                                schoolGraduationDate:
-                                    _school.schoolGraduationDate,
-                                schoolCredit: _school.schoolCredit,
-                                schoolMaxCredit: _school.schoolMaxCredit,
-                            })
-                        );
-                    }}
-                ></SchoolInput>
-                <ReadSchool school={school}></ReadSchool>
-            </Card>
+            <IntroBox>
+                <CardHeader>학력</CardHeader>
+                <Card>
+                    <SchoolInput
+                        onCreate={(_school) => {
+                            dispatch(
+                                createSchool({
+                                    introNo: intro_no,
+                                    schoolName: _school.schoolName,
+                                    schoolDegree: _school.schoolDegree,
+                                    schoolMajor: _school.schoolMajor,
+                                    schoolAdmissionDate:
+                                        _school.schoolAdmissionDate,
+                                    schoolGraduationDate:
+                                        _school.schoolGraduationDate,
+                                    schoolCredit: _school.schoolCredit,
+                                    schoolMaxCredit: _school.schoolMaxCredit,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></SchoolInput>
+                    <ReadSchool school={school}></ReadSchool>
+                </Card>
+            </IntroBox>
         );
     }
 

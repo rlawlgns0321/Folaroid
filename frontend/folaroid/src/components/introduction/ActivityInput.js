@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './IntroCard.css';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     Table,
@@ -25,6 +23,27 @@ import {
 } from '../../modules/intro/activity';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     activityName: '',
@@ -48,7 +67,7 @@ function ActivityInput(props) {
     };
 
     return (
-        <CardContent className="card-content">
+        <IntroCardContent className="card-content">
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div
                     style={{
@@ -109,7 +128,15 @@ function ActivityInput(props) {
                         </LocalizationProvider>
                     </div>
 
-                    <div style={{ width: '100%', margin: '20px' }}>
+                    <div
+                        style={{
+                            diplay: 'flex',
+                            flexDirection: 'row',
+                            width: '100%',
+                            margin: '20px',
+                            justifyContent: 'space-between'
+                        }}
+                    >
                         <TextField
                             label="설명"
                             multiline
@@ -125,14 +152,13 @@ function ActivityInput(props) {
                             onChange={handleInputChange}
                             value={activity.activityDetail}
                         />
+                        <Button style={{margin:'40px', marginBottom: '10px'}} type="submit" variant="contained">
+                            저장
+                        </Button>
                     </div>
-
-                    <Button type="submit" variant="contained">
-                        제출
-                    </Button>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -161,7 +187,7 @@ function ReadSchool(props) {
     ));
 
     return (
-        <CardContent className="card-content">
+        <IntroCardContent className="card-content">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -176,7 +202,7 @@ function ReadSchool(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -210,44 +236,48 @@ function ViewName() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader className="card-header" title="활동" titleTypographyProps={{color:'primary', fontWeight: 'bolder', fontSize: '2rem'}}/>
-                <ActivityInput
-                    onCreate={(_activity) => {
-                        dispatch(
-                            createActivity({
-                                introNo: intro_no,
-                                activityName: _activity.activityName,
-                                activityUrl: _activity.activityUrl,
-                                activityDate: _activity.activityDate,
-                                activityDetail: _activity.activityDetail,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></ActivityInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>활동</CardHeader>
+                <Card>
+                    <ActivityInput
+                        onCreate={(_activity) => {
+                            dispatch(
+                                createActivity({
+                                    introNo: intro_no,
+                                    activityName: _activity.activityName,
+                                    activityUrl: _activity.activityUrl,
+                                    activityDate: _activity.activityDate,
+                                    activityDetail: _activity.activityDetail,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></ActivityInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ activity });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader className="card-header" title="활동" titleTypographyProps={{color:'primary', fontWeight: 'bolder', fontSize: '2rem'}}/>
-                <ActivityInput
-                    onCreate={(_activity) => {
-                        dispatch(
-                            createActivity({
-                                introNo: intro_no,
-                                activityName: _activity.activityName,
-                                activityUrl: _activity.activityUrl,
-                                activityDate: _activity.activityDate,
-                                activityDetail: _activity.activityDetail,
-                            })
-                        );
-                    }}
-                ></ActivityInput>
-                <ReadSchool activity={activity}></ReadSchool>
-            </Card>
+            <IntroBox>
+                <CardHeader>활동</CardHeader>
+                <Card>
+                    <ActivityInput
+                        onCreate={(_activity) => {
+                            dispatch(
+                                createActivity({
+                                    introNo: intro_no,
+                                    activityName: _activity.activityName,
+                                    activityUrl: _activity.activityUrl,
+                                    activityDate: _activity.activityDate,
+                                    activityDetail: _activity.activityDetail,
+                                })
+                            );
+                        }}
+                    ></ActivityInput>
+                    <ReadSchool activity={activity}></ReadSchool>
+                </Card>
+            </IntroBox>
         );
     }
 

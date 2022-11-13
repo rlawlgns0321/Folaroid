@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import { css } from '@emotion/css';
 import PersonalInput from '../introduction/PersonalInput';
 import ActivityInput from '../introduction/ActivityInput';
-// import StackInput from '../components/introduction/StackInput';
+import StackInput from '../introduction/StackInput';
 import ImageInput from '../introduction/ImageInput';
 import SchoolInput from '../introduction/SchoolInput';
 import SloganInput from '../introduction/SloganInput';
@@ -12,6 +12,8 @@ import LanguageInput from '../introduction/LanguageInput';
 import ArchivingInput from '../introduction/ArchivingInput';
 import CertificateInput from '../introduction/CertificateInput';
 import AwardInput from '../introduction/AwardInput';
+import CareerInput from '../introduction/CareerInput'
+
 function BaseIntro() {
     return (
         <Grid
@@ -22,13 +24,14 @@ function BaseIntro() {
             <PersonalInput></PersonalInput>
             <ImageInput></ImageInput>
             <SloganInput></SloganInput>
-            {/* <StackInput></StackInput> */}
+            <StackInput></StackInput>
             <SchoolInput></SchoolInput>
             <LanguageInput></LanguageInput>
             <ArchivingInput></ArchivingInput>
             <CertificateInput></CertificateInput>
             <AwardInput></AwardInput>
             <ActivityInput></ActivityInput>
+            <CareerInput></CareerInput>
         </Grid>
     );
 }

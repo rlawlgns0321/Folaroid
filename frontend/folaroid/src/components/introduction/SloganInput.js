@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Button,
-    Box,
-    Card,
-    CardHeader,
-    CardContent,
-    TextField,
-} from '@mui/material';
+import { Button, Box, Card, CardContent, TextField } from '@mui/material';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createSlogan,
@@ -14,9 +7,29 @@ import {
     deleteSlogan,
 } from '../../modules/intro/slogan';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 function SloganInput(props) {
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const content = event.target[0].value;
@@ -24,40 +37,42 @@ function SloganInput(props) {
     };
 
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader title="슬로건" />
-            <CardContent>
-                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                    <div
-                        style={{
-                            width: '100%',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            flexDirection: 'row',
-                        }}
-                    >
-                        <div style={{ width: '100%' }}>
-                            <TextField
-                                label="슬로건"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                multiline
-                                placeholder="취준생 화이팅!"
-                                style={{ width: '90%' }}
-                                rows={2}
-                                maxRows={4}
-                            />
+        <IntroBox>
+            <CardHeader>슬로건</CardHeader>
+            <Card>
+                <IntroCardContent>
+                    <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                        <div
+                            style={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                flexDirection: 'row',
+                            }}
+                        >
+                            <div style={{ width: '100%' }}>
+                                <TextField
+                                    label="슬로건"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    multiline
+                                    placeholder="취준생 화이팅!"
+                                    style={{ width: '90%' }}
+                                    rows={2}
+                                    maxRows={4}
+                                />
+                            </div>
+                            <div>
+                                <Button type="submit" variant="contained">
+                                    제출
+                                </Button>
+                            </div>
                         </div>
-                        <div>
-                            <Button type="submit" variant="contained">
-                                제출
-                            </Button>
-                        </div>
-                    </div>
-                </form>
-            </CardContent>
-        </Card>
+                    </form>
+                </IntroCardContent>
+            </Card>
+        </IntroBox>
     );
 }
 
@@ -69,17 +84,19 @@ function ReadSlogan(props) {
     };
 
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader title="슬로건" />
-            <CardContent
-                style={{ display: 'flex', justifyContent: 'space-between' }}
-            >
-                <Box>{props.sloganContent}</Box>
-                <Button onClick={() => onDeleteClick(props.introSloganNo)}>
-                    삭제
-                </Button>
-            </CardContent>
-        </Card>
+        <IntroBox>
+            <CardHeader>슬로건</CardHeader>
+            <Card>
+                <IntroCardContent
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                    <Box>{props.sloganContent}</Box>
+                    <Button onClick={() => onDeleteClick(props.introSloganNo)}>
+                        삭제
+                    </Button>
+                </IntroCardContent>
+            </Card>
+        </IntroBox>
     );
 }
 

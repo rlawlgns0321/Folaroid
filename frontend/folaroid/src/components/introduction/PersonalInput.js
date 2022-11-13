@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Button,
-    Box,
-    Card,
-    CardHeader,
-    CardContent,
-    TextField,
-} from '@mui/material';
+import { Button, Box, Card, CardContent, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -14,13 +7,28 @@ import dayjs from 'dayjs';
 import { updatePersonal, getPersonal } from '../../modules/intro/personal';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
 
-const initialState = {
-    userBirth: '',
-    userEmail: '',
-    userName: '',
-    userPhone: '',
-};
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
+
 
 function Update(props) {
     const person = props.person;
@@ -36,7 +44,7 @@ function Update(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <Box>
                 <form style={{ margin: '10px' }} onSubmit={handleSubmit}>
                     <div
@@ -129,15 +137,19 @@ function Update(props) {
                     </div>
                 </form>
             </Box>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
 function ReadName(props) {
     const userInfo = props.user;
 
+    const handleClick = (e) => {
+        props.onUpdate();
+    };
+
     return (
-        <CardContent>
+        <IntroCardContent>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <h3>이름</h3>
                 <Box style={{ margin: '20px' }}>{userInfo.userName}</Box>
@@ -154,7 +166,19 @@ function ReadName(props) {
                 <h3>전화번호</h3>
                 <Box style={{ margin: '20px' }}>{userInfo.userPhone}</Box>
             </div>
-        </CardContent>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    margin: '20px',
+                    justifyContent: 'end',
+                }}
+            >
+                <Button onClick={handleClick}>
+                    수정
+                </Button>
+            </div>
+        </IntroCardContent>
     );
 }
 
@@ -176,35 +200,41 @@ function ViewName() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="개인 정보" />
-                <Update
-                    person={personal}
-                    onCreate={(personal) => {
-                        dispatch(
-                            updatePersonal({
-                                introNo: intro_no,
-                                userBirth: personal.userBirth,
-                                userEmail: personal.userEmail,
-                                userName: personal.userName,
-                                userPhone: personal.userPhone,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                    personal={personal}
-                ></Update>
-            </Card>
+            <IntroBox>
+                <CardHeader>개인정보</CardHeader>
+                <Card>
+                    <Update
+                        person={personal}
+                        onCreate={(personal) => {
+                            dispatch(
+                                updatePersonal({
+                                    introNo: intro_no,
+                                    userBirth: personal.userBirth,
+                                    userEmail: personal.userEmail,
+                                    userName: personal.userName,
+                                    userPhone: personal.userPhone,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                        personal={personal}
+                    ></Update>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="개인 정보" />
-                <ReadName user={personal}></ReadName>
-                <div>
-                    <Button onClick={() => setMode('CREATE')}>수정</Button>
-                </div>
-            </Card>
+            <IntroBox>
+                <CardHeader>개인정보</CardHeader>
+                <Card>
+                    <ReadName
+                        user={personal}
+                        onUpdate={() => {
+                            setMode('CREATE');
+                        }}
+                    ></ReadName>
+                </Card>
+            </IntroBox>
         );
     }
 

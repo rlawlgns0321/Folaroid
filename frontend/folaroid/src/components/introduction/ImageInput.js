@@ -1,39 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Button,
-    Box,
-    Card,
-    CardHeader,
-    CardContent,
-    TextField,
-} from '@mui/material';
+import { Button, Box, Card, CardContent, TextField } from '@mui/material';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { getImage, updateImage } from '../../modules/intro/image';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 function ImageInput(props) {
     const [imageSrc, setImageSrc] = useState(null);
 
     const handleChange = (e) => {
         const formData = new FormData();
-        formData.append("file", e.target.files[0])
-        setImageSrc(formData)
+        formData.append('file', e.target.files[0]);
+        setImageSrc(formData);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         for (var key of imageSrc.keys()) {
-            console.log(key)
+            console.log(key);
         }
-        for (var value of imageSrc.values()){
+        for (var value of imageSrc.values()) {
             console.log(value);
         }
         props.onCreate(imageSrc);
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <Box>
                 <form
                     onSubmit={handleSubmit}
@@ -51,7 +65,7 @@ function ImageInput(props) {
                         <div style={{ width: '100%' }}>
                             <TextField
                                 type="file"
-                                // accept="image/*"
+                                accept="image/*"
                                 style={{ width: '40%' }}
                                 onChange={handleChange}
                             />
@@ -64,20 +78,34 @@ function ImageInput(props) {
                     </div>
                 </form>
             </Box>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
 function ReadImage(props) {
+    const handleClick = (e) => {
+        props.onUpdate();
+    };
     return (
-        <CardContent>
-            <img
-                style={{ width: '200px', height: '200px' }}
-                src={props.image}
-                alt="사용자 이미지"
-            />
-            {/* <Box>{props.image}</Box> */}
-        </CardContent>
+        <IntroCardContent>
+            <div>
+                <img
+                    style={{ width: '200px', height: '200px' }}
+                    src={props.image}
+                    alt="사용자 이미지"
+                />
+            </div>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    margin: '20px',
+                    justifyContent: 'end',
+                }}
+            >
+                <Button onClick={handleClick}>수정</Button>
+            </div>
+        </IntroCardContent>
     );
 }
 
@@ -99,25 +127,31 @@ function ViewImage() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="사진" />
-                <ImageInput
-                    onCreate={(formData) => {
-                        dispatch(updateImage(intro_no, formData));
-                        setMode('READ');
-                    }}
-                ></ImageInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>사진</CardHeader>
+                <Card>
+                    <ImageInput
+                        onCreate={(formData) => {
+                            dispatch(updateImage(intro_no, formData));
+                            setMode('READ');
+                        }}
+                    ></ImageInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="사진" />
-                <ReadImage image={image.imageLocation}></ReadImage>
-                <div>
-                    <Button onClick={() => setMode('CREATE')}>수정</Button>
-                </div>
-            </Card>
+            <IntroBox>
+                <CardHeader>사진</CardHeader>
+                <Card>
+                    <ReadImage
+                        image={image.imageLocation}
+                        onUpdate={() => {
+                            setMode('CREATE');
+                        }}
+                    ></ReadImage>
+                </Card>
+            </IntroBox>
         );
     }
 

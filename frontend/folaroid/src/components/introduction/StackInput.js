@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import { Autocomplete, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const ListItem = styled('li')(({ theme }) => ({
     margin: theme.spacing(0.5),
@@ -46,66 +65,69 @@ const StackInputModule = () => {
     };
 
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader suppressHydrationWarning title="기술스택" />
-            <div
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    justifyContent: 'center',
-                }}
-            >
-                <Autocomplete
-                    multiple
-                    style={{ width: '50%', borderInlineColor: 'white' }}
-                    options={stackData}
-                    getOptionLabel={(option) => option.label}
-                    filterSelectedOptions
-                    renderInput={(params) => (
-                        <TextField
-                            variant="filled"
-                            {...params}
-                            placeholder="stacks"
-                        />
-                    )}
-                />
-            </div>
-
-            <CardContent>
-                <Box
-                    sx={{
+        <IntroBox>
+            <CardHeader>기술스택</CardHeader>
+            <Card>
+                {/* <CardHeader suppressHydrationWarning title="기술스택" /> */}
+                <div
+                    style={{
                         display: 'flex',
+                        width: '100%',
                         justifyContent: 'center',
-                        alignContent: 'center',
-                        flexWrap: 'wrap',
-                        listStyle: 'none',
-                        p: 0.5,
-                        marginRight: 'auto',
-                        marginLeft: 'auto',
-                        width: '80%',
-                        border: 'solid 1px gray',
-                        borderRadius: '30px',
                     }}
-                    component="ul"
                 >
-                    {stackData.map((data) => {
-                        return (
-                            <Stack spacing={2} alignItems="center">
-                                <ListItem key={data.key}>
-                                    <Chip
-                                        style={{ margin: '5px' }}
-                                        label={data.label}
-                                        onDelete={handleDelete(data)}
-                                        color="primary"
-                                        variant="outlined"
-                                    ></Chip>
-                                </ListItem>
-                            </Stack>
-                        );
-                    })}
-                </Box>
-            </CardContent>
-        </Card>
+                    <Autocomplete
+                        multiple
+                        style={{ width: '50%', borderInlineColor: 'white' }}
+                        options={stackData}
+                        getOptionLabel={(option) => option.label}
+                        filterSelectedOptions
+                        renderInput={(params) => (
+                            <TextField
+                                variant="filled"
+                                {...params}
+                                placeholder="stacks"
+                            />
+                        )}
+                    />
+                </div>
+
+                <IntroCardContent>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignContent: 'center',
+                            flexWrap: 'wrap',
+                            listStyle: 'none',
+                            p: 0.5,
+                            marginRight: 'auto',
+                            marginLeft: 'auto',
+                            width: '80%',
+                            border: 'solid 1px gray',
+                            borderRadius: '30px',
+                        }}
+                        component="ul"
+                    >
+                        {stackData.map((data) => {
+                            return (
+                                <Stack spacing={2} alignItems="center">
+                                    <ListItem key={data.key}>
+                                        <Chip
+                                            style={{ margin: '5px' }}
+                                            label={data.label}
+                                            onDelete={handleDelete(data)}
+                                            color="primary"
+                                            variant="outlined"
+                                        ></Chip>
+                                    </ListItem>
+                                </Stack>
+                            );
+                        })}
+                    </Box>
+                </IntroCardContent>
+            </Card>
+        </IntroBox>
     );
 };
 

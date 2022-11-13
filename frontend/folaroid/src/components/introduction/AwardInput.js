@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     TableRow,
@@ -24,6 +23,27 @@ import {
     deleteAward,
 } from '../../modules/intro/awards';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     awardsDate: '',
@@ -47,7 +67,7 @@ function AwardInput(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
                     <TextField
@@ -131,7 +151,7 @@ function AwardInput(props) {
                     </div>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -160,7 +180,7 @@ function ReadAwards(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -175,7 +195,7 @@ function ReadAwards(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -204,46 +224,51 @@ function ViewAwards() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="수상내역" />
-                <AwardInput
-                    onCreate={(box) => {
-                        dispatch(
-                            createAward({
-                                introNo: intro_no,
-                                awardsDate: box.awardsDate,
-                                awardsDetail: box.awardsDetail,
-                                awardsIssuer: box.awardsIssuer,
-                                awardsName: box.awardsName,
-                            })
-                        );
-                        console.log(award);
-                        setMode('READ');
-                    }}
-                ></AwardInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>수상내역</CardHeader>
+                <Card>
+                    <AwardInput
+                        onCreate={(box) => {
+                            dispatch(
+                                createAward({
+                                    introNo: intro_no,
+                                    awardsDate: box.awardsDate,
+                                    awardsDetail: box.awardsDetail,
+                                    awardsIssuer: box.awardsIssuer,
+                                    awardsName: box.awardsName,
+                                })
+                            );
+                            console.log(award);
+                            setMode('READ');
+                        }}
+                    ></AwardInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ award });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="수상내역" />
-                <AwardInput
-                    onCreate={(box) => {
-                        dispatch(
-                            createAward({
-                                introNo: intro_no,
-                                awardsDate: box.awardsDate,
-                                awardsDetail: box.awardsDetail,
-                                awardsIssuer: box.awardsIssuer,
-                                awardsName: box.awardsName,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></AwardInput>
-                <ReadAwards award={award}></ReadAwards>
-            </Card>
+            <IntroBox>
+                <CardHeader>수상내역</CardHeader>
+                <Card>
+                    <AwardInput
+                        onCreate={(box) => {
+                            dispatch(
+                                createAward({
+                                    introNo: intro_no,
+                                    awardsDate: box.awardsDate,
+                                    awardsDetail: box.awardsDetail,
+                                    awardsIssuer: box.awardsIssuer,
+                                    awardsName: box.awardsName,
+                                })
+                            );
+                            console.log(award);
+                            setMode('READ');
+                        }}
+                    ></AwardInput>
+                    <ReadAwards award={award}></ReadAwards>
+                </Card>
+            </IntroBox>
         );
     }
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     Table,
@@ -20,6 +19,27 @@ import {
 } from '../../modules/intro/archiving';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     archivingLink: '',
@@ -41,7 +61,7 @@ function ArchivingInput(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div
                     style={{
@@ -84,7 +104,7 @@ function ArchivingInput(props) {
                     </Button>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -111,7 +131,7 @@ function ReadSchool(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -124,7 +144,7 @@ function ReadSchool(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -157,40 +177,45 @@ function ViewName() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="링크" />
-                <ArchivingInput
-                    onCreate={(_archiving) => {
-                        dispatch(
-                            createArchiving({
-                                introNo: intro_no,
-                                archivingName: _archiving.archivingName,
-                                archivingLink: _archiving.archivingLink,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></ArchivingInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>링크</CardHeader>
+                <Card>
+                    <ArchivingInput
+                        onCreate={(_archiving) => {
+                            dispatch(
+                                createArchiving({
+                                    introNo: intro_no,
+                                    archivingName: _archiving.archivingName,
+                                    archivingLink: _archiving.archivingLink,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></ArchivingInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ archiving });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="링크" />
-                <ArchivingInput
-                    onCreate={(_archiving) => {
-                        dispatch(
-                            createArchiving({
-                                introNo: intro_no,
-                                archivingName: _archiving.archivingName,
-                                archivingLink: _archiving.archivingLink,
-                            })
-                        );
-                    }}
-                ></ArchivingInput>
-                <ReadSchool archiving={archiving}></ReadSchool>
-            </Card>
+            <IntroBox>
+                <CardHeader>링크</CardHeader>
+                <Card>
+                    <ArchivingInput
+                        onCreate={(_archiving) => {
+                            dispatch(
+                                createArchiving({
+                                    introNo: intro_no,
+                                    archivingName: _archiving.archivingName,
+                                    archivingLink: _archiving.archivingLink,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></ArchivingInput>
+                    <ReadSchool archiving={archiving}></ReadSchool>
+                </Card>
+            </IntroBox>
         );
     }
 

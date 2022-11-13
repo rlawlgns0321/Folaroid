@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     Table,
@@ -26,6 +25,27 @@ import {
 } from '../../modules/intro/language';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+`;
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     languageName: '',
@@ -48,7 +68,7 @@ function LanguageInput(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div
                     style={{
@@ -135,7 +155,7 @@ function LanguageInput(props) {
                     </div>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 function ReadLanguage(props) {
@@ -163,7 +183,7 @@ function ReadLanguage(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -178,7 +198,7 @@ function ReadLanguage(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -211,45 +231,53 @@ function ViewLanguage() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="공인어학성적" />
-                <LanguageInput
-                    onCreate={(_language) => {
-                        console.log('_language', _language);
-                        dispatch(
-                            createLanguage({
-                                introNo: intro_no,
-                                languageName: _language.languageName,
-                                languageTestName: _language.languageTestName,
-                                languageDate: _language.languageDate,
-                                languageGrade: _language.languageGrade,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></LanguageInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>공인어학성적</CardHeader>
+                <Card>
+                    <LanguageInput
+                        onCreate={(_language) => {
+                            console.log('_language', _language);
+                            dispatch(
+                                createLanguage({
+                                    introNo: intro_no,
+                                    languageName: _language.languageName,
+                                    languageTestName:
+                                        _language.languageTestName,
+                                    languageDate: _language.languageDate,
+                                    languageGrade: _language.languageGrade,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></LanguageInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log('language', { language });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="공인어학성적" />
-                <LanguageInput
-                    onCreate={(_language) => {
-                        dispatch(
-                            createLanguage({
-                                introNo: intro_no,
-                                languageName: _language.languageName,
-                                languageTestName: _language.languageTestName,
-                                languageDate: _language.languageDate,
-                                languageGrade: _language.languageGrade,
-                            })
-                        );
-                    }}
-                ></LanguageInput>
-                <ReadLanguage language={language}></ReadLanguage>
-            </Card>
+            <IntroBox>
+                <CardHeader>공인어학성적</CardHeader>
+                <Card>
+                    <LanguageInput
+                        onCreate={(_language) => {
+                            console.log('_language', _language);
+                            dispatch(
+                                createLanguage({
+                                    introNo: intro_no,
+                                    languageName: _language.languageName,
+                                    languageTestName:
+                                        _language.languageTestName,
+                                    languageDate: _language.languageDate,
+                                    languageGrade: _language.languageGrade,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></LanguageInput>
+                    <ReadLanguage language={language}></ReadLanguage>
+                </Card>
+            </IntroBox>
         );
     }
 
