@@ -18,7 +18,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{ height: '100vh', width: '100vw' }}>
+            <TestPage>
                 <Routes>
                     <Route path="/" element={<MainPage />} exact />
                     <Route path="/callback" element={<CallBackpage />} />
@@ -43,7 +43,7 @@ function App() {
                     <Route path="/tem1" element={<Template1 />} />
                     <Route path="/tem2" element={<Template2 />} />
                 </Routes>
-            </div>
+            </TestPage>
         </ThemeProvider>
     );
 }

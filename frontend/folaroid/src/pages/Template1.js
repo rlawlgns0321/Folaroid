@@ -19,8 +19,8 @@ const CustomBtn = styled(Button)`
 `;
 
 export const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: '100%',
+    height: '100%',
 };
 //Camera effect
 
