@@ -45,7 +45,7 @@ export const school = createSlice({
         [getSchool.fulfilled]: (state, action) => {
             return action.payload;
         },
-        [createSchool.fulfilled.type]: (state, action) =>
+        [createSchool.fulfilled.type]: (state, action) => {
             state.push({
                 introSchoolNo: action.payload.introSchoolNo,
                 schoolAdmissionDate: action.payload.schoolAdmissionDate,
@@ -55,7 +55,8 @@ export const school = createSlice({
                 schoolMajor: action.payload.schoolMajor,
                 schoolMaxCredit: action.payload.schoolMaxCredit,
                 schoolName: action.payload.schoolName,
-            }),
+            });
+        },
         [deleteSchool.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = state.filter(

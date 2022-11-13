@@ -34,14 +34,28 @@ public class IntroSchool {
     private String schoolDegree;
 
     @Column(name = "school_admission_date")
-    private String schoolAdmissionDate;
+    private java.sql.Date schoolAdmissionDate;
 
     @Column(name = "school_graduation_date")
-    private String schoolGraduationDate;
+    private java.sql.Date schoolGraduationDate;
 
     @Column(name = "school_credit")
     private Float schoolCredit;
 
     @Column(name = "school_max_credit")
     private Float schoolMaxCredit;
+
+    public IntroSchool(Long introNo) {
+        this.introNo = introNo;
+    }
+
+    public void saveOtherData(String schoolName, String schoolMajor, String schoolDegree, java.sql.Date schoolAdmissionDate, java.sql.Date schoolGraduationDate, Float schoolCredit, Float schoolMaxCredit) {
+        this.schoolName = schoolName;
+        this.schoolMajor = schoolMajor;
+        this.schoolDegree = schoolDegree;
+        this.schoolAdmissionDate = schoolAdmissionDate;
+        this.schoolGraduationDate = schoolGraduationDate;
+        this.schoolCredit = schoolCredit;
+        this.schoolMaxCredit = schoolMaxCredit;
+    }
 }

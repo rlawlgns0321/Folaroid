@@ -6,9 +6,10 @@ import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
 import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
+import PortfolioIntro from '../components/portfolio_intro/PortfolioIntro';
 import HeaderContainer from '../containers/header/HeaderContainer';
 import styled from '@emotion/styled';
-import ProjectBody from '../components/project/ProjectBody';
+import Template1 from './Template1';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -67,7 +68,17 @@ const PortFolioPage = () => {
                             <Routes>
                                 <Route
                                     path="project"
-                                    element={<ProjectBody />}
+                                    element={<ProjectBodyContainer />}
+                                />
+
+                                <Route
+                                    path="template"
+                                    element={<Template1 />}
+                                />
+
+                                <Route
+                                    path="intro"
+                                    element={<PortfolioIntro />}
                                 />
                             </Routes>
                         </Contents>

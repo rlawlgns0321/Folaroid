@@ -253,27 +253,29 @@ public class OAuthController {
             for (int i = 0; i < userInfoResponse.getBody().size(); i++) {
                 if (id.equals(userInfoResponse.getBody().get(i).getId())) {
                     GithubRepo target = userInfoResponse.getBody().get(i);
-                    //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
                     String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
                             + "/" + target.getName()
                             + "/" + target.getDefault_branch()
                             + "/README.md";
                     target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
-                    List<String> imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
-                    Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
+                    List<String> imageUrls;
+                    if (readmeTest.getMDContent(targetReadme).get("image") != null) {
+                        imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
+                        Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
 
-                    for (int j = 0 ; j < imageUrls.size() ; j++) {
-                        if (!imageUrls.get(j).substring(0, 8).equals("https://")
-                        && !imageUrls.get(j).substring(0, 7).equals("http://")) {
-                            imageUrls.set(j, "https://raw.githubusercontent.com/"
-                                    + responseUserInfo.getLogin() + "/"
-                                    + target.getName() + "/"
-                                    + target.getDefault_branch() + "/"
-                                    + imageUrls.get(j));
+                        for (int j = 0; j < imageUrls.size(); j++) {
+                            if (!imageUrls.get(j).substring(0, 8).equals("https://")
+                                    && !imageUrls.get(j).substring(0, 7).equals("http://")) {
+                                imageUrls.set(j, "https://github.com/"
+                                        + responseUserInfo.getLogin() + "/"
+                                        + target.getName() + "/raw/"
+                                        + target.getDefault_branch() + "/"
+                                        + imageUrls.get(j));
+                            }
                         }
-                    }
 
-                    target.setImagesUrl(imageUrls);
+                        target.setImagesUrl(imageUrls);
+                    }
                     return target;
                 }
             }

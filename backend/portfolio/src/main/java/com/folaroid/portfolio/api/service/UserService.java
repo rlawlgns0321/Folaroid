@@ -46,7 +46,6 @@ public class UserService {
         introPersonalData.updateIntroPersonalData(request.getUserName(), request.getUserBirth(), request.getUserPhone());
         User user = userRepository.findById(introRepository.findById(request.getIntroNo()).get().getUserNo()).get();
         user.saveEmail(request.getUserEmail());
-        userRepository.save(user);
     }
     @Transactional
     public Long save(UserSignupReq request) {

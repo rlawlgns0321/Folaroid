@@ -4,7 +4,6 @@ import com.folaroid.portfolio.api.dto.ProjectDto;
 import com.folaroid.portfolio.db.entity.Project;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProjectService {
     Long saveProject(ProjectDto.projectRequest projectRequest);
@@ -16,5 +15,7 @@ public interface ProjectService {
     ProjectDto.projectResponse findProject(Long pjtNo);
 
     void patchProject(Long pjtNo, ProjectDto.projectRequest projectRequest);
+
+    ProjectDto.ProjectOneImageDto findProjectOneImageLocation(Long pjtNo);
 
 }

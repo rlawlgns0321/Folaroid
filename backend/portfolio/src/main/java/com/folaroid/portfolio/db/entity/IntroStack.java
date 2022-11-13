@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
-import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 public class IntroStack {
@@ -21,8 +20,16 @@ public class IntroStack {
     private Long hashNo;
 
 
-    public void saveIntroStack(Long introNo, Long hashNo) {
+    public IntroStack(Long introNo, Long hashNo) {
         this.introNo = introNo;
+        this.hashNo = hashNo;
+    }
+
+    public IntroStack(Long introNo) {
+        this.introNo = introNo;
+    }
+
+    public void saveOtherData(Long hashNo) {
         this.hashNo = hashNo;
     }
 }

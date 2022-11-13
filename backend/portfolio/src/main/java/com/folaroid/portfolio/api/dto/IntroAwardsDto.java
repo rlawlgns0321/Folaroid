@@ -16,7 +16,7 @@ public class IntroAwardsDto {
         private Long introAwardsNo;
         private Long introNo;
         private String awardsName;
-        private String awardsDate;
+        private java.sql.Date awardsDate;
         private String awardsIssuer;
         private String awardsDetail;
 
@@ -37,7 +37,7 @@ public class IntroAwardsDto {
         private Long introAwardsNo;
         private Long introNo;
         private String awardsName;
-        private String awardsDate;
+        private java.sql.Date awardsDate;
         private String awardsIssuer;
         private String awardsDetail;
 

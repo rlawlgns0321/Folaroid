@@ -34,4 +34,16 @@ public class IntroActivity {
 
     @Column(name = "activity_detail", columnDefinition = "TEXT")
     private String activityDetail;
+
+    public IntroActivity(Intro intro) {
+        this.intro = intro;
+    }
+
+    public void saveOtherData(String activityName, String activityDate, String activityUrl, String activityDetail) {
+        this.activityName = activityName;
+        this.activityDate = activityDate;
+        this.activityUrl = activityUrl;
+        this.activityDetail = activityDetail;
+
+    }
 }

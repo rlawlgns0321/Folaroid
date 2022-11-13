@@ -8,12 +8,13 @@ import SideBar from '../components/common/SideBar';
 import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
 import PersonalInput from '../components/introduction/PersonalInput'
-import StackInput from '../components/introduction/StackInput';
+import ActivityInput from '../components/introduction/ActivityInput'
+// import StackInput from '../components/introduction/StackInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
 import SloganInput from '../components/introduction/SloganInput';
 import LanguageInput from '../components/introduction/LanguageInput';
-import LinkInput from '../components/introduction/LinkInput';
+import ArchivingInput from '../components/introduction/ArchivingInput';
 import CertificateInput from '../components/introduction/CertificateInput';
 import AwardInput from '../components/introduction/AwardInput';
 function BaseIntro() {
@@ -51,12 +52,13 @@ function BaseIntro() {
                       <PersonalInput></PersonalInput>
                       <ImageInput></ImageInput>
                       <SloganInput></SloganInput>
-                      <StackInput></StackInput>
+                      {/* <StackInput></StackInput> */}
                       <SchoolInput></SchoolInput>
                       <LanguageInput></LanguageInput>
-                      <LinkInput></LinkInput>
+                      <ArchivingInput></ArchivingInput>
                       <CertificateInput></CertificateInput>
                       <AwardInput></AwardInput>
+                      <ActivityInput></ActivityInput>
                     </Contents>
                 </Grid>
             </Grid>

@@ -1,17 +1,18 @@
 package com.folaroid.portfolio.api.service;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import com.folaroid.portfolio.db.entity.IntroImage;
 import com.folaroid.portfolio.db.entity.PjtImage;
+import com.folaroid.portfolio.db.entity.Project;
 import com.folaroid.portfolio.db.repository.IntroImageRepository;
 import com.folaroid.portfolio.db.repository.PjtImageRepository;
+import com.folaroid.portfolio.db.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -29,11 +30,12 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class FileService {
 
     private final PjtImageRepository pjtImageRepository;
     private final IntroImageRepository introImageRepository;
+    private final ProjectRepository projectRepository;
 
     private AmazonS3 amazonS3;
 
@@ -61,12 +63,13 @@ public class FileService {
 
     @Transactional
     public List<String> uploadImages(Long pjtNo, List<MultipartFile> multipartFile) throws IOException {
-        List<String> fileNameList = new ArrayList<>();
+        List<String> urlList = new ArrayList<>();
 
         //지우고
         List<PjtImage> pjtImages = pjtImageRepository.findAllByPjtNo(pjtNo);
         pjtImages.forEach(pjtImage -> {
             deleteFile(pjtImage.getPjtImageLocation());
+            pjtImageRepository.delete(pjtImage);
         });
 
         //생성
@@ -84,12 +87,38 @@ public class FileService {
             }
             PjtImage pjtImage = new PjtImage();
             //파일 위치에는 이름으로 저장
-            pjtImage.saveImage(pjtNo, fileName);
+            String url = FileNameToUrl(fileName);
+            pjtImage.saveImage(pjtNo, url);
             pjtImageRepository.save(pjtImage);
-            fileNameList.add(fileName);
+            urlList.add(url);
         });
 
-        return fileNameList;
+        return urlList;
+    }
+
+    @Transactional
+    public String uploadProjectOneImage(Long pjtNo, MultipartFile multipartFile) throws IOException {
+        //지우고
+        Project project = projectRepository.findById(pjtNo).get();
+        deleteFile(project.getPjtOneImageLocation());
+
+        //생성
+        String fileName = createFileName(multipartFile.getOriginalFilename());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
+
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+        }
+        //파일 위치에는 이름으로 저장
+        String url = FileNameToUrl(fileName);
+        project.updateImage(url);
+
+        return url;
     }
 
 
@@ -112,13 +141,30 @@ public class FileService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
         //파일 위치에는 이름으로 저장
-        introImage.IntroImageLocationSave(fileName);
+        String url = FileNameToUrl(fileName);
+        introImage.IntroImageLocationSave(url);
 
-        return fileName;
+        return url;
     }
 
-    public void deleteFile(String fileName) {
+    public void deleteFile(String url) {
+        String fileName = UrlToFileName(url);
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+    }
+
+    private String FileNameToUrl(String fileName) {
+        return "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+    }
+
+    private String UrlToFileName(String url) {
+        String fileName = url;
+        for (int i = url.length() - 1 ; i >= 0 ; i--) {
+            if (url.charAt(i) == '/') {
+                fileName = url.substring(i+1);
+                break;
+            }
+        }
+        return fileName;
     }
 
 //    @Transactional
@@ -143,5 +189,28 @@ public class FileService {
         } catch (StringIndexOutOfBoundsException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
         }
+    }
+
+    public void deleteProjectOneImageLocation(Long pjtNo) {
+        Project project = projectRepository.findById(pjtNo).orElseThrow(()->
+                new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
+        deleteFile(project.getPjtOneImageLocation());
+        project.updateImage("");
+    }
+    @Transactional
+    public String duplicateImage(String introImageLocation) {
+        String fileName = UrlToFileName(introImageLocation);
+        String NewFileName = createFileName(fileName);
+        try {
+            //Copy 객체 생성
+            CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucket, fileName, bucket, NewFileName);
+            //Copy
+            amazonS3.copyObject(copyObjRequest); // this.
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        }
+        return FileNameToUrl(NewFileName);
     }
 }

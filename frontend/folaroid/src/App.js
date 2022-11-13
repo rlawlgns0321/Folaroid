@@ -10,14 +10,15 @@ import { ThemeProvider } from '@mui/material/styles';
 import PortFolioPage from './pages/PortFolioPage';
 import ProjectInfoPage from './pages/ProjectInfoPage';
 import { useSelector } from 'react-redux';
-import TestPage from './pages/TestPage';
+import Template1 from './pages/Template1';
+import Template2 from './pages/Template2';import TestPage from './pages/TestPage';
 
 function App() {
     const user = useSelector((state) => state.auth.user);
 
     return (
         <ThemeProvider theme={theme}>
-            <TestPage>
+            <div style={{ height: '100vh', width: '100vw' }}>
                 <Routes>
                     <Route path="/" element={<MainPage />} exact />
                     <Route path="/callback" element={<CallBackpage />} />
@@ -39,9 +40,10 @@ function App() {
                             user ? <ProjectInfoPage /> : <Navigate to="/" />
                         }
                     />
-                    <Route path="/test" element={<TestPage/>} />
+                    <Route path="/tem1" element={<Template1 />} />
+                    <Route path="/tem2" element={<Template2 />} />
                 </Routes>
-            </TestPage>
+            </div>
         </ThemeProvider>
     );
 }

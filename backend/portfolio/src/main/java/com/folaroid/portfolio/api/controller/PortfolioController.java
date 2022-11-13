@@ -1,19 +1,13 @@
 package com.folaroid.portfolio.api.controller;
 
-import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.dto.PortfolioDto;
-import com.folaroid.portfolio.api.dto.ProjectDto;
-import com.folaroid.portfolio.api.dto.UserDto;
 import com.folaroid.portfolio.api.service.PortfolioService;
 import com.folaroid.portfolio.api.service.ProjectService;
-import com.folaroid.portfolio.db.entity.IntroLanguage;
-import com.folaroid.portfolio.db.entity.Portfolio;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +22,19 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final ProjectService projectService;
 
+
+    @PostMapping("/duplication")
+    @ApiOperation(value = "포트폴리오", notes = "복사")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<PortfolioDto.DuplicatePortfolioDto> duplicatePortfolio(@RequestBody PortfolioDto.DuplicatePortfolioDto request){
+        PortfolioDto.DuplicatePortfolioDto duplicatePortfolioDto = portfolioService.duplicatePortfolio(request.getPfNo());
+    return  ResponseEntity.status(HttpStatus.OK).body(duplicatePortfolioDto);
+    }
+
     /**
      * 포트폴리오 제작
      */
@@ -40,8 +47,9 @@ public class PortfolioController {
     })
     public ResponseEntity createPortfolio(@RequestBody PortfolioDto.portfolioRequest portfolioDtoRequest){
         PortfolioDto.SavePortfolioDto savePortfolioDto = portfolioService.createPortfolio(portfolioDtoRequest);
-    return  ResponseEntity.status(HttpStatus.OK).body(savePortfolioDto);
+        return  ResponseEntity.status(HttpStatus.OK).body(savePortfolioDto);
     }
+
 
     @GetMapping("/{pfNo}")
     @ApiOperation(value = "포트폴리오 자기소개 접근자", notes = "포트폴리오 자기소개의 intro_no를 조회한다.")

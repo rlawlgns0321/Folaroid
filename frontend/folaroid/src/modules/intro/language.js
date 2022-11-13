@@ -3,8 +3,9 @@ import * as api from '../../lib/api/baseIntroAPI';
 
 export const getLanguage = createAsyncThunk(
     'language/getLanguage',
-    async ({ introNo }) => {
+    async (introNo) => {
         const response = await api.getLanguage(introNo);
+        console.log(response.data)
         return response.data;
     }
 );
@@ -14,13 +15,19 @@ export const createLanguage = createAsyncThunk(
     async (data) => {
         const response = await api.createLanguage(data);
         console.log(response);
-        return response.data;
+        return {
+            introLanguageNo: response.data,
+            languageDate: data.languageDate,
+            languageGrade: data.languageGrade,
+            languageName: data.languageName,
+            languageTestName: data.languageTestName,
+        };
     }
 );
 
 export const deleteLanguage = createAsyncThunk(
     'language/deleteLanguage',
-    async ({ introLanguageNo }) => {
+    async ( introLanguageNo ) => {
         const response = await api.deleteLanguage(introLanguageNo);
         console.log(response);
         return response.data;
@@ -33,15 +40,18 @@ export const language = createSlice({
     reducers: {},
     extraReducers: {
         [getLanguage.fulfilled]: (state, action) => {
-            state = action.payload;
+            console.log(action.payload)
+            return action.payload;
         },
-        [createLanguage.fulfilled.type]: (state, action) =>
+        [createLanguage.fulfilled.type]: (state, action) => {
             state.push({
+                introLanguageNo: action.payload.introLanguageNo,
                 languageDate: action.payload.languageDate,
                 languageGrade: action.payload.languageGrade,
                 languageName: action.payload.languageName,
                 languageTestName: action.payload.languageTestName,
-            }),
+            });
+        },
         [deleteLanguage.fulfilled.type]: (state, action) => {
             console.log('action', action);
             state = state.filter(
