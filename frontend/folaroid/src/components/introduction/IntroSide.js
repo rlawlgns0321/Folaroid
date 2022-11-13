@@ -14,12 +14,14 @@ const IntroSide = () => {
                 <ListItemButton disablePadding>
                     <ListItemText primary="개인 정보" />
                 </ListItemButton>
+                <ListItemButton disablePadding>
+                    <ListItemText primary="사진" />
+                </ListItemButton>
             </List>
             <Divider />
             <List>
-                <h1>추가 사항</h1>
+                <h1 style={{margin: '10px'}}>추가 사항</h1>
                 {[
-                    '사진',
                     '슬로건',
                     '기술스택',
                     '학력',
@@ -27,8 +29,8 @@ const IntroSide = () => {
                     '링크',
                     '자격증',
                     '수상내역',
+                    '활동',
                     '경력사항',
-                    '기타',
                 ].map((text) => (
                     <ListItemButton key={text} disablePadding>
                         <ListItemText primary={text} />

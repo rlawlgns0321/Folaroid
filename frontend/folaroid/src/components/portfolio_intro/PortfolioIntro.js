@@ -16,11 +16,7 @@ import CareerInput from '../introduction/CareerInput'
 
 function BaseIntro() {
     return (
-        <Grid
-            className={css`
-                width: 80vw;
-            `}
-        >
+        <Grid>
             <PersonalInput></PersonalInput>
             <ImageInput></ImageInput>
             <SloganInput></SloganInput>

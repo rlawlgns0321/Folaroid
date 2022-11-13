@@ -10,16 +10,30 @@ import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const CardHeader = styled.div`
-    border-radius: 0 10px 10px 0;
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    font-size: 2rem;
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(140, 140, 140, 0.35);
+    padding: 15px;
+    font-size: 1.5rem;
     font-weight: bolder;
     color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;
+
+const DeleteBtn = styled.button`
+    border-radius: 50%;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border: red;
+`
 
 const IntroCardContent = styled(CardContent)`
     background-color: rgba(186, 183, 183, 1);
+    align-items: center;
+    font-size: 1rem;
 `;
 
 const IntroBox = styled.div`
@@ -85,15 +99,15 @@ function ReadSlogan(props) {
 
     return (
         <IntroBox>
-            <CardHeader>슬로건</CardHeader>
+            <CardHeader>
+                <div>슬로건</div>
+                <DeleteBtn onClick={() => onDeleteClick(props.introSloganNo)}></DeleteBtn>
+            </CardHeader>
             <Card>
                 <IntroCardContent
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                     <Box>{props.sloganContent}</Box>
-                    <Button onClick={() => onDeleteClick(props.introSloganNo)}>
-                        삭제
-                    </Button>
                 </IntroCardContent>
             </Card>
         </IntroBox>

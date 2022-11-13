@@ -5,6 +5,7 @@ export const getHash = createAsyncThunk('stack/getHash', async () => {
     const response = await api.getHash();
     return response.data;
 });
+
 export const getStack = createAsyncThunk('stack/getStack', async (introNo) => {
     const response = await api.getStack(introNo);
     console.log(response.data);

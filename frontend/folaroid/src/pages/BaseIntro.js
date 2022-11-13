@@ -51,10 +51,9 @@ const RightBarWrap = styled.div`
 `;
 
 function BaseIntro() {
-    const title = '기본정보';
 
     return (
-        <div style={{color: 'blue'}}>
+        <div>
             <Header />
             <BodyWrap>
                 <ContentsWrap>
@@ -64,17 +63,18 @@ function BaseIntro() {
                         </SideBar>
                     </LeftBarWrap>
                     <RightBarWrap>
-                        <Contents title={title}>
+                        <Contents title="자기소개">
                             <PersonalInput></PersonalInput>
                             <ImageInput></ImageInput>
                             <SloganInput></SloganInput>
-                            {/* <StackInput></StackInput> */}
+                            <StackInput></StackInput>
                             <SchoolInput></SchoolInput>
                             <LanguageInput></LanguageInput>
                             <ArchivingInput></ArchivingInput>
                             <CertificateInput></CertificateInput>
                             <AwardInput></AwardInput>
                             <ActivityInput></ActivityInput>
+                            <CareerInput></CareerInput>
                         </Contents>
                     </RightBarWrap>
                 </ContentsWrap>

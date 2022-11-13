@@ -13,6 +13,7 @@ import sloganReducer from './intro/slogan'
 import portfolioReducer from './portfolio';
 import githubReducer from './github';
 import imageReducer from './intro/image';
+import stackReducer from './intro/stack'
 
 
 const rootReducer = combineReducers({
