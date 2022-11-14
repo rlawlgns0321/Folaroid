@@ -18,6 +18,7 @@ import CertificateInput from '../components/introduction/CertificateInput';
 import AwardInput from '../components/introduction/AwardInput';
 import CareerInput from '../components/introduction/CareerInput'
 import styled from '@emotion/styled';
+import TestPage from './TestPage';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -53,7 +54,7 @@ const RightBarWrap = styled.div`
 function BaseIntro() {
 
     return (
-        <div>
+        <TestPage>
             <Header />
             <BodyWrap>
                 <ContentsWrap>
@@ -79,7 +80,7 @@ function BaseIntro() {
                     </RightBarWrap>
                 </ContentsWrap>
             </BodyWrap>
-        </div>
+        </TestPage>
     );
 }
 

@@ -39,16 +39,9 @@ export const portfolioProject = createSlice({
     initialState: {
         projects: [],
         isloading: false,
-        project: {},
+        project: null,
     },
-    reducers: {
-        deleteProject: (state, action) => {
-            state.projects = state.projects.filter(
-                (project) => project.id !== action.payload
-            );
-        },
-        updateProject: () => {},
-    },
+    reducers: {},
     extraReducers: {
         [getProjectsThunk.fulfilled.type]: (state, action) => {
             state.projects = action.payload;

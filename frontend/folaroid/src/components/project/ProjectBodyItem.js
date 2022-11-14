@@ -39,14 +39,14 @@ const DeleteBtn = styled.div`
 
 const ProjectBodyItem = ({ project, onDeleteProject }) => {
     const onDeleteClick = () => {
-        onDeleteProject(project.id);
+        onDeleteProject(project.pjtNo);
     };
 
     return (
         <ItemWrap>
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
-                    프로젝트이름
+                    {project.pjtTitle}
                 </Grid>
                 <DeleteBtn onClick={onDeleteClick} />
             </TitleBar>

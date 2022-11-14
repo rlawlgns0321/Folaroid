@@ -10,6 +10,7 @@ import PortfolioIntro from '../components/portfolio_intro/PortfolioIntro';
 import HeaderContainer from '../containers/header/HeaderContainer';
 import styled from '@emotion/styled';
 import Template1 from './Template1';
+import TestPage from './TestPage';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -44,7 +45,7 @@ const RightBarWrap = styled.div`
 
 const PortFolioPage = () => {
     return (
-        <div>
+        <TestPage>
             <HeaderContainer />
             <BodyWrap>
                 <ContentsWrap>
@@ -70,22 +71,16 @@ const PortFolioPage = () => {
                                     path="project"
                                     element={<ProjectBodyContainer />}
                                 />
-
                                 <Route
                                     path="template"
                                     element={<Template1 />}
-                                />
-
-                                <Route
-                                    path="intro"
-                                    element={<PortfolioIntro />}
                                 />
                             </Routes>
                         </Contents>
                     </RightBarWrap>
                 </ContentsWrap>
             </BodyWrap>
-        </div>
+        </TestPage>
     );
 };
 
