@@ -8,8 +8,8 @@ export const getImage = createAsyncThunk('image/getImage', async (intro_no) => {
 
 export const updateImage = createAsyncThunk(
     'image/updateImage',
-    async (intro_no, data) => {
-        const response = await api.updateImage(intro_no, data);
+    async ({intro_no, formData}) => {
+        const response = await api.updateImage(intro_no, formData);
         console.log('이미지', response);
         return response.data;
     }

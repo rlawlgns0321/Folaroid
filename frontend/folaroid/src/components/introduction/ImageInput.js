@@ -150,7 +150,7 @@ function ViewImage() {
                     <ImageInput
                         onCreate={(formData) => {
                             console.log(formData);
-                            dispatch(updateImage(intro_no, formData));
+                            dispatch(updateImage({intro_no, formData}));
                             setMode('READ');
                         }}
                     ></ImageInput>

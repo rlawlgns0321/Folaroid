@@ -137,7 +137,7 @@ const box = () => {
         baseURL: process.env.REACT_APP_BASE_URL,
         withCredentials: true,
         headers: {
-            'content-type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data',
         },
     });
 };
@@ -146,7 +146,7 @@ const apii = box()
 
 const updateImage = (intro_no, data) => {
     console.log("data",data);
-    return apii.put(`/intro-image/${intro_no}`, {file:data});
+    return apii.put(`/intro-image/${intro_no}`, data);
 };
 
 export {
