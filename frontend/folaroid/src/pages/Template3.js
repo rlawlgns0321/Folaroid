@@ -3,17 +3,17 @@ import Unity, {UnityContext} from "react-unity-webgl";
 
 
 const unityContext = new UnityContext ({
-  loaderUrl: "Build/release.loader.js",
-  dataUrl: "Build/release.data",
-  frameworkUrl: "Build/release.framework.js",
-  codeUrl: "Build/release.wasm",
+  loaderUrl: "Build/Releases.loader.js",
+  dataUrl: "Build/Releases.data",
+  frameworkUrl: "Build/Releases.framework.js",
+  codeUrl: "Build/Releases.wasm",
 })
 
 const Template3 = () => {
     return (
         <div className="template3">
             <Unity style={{
-                width: '90%',
+                width: '100%',
                 height: '100%',
                 justifySelf: 'center',
                 alignSelf: 'center',
