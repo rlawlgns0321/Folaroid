@@ -58,6 +58,8 @@ h3 {
 	margin: 0;
 	font-size: 10vmin;
   font-family: 'S-CoreDream-3Light';
+  color: #f1f1f1;
+  opacity: 0.8;
 }
 .section:nth-child(odd) {
 	text-align: right;
