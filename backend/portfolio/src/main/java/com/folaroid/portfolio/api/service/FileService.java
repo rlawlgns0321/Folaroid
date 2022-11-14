@@ -199,6 +199,11 @@ public class FileService {
     }
     @Transactional
     public String duplicateImage(String introImageLocation) {
+        //만약 깃허브로 시작하면
+        if (introImageLocation.contains("githubusercontent")){
+            return introImageLocation;
+        }
+
         String fileName = UrlToFileName(introImageLocation);
         String NewFileName = createFileName(fileName);
         try {
