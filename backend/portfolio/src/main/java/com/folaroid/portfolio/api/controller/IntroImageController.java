@@ -35,7 +35,7 @@ public class IntroImageController {
             notes="업데이트",
             httpMethod = "PUT")
     @PutMapping("/{intro_no}")
-    public ResponseEntity<IntroImageDto.IntroImageResponse> update(@PathVariable("intro_no") Long introNo, @RequestPart(value = "file", required = false) MultipartFile multipartFile)  throws IOException {
+    public ResponseEntity<IntroImageDto.IntroImageResponse> update(@PathVariable("intro_no") Long introNo, @RequestParam("file") MultipartFile multipartFile)  throws IOException {
         String introImageLocation = fileService.introImageUploadImage(introNo, multipartFile);
         IntroImageDto.IntroImageResponse introImageResponse = new IntroImageDto.IntroImageResponse(introNo, introImageLocation);
         return new ResponseEntity<>(introImageResponse, HttpStatus.OK);

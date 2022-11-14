@@ -43,7 +43,7 @@ const DeleteBtn = styled.button`
 `
 
 const IntroCardContent = styled(CardContent)`
-    background-color: antiquewhite;
+    background-color: ghostwhite;
 `;
 
 const IntroBox = styled.div`

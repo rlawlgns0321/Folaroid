@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { instance } from './client';
 
 const api = instance();
@@ -91,6 +92,7 @@ const getLanguage = (intro_no) => {
 };
 
 const createLanguage = (data) => {
+    console.log(data)
     return api.post(`/intro-language`, data);
 };
 
@@ -123,15 +125,28 @@ const deleteStack = (intro_school_no) => {
 };
 
 const getHash = () => {
-    return api.get(`/hash-tag`)
-}
+    return api.get(`/hash-tag`);
+};
 
 const getImage = (intro_no) => {
-    return api.get(`intro-image/${intro_no}`)
-}
+    return api.get(`intro-image/${intro_no}`);
+};
+
+const box = () => {
+    return axios.create({
+        baseURL: process.env.REACT_APP_BASE_URL,
+        withCredentials: true,
+        headers: {
+            'content-type': 'multipart/form-data',
+        },
+    });
+};
+
+const apii = box()
 
 const updateImage = (intro_no, data) => {
-    return api.put(`/intro-image/${intro_no}`, data);
+    console.log("data",data);
+    return apii.put(`/intro-image/${intro_no}`, {file:data});
 };
 
 export {
@@ -167,5 +182,5 @@ export {
     deleteStack,
     getHash,
     getImage,
-    updateImage
+    updateImage,
 };

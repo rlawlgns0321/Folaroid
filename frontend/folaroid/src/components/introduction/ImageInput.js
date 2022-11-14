@@ -29,7 +29,7 @@ const DeleteBtn = styled.button`
 
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    background-color: ghostwhite;
 `;
 
 const IntroBox = styled.div`
@@ -43,19 +43,21 @@ function ImageInput(props) {
     const [imageSrc, setImageSrc] = useState(null);
 
     const handleChange = (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
-        setImageSrc(formData);
+        let formData = new FormData();
+        const file = e.target.files[0];
+        console.log(file)
+        formData.append("file", file);
+        setImageSrc(formData)
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        for (var key of imageSrc.keys()) {
-            console.log(key);
-        }
-        for (var value of imageSrc.values()) {
-            console.log(value);
-        }
+        // for (var key of imageSrc.keys()) {
+            // console.log(key);
+        // }
+        // for (var value of imageSrc.values()) {
+            // console.log(value);
+        // }
         props.onCreate(imageSrc);
     };
 
@@ -65,7 +67,7 @@ function ImageInput(props) {
                 <form
                     onSubmit={handleSubmit}
                     style={{ margin: '10px' }}
-                    entype="multipart/formdata"
+                    encType="multipart/form-data"
                 >
                     <div
                         style={{
@@ -81,6 +83,7 @@ function ImageInput(props) {
                                 accept="image/*"
                                 style={{ width: '40%' }}
                                 onChange={handleChange}
+                                multiple
                             />
                         </div>
                         <div>
@@ -94,6 +97,7 @@ function ImageInput(props) {
         </IntroCardContent>
     );
 }
+
 
 function ReadImage(props) {
     const handleClick = (e) => {
@@ -145,6 +149,7 @@ function ViewImage() {
                 <Card>
                     <ImageInput
                         onCreate={(formData) => {
+                            console.log(formData);
                             dispatch(updateImage(intro_no, formData));
                             setMode('READ');
                         }}

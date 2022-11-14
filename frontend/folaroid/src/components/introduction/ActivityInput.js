@@ -47,8 +47,10 @@ const DeleteBtn = styled.button`
 `
 
 
-const IntroCardContent = styled(CardContent)`
-    background-color: white;
+const IntroCardContent = styled.div`
+    /* background-color: white; */
+    backdrop-filter: blur(10px);
+
 `;
 
 const IntroBox = styled.div`
@@ -251,7 +253,7 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>활동</CardHeader>
-                <Card>
+                {/* <Card> */}
                     <ActivityInput
                         onCreate={(_activity) => {
                             dispatch(
@@ -266,7 +268,7 @@ function ViewName() {
                             setMode('READ');
                         }}
                     ></ActivityInput>
-                </Card>
+                {/* </Card> */}
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -274,7 +276,7 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>활동</CardHeader>
-                <Card>
+                {/* <Card> */}
                     <ActivityInput
                         onCreate={(_activity) => {
                             dispatch(
@@ -289,7 +291,7 @@ function ViewName() {
                         }}
                     ></ActivityInput>
                     <ReadSchool activity={activity}></ReadSchool>
-                </Card>
+                {/* </Card> */}
             </IntroBox>
         );
     }

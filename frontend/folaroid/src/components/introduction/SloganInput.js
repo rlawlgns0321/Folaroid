@@ -28,10 +28,11 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
     align-items: center;
     font-size: 1rem;
 `;
@@ -101,7 +102,9 @@ function ReadSlogan(props) {
         <IntroBox>
             <CardHeader>
                 <div>슬로건</div>
-                <DeleteBtn onClick={() => onDeleteClick(props.introSloganNo)}></DeleteBtn>
+                <DeleteBtn
+                    onClick={() => onDeleteClick(props.introSloganNo)}
+                ></DeleteBtn>
             </CardHeader>
             <Card>
                 <IntroCardContent

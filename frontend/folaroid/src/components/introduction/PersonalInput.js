@@ -11,7 +11,8 @@ import styled from '@emotion/styled';
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
-    background-color: rgba(140, 140, 140, 0.35);
+    /* background-color: rgba(140, 140, 140, 0.35); */
+    backdrop-filter: blur(10px);
     padding: 15px;
     font-size: 1.5rem;
     font-weight: bolder;
@@ -31,8 +32,14 @@ const DeleteBtn = styled.button`
 `
 
 
-const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+const IntroCardContent = styled.div`
+    /* background-color: rgba(44, 43, 43, 1); */
+    /* backdrop-filter: blur(10px); */
+    border-radius: 10px;
+    background-color: rgba(140, 140, 140, 0.35);
+    color: white;
+    padding: 20px 50px 20px 50px;
+
 `;
 
 const IntroBox = styled.div`
@@ -80,6 +87,7 @@ function Update(props) {
                                 style={{ width: '40%' }}
                                 onChange={handleInputChange}
                                 value={personal.userName}
+                                color="neutral"
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
@@ -143,7 +151,7 @@ function Update(props) {
                                 justifyContent: 'end',
                             }}
                         >
-                            <Button type="submit" variant="contained">
+                            <Button type="submit" variant="outlined">
                                 저장
                             </Button>
                         </div>
@@ -187,7 +195,7 @@ function ReadName(props) {
                     justifyContent: 'end',
                 }}
             >
-                <Button onClick={handleClick}>
+                <Button onClick={handleClick} variant='contained' color='neutral'>
                     수정
                 </Button>
             </div>
@@ -215,7 +223,7 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>개인정보</CardHeader>
-                <Card>
+                
                     <Update
                         person={personal}
                         onCreate={(personal) => {
@@ -232,21 +240,21 @@ function ViewName() {
                         }}
                         personal={personal}
                     ></Update>
-                </Card>
+                
             </IntroBox>
         );
     } else if (mode === 'READ') {
         content = (
             <IntroBox>
                 <CardHeader>개인정보</CardHeader>
-                <Card>
+                {/* <Card> */}
                     <ReadName
                         user={personal}
                         onUpdate={() => {
                             setMode('CREATE');
                         }}
                     ></ReadName>
-                </Card>
+                {/* </Card> */}
             </IntroBox>
         );
     }
