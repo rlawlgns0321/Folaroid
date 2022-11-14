@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     Table,
@@ -26,6 +25,40 @@ import {
 } from '../../modules/intro/language';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(140, 140, 140, 0.35);
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const DeleteBtn = styled.button`
+    border-radius: 50%;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border: red;
+`
+
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     languageName: '',
@@ -48,7 +81,7 @@ function LanguageInput(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div
                     style={{
@@ -71,10 +104,10 @@ function LanguageInput(props) {
                             label="Age"
                             onChange={handleInputChange}
                         >
-                            <MenuItem value={'english'}>영어</MenuItem>
-                            <MenuItem value={'japanese'}>일본어</MenuItem>
-                            <MenuItem value={'chinese'}>중국어</MenuItem>
-                            <MenuItem value={'etc'}>기타</MenuItem>
+                            <MenuItem value={'영어'}>영어</MenuItem>
+                            <MenuItem value={'일본어'}>일본어</MenuItem>
+                            <MenuItem value={'중국어'}>중국어</MenuItem>
+                            <MenuItem value={'기타'}>기타</MenuItem>
                         </Select>
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
@@ -100,8 +133,9 @@ function LanguageInput(props) {
                                 onChange={(newValue) => {
                                     setLanguage({
                                         ...language,
-                                        languageDate:
-                                            dayjs(newValue).toISOString(),
+                                        languageDate: dayjs(newValue)
+                                            .toISOString()
+                                            .substring(0, 10),
                                     });
                                 }}
                                 renderInput={(params) => (
@@ -134,7 +168,7 @@ function LanguageInput(props) {
                     </div>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 function ReadLanguage(props) {
@@ -162,7 +196,7 @@ function ReadLanguage(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -177,7 +211,7 @@ function ReadLanguage(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -189,7 +223,7 @@ function ViewLanguage() {
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
             : store.getState().portfolio.pf.introNo;
-    console.log('language no', intro_no)
+    console.log('language no', intro_no);
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
@@ -210,45 +244,53 @@ function ViewLanguage() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="공인어학성적" />
-                <LanguageInput
-                    onCreate={(_language) => {
-                        console.log('_language', _language);
-                        dispatch(
-                            createLanguage({
-                                introNo: intro_no,
-                                languageName: _language.languageName,
-                                languageTestName: _language.languageTestName,
-                                languageDate: _language.languageDate,
-                                languageGrade: _language.languageGrade,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></LanguageInput>
-            </Card>
+            <IntroBox>
+                <CardHeader>공인어학성적</CardHeader>
+                <Card>
+                    <LanguageInput
+                        onCreate={(_language) => {
+                            console.log('_language', _language);
+                            dispatch(
+                                createLanguage({
+                                    introNo: intro_no,
+                                    languageName: _language.languageName,
+                                    languageTestName:
+                                        _language.languageTestName,
+                                    languageDate: _language.languageDate,
+                                    languageGrade: _language.languageGrade,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></LanguageInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log('language', { language });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="공인어학성적" />
-                <LanguageInput
-                    onCreate={(_language) => {
-                        dispatch(
-                            createLanguage({
-                                introNo: intro_no,
-                                languageName: _language.languageName,
-                                languageTestName: _language.languageTestName,
-                                languageDate: _language.languageDate,
-                                languageGrade: _language.languageGrade,
-                            })
-                        );
-                    }}
-                ></LanguageInput>
-                <ReadLanguage language={language}></ReadLanguage>
-            </Card>
+            <IntroBox>
+                <CardHeader>공인어학성적</CardHeader>
+                <Card>
+                    <LanguageInput
+                        onCreate={(_language) => {
+                            console.log('_language', _language);
+                            dispatch(
+                                createLanguage({
+                                    introNo: intro_no,
+                                    languageName: _language.languageName,
+                                    languageTestName:
+                                        _language.languageTestName,
+                                    languageDate: _language.languageDate,
+                                    languageGrade: _language.languageGrade,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></LanguageInput>
+                    <ReadLanguage language={language}></ReadLanguage>
+                </Card>
+            </IntroBox>
         );
     }
 

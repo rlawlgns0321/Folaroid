@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     TableRow,
@@ -24,6 +23,40 @@ import {
     deleteCareer,
 } from '../../modules/intro/career';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(140, 140, 140, 0.35);
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const DeleteBtn = styled.button`
+    border-radius: 50%;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border: red;
+`
+
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     careerComName: '',
@@ -48,7 +81,7 @@ function Input(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
                     <TextField
@@ -59,7 +92,7 @@ function Input(props) {
                             shrink: true,
                         }}
                         style={{ width: '40%' }}
-                        name="careerComeName"
+                        name="careerComName"
                         onChange={handleInputChange}
                         value={box.careerComName}
                     />
@@ -111,6 +144,7 @@ function Input(props) {
                         justifyContent: 'space-between',
                         flexDirection: 'row',
                         width: '100%',
+                        marginBottom: '10px',
                     }}
                 >
                     <TextField
@@ -119,6 +153,9 @@ function Input(props) {
                         placeholder="근무내용에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
                         onChange={handleInputChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         name="careerResult"
                         rows={2}
                         maxRows={4}
@@ -131,6 +168,7 @@ function Input(props) {
                         justifyContent: 'space-between',
                         flexDirection: 'row',
                         width: '100%',
+                        marginBottom: '10px',
                     }}
                 >
                     <TextField
@@ -139,6 +177,9 @@ function Input(props) {
                         placeholder="추가 사항에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
                         onChange={handleInputChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         name="careerDetail"
                         rows={2}
                         maxRows={4}
@@ -151,7 +192,7 @@ function Input(props) {
                     </div>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -181,7 +222,7 @@ function Read(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -199,7 +240,7 @@ function Read(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -232,47 +273,51 @@ function View() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="경력사항" />
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCareer({
-                                introNo: introNo,
-                                careerComName: box.careerComName,
-                                careerDate: box.careerDate,
-                                careerJob: box.careerJob,
-                                careerResult: box.careerResult,
-                                careerDetail: box.careerDetail,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-            </Card>
+            <IntroBox>
+                <CardHeader>경력사항</CardHeader>
+                <Card>
+                    <Input
+                        onCreate={(box) => {
+                            dispatch(
+                                createCareer({
+                                    introNo: introNo,
+                                    careerComName: box.careerComName,
+                                    careerDate: box.careerDate,
+                                    careerJob: box.careerJob,
+                                    careerResult: box.careerResult,
+                                    careerDetail: box.careerDetail,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></Input>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ career });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="경력사항" />
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCareer({
-                                introNo: introNo,
-                                careerComName: box.careerComName,
-                                careerDate: box.careerDate,
-                                careerJob: box.careerJob,
-                                careerResult: box.careerResult,
-                                careerDetail: box.careerDetail,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-                <Read career={career}></Read>
-            </Card>
+            <IntroBox>
+                <CardHeader>경력사항</CardHeader>
+                <Card>
+                    <Input
+                        onCreate={(box) => {
+                            dispatch(
+                                createCareer({
+                                    introNo: introNo,
+                                    careerComName: box.careerComName,
+                                    careerDate: box.careerDate,
+                                    careerJob: box.careerJob,
+                                    careerResult: box.careerResult,
+                                    careerDetail: box.careerDetail,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></Input>
+                    <Read career={career}></Read>
+                </Card>
+            </IntroBox>
         );
     }
 

@@ -42,7 +42,7 @@ const MainCanvas = () => {
 
 
     return (
-        <div>
+        <div style={{background: 'black'}}>
             <Stage
                 width={window.innerWidth}
                 height={window.innerHeight}

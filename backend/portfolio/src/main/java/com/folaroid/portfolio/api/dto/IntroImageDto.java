@@ -1,10 +1,7 @@
 package com.folaroid.portfolio.api.dto;
 
 import com.folaroid.portfolio.db.entity.IntroImage;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class IntroImageDto {
     @Data
@@ -25,7 +22,7 @@ public class IntroImageDto {
             return introImage;
         }
     }
-
+    @Getter
     public static class IntroImageResponse {
         private String introImageLocation;
         private Long introNo;

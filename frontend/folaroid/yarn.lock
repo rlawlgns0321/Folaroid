@@ -3691,11 +3691,6 @@ camelize@^1.0.0:
   resolved "https://registry.npmjs.org/camelize/-/camelize-1.0.1.tgz"
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
 
-camera-controls@^1.37.3:
-  version "1.37.3"
-  resolved "https://registry.npmjs.org/camera-controls/-/camera-controls-1.37.3.tgz"
-  integrity sha512-6r9SRuIVWD48G3ppHHsP2M5Tfjz1yvmq1/jpTpd9qdqExp5ecwmHY9iQrCEXU5CdBuPPeVt0QMHYi2GKPVIHkQ==
-
 caniuse-api@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/caniuse-api/-/caniuse-api-3.0.0.tgz"

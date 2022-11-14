@@ -1,104 +1,171 @@
-import React, { useCallback, useState } from 'react';
-import {
-    Button,
-    Box,
-    Card,
-    CardHeader,
-    CardContent,
-    TextField,
-} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Button, Box, Card, CardContent, TextField } from '@mui/material';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+
+import { getImage, updateImage } from '../../modules/intro/image';
+import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(140, 140, 140, 0.35);
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const DeleteBtn = styled.button`
+    border-radius: 50%;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border: red;
+`
+
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 function ImageInput(props) {
-    const [imageSrc, setImageSrc] = useState('');
+    const [imageSrc, setImageSrc] = useState(null);
 
-    const encodeFileToBase64 = (fileBlob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(fileBlob);
-        return new Promise((resolve) => {
-            reader.onload = () => {
-                setImageSrc(reader.result);
-                resolve();
-            };
-        });
+    const handleChange = (e) => {
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+        setImageSrc(formData);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event);
-        const content = event.target[0].value;
-        console.log(content);
-        props.onCreate(content);
+        for (var key of imageSrc.keys()) {
+            console.log(key);
+        }
+        for (var value of imageSrc.values()) {
+            console.log(value);
+        }
+        props.onCreate(imageSrc);
     };
 
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader suppressHydrationWarning title="사진" />
-            <CardContent>
-                <Box>
-                    <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                        <div
-                            style={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                flexDirection: 'row',
-                            }}
-                        >
-                            <div style={{ width: '100%' }}>
-                                <TextField
-                                    type="file"
-                                    accept="image/jpg,impge/png,image/jpeg,image/gif"
-                                    size="medium"
-                                    name="content"
-                                    onChange={(e) => {
-                                        encodeFileToBase64(e.target.files[0]);
-                                    }}
-                                    style={{ width: '40%' }}
-                                />
-                            </div>
-                            <div>
-                                <Button type="submit" variant="contained">
-                                    저장
-                                </Button>
-                            </div>
+        <IntroCardContent>
+            <Box>
+                <form
+                    onSubmit={handleSubmit}
+                    style={{ margin: '10px' }}
+                    entype="multipart/formdata"
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <div style={{ width: '100%' }}>
+                            <TextField
+                                type="file"
+                                accept="image/*"
+                                style={{ width: '40%' }}
+                                onChange={handleChange}
+                            />
                         </div>
-                    </form>
-                </Box>
-            </CardContent>
-        </Card>
+                        <div>
+                            <Button type="submit" variant="contained">
+                                저장
+                            </Button>
+                        </div>
+                    </div>
+                </form>
+            </Box>
+        </IntroCardContent>
     );
 }
 
 function ReadImage(props) {
+    const handleClick = (e) => {
+        props.onUpdate();
+    };
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader title="사진" />
-            <CardContent>
-                <img src='props.image'></img>
-                <Box>{props.image}</Box>
-            </CardContent>
-        </Card>
+        <IntroCardContent>
+            <div>
+                <img
+                    style={{ width: '200px', height: '200px' }}
+                    src={props.image}
+                    alt="사용자 이미지"
+                />
+            </div>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    margin: '20px',
+                    justifyContent: 'end',
+                }}
+            >
+                <Button onClick={handleClick}>수정</Button>
+            </div>
+        </IntroCardContent>
     );
 }
 
 function ViewImage() {
-    const [mode, setMode] = useState('CREATE');
-    const [image, setImage] = useState('');
+    const image = useSelector((state) => state.image);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+    const [mode, setMode] = useState('READ');
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getImage(intro_no));
+    }, [dispatch, intro_no]);
 
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <ImageInput
-                onCreate={(_image) => {
-                    const newImage = _image;
-                    setImage(newImage);
-                    setMode('READ');
-                }}
-            ></ImageInput>
+            <IntroBox>
+                <CardHeader>사진</CardHeader>
+                <Card>
+                    <ImageInput
+                        onCreate={(formData) => {
+                            dispatch(updateImage(intro_no, formData));
+                            setMode('READ');
+                        }}
+                    ></ImageInput>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ image });
-        content = <ReadImage image={image}></ReadImage>;
+        content = (
+            <IntroBox>
+                <CardHeader>사진</CardHeader>
+                <Card>
+                    <ReadImage
+                        image={image.imageLocation}
+                        onUpdate={() => {
+                            setMode('CREATE');
+                        }}
+                    ></ReadImage>
+                </Card>
+            </IntroBox>
+        );
     }
 
     return content;

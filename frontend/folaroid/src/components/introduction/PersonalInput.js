@@ -1,30 +1,51 @@
-import React, { useState } from 'react';
-import {
-    Button,
-    Box,
-    Card,
-    CardHeader,
-    CardContent,
-    TextField,
-} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Button, Box, Card, CardContent, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import { useDispatch } from 'react-redux';
-import { createPersonal } from '../../modules/intro/personal';
+import { updatePersonal, getPersonal } from '../../modules/intro/personal';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
 
-const initialState = {
-    intro_personal_data_no: null,
-    persona_data_birth: '',
-    personal_data_email: '',
-    personal_data_name: '',
-    personal_data_phone: '',
-};
+const CardHeader = styled.div`
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(140, 140, 140, 0.35);
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
 
-function PersonalInput(props) {
-    const [birth, setBirth] = useState(dayjs('2000-01-01'));
-    const [personal, setPersonal] = useState(initialState);
+const DeleteBtn = styled.button`
+    border-radius: 50%;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border: red;
+`
+
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
+
+
+function Update(props) {
+    const person = props.person;
+    const [personal, setPersonal] = useState(person);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -32,185 +53,201 @@ function PersonalInput(props) {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        // console.log(event);
-        // const name = event.target[0].value;
-        const birth = event.target[2].value;
-        // const email = event.target[5].value;
-        // const phone = event.target[7].value;
-        console.log(birth);
-        setPersonal({ ...personal, personal_data_birth: birth });
-        console.log(personal);
         props.onCreate(personal);
     };
 
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader title="기본 정보" />
-            <CardContent>
-                <Box>
-                    <form style={{ margin: '10px' }} onSubmit={handleSubmit}>
+        <IntroCardContent>
+            <Box>
+                <form style={{ margin: '10px' }} onSubmit={handleSubmit}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <TextField
+                                label="이름"
+                                placeholder="이름"
+                                name="userName"
+                                size="medium"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                style={{ width: '40%' }}
+                                onChange={handleInputChange}
+                                value={personal.userName}
+                            />
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <LocalizationProvider
+                                dateAdapter={AdapterDayjs}
+                                sx={{ width: '40%' }}
+                            >
+                                <DatePicker
+                                    label="생년월일"
+                                    inputFormat="YYYY년 MM월 DD일"
+                                    value={personal.userBirth}
+                                    name="userBirth"
+                                    onChange={(newValue) => {
+                                        setPersonal({
+                                            ...personal,
+                                            userBirth: dayjs(newValue)
+                                                .toISOString()
+                                                .substring(0, 10),
+                                        });
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField {...params} />
+                                    )}
+                                />
+                            </LocalizationProvider>
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <TextField
+                                label="이메일"
+                                type="email"
+                                placeholder="example@ssafy.com"
+                                name="userEmail"
+                                onChange={handleInputChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                style={{ width: '40%' }}
+                                value={personal.userEmail}
+                            />
+                        </div>
+
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <TextField
+                                label="연락처"
+                                type="tel"
+                                name="userPhone"
+                                onChange={handleInputChange}
+                                placeholder="010-0000-0000"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                style={{ width: '40%' }}
+                                value={personal.userPhone}
+                            />
+                        </div>
                         <div
                             style={{
-                                width: '100%',
                                 display: 'flex',
-                                justifyContent: 'space-between',
-                                flexDirection: 'column',
+                                alignItems: 'center',
+                                margin: '20px',
+                                justifyContent: 'end',
                             }}
                         >
-                            <div style={{ width: '100%', margin: '20px' }}>
-                                <TextField
-                                    label="이름"
-                                    placeholder="이름"
-                                    name="personal_data_name"
-                                    size="medium"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    style={{ width: '40%' }}
-                                    onChange={handleInputChange}
-                                    value={personal.personal_data_name || ''}
-                                />
-                            </div>
-                            <div style={{ width: '100%', margin: '20px' }}>
-                                <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
-                                    sx={{ width: '40%' }}
-                                >
-                                    <DatePicker
-                                        label="생년월일"
-                                        inputFormat="YYYY년 MM월 DD일"
-                                        value={birth}
-                                        name="personal_data_birth"
-                                        onChange={(newValue) => {
-                                            setBirth(newValue);
-                                        }}
-                                        renderInput={(params) => (
-                                            <TextField {...params} />
-                                        )}
-                                    />
-                                </LocalizationProvider>
-                            </div>
-                            <div style={{ width: '100%', margin: '20px' }}>
-                                <TextField
-                                    label="이메일"
-                                    type="email"
-                                    placeholder="example@ssafy.com"
-                                    name="personal_data_email"
-                                    onChange={handleInputChange}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    style={{ width: '40%' }}
-                                />
-                            </div>
-
-                            <div style={{ width: '100%', margin: '20px' }}>
-                                <TextField
-                                    label="연락처"
-                                    type="tel"
-                                    name="personal_data_phone"
-                                    onChange={handleInputChange}
-                                    placeholder="010-0000-0000"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    style={{ width: '40%' }}
-                                />
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    margin: '20px',
-                                    justifyContent: 'end',
-                                }}
-                            >
-                                <Button type="submit" variant="contained">
-                                    저장
-                                </Button>
-                            </div>
+                            <Button type="submit" variant="contained">
+                                저장
+                            </Button>
                         </div>
-                    </form>
-                </Box>
-            </CardContent>
-        </Card>
+                    </div>
+                </form>
+            </Box>
+        </IntroCardContent>
     );
 }
 
 function ReadName(props) {
+    const userInfo = props.user;
+
+    const handleClick = (e) => {
+        props.onUpdate();
+    };
+
     return (
-        <Card style={{ width: '80%', margin: '10px' }}>
-            <CardHeader title="기본정보" />
-            <CardContent>
-                <Box style={{ margin: '20px' }}>{props.name}</Box>
-                <Box style={{ margin: '20px' }}>{props.birth}</Box>
-                <Box style={{ margin: '20px' }}>{props.email}</Box>
-                <Box style={{ margin: '20px' }}>{props.phone}</Box>
-            </CardContent>
-        </Card>
+        <IntroCardContent>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <h3>이름</h3>
+                <Box style={{ margin: '20px' }}>{userInfo.userName}</Box>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <h3>생년월일</h3>
+                <Box style={{ margin: '20px' }}>{userInfo.userBirth}</Box>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <h3>이메일</h3>
+                <Box style={{ margin: '20px' }}>{userInfo.userEmail}</Box>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <h3>전화번호</h3>
+                <Box style={{ margin: '20px' }}>{userInfo.userPhone}</Box>
+            </div>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    margin: '20px',
+                    justifyContent: 'end',
+                }}
+            >
+                <Button onClick={handleClick}>
+                    수정
+                </Button>
+            </div>
+        </IntroCardContent>
     );
 }
 
 function ViewName() {
-    const [mode, setMode] = useState('CREATE');
-    const [value, setValue] = useState({
-        intro_personal_data_no: null,
-        persona_data_birth: '',
-        personal_data_email: '',
-        personal_data_name: '',
-        personal_data_phone: '',
-    });
+    const personal = useSelector((state) => state.personal);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+    const [mode, setMode] = useState('READ');
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getPersonal(intro_no));
+    }, [dispatch, intro_no]);
 
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <PersonalInput
-                onCreate={(personal) => {
-                    console.log('personal', personal);
-                    const newValue = {
-                        intro_personal_data_no: personal.intro_personal_data_no,
-                        personal_data_birth: personal.personal_data_birth,
-                        personal_data_email: personal.personal_data_email,
-                        personal_data_name: personal.personal_data_name,
-                        personal_data_phone: personal.personal_data_phone,
-                    };
-                    // console.log(newValue);
-                    // setValue(newValue);
-                    // console.log({value});
-                    dispatch(createPersonal({ personal }))
-                        .then((data) => {
-                            console.log('dispatch data', data);
-                            setValue({
-                                intro_personal_data_no:
-                                    data.intro_personal_data_no,
-                                persona_data_birth: data.persona_data_birth,
-                                personal_data_email: data.personal_data_email,
-                                personal_data_name: data.personal_data_name,
-                                personal_data_phone: data.personal_data_phone,
-                            });
+            <IntroBox>
+                <CardHeader>개인정보</CardHeader>
+                <Card>
+                    <Update
+                        person={personal}
+                        onCreate={(personal) => {
+                            dispatch(
+                                updatePersonal({
+                                    introNo: intro_no,
+                                    userBirth: personal.userBirth,
+                                    userEmail: personal.userEmail,
+                                    userName: personal.userName,
+                                    userPhone: personal.userPhone,
+                                })
+                            );
                             setMode('READ');
-                        })
-                        .catch((e) => {
-                            console.log(e);
-                        });
-                    
-                    setMode('READ');
-                    // newValues.push(newValue);
-                    // setValues(newValues)
-                }}
-            ></PersonalInput>
+                        }}
+                        personal={personal}
+                    ></Update>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ value });
-        console.log(value.personal_data_name)
         content = (
-            <ReadName
-                name={value.personal_data_name}
-                birth={value.persona_data_birth}
-                email={value.personal_data_email}
-                phone={value.personal_data_phone}
-            ></ReadName>
+            <IntroBox>
+                <CardHeader>개인정보</CardHeader>
+                <Card>
+                    <ReadName
+                        user={personal}
+                        onUpdate={() => {
+                            setMode('CREATE');
+                        }}
+                    ></ReadName>
+                </Card>
+            </IntroBox>
         );
     }
 

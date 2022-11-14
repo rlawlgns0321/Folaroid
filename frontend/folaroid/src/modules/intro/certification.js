@@ -53,9 +53,8 @@ export const certification = createSlice({
             });
         },
         [deleteCertification.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
-                (item) => item.introcertificationNo !== action.payload
+            return state.filter(
+                (item) => item.introCertificationNo !== action.payload
             );
         },
     },
