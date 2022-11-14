@@ -26,6 +26,8 @@ export const createProjectThunk = createAsyncThunk(
             pjtStar: payload.repo.stargazers_count,
             pjtTitle: payload.repo.name,
             pjtSubtitle: payload.repo.description,
+            pjtOneImageLocation:
+                'https://images.velog.io/images/hosickk/post/0c6640b0-8bb7-4d10-95af-a5b4a58046ee/project-planning-header@2x.png',
         };
         console.log(pjt);
         const response = await api.createProject(pjt);
@@ -41,7 +43,15 @@ export const portfolioProject = createSlice({
         isloading: false,
         project: null,
     },
-    reducers: {},
+    reducers: {
+        changeInput: (state, action) => {
+            const { name, value } = action.payload;
+            state.project[name] = value;
+        },
+        changeProjectImage: (state, action) => {
+            state.project.pjtOneImageLocation = action.payload;
+        }
+    },
     extraReducers: {
         [getProjectsThunk.fulfilled.type]: (state, action) => {
             state.projects = action.payload;

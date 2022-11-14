@@ -12,7 +12,6 @@ import ProjectInfoPage from './pages/ProjectInfoPage';
 import { useSelector } from 'react-redux';
 import Template1 from './pages/Template1';
 import Template2 from './pages/Template2';
-import TestPage from './pages/TestPage';
 
 function App() {
     const user = useSelector((state) => state.auth.user);

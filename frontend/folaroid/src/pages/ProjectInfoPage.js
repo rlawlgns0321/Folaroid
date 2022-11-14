@@ -94,7 +94,7 @@ const ProjectInfoPage = () => {
                             <SidePanel
                                 store={store}
                                 sections={sections}
-                                defaultSection="text"
+                                defaultSection="home"
                             />
                         </SidePanelWrap>
                         <WorkspaceWrap>
