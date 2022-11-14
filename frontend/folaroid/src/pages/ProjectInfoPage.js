@@ -24,6 +24,8 @@ import { CopyPanel } from '../components/projectinfo/CopyPanel';
 import styled from '@emotion/styled';
 import HomePanel from '../components/projectinfo/HomePanel';
 import TestPage from './TestPage';
+import { DownloadButton } from 'polotno/toolbar/download-button';
+import { Button } from '@blueprintjs/core';
 
 const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
 
@@ -56,6 +58,23 @@ const Home = {
         </SectionTab>
     ),
     Panel: HomePanel,
+};
+
+const ActionControls = ({ store }) => {
+    return (
+        <div>
+            <DownloadButton store={store} />
+            <Button
+                minimal
+                onClick={ async () => {
+                    console.log(store.toJSON());
+                    console.log(await store.toDataURL({ mimeType: 'image/jpg' }));
+                }}
+            >
+                Save&Exit
+            </Button>
+        </div>
+    );
 };
 
 const sections = [
@@ -98,7 +117,7 @@ const ProjectInfoPage = () => {
                             />
                         </SidePanelWrap>
                         <WorkspaceWrap>
-                            <Toolbar store={store} downloadButtonEnabled />
+                            <Toolbar store={store} downloadButtonEnabled components={{ActionControls}} />
                             <Workspace store={store} />
                             <ZoomButtons store={store} />
                         </WorkspaceWrap>
