@@ -39,7 +39,7 @@ export const portfolioProject = createSlice({
     initialState: {
         projects: [],
         isloading: false,
-        project: {},
+        project: null,
     },
     reducers: {},
     extraReducers: {

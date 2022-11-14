@@ -1,10 +1,11 @@
 import { Grid } from '@mui/material';
 import WrapLayout from '../components/mypage/WrapLayout';
 import HeaderContainer from '../containers/header/HeaderContainer';
+import TestPage from './TestPage';
 
 const MyPage = () => {
     return (
-        <div>
+        <TestPage>
             <HeaderContainer />
             <Grid
                 container
@@ -14,7 +15,7 @@ const MyPage = () => {
             >
                 <WrapLayout />
             </Grid>
-        </div>
+        </TestPage>
     );
 };
 
