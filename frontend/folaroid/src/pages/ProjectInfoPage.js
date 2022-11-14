@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from 'polotno';
 import { Toolbar } from 'polotno/toolbar/toolbar';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
@@ -26,6 +26,8 @@ import HomePanel from '../components/projectinfo/HomePanel';
 import TestPage from './TestPage';
 import { DownloadButton } from 'polotno/toolbar/download-button';
 import { Button } from '@blueprintjs/core';
+import { useDispatch } from 'react-redux';
+import { portfolioProject } from '../modules/portfolioProject';
 
 const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
 
@@ -61,14 +63,19 @@ const Home = {
 };
 
 const ActionControls = ({ store }) => {
+
+    
+
     return (
         <div>
             <DownloadButton store={store} />
             <Button
                 minimal
-                onClick={ async () => {
+                onClick={async () => {
                     console.log(store.toJSON());
-                    console.log(await store.toDataURL({ mimeType: 'image/jpg' }));
+                    console.log(
+                        await store.toDataURL({ mimeType: 'image/jpg' })
+                    );
                 }}
             >
                 Save&Exit
@@ -96,6 +103,9 @@ const Wrap = styled.div`
 `;
 
 const ProjectInfoPage = () => {
+    const dispatch = useDispatch();
+    
+
     return (
         <TestPage>
             <HeaderContainer />
@@ -117,7 +127,11 @@ const ProjectInfoPage = () => {
                             />
                         </SidePanelWrap>
                         <WorkspaceWrap>
-                            <Toolbar store={store} downloadButtonEnabled components={{ActionControls}} />
+                            <Toolbar
+                                store={store}
+                                downloadButtonEnabled
+                                components={{ ActionControls }}
+                            />
                             <Workspace store={store} />
                             <ZoomButtons store={store} />
                         </WorkspaceWrap>

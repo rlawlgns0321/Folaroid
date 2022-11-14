@@ -26,6 +26,7 @@ export const createProjectThunk = createAsyncThunk(
             pjtStar: payload.repo.stargazers_count,
             pjtTitle: payload.repo.name,
             pjtSubtitle: payload.repo.description,
+            pjtImagesUrl: payload.repo.imagesUrl,
             pjtOneImageLocation:
                 'https://images.velog.io/images/hosickk/post/0c6640b0-8bb7-4d10-95af-a5b4a58046ee/project-planning-header@2x.png',
         };
@@ -40,7 +41,7 @@ export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
-        isloading: false,
+        isProject: false,
         project: null,
     },
     reducers: {
@@ -50,7 +51,11 @@ export const portfolioProject = createSlice({
         },
         changeProjectImage: (state, action) => {
             state.project.pjtOneImageLocation = action.payload;
-        }
+        },
+        clearProject: (state, action) => {
+            state.project = null;
+            state.isProject = false;
+        },
     },
     extraReducers: {
         [getProjectsThunk.fulfilled.type]: (state, action) => {
@@ -61,8 +66,12 @@ export const portfolioProject = createSlice({
                 (pjt) => pjt.pjtNo !== payload.pjtNo
             );
         },
+        [createProjectThunk.pending.type]: (state) => {
+            state.isProject = false;
+        },
         [createProjectThunk.fulfilled.type]: (state, { payload }) => {
             state.project = payload;
+            state.isProject = true;
         },
     },
 });
