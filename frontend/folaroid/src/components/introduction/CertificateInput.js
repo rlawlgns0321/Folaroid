@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     TableRow,
@@ -11,6 +10,7 @@ import {
     TableHead,
     TableBody,
     Paper,
+    InputLabel,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -24,6 +24,26 @@ import {
 } from '../../modules/intro/certification';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -44,11 +64,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
-
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -59,7 +83,7 @@ const IntroBox = styled.div`
 `;
 
 const initialState = {
-    certificationDate: '',
+    certificationDate: null,
     certificationDetail: '',
     certificationId: '',
     certificationIssuer: '',
@@ -84,8 +108,8 @@ function Input(props) {
         <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="자격증명"
+                    <IntroInputLabel>자격증명</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="자격증명"
                         InputLabelProps={{
@@ -103,8 +127,8 @@ function Input(props) {
                             dateAdapter={AdapterDayjs}
                             sx={{ width: '40%' }}
                         >
+                            <IntroInputLabel>취득일자</IntroInputLabel>
                             <DatePicker
-                                label="취득날짜"
                                 name="certificationDate"
                                 value={box.certificationDate}
                                 onChange={(newValue) => {
@@ -116,7 +140,7 @@ function Input(props) {
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} />
+                                    <IntroTextField {...params} />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,
@@ -126,8 +150,8 @@ function Input(props) {
                     </div>
                 </div>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="자격증 발급 기관"
+                    <IntroInputLabel>자격증 발급 기관</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
@@ -140,8 +164,8 @@ function Input(props) {
                     />
                 </div>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="자격증 고유번호"
+                    <IntroInputLabel>자격증 고유번호</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
@@ -155,14 +179,12 @@ function Input(props) {
                 </div>
                 <div
                     style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
                         width: '100%',
+                        marginBottom: '10px',
                     }}
                 >
-                    <TextField
-                        label="취득 내용"
+                    <IntroInputLabel>취득 내용</IntroInputLabel>
+                    <IntroTextField
                         multiline
                         placeholder="취득내용에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
@@ -172,11 +194,11 @@ function Input(props) {
                         maxRows={4}
                         value={box.certificationDetail}
                     />
-                    <div>
-                        <Button type="submit" variant="contained">
-                            제출
-                        </Button>
-                    </div>
+                </div>
+                <div>
+                    <Button type="submit" variant="contained">
+                        제출
+                    </Button>
                 </div>
             </form>
         </IntroCardContent>
@@ -217,7 +239,7 @@ function Read(props) {
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">자격증명</TableCell>
-                            <TableCell align="center">취득날짜</TableCell>
+                            <TableCell align="center">취득일자</TableCell>
                             <TableCell align="center">
                                 자격증 발급 기관
                             </TableCell>
@@ -266,25 +288,21 @@ function View() {
         content = (
             <IntroBox>
                 <CardHeader>자격증</CardHeader>
-                <Card>
-                    <Input
-                        onCreate={(box) => {
-                            dispatch(
-                                createCertification({
-                                    introNo: introNo,
-                                    certificationDate: box.certificationDate,
-                                    certificationDetail:
-                                        box.certificationDetail,
-                                    certificationIssuer:
-                                        box.certificationIssuer,
-                                    certificationId: box.certificationId,
-                                    certificationName: box.certificationName,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></Input>
-                </Card>
+                <Input
+                    onCreate={(box) => {
+                        dispatch(
+                            createCertification({
+                                introNo: introNo,
+                                certificationDate: box.certificationDate,
+                                certificationDetail: box.certificationDetail,
+                                certificationIssuer: box.certificationIssuer,
+                                certificationId: box.certificationId,
+                                certificationName: box.certificationName,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></Input>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -292,26 +310,23 @@ function View() {
         content = (
             <IntroBox>
                 <CardHeader>자격증</CardHeader>
-                <Card>
-                    <Input
-                        onCreate={(box) => {
-                            dispatch(
-                                createCertification({
-                                    introNo: introNo,
-                                    certificationDate: box.certificationDate,
-                                    certificationDetail:
-                                        box.certificationDetail,
-                                    certificationIssuer:
-                                        box.certificationIssuer,
-                                    certificationId: box.certificationId,
-                                    certificationName: box.certificationName,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></Input>
-                    <Read certification={certification}></Read>
-                </Card>
+
+                <Input
+                    onCreate={(box) => {
+                        dispatch(
+                            createCertification({
+                                introNo: introNo,
+                                certificationDate: box.certificationDate,
+                                certificationDetail: box.certificationDetail,
+                                certificationIssuer: box.certificationIssuer,
+                                certificationId: box.certificationId,
+                                certificationName: box.certificationName,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></Input>
+                <Read certification={certification}></Read>
             </IntroBox>
         );
     }

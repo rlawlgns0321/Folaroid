@@ -75,30 +75,30 @@ public class PortfolioServiceImpl implements PortfolioService {
             introLanguageRepository.save(portfolioIntroLanguage);
         });
         //포트폴리오 자기소개 링크 테이블 저장 1:N
-        List<IntroArchiving> userInfoArchiving = introArchivingRepository.findAllByIntro(intro);
+        List<IntroArchiving> userInfoArchiving = introArchivingRepository.findAllByIntroNo(userInfoIntroNo);
         userInfoArchiving.forEach(userInfo -> {
-            IntroArchiving portfolioIntroArchiving = new IntroArchiving(intro);
+            IntroArchiving portfolioIntroArchiving = new IntroArchiving(portfolioIntroNo);
             portfolioIntroArchiving.saveOtherData(userInfo.getArchivingName(), userInfo.getArchivingLink());
             introArchivingRepository.save(portfolioIntroArchiving);
         });
         //포트폴리오 자기소개 수상내역 테이블 저장 1:N
-        List<IntroAwards> userInfoAwards = introAwardsRepository.findAllByIntro(intro);
+        List<IntroAwards> userInfoAwards = introAwardsRepository.findAllByIntroNo(userInfoIntroNo);
         userInfoAwards.forEach(userInfo -> {
-            IntroAwards portfolioIntroAwards = new IntroAwards(intro);
+            IntroAwards portfolioIntroAwards = new IntroAwards(portfolioIntroNo);
             portfolioIntroAwards.saveOtherData(userInfo.getAwardsName(), userInfo.getAwardsDate(), userInfo.getAwardsIssuer(), userInfo.getAwardsDetail());
             introAwardsRepository.save(portfolioIntroAwards);
         });
         //포트폴리오 자기소개 활동 테이블 저장 1:N
-        List<IntroActivity> userInfoActivity = introActivityRepository.findAllByIntro(intro);
+        List<IntroActivity> userInfoActivity = introActivityRepository.findAllByIntroNo(userInfoIntroNo);
         userInfoActivity.forEach(userInfo -> {
-            IntroActivity portfolioIntroActivity = new IntroActivity(intro);
+            IntroActivity portfolioIntroActivity = new IntroActivity(portfolioIntroNo);
             portfolioIntroActivity.saveOtherData(userInfo.getActivityName(), userInfo.getActivityDate(), userInfo.getActivityUrl(), userInfo.getActivityDetail());
             introActivityRepository.save(portfolioIntroActivity);
         });
         //포트폴리오 자기소개 경력 테이블 저장 1:N
-        List<IntroCareer> userInfoCareer = introCareerRepository.findAllByIntro(intro);
+        List<IntroCareer> userInfoCareer = introCareerRepository.findAllByIntroNo(userInfoIntroNo);
         userInfoCareer.forEach(userInfo -> {
-            IntroCareer portfolioIntroCareer = new IntroCareer(intro);
+            IntroCareer portfolioIntroCareer = new IntroCareer(portfolioIntroNo);
             portfolioIntroCareer.saveOtherData(userInfo.getCareerComName(), userInfo.getCareerJob(), userInfo.getCareerDate(), userInfo.getCareerResult(), userInfo.getCareerDetail());
             introCareerRepository.save(portfolioIntroCareer);
         });
@@ -110,9 +110,9 @@ public class PortfolioServiceImpl implements PortfolioService {
             introSchoolRepository.save(portfolioIntroSchool);
         });
 
-        List<IntroCertification> userInfoCertification = introCertificationRepository.findAllByIntro(intro);
+        List<IntroCertification> userInfoCertification = introCertificationRepository.findAllByIntroNo(userInfoIntroNo);
         userInfoCertification.forEach(userInfo ->{
-            IntroCertification portfolioIntroCertification = new IntroCertification(intro);
+            IntroCertification portfolioIntroCertification = new IntroCertification(portfolioIntroNo);
             portfolioIntroCertification.saveOtherData(userInfo.getCertificationDate(),userInfo.getCertificationName(),userInfo.getCertificationIssuer(),userInfo.getCertificationDetail(),userInfo.getCertificationId());
             introCertificationRepository.save(portfolioIntroCertification);
         });
@@ -129,7 +129,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Transactional
     @Override
     public Long getPortfolioIntroNo(Long pfNo) {
-        Long userNo = portfolioRepository.findById(pfNo).get().getUserNo();
+        Long userNo = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다.")).getUserNo();
         return introRepository.findIntroNoByPfNoAndUserNo(pfNo, userNo);
     }
 
@@ -173,7 +173,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     public PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo) {
 
         // 포트폴리오 복제
-        Portfolio portfolio = portfolioRepository.findById(pfNo).get();
+        Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
         Portfolio duplicatedTempPortfolio = new Portfolio(portfolio);
         //포트폴리오에서 유저 번호 찾기
         Long userNo = portfolio.getUserNo();
@@ -260,30 +260,30 @@ public class PortfolioServiceImpl implements PortfolioService {
             introLanguageRepository.save(portfolioIntroLanguage);
         });
         //포트폴리오 자기소개 링크 테이블 저장 1:N
-        List<IntroArchiving> userInfoArchiving = introArchivingRepository.findAllByIntro(intro);
+        List<IntroArchiving> userInfoArchiving = introArchivingRepository.findAllByIntroNo(portfolioIntroNo);
         userInfoArchiving.forEach(userInfo -> {
-            IntroArchiving portfolioIntroArchiving = new IntroArchiving(intro);
+            IntroArchiving portfolioIntroArchiving = new IntroArchiving(duplicatedPortfolioIntroNo);
             portfolioIntroArchiving.saveOtherData(userInfo.getArchivingName(), userInfo.getArchivingLink());
             introArchivingRepository.save(portfolioIntroArchiving);
         });
         //포트폴리오 자기소개 수상내역 테이블 저장 1:N
-        List<IntroAwards> userInfoAwards = introAwardsRepository.findAllByIntro(intro);
+        List<IntroAwards> userInfoAwards = introAwardsRepository.findAllByIntroNo(portfolioIntroNo);
         userInfoAwards.forEach(userInfo -> {
-            IntroAwards portfolioIntroAwards = new IntroAwards(intro);
+            IntroAwards portfolioIntroAwards = new IntroAwards(duplicatedPortfolioIntroNo);
             portfolioIntroAwards.saveOtherData(userInfo.getAwardsName(), userInfo.getAwardsDate(), userInfo.getAwardsIssuer(), userInfo.getAwardsDetail());
             introAwardsRepository.save(portfolioIntroAwards);
         });
         //포트폴리오 자기소개 활동 테이블 저장 1:N
-        List<IntroActivity> userInfoActivity = introActivityRepository.findAllByIntro(intro);
+        List<IntroActivity> userInfoActivity = introActivityRepository.findAllByIntroNo(portfolioIntroNo);
         userInfoActivity.forEach(userInfo -> {
-            IntroActivity portfolioIntroActivity = new IntroActivity(intro);
+            IntroActivity portfolioIntroActivity = new IntroActivity(duplicatedPortfolioIntroNo);
             portfolioIntroActivity.saveOtherData(userInfo.getActivityName(), userInfo.getActivityDate(), userInfo.getActivityUrl(), userInfo.getActivityDetail());
             introActivityRepository.save(portfolioIntroActivity);
         });
         //포트폴리오 자기소개 경력 테이블 저장 1:N
-        List<IntroCareer> userInfoCareer = introCareerRepository.findAllByIntro(intro);
+        List<IntroCareer> userInfoCareer = introCareerRepository.findAllByIntroNo(portfolioIntroNo);
         userInfoCareer.forEach(userInfo -> {
-            IntroCareer portfolioIntroCareer = new IntroCareer(intro);
+            IntroCareer portfolioIntroCareer = new IntroCareer(duplicatedPortfolioIntroNo);
             portfolioIntroCareer.saveOtherData(userInfo.getCareerComName(), userInfo.getCareerJob(), userInfo.getCareerDate(), userInfo.getCareerResult(), userInfo.getCareerDetail());
             introCareerRepository.save(portfolioIntroCareer);
         });

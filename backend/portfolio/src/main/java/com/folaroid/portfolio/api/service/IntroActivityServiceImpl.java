@@ -21,7 +21,7 @@ public class IntroActivityServiceImpl implements IntroActivityService{
     @Transactional
     @Override
     public Long saveIntroActivity(IntroActivityDto.introActivityRequest introActivityRequest) {
-        return introActivityRepository.save(introActivityRequest.toEntity(introRepository.findById(introActivityRequest.getIntroNo()).get())).getIntroActivityNo();
+        return introActivityRepository.save(introActivityRequest.toEntity(introRepository.findById(introActivityRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroActivityNo();
     }
 
     @Transactional
@@ -35,6 +35,6 @@ public class IntroActivityServiceImpl implements IntroActivityService{
     @Transactional
     @Override
     public List<IntroActivity> findIntroActivity(Long introNo) {
-        return introActivityRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introActivityRepository.findAllByIntroNo(introNo);
     }
 }

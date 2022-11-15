@@ -31,6 +31,7 @@ const rootReducer = combineReducers({
     portfolio: portfolioReducer,
     github: githubReducer,
     image: imageReducer,
+    stack: stackReducer,
 });
 
 export default rootReducer;

@@ -12,6 +12,8 @@ import ProjectInfoPage from './pages/ProjectInfoPage';
 import { useSelector } from 'react-redux';
 import Template1 from './pages/Template1';
 import Template2 from './pages/Template2';
+import Template3 from './pages/Template3';
+import TestPage from './pages/TestPage';
 
 function App() {
     const user = useSelector((state) => state.auth.user);
@@ -42,6 +44,7 @@ function App() {
                     />
                     <Route path="/tem1" element={<Template1 />} />
                     <Route path="/tem2" element={<Template2 />} />
+                    <Route path="/tem3" element={<Template3 />} />
                 </Routes>
             </div>
         </ThemeProvider>

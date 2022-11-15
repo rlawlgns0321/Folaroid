@@ -21,8 +21,6 @@ public class IntroImage {
 
     @Column(length = 2083)
     private String introImageLocation;
-
-//    @OneToOne(mappedBy = "introImage", fetch = LAZY)
     private Long introNo;
 
     public IntroImage(Long introNo, String introImageLocation){

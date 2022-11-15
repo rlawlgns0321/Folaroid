@@ -20,7 +20,7 @@ public class IntroLanguageService {
 
     @Transactional
     public Long save(IntroLanguageDto.introLanguageRequest introLanguageRequest) {
-        return introLanguageRepository.save(introLanguageRequest.toEntity(introRepository.findById(introLanguageRequest.getIntroNo()).get())).getIntroLanguageNo();
+        return introLanguageRepository.save(introLanguageRequest.toEntity(introRepository.findById(introLanguageRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroLanguageNo();
     }
     @Transactional
     public List<IntroLanguage> find(Long introNo) {

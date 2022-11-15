@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, Card, CardContent, TextField } from '@mui/material';
+import {
+    Button,
+    Box,
+    CardContent,
+    TextField,
+    InputBase,
+    alpha,
+    InputLabel,
+} from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -22,17 +30,33 @@ const CardHeader = styled.div`
     align-items: center;
 `;
 
-const DeleteBtn = styled.button`
-    border-radius: 50%;
-    background-color: red;
-    width: 18px;
-    height: 18px;
-    border: red;
-`
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
 
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -41,7 +65,6 @@ const IntroBox = styled.div`
     margin-top: 10px;
     margin-bottom: 10px;
 `;
-
 
 function Update(props) {
     const person = props.person;
@@ -69,15 +92,10 @@ function Update(props) {
                         }}
                     >
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
-                                label="이름"
+                            <IntroInputLabel shrink>이름</IntroInputLabel>
+                            <IntroTextField
                                 placeholder="이름"
                                 name="userName"
-                                size="medium"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                style={{ width: '40%' }}
                                 onChange={handleInputChange}
                                 value={personal.userName}
                             />
@@ -87,8 +105,10 @@ function Update(props) {
                                 dateAdapter={AdapterDayjs}
                                 sx={{ width: '40%' }}
                             >
+                                <IntroInputLabel shrink>
+                                    생년월일
+                                </IntroInputLabel>
                                 <DatePicker
-                                    label="생년월일"
                                     inputFormat="YYYY년 MM월 DD일"
                                     value={personal.userBirth}
                                     name="userBirth"
@@ -101,14 +121,17 @@ function Update(props) {
                                         });
                                     }}
                                     renderInput={(params) => (
-                                        <TextField {...params} />
+                                        <IntroTextField
+                                            id="date-input"
+                                            {...params}
+                                        />
                                     )}
                                 />
                             </LocalizationProvider>
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
-                                label="이메일"
+                            <IntroInputLabel shrink>이메일</IntroInputLabel>
+                            <IntroTextField
                                 type="email"
                                 placeholder="example@ssafy.com"
                                 name="userEmail"
@@ -122,7 +145,8 @@ function Update(props) {
                         </div>
 
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
+                            <IntroInputLabel shrink>연락처</IntroInputLabel>
+                            <IntroTextField
                                 label="연락처"
                                 type="tel"
                                 name="userPhone"
@@ -143,7 +167,7 @@ function Update(props) {
                                 justifyContent: 'end',
                             }}
                         >
-                            <Button type="submit" variant="contained">
+                            <Button type="submit" variant="outlined">
                                 저장
                             </Button>
                         </div>
@@ -187,7 +211,11 @@ function ReadName(props) {
                     justifyContent: 'end',
                 }}
             >
-                <Button onClick={handleClick}>
+                <Button
+                    onClick={handleClick}
+                    variant="contained"
+                    color="neutral"
+                >
                     수정
                 </Button>
             </div>
@@ -215,38 +243,34 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>개인정보</CardHeader>
-                <Card>
-                    <Update
-                        person={personal}
-                        onCreate={(personal) => {
-                            dispatch(
-                                updatePersonal({
-                                    introNo: intro_no,
-                                    userBirth: personal.userBirth,
-                                    userEmail: personal.userEmail,
-                                    userName: personal.userName,
-                                    userPhone: personal.userPhone,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                        personal={personal}
-                    ></Update>
-                </Card>
+                <Update
+                    person={personal}
+                    onCreate={(personal) => {
+                        dispatch(
+                            updatePersonal({
+                                introNo: intro_no,
+                                userBirth: personal.userBirth,
+                                userEmail: personal.userEmail,
+                                userName: personal.userName,
+                                userPhone: personal.userPhone,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                    personal={personal}
+                ></Update>
             </IntroBox>
         );
     } else if (mode === 'READ') {
         content = (
             <IntroBox>
                 <CardHeader>개인정보</CardHeader>
-                <Card>
-                    <ReadName
-                        user={personal}
-                        onUpdate={() => {
-                            setMode('CREATE');
-                        }}
-                    ></ReadName>
-                </Card>
+                <ReadName
+                    user={personal}
+                    onUpdate={() => {
+                        setMode('CREATE');
+                    }}
+                ></ReadName>
             </IntroBox>
         );
     }

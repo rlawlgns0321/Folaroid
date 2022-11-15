@@ -31,10 +31,6 @@ public class Portfolio {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "pf_templates_no")
-//    private PortfolioTemplates portfolioTemplates;
-
     @Column(name = "portfolio_templates_no")
     private Long portfolioTemplatesNo;
 

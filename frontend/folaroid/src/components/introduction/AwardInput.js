@@ -11,6 +11,7 @@ import {
     TableHead,
     TableBody,
     Paper,
+    InputLabel,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -24,6 +25,26 @@ import {
 } from '../../modules/intro/awards';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -44,11 +65,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
-
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -59,7 +84,7 @@ const IntroBox = styled.div`
 `;
 
 const initialState = {
-    awardsDate: '',
+    awardsDate: null,
     awardsDetail: '',
     awardsIssuer: '',
     awardsName: '',
@@ -83,8 +108,8 @@ function AwardInput(props) {
         <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="대회 이름"
+                    <IntroInputLabel>대회 이름</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
@@ -102,8 +127,8 @@ function AwardInput(props) {
                             dateAdapter={AdapterDayjs}
                             sx={{ width: '40%' }}
                         >
+                            <IntroInputLabel>수상일자</IntroInputLabel>
                             <DatePicker
-                                label="수상년월"
                                 name="awardsDate"
                                 value={award.awardsDate}
                                 onChange={(newValue) => {
@@ -115,7 +140,7 @@ function AwardInput(props) {
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} />
+                                    <IntroTextField {...params} />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,
@@ -125,8 +150,8 @@ function AwardInput(props) {
                     </div>
                 </div>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="대회 주최 기관"
+                    <IntroInputLabel>대회 주최 기관</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
@@ -140,14 +165,12 @@ function AwardInput(props) {
                 </div>
                 <div
                     style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
                         width: '100%',
+                        marginBottom: '10px',
                     }}
                 >
-                    <TextField
-                        label="설명"
+                    <IntroInputLabel>설명</IntroInputLabel>
+                    <IntroTextField
                         multiline
                         placeholder="수상내역에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
@@ -157,11 +180,11 @@ function AwardInput(props) {
                         maxRows={4}
                         value={award.awardsDetail}
                     />
-                    <div>
-                        <Button type="submit" variant="contained">
-                            제출
-                        </Button>
-                    </div>
+                </div>
+                <div>
+                    <Button type="submit" variant="contained">
+                        제출
+                    </Button>
                 </div>
             </form>
         </IntroCardContent>
@@ -199,7 +222,7 @@ function ReadAwards(props) {
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">대회 이름</TableCell>
-                            <TableCell align="center">수상년월</TableCell>
+                            <TableCell align="center">수상일자</TableCell>
                             <TableCell align="center">대회 주최 기관</TableCell>
                             <TableCell align="center">설명</TableCell>
                             <TableCell align="center"></TableCell>
@@ -239,23 +262,22 @@ function ViewAwards() {
         content = (
             <IntroBox>
                 <CardHeader>수상내역</CardHeader>
-                <Card>
-                    <AwardInput
-                        onCreate={(box) => {
-                            dispatch(
-                                createAward({
-                                    introNo: intro_no,
-                                    awardsDate: box.awardsDate,
-                                    awardsDetail: box.awardsDetail,
-                                    awardsIssuer: box.awardsIssuer,
-                                    awardsName: box.awardsName,
-                                })
-                            );
-                            console.log(award);
-                            setMode('READ');
-                        }}
-                    ></AwardInput>
-                </Card>
+
+                <AwardInput
+                    onCreate={(box) => {
+                        dispatch(
+                            createAward({
+                                introNo: intro_no,
+                                awardsDate: box.awardsDate,
+                                awardsDetail: box.awardsDetail,
+                                awardsIssuer: box.awardsIssuer,
+                                awardsName: box.awardsName,
+                            })
+                        );
+                        console.log(award);
+                        setMode('READ');
+                    }}
+                ></AwardInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -263,24 +285,23 @@ function ViewAwards() {
         content = (
             <IntroBox>
                 <CardHeader>수상내역</CardHeader>
-                <Card>
-                    <AwardInput
-                        onCreate={(box) => {
-                            dispatch(
-                                createAward({
-                                    introNo: intro_no,
-                                    awardsDate: box.awardsDate,
-                                    awardsDetail: box.awardsDetail,
-                                    awardsIssuer: box.awardsIssuer,
-                                    awardsName: box.awardsName,
-                                })
-                            );
-                            console.log(award);
-                            setMode('READ');
-                        }}
-                    ></AwardInput>
-                    <ReadAwards award={award}></ReadAwards>
-                </Card>
+
+                <AwardInput
+                    onCreate={(box) => {
+                        dispatch(
+                            createAward({
+                                introNo: intro_no,
+                                awardsDate: box.awardsDate,
+                                awardsDetail: box.awardsDetail,
+                                awardsIssuer: box.awardsIssuer,
+                                awardsName: box.awardsName,
+                            })
+                        );
+                        console.log(award);
+                        setMode('READ');
+                    }}
+                ></AwardInput>
+                <ReadAwards award={award}></ReadAwards>
             </IntroBox>
         );
     }

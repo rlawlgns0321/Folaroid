@@ -24,13 +24,10 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pf_no")
     private Portfolio portfolio;
-//    @Column(name = "pf_no")
-//    private Long pfNo;
-
     @Column(name = "pjt_title", length = 100)
     private String pjtTitle;
 
-    @Column(name = "pjt_subtitle", length = 100)
+    @Column(name = "pjt_subtitle", length = 500)
     private String pjtSubtitle;
 
     @Column(name = "pjt_url", length = 2083)

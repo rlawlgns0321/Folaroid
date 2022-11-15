@@ -20,7 +20,7 @@ public class IntroSloganServiceImpl implements IntroSloganService{
     @Transactional
     @Override
     public Long saveIntroSlogan(IntroSloganDto.introSloganRequest introSloganRequest) {
-        return introSloganRepository.save(introSloganRequest.toEntity(introRepository.findById(introSloganRequest.getIntroNo()).get())).getIntroSloganNo();
+        return introSloganRepository.save(introSloganRequest.toEntity(introRepository.findById(introSloganRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroSloganNo();
     }
 
     @Transactional
