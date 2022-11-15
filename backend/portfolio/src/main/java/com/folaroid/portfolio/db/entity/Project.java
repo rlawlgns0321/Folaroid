@@ -48,12 +48,14 @@ public class Project {
     @Column(name = "pjt_json", columnDefinition = "TEXT")
     private String pjtJson;
 
+    private String pjtId;
+
     public void updateProjectTitle(String pjtTitle, String pjtSubtitle){
         this.pjtTitle = pjtTitle;
         this.pjtSubtitle = pjtSubtitle;
     }
 
-    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtOneImageLocation, String pjtJson){
+    public void updateProject(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtOneImageLocation, String pjtJson, String pjtId){
         this.pjtTitle = pjtTitle;
         this.pjtSubtitle = pjtSubtitle;
         this.pjtUrl = pjtUrl;
@@ -61,6 +63,7 @@ public class Project {
         this.pjtStar = pjtStar;
         this.pjtOneImageLocation = pjtOneImageLocation;
         this.pjtJson = pjtJson;
+        this.pjtId = pjtId;
     }
 
     public void updateImage(String url) {
@@ -75,6 +78,7 @@ public class Project {
         this.pjtStar = project.pjtStar;
         this.pjtOneImageLocation = project.pjtOneImageLocation;
         this.pjtJson = project.pjtJson;
+        this.pjtId = project.pjtId;
     }
 
     public void updatePortfolio(Portfolio portfolio) {
