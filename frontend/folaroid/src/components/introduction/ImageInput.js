@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, Card, CardContent, TextField } from '@mui/material';
+import { Button, Box, CardContent, TextField } from '@mui/material';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-
 import { getImage, updateImage } from '../../modules/intro/image';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -19,17 +34,13 @@ const CardHeader = styled.div`
     align-items: center;
 `;
 
-const DeleteBtn = styled.button`
-    border-radius: 50%;
-    background-color: red;
-    width: 18px;
-    height: 18px;
-    border: red;
-`
-
-
 const IntroCardContent = styled(CardContent)`
-    background-color: ghostwhite;
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -45,18 +56,18 @@ function ImageInput(props) {
     const handleChange = (e) => {
         let formData = new FormData();
         const file = e.target.files[0];
-        console.log(file)
-        formData.append("file", file);
-        setImageSrc(formData)
+        console.log(file);
+        formData.append('file', file);
+        setImageSrc(formData);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // for (var key of imageSrc.keys()) {
-            // console.log(key);
+        // console.log(key);
         // }
         // for (var value of imageSrc.values()) {
-            // console.log(value);
+        // console.log(value);
         // }
         props.onCreate(imageSrc);
     };
@@ -78,7 +89,7 @@ function ImageInput(props) {
                         }}
                     >
                         <div style={{ width: '100%' }}>
-                            <TextField
+                            <IntroTextField
                                 type="file"
                                 accept="image/*"
                                 style={{ width: '40%' }}
@@ -97,7 +108,6 @@ function ImageInput(props) {
         </IntroCardContent>
     );
 }
-
 
 function ReadImage(props) {
     const handleClick = (e) => {
@@ -146,29 +156,25 @@ function ViewImage() {
         content = (
             <IntroBox>
                 <CardHeader>사진</CardHeader>
-                <Card>
-                    <ImageInput
-                        onCreate={(formData) => {
-                            console.log(formData);
-                            dispatch(updateImage({intro_no, formData}));
-                            setMode('READ');
-                        }}
-                    ></ImageInput>
-                </Card>
+                <ImageInput
+                    onCreate={(formData) => {
+                        console.log(formData);
+                        dispatch(updateImage({ intro_no, formData }));
+                        setMode('READ');
+                    }}
+                ></ImageInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
         content = (
             <IntroBox>
                 <CardHeader>사진</CardHeader>
-                <Card>
-                    <ReadImage
-                        image={image.imageLocation}
-                        onUpdate={() => {
-                            setMode('CREATE');
-                        }}
-                    ></ReadImage>
-                </Card>
+                <ReadImage
+                    image={image.imageLocation}
+                    onUpdate={() => {
+                        setMode('CREATE');
+                    }}
+                ></ReadImage>
             </IntroBox>
         );
     }

@@ -11,6 +11,7 @@ import {
     TableHead,
     TableBody,
     Paper,
+    InputLabel,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -24,6 +25,26 @@ import {
 } from '../../modules/intro/career';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -44,11 +65,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
-
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -84,8 +109,8 @@ function Input(props) {
         <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="회사명"
+                    <IntroInputLabel>회사명</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
@@ -103,8 +128,8 @@ function Input(props) {
                             dateAdapter={AdapterDayjs}
                             sx={{ width: '40%' }}
                         >
+                            <IntroInputLabel>근무날짜</IntroInputLabel>
                             <DatePicker
-                                label="근무날짜"
                                 name="careerDate"
                                 value={box.careerDate}
                                 onChange={(newValue) => {
@@ -115,7 +140,7 @@ function Input(props) {
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} />
+                                    <IntroTextField {...params} />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,
@@ -125,8 +150,8 @@ function Input(props) {
                     </div>
                 </div>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <TextField
-                        label="직무"
+                    <IntroInputLabel>직무</IntroInputLabel>
+                    <IntroTextField
                         type="text"
                         placeholder="입력"
                         InputLabelProps={{
@@ -140,15 +165,12 @@ function Input(props) {
                 </div>
                 <div
                     style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
                         width: '100%',
                         marginBottom: '10px',
                     }}
                 >
-                    <TextField
-                        label="상세업무 및 성과"
+                    <IntroInputLabel>상세업무 및 성과</IntroInputLabel>
+                    <IntroTextField
                         multiline
                         placeholder="근무내용에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
@@ -164,15 +186,12 @@ function Input(props) {
                 </div>
                 <div
                     style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
                         width: '100%',
                         marginBottom: '10px',
                     }}
                 >
-                    <TextField
-                        label="기타 설명"
+                    <IntroInputLabel>기타 설명</IntroInputLabel>
+                    <IntroTextField
                         multiline
                         placeholder="추가 사항에 관한 사항을 적어주세요."
                         style={{ width: '90%' }}
@@ -185,11 +204,11 @@ function Input(props) {
                         maxRows={4}
                         value={box.careerDetail}
                     />
-                    <div>
-                        <Button type="submit" variant="contained">
-                            제출
-                        </Button>
-                    </div>
+                </div>
+                <div>
+                    <Button type="submit" variant="contained">
+                        제출
+                    </Button>
                 </div>
             </form>
         </IntroCardContent>
@@ -275,23 +294,21 @@ function View() {
         content = (
             <IntroBox>
                 <CardHeader>경력사항</CardHeader>
-                <Card>
-                    <Input
-                        onCreate={(box) => {
-                            dispatch(
-                                createCareer({
-                                    introNo: introNo,
-                                    careerComName: box.careerComName,
-                                    careerDate: box.careerDate,
-                                    careerJob: box.careerJob,
-                                    careerResult: box.careerResult,
-                                    careerDetail: box.careerDetail,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></Input>
-                </Card>
+                <Input
+                    onCreate={(box) => {
+                        dispatch(
+                            createCareer({
+                                introNo: introNo,
+                                careerComName: box.careerComName,
+                                careerDate: box.careerDate,
+                                careerJob: box.careerJob,
+                                careerResult: box.careerResult,
+                                careerDetail: box.careerDetail,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></Input>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -299,24 +316,22 @@ function View() {
         content = (
             <IntroBox>
                 <CardHeader>경력사항</CardHeader>
-                <Card>
-                    <Input
-                        onCreate={(box) => {
-                            dispatch(
-                                createCareer({
-                                    introNo: introNo,
-                                    careerComName: box.careerComName,
-                                    careerDate: box.careerDate,
-                                    careerJob: box.careerJob,
-                                    careerResult: box.careerResult,
-                                    careerDetail: box.careerDetail,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></Input>
-                    <Read career={career}></Read>
-                </Card>
+                <Input
+                    onCreate={(box) => {
+                        dispatch(
+                            createCareer({
+                                introNo: introNo,
+                                careerComName: box.careerComName,
+                                careerDate: box.careerDate,
+                                careerJob: box.careerJob,
+                                careerResult: box.careerResult,
+                                careerDetail: box.careerDetail,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></Input>
+                <Read career={career}></Read>
             </IntroBox>
         );
     }

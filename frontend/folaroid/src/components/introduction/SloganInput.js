@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, Card, CardContent, TextField } from '@mui/material';
+import { Button, Box, Card, CardContent, TextField, InputLabel } from '@mui/material';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createSlogan,
@@ -8,6 +8,26 @@ import {
 } from '../../modules/intro/slogan';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -31,10 +51,12 @@ const DeleteBtn = styled.button`
 `;
 
 const IntroCardContent = styled(CardContent)`
+    border-radius: 10px;
     background-color: rgba(44, 43, 43, 1);
     color: white;
-    align-items: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -54,39 +76,37 @@ function SloganInput(props) {
     return (
         <IntroBox>
             <CardHeader>슬로건</CardHeader>
-            <Card>
-                <IntroCardContent>
-                    <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                        <div
-                            style={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                flexDirection: 'row',
-                            }}
-                        >
-                            <div style={{ width: '100%' }}>
-                                <TextField
-                                    label="슬로건"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    multiline
-                                    placeholder="취준생 화이팅!"
-                                    style={{ width: '90%' }}
-                                    rows={2}
-                                    maxRows={4}
-                                />
-                            </div>
-                            <div>
-                                <Button type="submit" variant="contained">
-                                    제출
-                                </Button>
-                            </div>
+            <IntroCardContent>
+                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <div style={{ width: '100%' }}>
+                            <IntroInputLabel>슬로건</IntroInputLabel>
+                            <IntroTextField
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                multiline
+                                placeholder="취준생 화이팅!"
+                                style={{ width: '90%' }}
+                                rows={2}
+                                maxRows={4}
+                            />
                         </div>
-                    </form>
-                </IntroCardContent>
-            </Card>
+                        <div>
+                            <Button type="submit" variant="contained">
+                                제출
+                            </Button>
+                        </div>
+                    </div>
+                </form>
+            </IntroCardContent>
         </IntroBox>
     );
 }
@@ -106,13 +126,11 @@ function ReadSlogan(props) {
                     onClick={() => onDeleteClick(props.introSloganNo)}
                 ></DeleteBtn>
             </CardHeader>
-            <Card>
-                <IntroCardContent
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                    <Box>{props.sloganContent}</Box>
-                </IntroCardContent>
-            </Card>
+            <IntroCardContent
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+                <Box>{props.sloganContent}</Box>
+            </IntroCardContent>
         </IntroBox>
     );
 }

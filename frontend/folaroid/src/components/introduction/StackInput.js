@@ -38,7 +38,12 @@ const DeleteBtn = styled.button`
 `;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: ghostwhite;
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -70,27 +75,25 @@ function StackInput(props) {
     return (
         <IntroBox>
             <CardHeader>기술스택</CardHeader>
-            <Card>
-                <IntroCardContent>
-                    <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                        <Autocomplete
-                            style={{ width: '50%', borderInlineColor: 'white' }}
-                            options={hash}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="stack"
-                                    variant="filled"
-                                    value={stackData}
-                                    onChange={(newValue) => {
-                                        setStackData(newValue);
-                                    }}
-                                />
-                            )}
-                        />
-                    </form>
-                </IntroCardContent>
-            </Card>
+            <IntroCardContent>
+                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                    <Autocomplete
+                        style={{ width: '50%', borderInlineColor: 'white' }}
+                        options={hash}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="stack"
+                                variant="filled"
+                                value={stackData}
+                                onChange={(newValue) => {
+                                    setStackData(newValue);
+                                }}
+                            />
+                        )}
+                    />
+                </form>
+            </IntroCardContent>
         </IntroBox>
     );
 }
@@ -187,20 +190,18 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>학력</CardHeader>
-                <Card>
-                    <StackInput
-                        onCreate={(_hash) => {
-                            dispatch(
-                                createStack({
-                                    introNo: intro_no,
-                                    hashNo: _hash,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></StackInput>
-                    <ReadStack stack={stack}></ReadStack>
-                </Card>
+                <StackInput
+                    onCreate={(_hash) => {
+                        dispatch(
+                            createStack({
+                                introNo: intro_no,
+                                hashNo: _hash,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></StackInput>
+                <ReadStack stack={stack}></ReadStack>
             </IntroBox>
         );
     }

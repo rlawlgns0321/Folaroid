@@ -5,10 +5,6 @@ const theme = createTheme({
     fontFamily: ['S-CoreDream-3Light'],
   },
   palette: {
-    primarybut: {
-      main: '#fff',
-      contrastText: '#ff4400'
-    },
     neutral: {
       main: '#fff',
       contrastText: '#1976d2',

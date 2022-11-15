@@ -11,6 +11,7 @@ import {
     TableHead,
     TableRow,
     Paper,
+    InputLabel,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -24,6 +25,26 @@ import {
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -44,13 +65,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
-
+`;
 
 const IntroCardContent = styled.div`
-    /* background-color: white; */
-    backdrop-filter: blur(10px);
-
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -93,8 +116,8 @@ function ActivityInput(props) {
                     }}
                 >
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="활동명"
+                        <IntroInputLabel>활동명</IntroInputLabel>
+                        <IntroTextField
                             placeholder="삼성청년소프트웨어아카데미"
                             size="medium"
                             InputLabelProps={{
@@ -107,8 +130,8 @@ function ActivityInput(props) {
                         />
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="관련 링크"
+                        <IntroInputLabel>관련 링크</IntroInputLabel>
+                        <IntroTextField
                             placeholder="https://"
                             size="medium"
                             InputLabelProps={{
@@ -122,8 +145,8 @@ function ActivityInput(props) {
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <IntroInputLabel>활동시기</IntroInputLabel>
                             <DatePicker
-                                label="활동시기"
                                 inputFormat="YYYY년 MM월"
                                 value={activity.activityDate}
                                 onChange={(newValue) => {
@@ -134,7 +157,7 @@ function ActivityInput(props) {
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} />
+                                    <IntroTextField {...params} />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,
@@ -149,11 +172,11 @@ function ActivityInput(props) {
                             flexDirection: 'row',
                             width: '100%',
                             margin: '20px',
-                            justifyContent: 'space-between'
+                            justifyContent: 'space-between',
                         }}
                     >
-                        <TextField
-                            label="설명"
+                        <IntroInputLabel>설명</IntroInputLabel>
+                        <IntroTextField
                             multiline
                             placeholder="활동사항에 관한 설명을 적어주세요."
                             style={{ width: '90%' }}
@@ -167,7 +190,11 @@ function ActivityInput(props) {
                             onChange={handleInputChange}
                             value={activity.activityDetail}
                         />
-                        <Button style={{margin:'40px', marginBottom: '10px'}} type="submit" variant="contained">
+                        <Button
+                            style={{ margin: '40px', marginBottom: '10px' }}
+                            type="submit"
+                            variant="contained"
+                        >
                             저장
                         </Button>
                     </div>
@@ -253,22 +280,20 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>활동</CardHeader>
-                {/* <Card> */}
-                    <ActivityInput
-                        onCreate={(_activity) => {
-                            dispatch(
-                                createActivity({
-                                    introNo: intro_no,
-                                    activityName: _activity.activityName,
-                                    activityUrl: _activity.activityUrl,
-                                    activityDate: _activity.activityDate,
-                                    activityDetail: _activity.activityDetail,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></ActivityInput>
-                {/* </Card> */}
+                <ActivityInput
+                    onCreate={(_activity) => {
+                        dispatch(
+                            createActivity({
+                                introNo: intro_no,
+                                activityName: _activity.activityName,
+                                activityUrl: _activity.activityUrl,
+                                activityDate: _activity.activityDate,
+                                activityDetail: _activity.activityDetail,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></ActivityInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -276,22 +301,20 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>활동</CardHeader>
-                {/* <Card> */}
-                    <ActivityInput
-                        onCreate={(_activity) => {
-                            dispatch(
-                                createActivity({
-                                    introNo: intro_no,
-                                    activityName: _activity.activityName,
-                                    activityUrl: _activity.activityUrl,
-                                    activityDate: _activity.activityDate,
-                                    activityDetail: _activity.activityDetail,
-                                })
-                            );
-                        }}
-                    ></ActivityInput>
-                    <ReadSchool activity={activity}></ReadSchool>
-                {/* </Card> */}
+                <ActivityInput
+                    onCreate={(_activity) => {
+                        dispatch(
+                            createActivity({
+                                introNo: intro_no,
+                                activityName: _activity.activityName,
+                                activityUrl: _activity.activityUrl,
+                                activityDate: _activity.activityDate,
+                                activityDetail: _activity.activityDetail,
+                            })
+                        );
+                    }}
+                ></ActivityInput>
+                <ReadSchool activity={activity}></ReadSchool>
             </IntroBox>
         );
     }
