@@ -34,6 +34,6 @@ public class IntroCertificationServiceImpl implements IntroCertificationService{
     @Transactional
     @Override
     public List<IntroCertification> findIntroCertification(Long introNo) {
-        return introCertificationRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introCertificationRepository.findAllByIntroNo(introNo);
     }
 }

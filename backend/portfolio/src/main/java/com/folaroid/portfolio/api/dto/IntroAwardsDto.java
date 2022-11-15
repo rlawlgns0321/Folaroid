@@ -23,7 +23,7 @@ public class IntroAwardsDto {
         public IntroAwards toEntity(Intro intro){
             IntroAwards introAwards = IntroAwards.builder()
                     .introAwardsNo(introAwardsNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .awardsName(awardsName)
                     .awardsDate(awardsDate)
                     .awardsIssuer(awardsIssuer)
@@ -43,7 +43,7 @@ public class IntroAwardsDto {
 
         public introAwardsResponse(IntroAwards introAwards){
             this.introAwardsNo = introAwards.getIntroAwardsNo();
-            this.introNo = introAwards.getIntro().getIntroNo();
+            this.introNo = introAwards.getIntroNo();
             this.awardsName = introAwards.getAwardsName();
             this.awardsDate = introAwards.getAwardsDate();
             this.awardsIssuer = introAwards.getAwardsIssuer();

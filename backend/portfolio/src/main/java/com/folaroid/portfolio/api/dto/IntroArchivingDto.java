@@ -18,7 +18,7 @@ public class IntroArchivingDto {
         public IntroArchiving toEntity(Intro intro){
             IntroArchiving introArchiving = IntroArchiving.builder()
                     .introArchivingNo(introArchivingNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .archivingName(archivingName)
                     .archivingLink(archivingLink)
                     .build();
@@ -30,13 +30,13 @@ public class IntroArchivingDto {
     @Getter
     public static class introArchivingResponse{
         private Long introArchivingNo;
-        private Long intro;
+        private Long introNo;
         private String archivingName;
         private String archivingLink;
 
         public introArchivingResponse(IntroArchiving introArchiving){
             this.introArchivingNo = introArchiving.getIntroArchivingNo();
-            this.intro = introArchiving.getIntro().getIntroNo();
+            this.introNo = introArchiving.getIntroNo();
             this.archivingName = introArchiving.getArchivingName();
             this.archivingLink = introArchiving.getArchivingLink();
         }

@@ -17,16 +17,16 @@ public class IntroArchiving {
     //@Column(name = "intro_archiving_no")
     private Long introArchivingNo;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 
     private String archivingName; // 사용자 관련 링크 이름
     private String archivingLink; // 사용자 관련 링크
 
-    public IntroArchiving(Intro intro) {
-        this.intro = intro;
+    public IntroArchiving(Long introNo) {
+        this.introNo = introNo;
     }
 
     public void saveOtherData(String archivingName, String archivingLink) {

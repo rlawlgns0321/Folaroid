@@ -24,7 +24,7 @@ public class IntroActivityDto {
         public IntroActivity toEntity(Intro intro){
             IntroActivity introActivity = IntroActivity.builder()
                     .introActivityNo(introActivityNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .activityName(activityName)
                     .activityDate(activityDate)
                     .activityUrl(activityUrl)
@@ -45,7 +45,7 @@ public class IntroActivityDto {
 
         public introActivityResponse(IntroActivity introActivity){
             this.introActivityNo = introActivity.getIntroActivityNo();
-            this.introNo = introActivity.getIntro().getIntroNo();
+            this.introNo = introActivity.getIntroNo();
             this.activityName = introActivity.getActivityName();
             this.activityDate = introActivity.getActivityDate();
             this.activityUrl = introActivity.getActivityUrl();

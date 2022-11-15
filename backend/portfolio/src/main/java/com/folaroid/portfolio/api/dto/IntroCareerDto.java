@@ -21,7 +21,7 @@ public class IntroCareerDto {
         public IntroCareer toEntity(Intro intro){
             IntroCareer introCareer = IntroCareer.builder()
                     .introCareerNo(introCareerNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .careerComName(careerComName)
                     .careerJob(careerJob)
                     .careerDate(careerDate)
@@ -44,7 +44,7 @@ public class IntroCareerDto {
 
         public introCareerResponse(IntroCareer introCareer){
             this.introCareerNo = introCareer.getIntroCareerNo();
-            this.introNo = introCareer.getIntro().getIntroNo();
+            this.introNo = introCareer.getIntroNo();
             this.careerComName = introCareer.getCareerComName();
             this.careerJob = introCareer.getCareerJob();
             this.careerDate = introCareer.getCareerDate();

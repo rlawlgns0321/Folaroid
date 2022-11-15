@@ -35,6 +35,6 @@ public class IntroActivityServiceImpl implements IntroActivityService{
     @Transactional
     @Override
     public List<IntroActivity> findIntroActivity(Long introNo) {
-        return introActivityRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introActivityRepository.findAllByIntroNo(introNo);
     }
 }

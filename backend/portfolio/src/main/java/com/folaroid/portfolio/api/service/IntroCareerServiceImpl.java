@@ -35,6 +35,6 @@ public class IntroCareerServiceImpl implements IntroCareerService{
     @Transactional
     @Override
     public List<IntroCareer> findIntroCareer(Long introNo) {
-        return introCareerRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introCareerRepository.findAllByIntroNo(introNo);
     }
 }
