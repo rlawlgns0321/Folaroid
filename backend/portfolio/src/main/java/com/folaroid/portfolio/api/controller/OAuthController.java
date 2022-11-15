@@ -153,66 +153,7 @@ public class OAuthController {
            IntroSlogan introSlogan = new IntroSlogan(introNo);
            introSloganRepository.save(introSlogan);
        }
-        /*
-       OAuthToken testToken = new OAuthToken();
-       testToken.setAccessToken(responseToken.getAccessToken());
 
-       String requestReposUrl = responseUserInfo.getRepos_url();
-       RestTemplate restTemplate = new RestTemplate();
-
-       ResponseEntity<List<GithubRepo>> userInfoResponse = restTemplate.exchange(
-               requestReposUrl,
-               HttpMethod.GET,
-               getUserInfoEntity(responseToken),
-               new ParameterizedTypeReference<List<GithubRepo>>() {}
-       );
-
-       if (userInfoResponse.getBody() != null) {
-           for (int i = 0 ; i < userInfoResponse.getBody().size() ; i++) {
-                System.out.println(userInfoResponse.getBody().get(i).getName());
-                System.out.println(userInfoResponse.getBody().get(i).getDescription());
-                System.out.println(userInfoResponse.getBody().get(i).getCreated_at());
-                System.out.println("=================================");
-           }
-       }*/
-
-       /*if (userInfoResponse.getBody() != null) {
-           for (int i = 0; i < userInfoResponse.getBody().size(); i++) {
-               if (userInfoResponse.getBody().get(i).getName().equals("PLEX")) {
-                   GithubRepo target = userInfoResponse.getBody().get(i);
-                   //"https://raw.githubusercontent.com/rlawlgns0321/PLEX/master/README.md";
-                   String targetReadme = "https://raw.githubusercontent.com/" + responseUserInfo.getLogin()
-                           + "/" + target.getName()
-                           + "/" + target.getDefault_branch()
-                           + "/README.md";
-                   target.setReadmeContent(readmeTest.getMDContent(targetReadme).get("md"));
-                   List<String> imageUrls = new ArrayList<>(readmeTest.getMDContent(targetReadme).get("image"));
-                   Collections.copy(imageUrls, readmeTest.getMDContent(targetReadme).get("image"));
-
-                   for (int j = 0; j < imageUrls.size(); j++) {
-                       if (!imageUrls.get(j).substring(0, 8).equals("https://")
-                               && !imageUrls.get(j).substring(0, 7).equals("http://")) {
-                           imageUrls.set(j, "https://github.com/"
-                                   + responseUserInfo.getLogin() + "/"
-                                   + target.getName() + "/raw/"
-                                   + target.getDefault_branch() + "/"
-                                   + imageUrls.get(j));
-                       }
-                   }
-
-                   target.setImagesUrl(imageUrls);
-                   for (int j = 0; j < target.getImagesUrl().size(); j++)
-                       System.out.println(target.getImagesUrl().get(j));
-               }
-           }
-       }*/
-       //System.out.println(responseToken.getAccessToken());
-       //System.out.println(responseToken.getTokenType());
-       //System.out.println(responseToken.getBearer());
-       //System.out.println(responseToken.getScope());
-       //System.out.println(responseUserInfo.getAvatar_url());
-       //System.out.println(responseUserInfo.getRepos_url());
-       //System.out.println(responseUserInfo.getPublic_repos());
        return map;
    }
 

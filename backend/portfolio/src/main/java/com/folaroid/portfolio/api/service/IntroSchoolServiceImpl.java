@@ -20,7 +20,7 @@ public class IntroSchoolServiceImpl implements IntroSchoolService{
     @Transactional
     @Override
     public Long saveIntroSchool(IntroSchoolDto.introSchoolRequest introSchoolRequest) {
-        return introSchoolRepository.save(introSchoolRequest.toEntity(introRepository.findById(introSchoolRequest.getIntroNo()).get())).getIntroSchoolNo();
+        return introSchoolRepository.save(introSchoolRequest.toEntity(introRepository.findById(introSchoolRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroSchoolNo();
     }
 
     @Transactional

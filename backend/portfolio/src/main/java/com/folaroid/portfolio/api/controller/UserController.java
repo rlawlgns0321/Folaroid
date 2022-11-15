@@ -1,6 +1,5 @@
 package com.folaroid.portfolio.api.controller;
 
-import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,8 +52,6 @@ public class UserController {
         userService.put(request);
         return new ResponseEntity<>(request.getIntroNo(), HttpStatus.OK);
     }
-
-
 
     @ApiOperation(value = "마이페이지 - intro_no",
             notes="intro_no 반환",

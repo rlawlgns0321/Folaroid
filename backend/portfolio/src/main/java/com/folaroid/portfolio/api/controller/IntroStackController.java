@@ -1,6 +1,5 @@
 package com.folaroid.portfolio.api.controller;
 
-import com.folaroid.portfolio.api.dto.IntroDto;
 import com.folaroid.portfolio.api.service.IntroStackService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
