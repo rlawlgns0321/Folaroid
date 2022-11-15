@@ -47,8 +47,7 @@ export const archiving = createSlice({
             });
         },
         [deleteArchiving.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
+            return state.filter(
                 (item) => item.introArchivingNo !== action.payload
             );
         },

@@ -1,13 +1,12 @@
 package com.folaroid.portfolio.api.service;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import com.folaroid.portfolio.db.entity.IntroImage;
 import com.folaroid.portfolio.db.entity.PjtImage;
 import com.folaroid.portfolio.db.entity.Project;
@@ -88,7 +87,7 @@ public class FileService {
             }
             PjtImage pjtImage = new PjtImage();
             //파일 위치에는 이름으로 저장
-            String url = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+            String url = FileNameToUrl(fileName);
             pjtImage.saveImage(pjtNo, url);
             pjtImageRepository.save(pjtImage);
             urlList.add(url);
@@ -116,7 +115,7 @@ public class FileService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
         //파일 위치에는 이름으로 저장
-        String url = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+        String url = FileNameToUrl(fileName);
         project.updateImage(url);
 
         return url;
@@ -142,23 +141,30 @@ public class FileService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
         //파일 위치에는 이름으로 저장
-        String url = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+        String url = FileNameToUrl(fileName);
         introImage.IntroImageLocationSave(url);
 
         return url;
     }
 
     public void deleteFile(String url) {
+        String fileName = UrlToFileName(url);
+        amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+    }
 
+    private String FileNameToUrl(String fileName) {
+        return "https://" + bucket + ".s3." + region + ".amazonaws.com/" + fileName;
+    }
+
+    private String UrlToFileName(String url) {
         String fileName = url;
-
         for (int i = url.length() - 1 ; i >= 0 ; i--) {
             if (url.charAt(i) == '/') {
                 fileName = url.substring(i+1);
                 break;
             }
         }
-        amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        return fileName;
     }
 
 //    @Transactional
@@ -190,5 +196,26 @@ public class FileService {
                 new IllegalArgumentException("해당하는 프로젝트가 존재하지 않습니다."));
         deleteFile(project.getPjtOneImageLocation());
         project.updateImage("");
+    }
+    @Transactional
+    public String duplicateImage(String introImageLocation) {
+        //만약 깃허브로 시작하면
+        if (introImageLocation.contains("githubusercontent")){
+            return introImageLocation;
+        }
+
+        String fileName = UrlToFileName(introImageLocation);
+        String NewFileName = createFileName(fileName);
+        try {
+            //Copy 객체 생성
+            CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucket, fileName, bucket, NewFileName);
+            //Copy
+            amazonS3.copyObject(copyObjRequest); // this.
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        }
+        return FileNameToUrl(NewFileName);
     }
 }

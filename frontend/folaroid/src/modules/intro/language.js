@@ -53,8 +53,7 @@ export const language = createSlice({
             });
         },
         [deleteLanguage.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
+            return state.filter(
                 (item) => item.introLanguageNo !== action.payload
             );
         },

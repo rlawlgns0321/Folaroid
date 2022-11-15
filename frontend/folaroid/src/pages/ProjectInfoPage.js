@@ -10,6 +10,8 @@ import '@blueprintjs/popover2/lib/css/blueprint-popover2.css';
 import { createStore } from 'polotno/model/store';
 import HeaderContainer from '../containers/header/HeaderContainer';
 import MdPhotoLibrary from '@meronex/icons/md/MdPhotoLibrary';
+import MdDescription from '@meronex/icons/md/MdDescription';
+import MdHome from '@meronex/icons/md/MdHome';
 import {
     TextSection,
     ElementsSection,
@@ -18,6 +20,10 @@ import {
     SizeSection,
 } from 'polotno/side-panel';
 import { PhotosPanel } from '../components/projectinfo/PhotosPanel';
+import { CopyPanel } from '../components/projectinfo/CopyPanel';
+import styled from '@emotion/styled';
+import HomePanel from '../components/projectinfo/HomePanel';
+import TestPage from './TestPage';
 
 const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
 
@@ -32,8 +38,30 @@ const CustomPhotos = {
     Panel: PhotosPanel,
 };
 
+const CopyText = {
+    name: 'copy',
+    Tab: (props) => (
+        <SectionTab name="CopyText" {...props}>
+            <MdDescription />
+        </SectionTab>
+    ),
+    Panel: CopyPanel,
+};
+
+const Home = {
+    name: 'home',
+    Tab: (props) => (
+        <SectionTab name="home" {...props}>
+            <MdHome />
+        </SectionTab>
+    ),
+    Panel: HomePanel,
+};
+
 const sections = [
+    Home,
     TextSection,
+    CopyText,
     CustomPhotos,
     ElementsSection,
     UploadSection,
@@ -42,21 +70,42 @@ const sections = [
     SizeSection,
 ];
 
+const Wrap = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const ProjectInfoPage = () => {
     return (
-        <>
+        <TestPage>
             <HeaderContainer />
-            <PolotnoContainer style={{ width: '100vw', height: '93vh' }}>
-                <SidePanelWrap>
-                    <SidePanel store={store} sections={sections} />
-                </SidePanelWrap>
-                <WorkspaceWrap>
-                    <Toolbar store={store} downloadButtonEnabled />
-                    <Workspace store={store} />
-                    <ZoomButtons store={store} />
-                </WorkspaceWrap>
-            </PolotnoContainer>
-        </>
+            <div class="bp4-dark">
+                <Wrap>
+                    <PolotnoContainer
+                        style={{
+                            width: '90vw',
+                            height: '90vh',
+                            borderRadius: '10px',
+                        }}
+                        className="polotno-app-container"
+                    >
+                        <SidePanelWrap>
+                            <SidePanel
+                                store={store}
+                                sections={sections}
+                                defaultSection="text"
+                            />
+                        </SidePanelWrap>
+                        <WorkspaceWrap>
+                            <Toolbar store={store} downloadButtonEnabled />
+                            <Workspace store={store} />
+                            <ZoomButtons store={store} />
+                        </WorkspaceWrap>
+                    </PolotnoContainer>
+                </Wrap>
+            </div>
+        </TestPage>
     );
 };
 

@@ -1,16 +1,21 @@
-import MyPageHeaderContainer from '../containers/common/MyPageHeaderContainer';
+import { Grid } from '@mui/material';
+import WrapLayout from '../components/mypage/WrapLayout';
 import HeaderContainer from '../containers/header/HeaderContainer';
-import BaseIntroContainer from '../containers/personal/BaseIntroContainer';
-import PortfolioListContainer from '../containers/portfolio/PortfolioListContainer';
+import TestPage from './TestPage';
 
 const MyPage = () => {
     return (
-        <div>
+        <TestPage>
             <HeaderContainer />
-            <MyPageHeaderContainer />
-            <BaseIntroContainer />
-            <PortfolioListContainer />
-        </div>
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                sx={{ width: '100vw', height: '93vh', maxHeight: '93vh' }}
+            >
+                <WrapLayout />
+            </Grid>
+        </TestPage>
     );
 };
 

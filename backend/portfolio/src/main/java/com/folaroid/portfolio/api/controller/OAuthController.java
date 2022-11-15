@@ -9,12 +9,10 @@ import com.folaroid.portfolio.api.service.UserService;
 import com.folaroid.portfolio.api.vo.GithubRepo;
 import com.folaroid.portfolio.api.vo.GithubUser;
 import com.folaroid.portfolio.api.vo.OAuthToken;
-import com.folaroid.portfolio.db.entity.Intro;
-import com.folaroid.portfolio.db.entity.IntroImage;
-import com.folaroid.portfolio.db.entity.IntroPersonalData;
-import com.folaroid.portfolio.db.entity.User;
+import com.folaroid.portfolio.db.entity.*;
 import com.folaroid.portfolio.db.repository.IntroImageRepository;
 import com.folaroid.portfolio.db.repository.IntroPersonalDataRepository;
+import com.folaroid.portfolio.db.repository.IntroSloganRepository;
 import com.folaroid.portfolio.db.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +65,9 @@ public class OAuthController {
 
     @Autowired
     private IntroImageRepository introImageRepository;
+
+    @Autowired
+    private IntroSloganRepository introSloganRepository;
 
 
     private HttpEntity<MultiValueMap<String, String>> getCodeRequestEntity(String code) {
@@ -149,6 +150,8 @@ public class OAuthController {
             map.put("introNo", introNo);
            IntroImage introImage = new IntroImage(introNo, responseUserInfo.getAvatar_url());
            introImageRepository.save(introImage);
+           IntroSlogan introSlogan = new IntroSlogan(introNo);
+           introSloganRepository.save(introSlogan);
        }
         /*
        OAuthToken testToken = new OAuthToken();

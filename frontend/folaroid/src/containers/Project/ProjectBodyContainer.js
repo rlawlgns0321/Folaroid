@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProjectBody from '../../components/project/ProjectBody';
 import {
+    deleteProjectThunk,
     getProjectsThunk,
-    portfolioProject,
 } from '../../modules/portfolioProject';
 
 const ProjectBodyContainer = () => {
@@ -12,7 +12,7 @@ const ProjectBodyContainer = () => {
     const dispatch = useDispatch();
 
     const onDeleteProject = (id) => {
-        dispatch(portfolioProject.actions.deleteProject(id));
+        dispatch(deleteProjectThunk(id));
     };
 
     useEffect(() => {

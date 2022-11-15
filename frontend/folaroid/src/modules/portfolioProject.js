@@ -17,20 +17,31 @@ export const deleteProjectThunk = createAsyncThunk(
     }
 );
 
+export const createProjectThunk = createAsyncThunk(
+    'portfolioProject/CREATE_PROJECT',
+    async (payload) => {
+        let pjt = {
+            pfNo: payload.pfNo,
+            pjtGithubUrl: payload.repo.html_url,
+            pjtStar: payload.repo.stargazers_count,
+            pjtTitle: payload.repo.name,
+            pjtSubtitle: payload.repo.description,
+        };
+        console.log(pjt);
+        const response = await api.createProject(pjt);
+        pjt.pjtNo = response.data;
+        return pjt;
+    }
+);
+
 export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
         isloading: false,
+        project: null,
     },
-    reducers: {
-        deleteProject: (state, action) => {
-            state.projects = state.projects.filter(
-                (project) => project.id !== action.payload
-            );
-        },
-        updateProject: () => {},
-    },
+    reducers: {},
     extraReducers: {
         [getProjectsThunk.fulfilled.type]: (state, action) => {
             state.projects = action.payload;
@@ -39,6 +50,9 @@ export const portfolioProject = createSlice({
             state.projects = state.projects.filter(
                 (pjt) => pjt.pjtNo !== payload.pjtNo
             );
+        },
+        [createProjectThunk.fulfilled.type]: (state, { payload }) => {
+            state.project = payload;
         },
     },
 });

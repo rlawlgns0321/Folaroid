@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import PortfolioItem from '../../components/portfolio/PortFolioItem';
+import PortfolioItem from '../../components/mypage/PortfolioItem';
 import { deletePortFolioThunk } from '../../modules/portfolio';
 
 const PortfolioItemContainer = ({pf}) => {
@@ -12,9 +12,9 @@ const PortfolioItemContainer = ({pf}) => {
     }
 
     return (
-        <div>
+        <>
             <PortfolioItem pf={pf} onDeleteClick={onDeleteClick}/>
-        </div>
+        </>
     );
 };
 

@@ -53,8 +53,7 @@ export const career = createSlice({
             });
         },
         [deleteCareer.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
+            return state.filter(
                 (item) => item.introCareerNo !== action.payload
             );
         },

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button,
     Card,
-    CardHeader,
     CardContent,
     TextField,
     TableRow,
@@ -24,6 +23,40 @@ import {
     deleteCertification,
 } from '../../modules/intro/certification';
 import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const CardHeader = styled.div`
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(140, 140, 140, 0.35);
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const DeleteBtn = styled.button`
+    border-radius: 50%;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border: red;
+`
+
+
+const IntroCardContent = styled(CardContent)`
+    background-color: rgba(186, 183, 183, 1);
+`;
+
+const IntroBox = styled.div`
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
 
 const initialState = {
     certificationDate: '',
@@ -48,7 +81,7 @@ function Input(props) {
     };
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                 <div style={{ width: '100%', marginBottom: '10px' }}>
                     <TextField
@@ -77,8 +110,9 @@ function Input(props) {
                                 onChange={(newValue) => {
                                     setBox({
                                         ...box,
-                                        certificationDate:
-                                            dayjs(newValue).toISOString(),
+                                        certificationDate: dayjs(newValue)
+                                            .toISOString()
+                                            .substring(0, 10),
                                     });
                                 }}
                                 renderInput={(params) => (
@@ -145,7 +179,7 @@ function Input(props) {
                     </div>
                 </div>
             </form>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -177,7 +211,7 @@ function Read(props) {
     ));
 
     return (
-        <CardContent>
+        <IntroCardContent>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -197,7 +231,7 @@ function Read(props) {
                     <TableBody>{rowItems}</TableBody>
                 </Table>
             </TableContainer>
-        </CardContent>
+        </IntroCardContent>
     );
 }
 
@@ -230,47 +264,55 @@ function View() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="자격증" />
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCertification({
-                                introNo: introNo,
-                                certificationDate: box.certificationDate,
-                                certificationDetail: box.certificationDetail,
-                                certificationIssuer: box.certificationIssuer,
-                                certificationId: box.certificationId,
-                                certificationName: box.certificationName,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-            </Card>
+            <IntroBox>
+                <CardHeader>자격증</CardHeader>
+                <Card>
+                    <Input
+                        onCreate={(box) => {
+                            dispatch(
+                                createCertification({
+                                    introNo: introNo,
+                                    certificationDate: box.certificationDate,
+                                    certificationDetail:
+                                        box.certificationDetail,
+                                    certificationIssuer:
+                                        box.certificationIssuer,
+                                    certificationId: box.certificationId,
+                                    certificationName: box.certificationName,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></Input>
+                </Card>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ certification });
         content = (
-            <Card style={{ width: '80%', margin: '10px' }}>
-                <CardHeader title="자격증" />
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCertification({
-                                introNo: introNo,
-                                certificationDate: box.certificationDate,
-                                certificationDetail: box.certificationDetail,
-                                certificationIssuer: box.certificationIssuer,
-                                certificationId: box.certificationId,
-                                certificationName: box.certificationName,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-                <Read certification={certification}></Read>
-            </Card>
+            <IntroBox>
+                <CardHeader>자격증</CardHeader>
+                <Card>
+                    <Input
+                        onCreate={(box) => {
+                            dispatch(
+                                createCertification({
+                                    introNo: introNo,
+                                    certificationDate: box.certificationDate,
+                                    certificationDetail:
+                                        box.certificationDetail,
+                                    certificationIssuer:
+                                        box.certificationIssuer,
+                                    certificationId: box.certificationId,
+                                    certificationName: box.certificationName,
+                                })
+                            );
+                            setMode('READ');
+                        }}
+                    ></Input>
+                    <Read certification={certification}></Read>
+                </Card>
+            </IntroBox>
         );
     }
 

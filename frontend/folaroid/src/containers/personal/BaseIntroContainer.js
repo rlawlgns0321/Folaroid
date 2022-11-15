@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BaseIntro from '../../components/personal/BaseIntro';
+import MyInfo from '../../components/mypage/MyInfo';
 import { getPersonal } from '../../modules/intro/personal';
 
 const BaseIntroContainer = () => {
@@ -13,9 +13,9 @@ const BaseIntroContainer = () => {
     }, [dispatch, user.intro_no]);
 
     return (
-        <div>
-            <BaseIntro baseIntro={baseIntro} />
-        </div>
+        <>
+            <MyInfo baseIntro={baseIntro} />
+        </>
     );
 };
 

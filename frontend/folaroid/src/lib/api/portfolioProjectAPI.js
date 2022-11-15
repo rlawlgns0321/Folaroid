@@ -10,4 +10,8 @@ const deleteProject = (pjtNo) => {
     return api.delete(`/project/${pjtNo}`);
 };
 
-export { getProjects, deleteProject };
+const createProject = (pjt) => {
+    return api.post(`/project`, pjt);
+}
+
+export { getProjects, deleteProject, createProject };

@@ -15,5 +15,5 @@ public interface PortfolioService {
 
     Long getPortfolioIntroNo(Long pfNo);
 
-//    PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo);
+    PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo);
 }

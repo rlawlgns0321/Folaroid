@@ -58,8 +58,7 @@ export const school = createSlice({
             });
         },
         [deleteSchool.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = state.filter(
+            return state.filter(
                 (item) => item.introSchoolNo !== action.payload
             );
         },

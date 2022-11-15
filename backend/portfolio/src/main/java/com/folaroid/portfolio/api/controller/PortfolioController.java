@@ -23,17 +23,17 @@ public class PortfolioController {
     private final ProjectService projectService;
 
 
-//    @PostMapping("/duplication")
-//    @ApiOperation(value = "포트폴리오", notes = "복사")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 404, message = "없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<PortfolioDto.DuplicatePortfolioDto> duplicatePortfolio(@RequestBody PortfolioDto.DuplicatePortfolioDto request){
-//        PortfolioDto.DuplicatePortfolioDto duplicatePortfolioDto = portfolioService.duplicatePortfolio(request.getPfNo());
-//    return  ResponseEntity.status(HttpStatus.OK).body(duplicatePortfolioDto);
-//    }
+    @PostMapping("/duplication")
+    @ApiOperation(value = "포트폴리오", notes = "복사")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<PortfolioDto.DuplicatePortfolioDto> duplicatePortfolio(@RequestBody PortfolioDto.DuplicatePortfolioDto request){
+        PortfolioDto.DuplicatePortfolioDto duplicatePortfolioDto = portfolioService.duplicatePortfolio(request.getPfNo());
+    return  ResponseEntity.status(HttpStatus.OK).body(duplicatePortfolioDto);
+    }
 
     /**
      * 포트폴리오 제작

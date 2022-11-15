@@ -9,21 +9,20 @@ export const getPersonal = createAsyncThunk(
     }
 );
 
-export const createPersonal = createAsyncThunk(
-    'personal/createPersonal',
+export const updatePersonal = createAsyncThunk(
+    'personal/updatePersonal',
     async (data) => {
-        const response = await api.createPersonal(data);
-        return response.data;
+        const response = await api.updatePersonal(data);
+        console.log(response)
+        return {
+            userBirth: data.userBirth,
+            userName: data.userName,
+            userEmail: data.userEmail,
+            userPhone: data.userPhone,
+        };
     }
 );
 
-export const deletePersonal = createAsyncThunk(
-    'personal/deletePersonal',
-    async ({ intro_personal_data_no }) => {
-        const response = await api.deletePersonal(intro_personal_data_no);
-        return response.data;
-    }
-);
 
 export const findByGithub = createAsyncThunk(
     'personal/findByGithub', //  action의 type
@@ -36,37 +35,27 @@ export const findByGithub = createAsyncThunk(
 export const personal = createSlice({
     name: 'personal',
     initialState: {
-        userBirth: null,
-        userEmail: null,
-        userGithubId: null,
-        userName: null,
-        userNo: null,
-        userPhone: null,
+        userBirth: '',
+        userEmail: '',
+        userGithubId: '',
+        userName: '',
+        userNo: '',
+        userPhone: '',
     },
     extraReducers: {
-        [createPersonal.fulfilled.type]: (state, action) => {
+        [updatePersonal.fulfilled.type]: (state, action) => {
             console.log('fulfilled', action.payload);
-            state.intro_personal_data_no =
-                action.payload.intro_personal_data_no;
-            state.persona_data_birth = action.payload.persona_data_birth;
-            state.personal_data_email = action.payload.personal_data_email;
-            state.personal_data_name = action.payload.personal_data_name;
-            state.personal_data_phone = action.payload.personal_data_phone;
-        },
-        [deletePersonal.fulfilled.type]: (state, action) => {
-            console.log('action', action);
-            state = {
-                intro_personal_data_no: null,
-                persona_data_birth: '',
-                personal_data_email: '',
-                personal_data_name: '',
-                personal_data_phone: '',
-            };
+            state.userName = action.payload.userName
+            state.userBirth = action.payload.userBirth
+            state.userEmail = action.payload.userEmail
+            state.userPhone = action.payload.userPhone
+            console.log(state)
         },
         [findByGithub.fulfilled]: (state, action) => {
             return [...action.payload];
         },
         [getPersonal.fulfilled.type]: (state, action) => {
+            console.log(action)
             return action.payload;
         },
     },
