@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 public class HashTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hashNo;
+    private Long hashNo;
 
     @Column(length = 20)
     private String hashName;

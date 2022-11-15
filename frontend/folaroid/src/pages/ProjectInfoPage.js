@@ -23,6 +23,7 @@ import { PhotosPanel } from '../components/projectinfo/PhotosPanel';
 import { CopyPanel } from '../components/projectinfo/CopyPanel';
 import styled from '@emotion/styled';
 import HomePanel from '../components/projectinfo/HomePanel';
+import TestPage from './TestPage';
 
 const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
 
@@ -77,7 +78,7 @@ const Wrap = styled.div`
 
 const ProjectInfoPage = () => {
     return (
-        <>
+        <TestPage>
             <HeaderContainer />
             <div class="bp4-dark">
                 <Wrap>
@@ -104,7 +105,7 @@ const ProjectInfoPage = () => {
                     </PolotnoContainer>
                 </Wrap>
             </div>
-        </>
+        </TestPage>
     );
 };
 

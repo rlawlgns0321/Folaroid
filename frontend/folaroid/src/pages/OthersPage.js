@@ -2,11 +2,12 @@ import React from 'react';
 import Header from '../components/common/Header';
 import SearchInput from '../components/others/SearchInput';
 import PortFolioBox from '../components/others/PortfolioBox';
+import TestPage from './TestPage';
 
 
 const OthersPage = () => {
     return (
-        <div>
+        <TestPage>
             {/* <style>{'body { background-color: black; }'}</style> */}
             <Header />
             <div style={{ backgroundColor: 'black'}}>
@@ -17,7 +18,7 @@ const OthersPage = () => {
                     <PortFolioBox></PortFolioBox>
                 </div>
             </div>
-        </div>
+        </TestPage>
     );
 };
 
