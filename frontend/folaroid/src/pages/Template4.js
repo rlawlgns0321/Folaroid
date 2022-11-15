@@ -9,9 +9,9 @@ const unityContext = new UnityContext ({
   codeUrl: "Build/Releases.wasm",
 })
 
-const Template3 = () => {
+const Template4 = () => {
     return (
-        <div className="template3">
+        <div className="template4">
             <Unity style={{
                 width: '100%',
                 height: '100%',
@@ -23,4 +23,4 @@ const Template3 = () => {
     );
 }
 
-export default Template3;
+export default Template4;
