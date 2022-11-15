@@ -85,7 +85,7 @@ const IntroBox = styled.div`
 
 const initialState = {
     careerComName: '',
-    careerDate: '',
+    careerDate: null,
     careerDetail: '',
     careerJob: '',
     careerResult: '',

@@ -86,8 +86,8 @@ const initialState = {
     schoolName: '',
     schoolDegree: '',
     schoolMajor: '',
-    schoolAdmissionDate: '',
-    schoolGraduationDate: '',
+    schoolAdmissionDate: null,
+    schoolGraduationDate: null,
     schoolCredit: '',
     schoolMaxCredit: '',
 };

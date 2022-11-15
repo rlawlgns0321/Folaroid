@@ -97,7 +97,7 @@ const IntroBox = styled.div`
 const initialState = {
     languageName: '',
     languageTestName: '',
-    languageDate: '',
+    languageDate: null,
     languageGrade: '',
 };
 

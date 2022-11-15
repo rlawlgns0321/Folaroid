@@ -83,7 +83,7 @@ const IntroBox = styled.div`
 `;
 
 const initialState = {
-    certificationDate: '',
+    certificationDate: null,
     certificationDetail: '',
     certificationId: '',
     certificationIssuer: '',

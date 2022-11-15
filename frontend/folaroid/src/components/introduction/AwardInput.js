@@ -84,7 +84,7 @@ const IntroBox = styled.div`
 `;
 
 const initialState = {
-    awardsDate: '',
+    awardsDate: null,
     awardsDetail: '',
     awardsIssuer: '',
     awardsName: '',

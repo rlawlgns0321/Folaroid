@@ -86,7 +86,7 @@ const IntroBox = styled.div`
 const initialState = {
     activityName: '',
     activityUrl: '',
-    activityDate: dayjs('2000-01-01').toISOString(),
+    activityDate: null,
     activityDetail: '',
 };
 
