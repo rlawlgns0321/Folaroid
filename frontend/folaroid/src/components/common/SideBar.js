@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 const TabBtn = styled(Link)`
     font-size: 1rem;
@@ -22,7 +22,8 @@ const SideTab = styled.div`
 
 const SideBar = ({ children, isPortfolio }) => {
     const { pathname } = useLocation();
-
+    const {pfNo} = useParams();
+    
     return (
         <Grid
             container
@@ -45,24 +46,24 @@ const SideBar = ({ children, isPortfolio }) => {
                 >
                     <SideTab>
                         <TabBtn
-                            to="/portfolio/intro"
-                            $active={pathname === '/portfolio/intro'}
+                            to={`/portfolio/${pfNo}/intro`}
+                            $active={pathname === `/portfolio/${pfNo}/intro`}
                         >
                             자기소개
                         </TabBtn>
                     </SideTab>
                     <SideTab>
                         <TabBtn
-                            to="/portfolio/project"
-                            $active={pathname === '/portfolio/project'}
+                            to={`/portfolio/${pfNo}/project`}
+                            $active={pathname === `/portfolio/${pfNo}/project`}
                         >
                             프로젝트
                         </TabBtn>
                     </SideTab>
                     <SideTab>
                         <TabBtn
-                            to="/portfolio/template"
-                            $active={pathname === '/portfolio/template'}
+                            to={`/portfolio/${pfNo}/template`}
+                            $active={pathname === `/portfolio/${pfNo}/template`}
                         >
                             템플릿
                         </TabBtn>

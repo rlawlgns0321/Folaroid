@@ -68,6 +68,10 @@ const PortFolioPage = () => {
                         <Contents title="프로젝트">
                             <Routes>
                                 <Route
+                                path="intro"
+                                element={<PortfolioIntro />}
+                                />
+                                <Route
                                     path="project"
                                     element={<ProjectBodyContainer />}
                                 />

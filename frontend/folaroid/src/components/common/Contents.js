@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Title = styled(Grid)`
     height: 8%;
@@ -25,12 +25,13 @@ const Wrap = styled(Grid)`
 const Contents = ({ children }) => {
     const { pathname } = useLocation();
     const [title, setTitle] = useState('');
+    const {pfNo} = useParams();
 
     useEffect(() => {
-        if (pathname === '/portfolio/intro') setTitle('자기소개');
-        else if (pathname === '/portfolio/project') setTitle('프로젝트');
-        else if (pathname === '/portfolio/template') setTitle('템플릿');
-    }, [pathname]);
+        if (pathname === `/portfolio/${pfNo}/intro`) setTitle('자기소개');
+        else if (pathname === `/portfolio/${pfNo}/project`) setTitle('프로젝트');
+        else if (pathname === `/portfolio/${pfNo}/template`) setTitle('템플릿');
+    }, [pathname, pfNo]);
 
     return (
         <Wrap container direction="column">

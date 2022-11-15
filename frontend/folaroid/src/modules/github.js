@@ -19,6 +19,7 @@ export const github = createSlice({
     initialState: {
         repos: null,
         repo: null,
+        isRepo: false,
     },
     reducers: {
         changeSelect: (state, { payload }) => {
@@ -28,6 +29,13 @@ export const github = createSlice({
             });
             state.repos[payload].checked = true;
         },
+        clearRepos: (state) => {
+            state.repos = null;
+        },
+        clearRepo: (state) => {
+            state.isRepo = false;
+            state.repo = null;
+        },
     },
     extraReducers: {
         [getReposThunk.fulfilled.type]: (state, { payload }) => {
@@ -36,8 +44,12 @@ export const github = createSlice({
                 return repo;
             });
         },
+        [getRepoThunk.pending.type]: (state) => {
+            state.isRepo = false;
+        },
         [getRepoThunk.fulfilled.type]: (state, { payload }) => {
             state.repo = payload;
+            state.isRepo = true;
         },
     },
 });

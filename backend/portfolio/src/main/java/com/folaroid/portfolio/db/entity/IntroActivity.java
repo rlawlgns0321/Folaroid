@@ -1,11 +1,7 @@
 package com.folaroid.portfolio.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,10 +14,10 @@ public class IntroActivity {
     @Column(name = "intro_activity_no")
     private Long introActivityNo;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 
     @Column(name = "activity_name", length = 50)
     private String activityName;
@@ -35,8 +31,8 @@ public class IntroActivity {
     @Column(name = "activity_detail", columnDefinition = "TEXT")
     private String activityDetail;
 
-    public IntroActivity(Intro intro) {
-        this.intro = intro;
+    public IntroActivity(Long introNo) {
+        this.introNo = introNo;
     }
 
     public void saveOtherData(String activityName, String activityDate, String activityUrl, String activityDetail) {

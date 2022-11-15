@@ -11,6 +11,7 @@ import {
     TableHead,
     TableRow,
     Paper,
+    InputLabel,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -23,6 +24,26 @@ import {
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -43,11 +64,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
-
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -61,8 +86,8 @@ const initialState = {
     schoolName: '',
     schoolDegree: '',
     schoolMajor: '',
-    schoolAdmissionDate: '',
-    schoolGraduationDate: '',
+    schoolAdmissionDate: null,
+    schoolGraduationDate: null,
     schoolCredit: '',
     schoolMaxCredit: '',
 };
@@ -94,8 +119,8 @@ function SchoolInput(props) {
                     }}
                 >
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="학교명"
+                        <IntroInputLabel>학교명</IntroInputLabel>
+                        <IntroTextField
                             type="text"
                             placeholder="학교명"
                             InputLabelProps={{
@@ -109,8 +134,8 @@ function SchoolInput(props) {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
-                                label="학위"
+                            <IntroInputLabel>학위</IntroInputLabel>
+                            <IntroTextField
                                 placeholder="학위"
                                 size="medium"
                                 InputLabelProps={{
@@ -123,8 +148,8 @@ function SchoolInput(props) {
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
-                                label="전공"
+                            <IntroInputLabel>전공</IntroInputLabel>
+                            <IntroTextField
                                 placeholder="전공"
                                 size="medium"
                                 InputLabelProps={{
@@ -139,8 +164,8 @@ function SchoolInput(props) {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
-                                label="학점"
+                            <IntroInputLabel>학점</IntroInputLabel>
+                            <IntroTextField
                                 type="number"
                                 InputProps={{
                                     inputProps: { min: 0, max: 10, step: 0.1 },
@@ -156,8 +181,8 @@ function SchoolInput(props) {
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <TextField
-                                label="최대학점"
+                            <IntroInputLabel>최대학점</IntroInputLabel>
+                            <IntroTextField
                                 type="number"
                                 InputProps={{
                                     inputProps: { min: 0, max: 10, step: 0.1 },
@@ -176,9 +201,9 @@ function SchoolInput(props) {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div style={{ width: '100%', margin: '20px' }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <IntroInputLabel>입학시기</IntroInputLabel>
                                 <DatePicker
                                     views={['year', 'month']}
-                                    label="입학시기"
                                     inputFormat="YYYY년 MM월"
                                     value={school.schoolAdmissionDate}
                                     name="schoolAdmissionDate"
@@ -191,7 +216,7 @@ function SchoolInput(props) {
                                         });
                                     }}
                                     renderInput={(params) => (
-                                        <TextField {...params} />
+                                        <IntroTextField {...params} />
                                     )}
                                 />
                             </LocalizationProvider>
@@ -201,9 +226,9 @@ function SchoolInput(props) {
                                 dateAdapter={AdapterDayjs}
                                 sx={{ width: '40%' }}
                             >
+                                <IntroInputLabel>졸업시기</IntroInputLabel>
                                 <DatePicker
                                     views={['year', 'month']}
-                                    label="졸업일"
                                     inputFormat="YYYY년 MM월"
                                     value={school.schoolGraduationDate}
                                     name="schoolGraduationDate"
@@ -218,7 +243,7 @@ function SchoolInput(props) {
                                         });
                                     }}
                                     renderInput={(params) => (
-                                        <TextField {...params} />
+                                        <IntroTextField {...params} />
                                     )}
                                 />
                             </LocalizationProvider>
@@ -323,27 +348,25 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>학력</CardHeader>
-                <Card>
-                    <SchoolInput
-                        onCreate={(_school) => {
-                            dispatch(
-                                createSchool({
-                                    introNo: intro_no,
-                                    schoolName: _school.schoolName,
-                                    schoolDegree: _school.schoolDegree,
-                                    schoolMajor: _school.schoolMajor,
-                                    schoolAdmissionDate:
-                                        _school.schoolAdmissionDate,
-                                    schoolGraduationDate:
-                                        _school.schoolGraduationDate,
-                                    schoolCredit: _school.schoolCredit,
-                                    schoolMaxCredit: _school.schoolMaxCredit,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></SchoolInput>
-                </Card>
+                <SchoolInput
+                    onCreate={(_school) => {
+                        dispatch(
+                            createSchool({
+                                introNo: intro_no,
+                                schoolName: _school.schoolName,
+                                schoolDegree: _school.schoolDegree,
+                                schoolMajor: _school.schoolMajor,
+                                schoolAdmissionDate:
+                                    _school.schoolAdmissionDate,
+                                schoolGraduationDate:
+                                    _school.schoolGraduationDate,
+                                schoolCredit: _school.schoolCredit,
+                                schoolMaxCredit: _school.schoolMaxCredit,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></SchoolInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -351,28 +374,26 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>학력</CardHeader>
-                <Card>
-                    <SchoolInput
-                        onCreate={(_school) => {
-                            dispatch(
-                                createSchool({
-                                    introNo: intro_no,
-                                    schoolName: _school.schoolName,
-                                    schoolDegree: _school.schoolDegree,
-                                    schoolMajor: _school.schoolMajor,
-                                    schoolAdmissionDate:
-                                        _school.schoolAdmissionDate,
-                                    schoolGraduationDate:
-                                        _school.schoolGraduationDate,
-                                    schoolCredit: _school.schoolCredit,
-                                    schoolMaxCredit: _school.schoolMaxCredit,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></SchoolInput>
-                    <ReadSchool school={school}></ReadSchool>
-                </Card>
+                <SchoolInput
+                    onCreate={(_school) => {
+                        dispatch(
+                            createSchool({
+                                introNo: intro_no,
+                                schoolName: _school.schoolName,
+                                schoolDegree: _school.schoolDegree,
+                                schoolMajor: _school.schoolMajor,
+                                schoolAdmissionDate:
+                                    _school.schoolAdmissionDate,
+                                schoolGraduationDate:
+                                    _school.schoolGraduationDate,
+                                schoolCredit: _school.schoolCredit,
+                                schoolMaxCredit: _school.schoolMaxCredit,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></SchoolInput>
+                <ReadSchool school={school}></ReadSchool>
             </IntroBox>
         );
     }

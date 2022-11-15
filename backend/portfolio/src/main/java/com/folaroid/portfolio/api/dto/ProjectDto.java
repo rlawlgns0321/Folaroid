@@ -21,6 +21,8 @@ public class ProjectDto {
         private String pjtOneImageLocation;
         private String pjtJson;
 
+        private String pjtId;
+
         public Project toEntity(Portfolio portfolio){
             Project project = Project.builder()
                     .pjtNo(pjtNo)
@@ -32,11 +34,12 @@ public class ProjectDto {
                     .pjtStar(pjtStar)
                     .pjtOneImageLocation(pjtOneImageLocation)
                     .pjtJson(pjtJson)
+                    .pjtId(pjtId)
                     .build();
             return project;
         }
         @Builder
-        public projectRequest(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtOneImageLocation, String pjtJson){
+        public projectRequest(String pjtTitle, String pjtSubtitle, String pjtUrl, String pjtGithubUrl, Integer pjtStar, String pjtOneImageLocation, String pjtJson, String pjtId){
             this.pjtTitle = pjtTitle;
             this.pjtSubtitle = pjtSubtitle;
             this.pjtUrl = pjtUrl;
@@ -44,6 +47,7 @@ public class ProjectDto {
             this.pjtStar = pjtStar;
             this.pjtOneImageLocation = pjtOneImageLocation;
             this.pjtJson = pjtJson;
+            this.pjtId = pjtId;
         }
 
     }
@@ -59,6 +63,8 @@ public class ProjectDto {
         private String pjtOneImageLocation;
         private String pjtJson;
 
+        private String pjtId;
+
 
         public projectResponse(Project project){
             this.pjtNo = project.getPjtNo();
@@ -70,6 +76,7 @@ public class ProjectDto {
             this.pjtStar = project.getPjtStar();
             this.pjtOneImageLocation = project.getPjtOneImageLocation();
             this.pjtJson = project.getPjtJson();
+            this.pjtId = project.getPjtId();
         }
     }
 

@@ -15,10 +15,6 @@ public class PjtImage {
     @Column(name = "pjt_image_no")
     private Long pjtImageNo;
 
-
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "pjf_no")
     private Long pjtNo;
 
     @Column(name = "pjt_image_location", length = 2083)

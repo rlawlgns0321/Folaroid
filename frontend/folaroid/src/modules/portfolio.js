@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { flattenJSON } from 'three/src/animation/AnimationUtils';
 import {
     createPortfolio,
     deletePortfolio,
@@ -34,18 +35,23 @@ export const portfolio = createSlice({
     initialState: {
         simple: [],
         pf: null,
+        isLoading: false,
     },
     reducers: {
         clearPf: (state, action) => {
-            state.pf = null;
+            state.isLoading = false;
         },
     },
     extraReducers: {
         [getSimplePortfolioListThunk.fulfilled.type]: (state, action) => {
             state.simple = action.payload;
         },
+        [createPortfolioThunk.pending.type] : (state) => {
+            state.isLoading = false;
+        },
         [createPortfolioThunk.fulfilled.type]: (state, action) => {
             state.pf = action.payload;
+            state.isLoading = true;
         },
         [deletePortFolioThunk.fulfilled.type]: (state, {payload}) => {
             state.simple = state.simple.filter((pf) => pf.pfNo !== payload.pfNo);

@@ -18,12 +18,12 @@ export const PhotosPanel = observer(({ store }) => {
             temp.push({ url: repo.imagesUrl[i] });
         }
         setImages(temp);
-        
     }
 
     React.useEffect(() => {
-        loadImages();
-    }, []);
+        if(repo)
+            loadImages();
+    }, [repo]);
 
     return (
         <div
@@ -38,7 +38,7 @@ export const PhotosPanel = observer(({ store }) => {
                 style={{
                     marginBottom: '20px',
                 }}
-            /> 
+            />
             {/* you can create yur own custom component here */}
             {/* but we will use built-in grid component */}
             <ImagesGrid

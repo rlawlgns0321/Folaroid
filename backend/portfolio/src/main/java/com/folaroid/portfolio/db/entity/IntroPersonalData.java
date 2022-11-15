@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import static javax.persistence.FetchType.LAZY;
-
 @Entity
 @Getter
 @Builder
@@ -29,7 +27,6 @@ public class IntroPersonalData {
     @Column(length = 15)
     private String personalDataPhone;
 
-//    @OneToOne(mappedBy = "introPersonalData", fetch = LAZY)
     private Long introNo;
 
     public void updateIntroPersonalData(String userName, java.sql.Date userBirth, String userPhone) {

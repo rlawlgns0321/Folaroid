@@ -11,6 +11,7 @@ import {
     TableHead,
     TableRow,
     Paper,
+    InputLabel,
 } from '@mui/material';
 import {
     getArchiving,
@@ -20,6 +21,26 @@ import {
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -40,10 +61,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -84,8 +110,8 @@ function ArchivingInput(props) {
                     }}
                 >
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="링크명"
+                        <IntroInputLabel>링크명</IntroInputLabel>
+                        <IntroTextField
                             placeholder="블로그"
                             size="medium"
                             InputLabelProps={{
@@ -98,8 +124,8 @@ function ArchivingInput(props) {
                         />
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="링크 주소"
+                        <IntroInputLabel>링크주소</IntroInputLabel>
+                        <IntroTextField
                             placeholder="https://"
                             size="medium"
                             InputLabelProps={{
@@ -191,20 +217,18 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>링크</CardHeader>
-                <Card>
-                    <ArchivingInput
-                        onCreate={(_archiving) => {
-                            dispatch(
-                                createArchiving({
-                                    introNo: intro_no,
-                                    archivingName: _archiving.archivingName,
-                                    archivingLink: _archiving.archivingLink,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></ArchivingInput>
-                </Card>
+                <ArchivingInput
+                    onCreate={(_archiving) => {
+                        dispatch(
+                            createArchiving({
+                                introNo: intro_no,
+                                archivingName: _archiving.archivingName,
+                                archivingLink: _archiving.archivingLink,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></ArchivingInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -212,21 +236,19 @@ function ViewName() {
         content = (
             <IntroBox>
                 <CardHeader>링크</CardHeader>
-                <Card>
-                    <ArchivingInput
-                        onCreate={(_archiving) => {
-                            dispatch(
-                                createArchiving({
-                                    introNo: intro_no,
-                                    archivingName: _archiving.archivingName,
-                                    archivingLink: _archiving.archivingLink,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></ArchivingInput>
-                    <ReadSchool archiving={archiving}></ReadSchool>
-                </Card>
+                <ArchivingInput
+                    onCreate={(_archiving) => {
+                        dispatch(
+                            createArchiving({
+                                introNo: intro_no,
+                                archivingName: _archiving.archivingName,
+                                archivingLink: _archiving.archivingLink,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></ArchivingInput>
+                <ReadSchool archiving={archiving}></ReadSchool>
             </IntroBox>
         );
     }

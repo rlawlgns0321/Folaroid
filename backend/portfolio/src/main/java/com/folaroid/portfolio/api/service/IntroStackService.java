@@ -1,8 +1,6 @@
 package com.folaroid.portfolio.api.service;
 
 
-import com.folaroid.portfolio.api.dto.IntroDto;
-import com.folaroid.portfolio.db.entity.HashTag;
 import com.folaroid.portfolio.db.entity.IntroStack;
 import com.folaroid.portfolio.db.repository.HashTagRepository;
 import com.folaroid.portfolio.db.repository.IntroStackRepository;
@@ -30,7 +28,7 @@ public class IntroStackService {
     public List<StackNameDto> find(Long introNo) {
         List<IntroStack> introStacks = introStackRepository.findAllByIntroNo(introNo);
         List<StackNameDto> result = introStacks.stream()
-                .map(i -> new StackNameDto(i, hashTagRepository.findById(i.getHashNo()).get()))
+                .map(i -> new StackNameDto(i, hashTagRepository.findById(i.getHashNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 hashNo 입니다."))))
                 .collect(Collectors.toList());
         return result;
     }

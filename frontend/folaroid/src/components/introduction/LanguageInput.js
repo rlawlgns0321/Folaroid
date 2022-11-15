@@ -27,6 +27,36 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 
+const IntroTextField = styled(TextField)`
+    .MuiOutlinedInput-root {
+        color: white;
+        fieldset {
+            border-color: white;
+        }
+        &:hover fieldset {
+            border-color: white;
+        }
+        .Mui-focused fieldset {
+            border-color: white;
+        }
+    }
+`;
+
+const IntroSelect = styled(Select)`
+    color: white;
+    &:before {
+        border-color: white;
+    }
+    &:after {
+        border-color: white;
+    }
+`;
+
+const IntroInputLabel = styled(InputLabel)`
+    color: white;
+    margin-bottom: 5px;
+`;
+
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
     background-color: rgba(140, 140, 140, 0.35);
@@ -46,11 +76,15 @@ const DeleteBtn = styled.button`
     width: 18px;
     height: 18px;
     border: red;
-`
-
+`;
 
 const IntroCardContent = styled(CardContent)`
-    background-color: rgba(186, 183, 183, 1);
+    border-radius: 10px;
+    background-color: rgba(44, 43, 43, 1);
+    color: white;
+    font-size: 1.1rem;
+    padding: 20px 50px 20px 50px;
+    border-radius: 0 0 10px 10px;
 `;
 
 const IntroBox = styled.div`
@@ -63,7 +97,7 @@ const IntroBox = styled.div`
 const initialState = {
     languageName: '',
     languageTestName: '',
-    languageDate: '',
+    languageDate: null,
     languageGrade: '',
 };
 
@@ -92,13 +126,9 @@ function LanguageInput(props) {
                     }}
                 >
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <InputLabel id="demo-simple-select-label">
-                            외국어
-                        </InputLabel>
-                        <Select
+                        <IntroInputLabel>외국어</IntroInputLabel>
+                        <IntroSelect
                             style={{ width: '90%' }}
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
                             name="languageName"
                             value={language.languageName}
                             label="Age"
@@ -108,11 +138,11 @@ function LanguageInput(props) {
                             <MenuItem value={'일본어'}>일본어</MenuItem>
                             <MenuItem value={'중국어'}>중국어</MenuItem>
                             <MenuItem value={'기타'}>기타</MenuItem>
-                        </Select>
+                        </IntroSelect>
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="시험명"
+                        <IntroInputLabel>시험명</IntroInputLabel>
+                        <IntroTextField
                             placeholder="Opic"
                             size="medium"
                             InputLabelProps={{
@@ -126,8 +156,10 @@ function LanguageInput(props) {
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <IntroInputLabel>취득일자</IntroInputLabel>
+
                             <DatePicker
-                                label="취득년월"
+                                views={['year', 'month']}
                                 inputFormat="YYYY년 MM월"
                                 value={language.languageDate}
                                 onChange={(newValue) => {
@@ -139,7 +171,7 @@ function LanguageInput(props) {
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} />
+                                    <IntroTextField {...params} />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,
@@ -148,8 +180,8 @@ function LanguageInput(props) {
                         </LocalizationProvider>
                     </div>
                     <div style={{ width: '100%', margin: '20px' }}>
-                        <TextField
-                            label="점수/등급"
+                        <IntroInputLabel>점수/등급</IntroInputLabel>
+                        <IntroTextField
                             placeholder="IH"
                             size="medium"
                             InputLabelProps={{
@@ -203,7 +235,7 @@ function ReadLanguage(props) {
                         <TableRow>
                             <TableCell align="center">외국어</TableCell>
                             <TableCell align="center">시험명</TableCell>
-                            <TableCell align="center">취득년월</TableCell>
+                            <TableCell align="center">취득일자</TableCell>
                             <TableCell align="center">점수/등급</TableCell>
                             <TableCell align="center"></TableCell>
                         </TableRow>
@@ -246,24 +278,21 @@ function ViewLanguage() {
         content = (
             <IntroBox>
                 <CardHeader>공인어학성적</CardHeader>
-                <Card>
-                    <LanguageInput
-                        onCreate={(_language) => {
-                            console.log('_language', _language);
-                            dispatch(
-                                createLanguage({
-                                    introNo: intro_no,
-                                    languageName: _language.languageName,
-                                    languageTestName:
-                                        _language.languageTestName,
-                                    languageDate: _language.languageDate,
-                                    languageGrade: _language.languageGrade,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></LanguageInput>
-                </Card>
+                <LanguageInput
+                    onCreate={(_language) => {
+                        console.log('_language', _language);
+                        dispatch(
+                            createLanguage({
+                                introNo: intro_no,
+                                languageName: _language.languageName,
+                                languageTestName: _language.languageTestName,
+                                languageDate: _language.languageDate,
+                                languageGrade: _language.languageGrade,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></LanguageInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
@@ -271,25 +300,22 @@ function ViewLanguage() {
         content = (
             <IntroBox>
                 <CardHeader>공인어학성적</CardHeader>
-                <Card>
-                    <LanguageInput
-                        onCreate={(_language) => {
-                            console.log('_language', _language);
-                            dispatch(
-                                createLanguage({
-                                    introNo: intro_no,
-                                    languageName: _language.languageName,
-                                    languageTestName:
-                                        _language.languageTestName,
-                                    languageDate: _language.languageDate,
-                                    languageGrade: _language.languageGrade,
-                                })
-                            );
-                            setMode('READ');
-                        }}
-                    ></LanguageInput>
-                    <ReadLanguage language={language}></ReadLanguage>
-                </Card>
+                <LanguageInput
+                    onCreate={(_language) => {
+                        console.log('_language', _language);
+                        dispatch(
+                            createLanguage({
+                                introNo: intro_no,
+                                languageName: _language.languageName,
+                                languageTestName: _language.languageTestName,
+                                languageDate: _language.languageDate,
+                                languageGrade: _language.languageGrade,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></LanguageInput>
+                <ReadLanguage language={language}></ReadLanguage>
             </IntroBox>
         );
     }

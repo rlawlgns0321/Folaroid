@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -99,7 +101,7 @@ public class FileService {
     @Transactional
     public String uploadProjectOneImage(Long pjtNo, MultipartFile multipartFile) throws IOException {
         //지우고
-        Project project = projectRepository.findById(pjtNo).get();
+        Project project = projectRepository.findById(pjtNo).orElseThrow(() -> new IllegalAccessError("없는 프로젝트 입니다."));;
         deleteFile(project.getPjtOneImageLocation());
 
         //생성

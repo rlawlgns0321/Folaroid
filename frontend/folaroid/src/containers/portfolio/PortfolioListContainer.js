@@ -5,22 +5,33 @@ import PortfolioList from '../../components/mypage/PortfolioList';
 import {
     createPortfolioThunk,
     getSimplePortfolioListThunk,
+    portfolio,
 } from '../../modules/portfolio';
 
 const PortfolioListContainer = () => {
     const dispatch = useDispatch();
     const portfolioList = useSelector((state) => state.portfolio.simple);
     const user = useSelector((state) => state.auth.user);
+    const { isLoading, pf } = useSelector((state) => state.portfolio);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getSimplePortfolioListThunk(user.userNo));
     }, [dispatch, user.userNo]);
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isLoading) {
+            navigate(`/portfolio/${pf.pfNo}/intro`);
+        }
+        return () => {
+            dispatch(portfolio.actions.clearPf());
+        };
+    }, [isLoading, navigate, dispatch, pf]);
 
     const onCreateClick = () => {
         dispatch(createPortfolioThunk(user.userNo));
-        navigate('/portfolio/intro');
     };
+
     return (
         <>
             <PortfolioList

@@ -20,7 +20,7 @@ public class IntroAwardsServiceImpl implements IntroAwardsService{
     @Transactional
     @Override
     public Long saveIntroAwards(IntroAwardsDto.introAwardsRequest introAwardsRequest) {
-        return introAwardsRepository.save(introAwardsRequest.toEntity(introRepository.findById(introAwardsRequest.getIntroNo()).get())).getIntroAwardsNo();
+        return introAwardsRepository.save(introAwardsRequest.toEntity(introRepository.findById(introAwardsRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroAwardsNo();
     }
 
     @Transactional
@@ -34,6 +34,6 @@ public class IntroAwardsServiceImpl implements IntroAwardsService{
     @Transactional
     @Override
     public List<IntroAwards> findIntroAwards(Long introNo) {
-        return introAwardsRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introAwardsRepository.findAllByIntroNo(introNo);
     }
 }

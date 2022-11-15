@@ -1,7 +1,6 @@
 import React from 'react';
 // import '../introduction/base_introduction.css';
 import { Grid } from '@mui/material';
-import { css } from '@emotion/css';
 import PersonalInput from '../introduction/PersonalInput';
 import ActivityInput from '../introduction/ActivityInput';
 import StackInput from '../introduction/StackInput';

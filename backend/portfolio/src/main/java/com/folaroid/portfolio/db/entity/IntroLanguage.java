@@ -1,17 +1,12 @@
 package com.folaroid.portfolio.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
-import java.sql.Date;
-
-import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -36,9 +31,6 @@ public class IntroLanguage {
     @Column
     private java.sql.Date languageDate;
 
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "intro_no")
     private Long introNo;
 
     public IntroLanguage(Long introNo) {

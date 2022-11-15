@@ -1,41 +1,48 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProjectListDialog from '../../../components/project/dialog/ProjectListDialog';
-import { getReposThunk, getRepoThunk } from '../../../modules/github';
+import { getReposThunk, getRepoThunk, github } from '../../../modules/github';
 import { createProjectThunk } from '../../../modules/portfolioProject';
-
-const useRepoPrev = (repo) => {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = repo;
-    });
-    return ref.current;
-};
 
 const ProjectlistDialogConatiner = ({ open, handleClose }) => {
     const dispatch = useDispatch();
     const repos = useSelector((state) => state.github.repos);
-    const repo = useSelector((state) => state.github.repo);
-    const pf = useSelector((state) => state.portfolio.pf);
+    const { isRepo, repo } = useSelector((state) => state.github);
+    const { isProject, project } = useSelector(
+        (state) => state.portfolioProject
+    );
+    const { pfNo } = useParams();
     const navigate = useNavigate();
-    const repoPrev = useRepoPrev(repo);
 
     useEffect(() => {
         if (open) dispatch(getReposThunk());
+        else {
+            dispatch(github.actions.clearRepos());
+            dispatch(github.actions.clearRepo());
+        }
+        return () => {
+            dispatch(github.actions.clearRepos());
+            dispatch(github.actions.clearRepo());
+        };
     }, [dispatch, open]);
 
     useEffect(() => {
-        if (open && repo !== repoPrev) {
+        if (open && isRepo) {
             dispatch(
                 createProjectThunk({
-                    pfNo: pf.pfNo,
+                    pfNo,
                     repo,
                 })
             );
-            navigate('/projectinfo');
         }
-    }, [repo, pf, open, dispatch, navigate, repoPrev]);
+    }, [repo, pfNo, open, dispatch, isRepo]);
+
+    useEffect(() => {
+        if (open && isProject && isRepo) {
+            navigate(`/portfolio/${pfNo}/project/${project.pjtNo}?pjtId=${project.pjtId}`);
+        }
+    }, [isProject, navigate, pfNo, project, isRepo, open]);
 
     const handleSubmit = () => {
         let pjtId = null;

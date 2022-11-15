@@ -2,12 +2,11 @@ import React from 'react';
 import { Grid } from '@mui/material';
 import { css } from '@emotion/css';
 // import { Route, Routes } from 'react-router-dom';
-import Header from '../components/common/Header';
 import SideBar from '../components/common/SideBar';
 import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
-import PersonalInput from '../components/introduction/PersonalInput'
-import ActivityInput from '../components/introduction/ActivityInput'
+import PersonalInput from '../components/introduction/PersonalInput';
+import ActivityInput from '../components/introduction/ActivityInput';
 import StackInput from '../components/introduction/StackInput';
 import ImageInput from '../components/introduction/ImageInput';
 import SchoolInput from '../components/introduction/SchoolInput';
@@ -16,9 +15,10 @@ import LanguageInput from '../components/introduction/LanguageInput';
 import ArchivingInput from '../components/introduction/ArchivingInput';
 import CertificateInput from '../components/introduction/CertificateInput';
 import AwardInput from '../components/introduction/AwardInput';
-import CareerInput from '../components/introduction/CareerInput'
+import CareerInput from '../components/introduction/CareerInput';
 import styled from '@emotion/styled';
 import TestPage from './TestPage';
+import HeaderContainer from '../containers/header/HeaderContainer';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -52,10 +52,9 @@ const RightBarWrap = styled.div`
 `;
 
 function BaseIntro() {
-
     return (
         <TestPage>
-            <Header />
+            <HeaderContainer />
             <BodyWrap>
                 <ContentsWrap>
                     <LeftBarWrap>
