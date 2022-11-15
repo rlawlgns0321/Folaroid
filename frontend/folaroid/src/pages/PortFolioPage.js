@@ -62,7 +62,7 @@ const PortFolioPage = () => {
                                 />
                                 <Route path="intro" element={<IntroSide />} />
                             </Routes>
-                        </SideBar>
+                        </SideBar> 
                     </LeftBarWrap>
                     <RightBarWrap>
                         <Contents title="프로젝트">

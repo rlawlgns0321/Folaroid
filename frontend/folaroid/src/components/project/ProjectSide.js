@@ -7,7 +7,7 @@ const ProjectSide = ({ projects, onDeleteProject }) => {
             {projects &&
                 projects.map((project) => (
                     <ProjectSideItem
-                        key={project.id}
+                        key={project.pjtNo}
                         project={project}
                         onDeleteProject={onDeleteProject}
                     />

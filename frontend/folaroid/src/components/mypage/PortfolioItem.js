@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CreateIcon from '@mui/icons-material/Create';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useNavigate } from 'react-router-dom';
 
 const Wrap = styled.div`
     width: 80%;
@@ -36,6 +37,8 @@ const Title = styled.div`
 `;
 
 const PortfolioItem = ({ pf, onDeleteClick }) => {
+    const navigate = useNavigate();
+
     return (
         <Wrap>
             <Info>
@@ -46,7 +49,12 @@ const PortfolioItem = ({ pf, onDeleteClick }) => {
                 <IconButton edge="end" size="large" sx={{ color: 'white' }}>
                     <VisibilityIcon fontSize="inherit" />
                 </IconButton>
-                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                <IconButton
+                    onClick={() => navigate(`/portfolio/${pf.pfNo}/intro`)}
+                    edge="end"
+                    size="large"
+                    sx={{ color: 'white' }}
+                >
                     <CreateIcon fontSize="inherit" />
                 </IconButton>
                 <IconButton edge="end" size="large" sx={{ color: 'white' }}>

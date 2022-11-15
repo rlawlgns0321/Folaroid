@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from 'polotno';
 import { SectionTab, SidePanel } from 'polotno/side-panel';
 import MdPhotoLibrary from '@meronex/icons/md/MdPhotoLibrary';
@@ -20,6 +20,13 @@ import { Workspace } from 'polotno/canvas/workspace';
 import { DownloadButton } from 'polotno/toolbar/download-button';
 import { Button } from '@blueprintjs/core';
 import styled from '@emotion/styled';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    portfolioProject,
+    saveImagesThunk,
+    saveProjectThunk,
+} from '../../modules/portfolioProject';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Wrap = styled.div`
     display: flex;
@@ -70,24 +77,40 @@ const sections = [
 ];
 
 const ActionControls = ({ store }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { pfNo, pjtNo } = useParams();
+    const { isSave, project } = useSelector((state) => state.portfolioProject);
+
+    const handleClick = async (e) => {
+        let images = [];
+        
+        for(let i=0 ;i< store.pages.length; i++)
+            images.push(await store.toDataURL({ pageId: store.pages[i].id }));
+
+        const storeJson = await store.toJSON();
+
+        dispatch(portfolioProject.actions.setProjectJson(storeJson));
+        dispatch(saveImagesThunk({pjtNo, images}));
+    };
+
+    useEffect(() => {
+        if (isSave) {
+            dispatch(saveProjectThunk(project));
+            navigate(`/portfolio/${pfNo}/project`);
+        }
+    }, [isSave, dispatch, project, navigate, pfNo]);
+
     return (
         <div>
             <DownloadButton store={store} />
-            <Button
-                minimal
-                onClick={async () => {
-                    console.log(store.toJSON());
-                    console.log(
-                        await store.toDataURL({ mimeType: 'image/jpg' })
-                    );
-                }}
-            >
+            <Button minimal onClick={handleClick}>
                 Save&Exit
             </Button>
         </div>
     );
 };
-const ProjectInfo = ({store}) => {
+const ProjectInfo = ({ store }) => {
     return (
         <Wrap>
             <PolotnoContainer

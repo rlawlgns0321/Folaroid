@@ -96,27 +96,33 @@ const HomePanel = observer(({ store }) => {
         <Wrap>
             <ImageWrap>
                 <Title>대표사진</Title>
-                <PjtImage
-                    src={project.pjtOneImageLocation}
-                    onClick={handleClickOpen}
-                />
+                {project && (
+                    <PjtImage
+                        src={project.pjtOneImageLocation}
+                        onClick={handleClickOpen}
+                    />
+                )}
             </ImageWrap>
             <TitleWrap>
                 <Title>프로젝트명</Title>
-                <TitleInput
-                    type="text"
-                    name="pjtTitle"
-                    value={project.pjtTitle}
-                    onChange={onChange}
-                />
+                {project && (
+                    <TitleInput
+                        type="text"
+                        name="pjtTitle"
+                        value={project.pjtTitle}
+                        onChange={onChange}
+                    />
+                )}
             </TitleWrap>
             <DescriptionWrap>
                 <Title>프로젝트 설명</Title>
-                <DescriptionArea
-                    name="pjtSubtitle"
-                    value={project.pjtSubtitle}
-                    onChange={onChange}
-                />
+                {project && (
+                    <DescriptionArea
+                        name="pjtSubtitle"
+                        value={project.pjtSubtitle}
+                        onChange={onChange}
+                    />
+                )}
             </DescriptionWrap>
             <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
                 <DialogTitle>대표 이미지 선택</DialogTitle>
@@ -127,6 +133,7 @@ const HomePanel = observer(({ store }) => {
                     gap={8}
                 >
                     {repo &&
+                        repo.imagesUrl &&
                         repo.imagesUrl.map((item, key) => (
                             <ImageListItem key={key}>
                                 <img
