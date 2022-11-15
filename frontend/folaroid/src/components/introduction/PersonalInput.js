@@ -16,6 +16,7 @@ import { updatePersonal, getPersonal } from '../../modules/intro/personal';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import 'dayjs/locale/ko'
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -72,6 +73,7 @@ function Update(props) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        console.log(event.target);
         setPersonal({ ...personal, [name]: value });
     };
     const handleSubmit = (event) => {
@@ -101,10 +103,7 @@ function Update(props) {
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <LocalizationProvider
-                                dateAdapter={AdapterDayjs}
-                                sx={{ width: '40%' }}
-                            >
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <IntroInputLabel shrink>
                                     생년월일
                                 </IntroInputLabel>
@@ -115,7 +114,7 @@ function Update(props) {
                                     onChange={(newValue) => {
                                         setPersonal({
                                             ...personal,
-                                            userBirth: dayjs(newValue)
+                                            userBirth: dayjs(newValue).add(1, 'day')
                                                 .toISOString()
                                                 .substring(0, 10),
                                         });

@@ -6,18 +6,26 @@ import {
     Menu,
     MenuItem,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getImage } from '../../modules/intro/image';
 
 const AccountMenu = ({ onLogout }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
+    const user = useSelector((state) => state.auth.user);
+    const image = useSelector((state) => state.image);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getImage(user.intro_no));
+    }, [dispatch, user.intro_no]);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -31,7 +39,10 @@ const AccountMenu = ({ onLogout }) => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
             >
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                <Avatar
+                    src={image.imageLocation}
+                    sx={{ width: 50, height: 50 }}
+                ></Avatar>
             </IconButton>
             <Menu
                 anchorEl={anchorEl}
@@ -68,7 +79,7 @@ const AccountMenu = ({ onLogout }) => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem>
-                    <ListItemIcon onClick={() => navigate("/mypage")}>
+                    <ListItemIcon onClick={() => navigate('/mypage')}>
                         <Settings fontSize="small" />
                     </ListItemIcon>
                     My Page

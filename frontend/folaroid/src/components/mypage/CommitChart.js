@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import GitHubCalendar from 'react-github-calendar';
 
-
 const Wrap = styled.div`
     width: 90%;
     height: 200px;
@@ -12,7 +11,7 @@ const Wrap = styled.div`
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    border-bottom: 0.0625rem solid #9E9E9E;
+    border-bottom: 0.0625rem solid #9e9e9e;
 `;
 
 const Font = styled.div`
@@ -21,11 +20,11 @@ const Font = styled.div`
     color: white;
 `;
 
-const CommitChart = () => {
+const CommitChart = ({ baseIntro }) => {
     return (
         <Wrap>
             <Font>COMMIT LOG</Font>
-            <GitHubCalendar username='ymin96'/>
+            <GitHubCalendar username={baseIntro.userGithubId} />
         </Wrap>
     );
 };
