@@ -39,7 +39,6 @@ export const portfolio = createSlice({
     },
     reducers: {
         clearPf: (state, action) => {
-            state.pf = null;
             state.isLoading = false;
         },
     },

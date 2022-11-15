@@ -4,6 +4,7 @@ import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
+import {Link} from 'react-router-dom';
 
 const Wrap = styled.div`
     width: 90%;
@@ -13,7 +14,7 @@ const Wrap = styled.div`
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    border-bottom: 0.0625rem solid #9E9E9E;
+    border-bottom: 0.0625rem solid #9e9e9e;
 `;
 
 const Image = styled.div`
@@ -50,7 +51,7 @@ const InfoSub = styled.div`
     align-items: center;
 `;
 
-const BaseInfo = ({baseIntro}) => {
+const BaseInfo = ({ baseIntro }) => {
     return (
         <Wrap>
             <Image>
@@ -60,13 +61,24 @@ const BaseInfo = ({baseIntro}) => {
             </Image>
             <Info>
                 <InfoTitle>
-                    <InfoName>김용환</InfoName>
+                    <InfoName>{baseIntro.userName}</InfoName>
                     <IconButton aria-label="delete" size="small">
-                        <EditIcon sx={{color:'whitesmoke'}} fontSize="small" />
+                        <Link to="/intro">
+                            <EditIcon
+                                sx={{ color: 'whitesmoke' }}
+                                fontSize="small"
+                            />
+                        </Link>
                     </IconButton>
                 </InfoTitle>
-                <InfoSub><EmailIcon fontSize='small' sx={{mr:1}}/>ymin96@naver.com</InfoSub>
-                <InfoSub><PhoneIcon fontSize='small' sx={{mr:1}}/>010-1234-5678</InfoSub>
+                <InfoSub>
+                    <EmailIcon fontSize="small" sx={{ mr: 1 }} />
+                    {baseIntro.userEmail}
+                </InfoSub>
+                <InfoSub>
+                    <PhoneIcon fontSize="small" sx={{ mr: 1 }} />
+                    {baseIntro.userPhone}
+                </InfoSub>
             </Info>
         </Wrap>
     );
