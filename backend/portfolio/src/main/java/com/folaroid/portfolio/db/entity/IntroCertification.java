@@ -19,10 +19,10 @@ public class IntroCertification {
     @Column(name = "intro_certification_no")
     private Long introCertificationNo;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 
     @Column(name = "certification_date")
     private java.sql.Date certificationDate;
@@ -47,7 +47,7 @@ public class IntroCertification {
         this.certificationId = certificationId;
     }
 
-    public IntroCertification(Intro intro) {
-        this.intro = intro;
+    public IntroCertification(Long introNo) {
+        this.introNo = introNo;
     }
 }

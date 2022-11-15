@@ -40,7 +40,7 @@ public class IntroArchivingServiceImpl implements IntroArchivingService {
     @Transactional
     @Override
     public List<IntroArchiving> findIntroArchiving(Long introNo) {
-        return introArchivingRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introArchivingRepository.findAllByIntroNo(introNo);
     }
 
 }

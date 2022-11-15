@@ -18,10 +18,10 @@ public class IntroAwards {
     @Column(name = "intro_awards_no")
     private Long introAwardsNo;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 
     @Column(name = "awards_name", length = 50)
     private String awardsName;
@@ -35,8 +35,8 @@ public class IntroAwards {
     @Column(name = "awards_detail", columnDefinition = "TEXT")
     private String awardsDetail;
 
-    public IntroAwards(Intro intro) {
-        this.intro = intro;
+    public IntroAwards(Long introNo) {
+        this.introNo = introNo;
     }
 
     public void saveOtherData(String awardsName, java.sql.Date awardsDate, String awardsIssuer, String awardsDetail) {
