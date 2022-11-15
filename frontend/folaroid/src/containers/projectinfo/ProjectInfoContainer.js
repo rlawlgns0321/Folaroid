@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { createStore } from 'polotno/model/store';
 import ProjectInfo from '../../components/projectinfo/ProjectInfo';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getProjectThunk, portfolioProject } from '../../modules/portfolioProject';
 import { getRepoThunk, github } from '../../modules/github';
@@ -11,8 +11,9 @@ const ProjectInfoContainer = () => {
     const dispatch = useDispatch();
     const {pfNo, pjtNo} = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
+    const {isProject, project} = useSelector((state) => state.portfolioProject);
 
-    useEffect(() => {
+    useEffect(() => { 
         dispatch(getProjectThunk(pjtNo));
         dispatch(getRepoThunk(searchParams.get('pjtId')))
         return () => {
@@ -20,6 +21,13 @@ const ProjectInfoContainer = () => {
             dispatch(github.actions.clearRepo());
         }
     })
+
+    // useEffect(() => {
+    //     if(isProject){
+    //         const json = JSON.parse(project.pjtJson);
+    //         store.loadJSON(json);
+    //     }
+    // },[isProject])
 
     return (
         <>

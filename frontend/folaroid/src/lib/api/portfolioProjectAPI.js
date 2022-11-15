@@ -18,4 +18,13 @@ const createProject = (pjt) => {
     return api.post(`/project`, pjt);
 }
 
-export { getProjects, deleteProject, createProject, getProject };
+const saveProject = (pjt) => {
+    return api.patch(`/project/detail/${pjt.pjtNo}`, pjt);
+}
+
+const saveImages = ({pjtNo, images}) => {
+    return api.post(`/project-image/${pjtNo}`, {data: images});
+}
+
+
+export { getProjects, deleteProject, createProject, getProject, saveProject, saveImages };

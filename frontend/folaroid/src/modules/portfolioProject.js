@@ -15,7 +15,7 @@ export const getProjectThunk = createAsyncThunk(
         const response = await api.getProject(pjtNo);
         return response.data;
     }
-)
+);
 
 export const deleteProjectThunk = createAsyncThunk(
     'portfolioProject/DELETE_PROJECT',
@@ -46,12 +46,29 @@ export const createProjectThunk = createAsyncThunk(
     }
 );
 
+export const saveProjectThunk = createAsyncThunk(
+    'portfolioProject/SAVE_PROJECT',
+    async (pjt) => {
+        const response = await api.saveProject(pjt);
+        console.log(pjt);
+        return response.data;
+    }
+);
+
+export const saveImagesThunk = createAsyncThunk(
+    'portfolioProject/SAVE_IMAGES',
+    async (data) => {
+        const response = await api.saveImages(data);
+        return response.data;
+    }
+);
 export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
         isProject: false,
         project: null,
+        isSave: false,
     },
     reducers: {
         changeInput: (state, action) => {
@@ -64,14 +81,20 @@ export const portfolioProject = createSlice({
         clearProject: (state, action) => {
             state.project = null;
             state.isProject = false;
+            state.isSave = false;
+        },
+        setProjectJson: (state, action) => {
+            state.project.pjtJson = JSON.stringify(action.payload);
+            state.isSave = true;
         },
     },
     extraReducers: {
         [getProjectsThunk.fulfilled.type]: (state, action) => {
             state.projects = action.payload;
         },
-        [getProjectThunk.fulfilled.type]:(state, action) => {
+        [getProjectThunk.fulfilled.type]: (state, action) => {
             state.project = action.payload;
+            state.isProject = true;
         },
         [deleteProjectThunk.fulfilled.type]: (state, { payload }) => {
             state.projects = state.projects.filter(

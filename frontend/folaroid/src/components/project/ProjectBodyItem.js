@@ -2,6 +2,7 @@ import { Card, Grid, IconButton } from '@mui/material';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const ItemWrap = styled.div`
     width: 355px;
@@ -38,19 +39,22 @@ const DeleteBtn = styled.div`
 `;
 
 const ProjectBodyItem = ({ project, onDeleteProject }) => {
-    const onDeleteClick = () => {
+    const navigate = useNavigate();
+
+    const onDeleteClick = (e) => {
+        e.stopPropagation();
         onDeleteProject(project.pjtNo);
     };
 
     return (
-        <ItemWrap>
+        <ItemWrap  onClick={() => navigate(`${project.pjtNo}?pjtId=${project.pjtId}`)}>
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
                     {project.pjtTitle}
                 </Grid>
                 <DeleteBtn onClick={onDeleteClick} />
             </TitleBar>
-            <Skeleton />
+            <Skeleton/>
         </ItemWrap>
     );
 };

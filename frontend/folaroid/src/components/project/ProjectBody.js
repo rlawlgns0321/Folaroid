@@ -16,7 +16,7 @@ const ProjectBody = ({ projects, onDeleteProject }) => {
         <Grid container>
             {projects &&
                 projects.map((project) => (
-                    <ItemWrap item xs={6} key={project.id}>
+                    <ItemWrap item xs={6} key={project.pjtNo}>
                         <ProjectBodyItem
                             project={project}
                             onDeleteProject={onDeleteProject}
