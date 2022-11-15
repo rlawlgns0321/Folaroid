@@ -20,7 +20,7 @@ public class IntroCertificationServiceImpl implements IntroCertificationService{
     @Transactional
     @Override
     public Long saveIntroCertification(IntroCertificationDto.introCertificationRequest introCertificationRequest) {
-        return introCertificationRepository.save(introCertificationRequest.toEntity(introRepository.findById(introCertificationRequest.getIntroNo()).get())).getIntroCertificationNo();
+        return introCertificationRepository.save(introCertificationRequest.toEntity(introRepository.findById(introCertificationRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroCertificationNo();
     }
 
     @Transactional

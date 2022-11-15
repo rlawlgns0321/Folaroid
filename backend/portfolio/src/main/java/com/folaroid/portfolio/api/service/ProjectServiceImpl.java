@@ -28,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Transactional
     @Override
     public Long saveProject(ProjectDto.projectRequest projectRequest) {
-        return projectRepository.save(projectRequest.toEntity(portfolioRepository.findById(projectRequest.getPfNo()).get())).getPjtNo();
+        return projectRepository.save(projectRequest.toEntity(portfolioRepository.findById(projectRequest.getPfNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다.")))).getPjtNo();
     }
 
     @Transactional
@@ -47,7 +47,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Transactional
     @Override
     public List<Project> findALlProject(Long pfNo) {
-        return projectRepository.findAllByPortfolio(portfolioRepository.findById(pfNo).get());
+        return projectRepository.findAllByPortfolio(portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다.")));
     }
 
     @Transactional

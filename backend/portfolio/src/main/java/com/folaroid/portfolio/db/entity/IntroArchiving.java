@@ -1,9 +1,6 @@
 package com.folaroid.portfolio.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
-
 import javax.persistence.*;
 
 @NoArgsConstructor

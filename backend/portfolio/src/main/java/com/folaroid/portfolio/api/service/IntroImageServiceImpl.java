@@ -14,10 +14,4 @@ public class IntroImageServiceImpl implements IntroImageService{
     public IntroImageDto.IntroImageResponse findIntroImage(Long introNo) {
         return new IntroImageDto.IntroImageResponse(introNo, introImageRepository.findByIntroNo(introNo).getIntroImageLocation());
     }
-//    @Override
-//    public void putIntroImage(Long introNo, IntroImageDto.Request introImageRequest) {
-//        IntroImage introImage = introImageRepository.findById(introNo).orElseThrow(()->
-//                new IllegalArgumentException("해당하는 자기소개가 존재하지 않습니다."));
-//        introImage.putIntroImage(introImageRequest.getIntroImageLocation());
-//    }
 }

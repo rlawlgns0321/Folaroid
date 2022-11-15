@@ -26,7 +26,7 @@ public class IntroArchivingServiceImpl implements IntroArchivingService {
     @Transactional
     @Override
     public Long saveIntroArchiving(IntroArchivingDto.introArchivingRequest introArchivingRequest) {
-        return introArchivingRepository.save(introArchivingRequest.toEntity(introRepository.findById(introArchivingRequest.getIntroNo()).get())).getIntroArchivingNo();
+        return introArchivingRepository.save(introArchivingRequest.toEntity(introRepository.findById(introArchivingRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroArchivingNo();
     }
 
     @Transactional
