@@ -21,8 +21,9 @@ export const PhotosPanel = observer(({ store }) => {
     }
 
     React.useEffect(() => {
-        loadImages();
-    }, []);
+        if(repo)
+            loadImages();
+    }, [repo]);
 
     return (
         <div

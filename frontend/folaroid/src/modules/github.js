@@ -34,6 +34,7 @@ export const github = createSlice({
         },
         clearRepo: (state) => {
             state.isRepo = false;
+            state.repo = null;
         },
     },
     extraReducers: {

@@ -91,7 +91,7 @@ const HomePanel = observer(({ store }) => {
     const selectImage = (item) => {
         dispatch(portfolioProject.actions.changeProjectImage(item));
         handleClose();
-    }
+    };
     return (
         <Wrap>
             <ImageWrap>
@@ -126,18 +126,19 @@ const HomePanel = observer(({ store }) => {
                     cols={3}
                     gap={8}
                 >
-                    {repo.imagesUrl.map((item, key) => (
-                        <ImageListItem key={key}>
-                            <img
-                                style={{cursor:'pointer'}}
-                                src={`${item}?w=161&fit=crop&auto=format`}
-                                srcSet={`${item}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                                alt={item}
-                                loading="lazy"
-                                onClick={() => selectImage(item)}
-                            />
-                        </ImageListItem>
-                    ))}
+                    {repo &&
+                        repo.imagesUrl.map((item, key) => (
+                            <ImageListItem key={key}>
+                                <img
+                                    style={{ cursor: 'pointer' }}
+                                    src={`${item}?w=161&fit=crop&auto=format`}
+                                    srcSet={`${item}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                                    alt={item}
+                                    loading="lazy"
+                                    onClick={() => selectImage(item)}
+                                />
+                            </ImageListItem>
+                        ))}
                 </ImageList>
             </Dialog>
         </Wrap>

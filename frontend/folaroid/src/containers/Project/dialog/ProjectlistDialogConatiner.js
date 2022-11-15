@@ -40,7 +40,7 @@ const ProjectlistDialogConatiner = ({ open, handleClose }) => {
 
     useEffect(() => {
         if (open && isProject && isRepo) {
-            navigate(`/portfolio/${pfNo}/project/${project.pjtNo}`);
+            navigate(`/portfolio/${pfNo}/project/${project.pjtNo}?pjtId=${project.pjtId}`);
         }
     }, [isProject, navigate, pfNo, project, isRepo, open]);
 
