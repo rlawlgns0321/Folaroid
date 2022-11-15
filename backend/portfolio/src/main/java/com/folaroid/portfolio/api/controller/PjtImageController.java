@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.api.controller;
 
+import com.folaroid.portfolio.api.service.BASE64DecodedMultipartFile;
 import com.folaroid.portfolio.api.service.FileService;
 import com.folaroid.portfolio.api.service.PjtImageService;
 import com.folaroid.portfolio.db.entity.PjtImage;
@@ -19,7 +20,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Api(value = "프로젝트 이미지", tags={"PjtImage"})
@@ -58,11 +61,17 @@ public class PjtImageController {
                                                   @RequestBody @Valid ImageDataDto data
     )  throws IOException {
 
-//        List<MultipartFile> multipartFile = multiRequest.getFiles("files");
+        List<MultipartFile> res = new ArrayList<>();
+        data.getImages().forEach(image -> {
+            byte[] decodedBytes = Base64.getDecoder().decode(image);
+            MultipartFile multipartFile = new BASE64DecodedMultipartFile(decodedBytes);
+            res.add(multipartFile);
+        });
+
         if (data.getImages() == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } else {
-            List<String> fileNameList = fileService.uploadImages(pjtNo, data.getImages());
+            List<String> fileNameList = fileService.uploadImages(pjtNo, res);
             return new ResponseEntity<>(fileNameList, HttpStatus.OK);
         }
     }
@@ -70,7 +79,7 @@ public class PjtImageController {
     @Data
     @AllArgsConstructor
     static class ImageDataDto {
-        private List<MultipartFile> images;
+        private List<String> images;
     }
 
 }
