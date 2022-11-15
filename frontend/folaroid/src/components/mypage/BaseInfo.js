@@ -51,12 +51,11 @@ const InfoSub = styled.div`
     align-items: center;
 `;
 
-const BaseInfo = ({ baseIntro }) => {
+const BaseInfo = ({ baseIntro, image }) => {
     return (
         <Wrap>
             <Image>
-                <Avatar alt="Profile" sx={{ width: 120, height: 120 }}>
-                    Profile
+                <Avatar src={image.imageLocation} alt="Profile" sx={{ width: 120, height: 120 }}>
                 </Avatar>
             </Image>
             <Info>

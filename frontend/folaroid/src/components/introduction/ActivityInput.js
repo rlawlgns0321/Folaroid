@@ -153,7 +153,7 @@ function ActivityInput(props) {
                                     setActivity({
                                         ...activity,
                                         activityDate:
-                                            dayjs(newValue).toISOString(),
+                                            dayjs(newValue).add(1, 'day').toISOString(),
                                     });
                                 }}
                                 renderInput={(params) => (

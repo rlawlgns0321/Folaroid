@@ -16,6 +16,7 @@ import { updatePersonal, getPersonal } from '../../modules/intro/personal';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import 'dayjs/locale/ko'
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -101,10 +102,7 @@ function Update(props) {
                             />
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
-                            <LocalizationProvider
-                                dateAdapter={AdapterDayjs}
-                                sx={{ width: '40%' }}
-                            >
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <IntroInputLabel shrink>
                                     생년월일
                                 </IntroInputLabel>
@@ -147,7 +145,6 @@ function Update(props) {
                         <div style={{ width: '100%', margin: '20px' }}>
                             <IntroInputLabel shrink>연락처</IntroInputLabel>
                             <IntroTextField
-                                label="연락처"
                                 type="tel"
                                 name="userPhone"
                                 onChange={handleInputChange}
