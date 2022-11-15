@@ -73,7 +73,6 @@ function Update(props) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        console.log(event.target);
         setPersonal({ ...personal, [name]: value });
     };
     const handleSubmit = (event) => {
@@ -114,7 +113,7 @@ function Update(props) {
                                     onChange={(newValue) => {
                                         setPersonal({
                                             ...personal,
-                                            userBirth: dayjs(newValue).add(1, 'day')
+                                            userBirth: dayjs(newValue)
                                                 .toISOString()
                                                 .substring(0, 10),
                                         });
@@ -146,7 +145,6 @@ function Update(props) {
                         <div style={{ width: '100%', margin: '20px' }}>
                             <IntroInputLabel shrink>연락처</IntroInputLabel>
                             <IntroTextField
-                                label="연락처"
                                 type="tel"
                                 name="userPhone"
                                 onChange={handleInputChange}

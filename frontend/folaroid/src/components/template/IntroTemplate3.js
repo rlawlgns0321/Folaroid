@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     Avatar,
     Dialog,
@@ -12,7 +12,6 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
-import personal from '../../modules/intro/personal';
 
 const style = {
     position: 'absolute',
@@ -29,7 +28,6 @@ const style = {
 
 function ViewIntro() {
     const activity = useSelector((state) => state.activity);
-    let activityContent = null;
     const archiving = useSelector((state) => state.archiving);
     const awards = useSelector((state) => state.awards);
     const career = useSelector((state) => state.career);
@@ -44,7 +42,6 @@ function ViewIntro() {
     const school = useSelector((state) => state.school);
     const slogan = useSelector((state) => state.slogan);
 
-    const dispatch = useDispatch();
     return (
         <div>
             <Box>
@@ -71,8 +68,7 @@ function ViewIntro() {
                         {personal.userName && <h1>{personal.userName}</h1>}
                         {personal.userBirth && (
                             <h3>
-                                생년월일 : {birth[0]}년 {birth[1]}월 {birth[2]}
-                                일
+                                생년월일 : {birth[0]}년 {birth[1]}월 {birth[2]}일
                             </h3>
                         )}
                         {personal.userEmail && (
@@ -81,13 +77,14 @@ function ViewIntro() {
                         {personal.userPhone && (
                             <h3>전화번호 : {personal.userPhone}</h3>
                         )}
-                        {archiving && (
-                            <h3>
-                                {' '}
-                                {archiving[0].archivingName} :{' '}
-                                {archiving[0].archivingLink}
-                            </h3>
-                        )}
+                        <div>
+                            {archiving &&
+                                archiving.map((item) => (
+                                    <h3>
+                                        {item.archivingName} : {item.archivingLink}
+                                    </h3>
+                                ))}
+                        </div>
                         {slogan.sloganContent && (
                             <h1 style={{ color: 'gray' }}>
                                 "{slogan.sloganContent}"
@@ -116,15 +113,17 @@ function ViewIntro() {
                     ))}
             </Box>
             <Box>
+                <div>
+                    <h1>활동</h1>
+                </div>
                 {activity &&
                     activity.map((item) => (
                         <div>
-                            <h1>활동</h1>
                             <h3>
-                                {item.activityName} | {item.activiyDate}
+                                {item.activityName} | {item.activityDate}
                             </h3>
-                            <div>{item.actitiyDetail}</div>
-                            <div>{item.actitiyUrl}</div>
+                            <div>{item.activityDetail}</div>
+                            <div>{item.activityUrl}</div>
                         </div>
                     ))}
             </Box>
@@ -135,12 +134,12 @@ function ViewIntro() {
                             <h1>경력사항</h1>
                             <h3>근무 회사 : {item.careerComName}</h3>
                             <div>
-                                근무 일시 : {item.careerDate} | 담당 직무 :{' '}
-                                {item.careerJob}
+                                근무 일시 : {item.careerDate} | 담당 직무 :{item.careerJob}
                             </div>
                             {item.careerResult && (
-                                <div>성과 및 : {item.careerResult}</div>
+                                <div>상세업무 및 성과 : {item.careerResult}</div>
                             )}
+                            <div>추가 사항 : {item.careerDetail}</div>
                         </div>
                     ))}
             </Box>
@@ -158,31 +157,34 @@ function ViewIntro() {
                         </div>
                     ))}{' '}
             </Box>
-            {activity && (
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>활동명</TableCell>
-                            <TableCell>관련 링크</TableCell>
-                            <TableCell>참여기간</TableCell>
-                            <TableCell>설명</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableCell>{activity[0].activityName}</TableCell>
-                        <TableCell>{activity[0].activityDate}</TableCell>
-                        <TableCell>{activity[0].activityName}</TableCell>
-                        <TableCell>{activity[0].activityName}</TableCell>
-                    </TableBody>
-                </Table>
-            )}
+            <Box>
+                <h1>자격증</h1>
+                {certification && certification.map((item) => (
+                    <div>
+                        <h3>{item.certificationName}</h3>
+                        <div>{item.certificationDate} | {item.certificationIssuer}</div>
+                        <div>{item.certificationDetail}</div>
+                    </div>
+                ))}
+            </Box>
+            <Box>
+                <h1>외국어</h1>
+                {language && language.map((item) => (
+                    <div>
+                        <h3>{item.languageName}</h3>
+                        <div>{item.languageTestName} | {item.languageGrade}</div>
+                        <div>{item.languageDate}</div>
+                    </div>
+                ))}
+            </Box>
+
         </div>
     );
 }
 
 export default function BasicModal() {
     const [open, setOpen] = useState(false);
-    const [scroll, setScroll] = useState();
+    const [scroll, setScroll] = useState('');
     const handleOpen = () => {
         setOpen(true);
         setScroll();
@@ -209,7 +211,7 @@ export default function BasicModal() {
                 maxWidth="lg"
                 fullWidth
             >
-                <DialogContent style={{ margin: '50px'}}>
+                <DialogContent style={{ margin: '50px' }}>
                     <ViewIntro id="modal-modal-description"></ViewIntro>
                 </DialogContent>
             </Dialog>
