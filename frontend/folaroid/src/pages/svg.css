@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Parisienne&family=Petit+Formal+Script&family=Sacramento&family=Sail&display=swap');
+
+@font-face {
+    font-family: "Miama";
+    src: url("/public/public_assets/fonts/Miama.ttf");
+}
+
+@font-face {
+    font-family: "Always In My Heart";
+    src: url("/public/public_assets/fonts/Always\ In\ My\ Heart.ttf");
+}
+
+@font-face {
+    font-family: "EchinosParkScript_PERSONAL_USE_ONLY";
+    src: url("/public/public_assets/fonts/EchinosParkScript_PERSONAL_USE_ONLY.ttf");
+}
+
+body {
+  background: #e3f2fd
+}
+
+svg {
+    font-family: 'Karla', sans-serif;
+    /* font-family: 'Sacramento', cursive; */
+  position: absolute; 
+  width: 100%; height: 100%;
+}
+svg text {
+    font-family: 'Karla', sans-serif;
+    /* font-family: 'Sacramento', cursive; */
+  text-transform: uppercase;
+  animation: stroke 5s ;
+  stroke-width: 2;
+  stroke: #365fa0;
+  font-size: 120px;
+}
+@keyframes stroke {
+  0%   {
+    fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1);
+    stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+  }
+  70%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); }
+  80%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); stroke-width: 3; }
+  100% {
+    fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1);
+    stroke-dashoffset: -25%; stroke-dasharray: 50% 0;
+  }
+}
