@@ -3,7 +3,7 @@ import { React, Suspense, useState, useRef, useEffect } from 'react';
 import { Canvas, useThree, useFrame, useLoader } from '@react-three/fiber';
 import { useGLTF, Cloud, Center, Text3D } from '@react-three/drei';
 //import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { gsap } from 'gsap';
 //div
 import Button from '@mui/material/Button';
@@ -16,8 +16,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 //버튼 커스텀
 const CustomBtn = styled(Button)`
-    height: 200px;
-    width: 100px;
+    height: 300px;
+    width: 200px;
     opacity: 0;
 `;
 
@@ -28,17 +28,17 @@ export const sizes = {
 
 //구름 배경
 export function Scene(props) {
-    const obj = useGLTF('models/map2.glb');
+    const map = useGLTF('models/map.glb');
     //const floor = useTexture('images/grid.jpg');
     return (
         <group>
             <primitive
-                object={obj.scene}
+                object={map.scene}
                 scale={7}
                 position-x={70}
                 position-y={-10}
                 position-z={-30}
-            // rotation-x={-Math.PI / 1}
+                // rotation-x={-Math.PI / 1}
             />
             <Cloud
                 position={[-50, 10, -10]}
@@ -46,22 +46,14 @@ export function Scene(props) {
                 scale={1.5}
                 speed={0.8}
             />
-            <Cloud
-                position={[-30, 20, -20]}
-                opacity={0.5}
-                scale={1.5}
-            />
+            <Cloud position={[-30, 20, -20]} opacity={0.5} scale={1.5} />
             <Cloud
                 position={[50, 10, -20]}
                 opacity={0.5}
                 scale={1.5}
                 speed={0.5}
             />
-            <Cloud
-                position={[0, 30, -40]}
-                opacity={0.5}
-                scale={1.5}
-            />
+            <Cloud position={[0, 30, -40]} opacity={0.5} scale={1.5} />
             <Cloud
                 position={[-35, 10, -50]}
                 opacity={0.5}
@@ -80,21 +72,9 @@ export function Scene(props) {
                 scale={1.5}
                 speed={1}
             />
-            <Cloud
-                position={[-10, 25, -130]}
-                opacity={0.5}
-                scale={1.5}
-            />
-            <Cloud
-                position={[30, 20, -120]}
-                opacity={0.5}
-                scale={1.5}
-            />
-            <Cloud
-                position={[100, 30, -100]}
-                opacity={0.5}
-                scale={1.5}
-            />
+            <Cloud position={[-10, 25, -130]} opacity={0.5} scale={1.5} />
+            <Cloud position={[30, 20, -120]} opacity={0.5} scale={1.5} />
+            <Cloud position={[100, 30, -100]} opacity={0.5} scale={1.5} />
             <Cloud
                 position={[90, 25, -130]}
                 opacity={0.5}
@@ -104,36 +84,22 @@ export function Scene(props) {
         </group>
     );
 }
-// //집
-// export function House(props) {
-//     const { nodes, materials } = useGLTF('/models/house.gltf');
-//     return (
-//         <group {...props} dispose={null}>
-//             <mesh
-//                 geometry={nodes.Cube.geometry}
-//                 material={materials.Material}
-//                 scale={2}
-//             ></mesh>
-//         </group>
-//     );
-// }
-//useGLTF.preload('/house.gltf');
 export function House1(props) {
     const glb = useLoader(GLTFLoader, 'models/house1.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={5} />
-            <meshPhongMaterial/>
+            <meshPhongMaterial />
         </group>
-    )
+    );
 }
 export function House2(props) {
     const glb = useLoader(GLTFLoader, 'models/house2.glb');
     return (
         <group {...props} dispose={null}>
-            <primitive object={glb.scene} scale={60} />
+            <primitive object={glb.scene} scale={85} />
         </group>
-    )
+    );
 }
 export function House3(props) {
     const glb = useLoader(GLTFLoader, 'models/house3.glb');
@@ -141,7 +107,7 @@ export function House3(props) {
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={12} />
         </group>
-    )
+    );
 }
 export function House4(props) {
     const glb = useLoader(GLTFLoader, 'models/house4.glb');
@@ -149,7 +115,7 @@ export function House4(props) {
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={40} />
         </group>
-    )
+    );
 }
 
 //div section
@@ -208,10 +174,10 @@ const Template1 = () => {
     window.addEventListener('scroll', function (event) {
         setSection(position, camera);
         //console.log(position);
+        setButtonDisplay('intro', 'divintro');
         setButtonDisplay('pjt1', 'div1');
         setButtonDisplay('pjt2', 'div2');
         setButtonDisplay('pjt3', 'div3');
-        setButtonDisplay('pjt4', 'div4');
     });
     // 모달
     const [open, setOpen] = useState(false);
@@ -239,8 +205,11 @@ const Template1 = () => {
                 scroll={scroll}
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
+                maxWidth="xl"
             >
-                <DialogTitle id="scroll-dialog-title">프로젝트이름 가져오기</DialogTitle>
+                <DialogTitle id="scroll-dialog-title">
+                    프로젝트이름 가져오기
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText
                         id="scroll-dialog-description"
@@ -248,9 +217,7 @@ const Template1 = () => {
                         tabIndex={-1}
                     >
                         {[...new Array(1000)]
-                            .map(
-                                () => `이미지가져오기`,
-                            )
+                            .map(() => `이미지가져오기`)
                             .join('\n')}
                     </DialogContentText>
                 </DialogContent>
@@ -296,6 +263,17 @@ const Template1 = () => {
             {/* div sections */}
             <div className="sections">
                 <section className="section">
+                    <h2 id="intro">자기소개서</h2>
+                    <div id="divintro">
+                        <CustomBtn
+                            onClick={handleOpen}
+                            disableRipple
+                            variant="text"
+                            size="large"
+                        ></CustomBtn>
+                    </div>
+                </section>
+                <section className="section">
                     <h2 id="pjt1">Project1</h2>
                     <div id="div1">
                         <CustomBtn
@@ -306,6 +284,7 @@ const Template1 = () => {
                         ></CustomBtn>
                     </div>
                 </section>
+                <section className="section"></section>
                 <section className="section">
                     <h2 id="pjt2">Project2</h2>
                     <div id="div2">
@@ -321,18 +300,6 @@ const Template1 = () => {
                 <section className="section">
                     <h2 id="pjt3">Project3</h2>
                     <div id="div3">
-                        <CustomBtn
-                            onClick={handleOpen}
-                            disableRipple
-                            variant="text"
-                            size="large"
-                        ></CustomBtn>
-                    </div>
-                </section>
-                <section className="section"></section>
-                <section className="section">
-                    <h2 id="pjt4">Project4</h2>
-                    <div id="div4">
                         <CustomBtn
                             onClick={handleOpen}
                             disableRipple

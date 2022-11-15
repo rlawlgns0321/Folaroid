@@ -69,7 +69,8 @@ public class ProjectServiceImpl implements ProjectService{
                 projectRequest.getPjtGithubUrl(),
                 projectRequest.getPjtStar(),
                 projectRequest.getPjtOneImageLocation(),
-                projectRequest.getPjtJson());
+                projectRequest.getPjtJson(),
+                projectRequest.getPjtId());
     }
 
     @Transactional
