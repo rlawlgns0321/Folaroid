@@ -138,7 +138,7 @@ public class OAuthController {
            //return map;
        }
        else{
-            System.out.println("New User!!");
+//            System.out.println("New User!!");
             Long createUserPk = userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
             map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
             IntroDto.introRequest introDto = new IntroDto.introRequest();
