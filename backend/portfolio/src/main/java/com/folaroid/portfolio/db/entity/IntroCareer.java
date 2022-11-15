@@ -17,10 +17,10 @@ public class IntroCareer {
     @Column(name="intro_career_no")
     private Long introCareerNo;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "intro_no")
-    private Intro intro;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "intro_no")
+    private Long introNo;
 
     @Column(name = "career_com_name", length = 50)
     private String careerComName;
@@ -37,8 +37,8 @@ public class IntroCareer {
     @Column(name = "career_detail", columnDefinition = "TEXT")
     private String careerDetail;
 
-    public IntroCareer(Intro intro) {
-        this.intro = intro;
+    public IntroCareer(Long introNo) {
+        this.introNo = introNo;
     }
 
     public void saveOtherData(String careerComName, String careerJob, String careerDate, String careerResult, String careerDetail) {

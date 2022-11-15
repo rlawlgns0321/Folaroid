@@ -33,11 +33,11 @@ function App() {
                         element={user ? <BaseIntro /> : <Navigate to="/" />}
                     />
                     <Route
-                        path="/portfolio/*"
+                        path="/portfolio/:pfNo/*"
                         element={user ? <PortFolioPage /> : <Navigate to="/" />}
                     />
                     <Route
-                        path="/projectinfo"
+                        path="/portfolio/:pfNo/project/:pjtNo"
                         element={
                             user ? <ProjectInfoPage /> : <Navigate to="/" />
                         }

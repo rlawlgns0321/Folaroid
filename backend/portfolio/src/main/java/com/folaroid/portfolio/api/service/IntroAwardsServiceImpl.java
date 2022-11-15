@@ -34,6 +34,6 @@ public class IntroAwardsServiceImpl implements IntroAwardsService{
     @Transactional
     @Override
     public List<IntroAwards> findIntroAwards(Long introNo) {
-        return introAwardsRepository.findAllByIntro(introRepository.findById(introNo).get());
+        return introAwardsRepository.findAllByIntroNo(introNo);
     }
 }

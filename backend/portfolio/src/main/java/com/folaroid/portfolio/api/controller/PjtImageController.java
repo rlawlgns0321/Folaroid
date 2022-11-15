@@ -7,6 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -52,15 +55,22 @@ public class PjtImageController {
     })
     public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo,
 //                                                  @RequestParam(value = "files", required = false) List<MultipartFile> files
-                                                  MultipartHttpServletRequest multiRequest
+                                                  @RequestBody @Valid ImageDataDto data
     )  throws IOException {
 
-        List<MultipartFile> multipartFile = multiRequest.getFiles("files");
-        if (multipartFile == null) {
+//        List<MultipartFile> multipartFile = multiRequest.getFiles("files");
+        if (data.getImages() == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } else {
-            List<String> fileNameList = fileService.uploadImages(pjtNo, multipartFile);
+            List<String> fileNameList = fileService.uploadImages(pjtNo, data.getImages());
             return new ResponseEntity<>(fileNameList, HttpStatus.OK);
         }
     }
+
+    @Data
+    @AllArgsConstructor
+    static class ImageDataDto {
+        private List<MultipartFile> images;
+    }
+
 }

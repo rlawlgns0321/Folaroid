@@ -21,7 +21,7 @@ public class IntroCertificationDto {
         public IntroCertification toEntity(Intro intro){
             IntroCertification introCertification = IntroCertification.builder()
                     .introCertificationNo(introCertificationNo)
-                    .intro(intro)
+                    .introNo(introNo)
                     .certificationDate(certificationDate)
                     .certificationName(certificationName)
                     .certificationIssuer(certificationIssuer)
@@ -35,7 +35,7 @@ public class IntroCertificationDto {
     @Getter
     public static class introCertificationResponse{
         private Long introCertificationNo;
-        private Long intro;
+        private Long introNo;
         private java.sql.Date certificationDate;
         private String certificationName;
         private String certificationIssuer;
@@ -44,7 +44,7 @@ public class IntroCertificationDto {
 
         public introCertificationResponse(IntroCertification introCertification){
             this.introCertificationNo = introCertification.getIntroCertificationNo();
-            this.intro = introCertification.getIntro().getIntroNo();
+            this.introNo = introCertification.getIntroNo();
             this.certificationDate = introCertification.getCertificationDate();
             this.certificationName = introCertification.getCertificationName();
             this.certificationIssuer = introCertification.getCertificationIssuer();
