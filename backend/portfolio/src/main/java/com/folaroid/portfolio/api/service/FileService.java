@@ -99,7 +99,7 @@ public class FileService {
     @Transactional
     public String uploadProjectOneImage(Long pjtNo, MultipartFile multipartFile) throws IOException {
         //지우고
-        Project project = projectRepository.findById(pjtNo).get();
+        Project project = projectRepository.findById(pjtNo).orElseThrow(() -> new IllegalAccessError("없는 프로젝트 입니다."));;
         deleteFile(project.getPjtOneImageLocation());
 
         //생성

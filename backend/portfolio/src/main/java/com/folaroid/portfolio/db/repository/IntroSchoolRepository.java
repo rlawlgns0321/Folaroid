@@ -1,6 +1,5 @@
 package com.folaroid.portfolio.db.repository;
 
-import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.IntroSchool;
 import org.springframework.data.jpa.repository.JpaRepository;
 

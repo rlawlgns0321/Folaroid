@@ -129,7 +129,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Transactional
     @Override
     public Long getPortfolioIntroNo(Long pfNo) {
-        Long userNo = portfolioRepository.findById(pfNo).get().getUserNo();
+        Long userNo = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다.")).getUserNo();
         return introRepository.findIntroNoByPfNoAndUserNo(pfNo, userNo);
     }
 
@@ -173,7 +173,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     public PortfolioDto.DuplicatePortfolioDto duplicatePortfolio(Long pfNo) {
 
         // 포트폴리오 복제
-        Portfolio portfolio = portfolioRepository.findById(pfNo).get();
+        Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
         Portfolio duplicatedTempPortfolio = new Portfolio(portfolio);
         //포트폴리오에서 유저 번호 찾기
         Long userNo = portfolio.getUserNo();

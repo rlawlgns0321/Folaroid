@@ -1,11 +1,7 @@
 package com.folaroid.portfolio.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,10 +13,6 @@ public class IntroAwards {
     @Id @GeneratedValue
     @Column(name = "intro_awards_no")
     private Long introAwardsNo;
-
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "intro_no")
     private Long introNo;
 
     @Column(name = "awards_name", length = 50)

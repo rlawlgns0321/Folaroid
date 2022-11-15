@@ -15,8 +15,6 @@ public class IntroStack {
     @Column(name = "intro_stack_no")
     private Long introStackNo;
 
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "intro_no")
     private Long introNo;
 
     private Long hashNo;

@@ -21,7 +21,7 @@ public class IntroCareerServiceImpl implements IntroCareerService{
     @Transactional
     @Override
     public Long saveIntroCareer(IntroCareerDto.introCareerRequest introCareerRequest) {
-        return introCareerRepository.save(introCareerRequest.toEntity(introRepository.findById(introCareerRequest.getIntroNo()).get())).getIntroCareerNo();
+        return introCareerRepository.save(introCareerRequest.toEntity(introRepository.findById(introCareerRequest.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다.")))).getIntroCareerNo();
     }
 
     @Transactional
