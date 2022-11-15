@@ -30,7 +30,7 @@ public class Project {
     @Column(name = "pjt_title", length = 100)
     private String pjtTitle;
 
-    @Column(name = "pjt_subtitle", length = 100)
+    @Column(name = "pjt_subtitle", length = 500)
     private String pjtSubtitle;
 
     @Column(name = "pjt_url", length = 2083)
