@@ -23,7 +23,8 @@ const saveProject = (pjt) => {
 }
 
 const saveImages = ({pjtNo, images}) => {
-    return api.post(`/project-image/${pjtNo}`, {data: images});
+    console.log({images});
+    return api.post(`/project-image/${pjtNo}`, {images});
 }
 
 

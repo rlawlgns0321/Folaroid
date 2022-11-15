@@ -3,37 +3,41 @@ import { createStore } from 'polotno/model/store';
 import ProjectInfo from '../../components/projectinfo/ProjectInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getProjectThunk, portfolioProject } from '../../modules/portfolioProject';
+import {
+    getProjectThunk,
+    portfolioProject,
+} from '../../modules/portfolioProject';
 import { getRepoThunk, github } from '../../modules/github';
 
 const ProjectInfoContainer = () => {
     const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
     const dispatch = useDispatch();
-    const {pfNo, pjtNo} = useParams();
+    const { pfNo, pjtNo } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const {isProject, project} = useSelector((state) => state.portfolioProject);
+    const isProject = useSelector((state) => state.portfolioProject.isProject);
+    const pjtJson = useSelector((state) => state.portfolioProject.project.pjtJson);
 
-    useEffect(() => { 
+    useEffect(() => {
         dispatch(getProjectThunk(pjtNo));
-        dispatch(getRepoThunk(searchParams.get('pjtId')))
+        dispatch(getRepoThunk(searchParams.get('pjtId')));
         return () => {
             dispatch(portfolioProject.actions.clearProject());
             dispatch(github.actions.clearRepo());
-        }
-    })
+        };
+    }, []);
 
-    // useEffect(() => {
-    //     if(isProject){
-    //         const json = JSON.parse(project.pjtJson);
-    //         store.loadJSON(json);
-    //     }
-    // },[isProject])
+    useEffect(() => {
+        if(isProject && pjtJson){
+            const json = JSON.parse(pjtJson);
+            store.loadJSON(json);
+        }
+    },[isProject])
 
     return (
         <>
-            <ProjectInfo store={store}/>
+            <ProjectInfo store={store} />
         </>
     );
 };
 
-export default ProjectInfoContainer;
+export default React.memo(ProjectInfoContainer);

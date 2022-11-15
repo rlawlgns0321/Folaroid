@@ -62,12 +62,26 @@ export const saveImagesThunk = createAsyncThunk(
         return response.data;
     }
 );
+
+const initProject = {
+    pjtNo: undefined,
+    pfNo: undefined,
+    pjtTitle: '',
+    pjtSubtitle: '',
+    pjtUrl: '',
+    pjtGithubUrl: '',
+    pjtStar: 0,
+    pjtOneImageLocation: '',
+    pjtJson: '',
+    pjtId: '',
+};
+
 export const portfolioProject = createSlice({
     name: 'portfolioProject',
     initialState: {
         projects: [],
         isProject: false,
-        project: null,
+        project: initProject,
         isSave: false,
     },
     reducers: {
@@ -79,7 +93,7 @@ export const portfolioProject = createSlice({
             state.project.pjtOneImageLocation = action.payload;
         },
         clearProject: (state, action) => {
-            state.project = null;
+            state.project = initProject;
             state.isProject = false;
             state.isSave = false;
         },
