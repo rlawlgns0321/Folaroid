@@ -171,7 +171,7 @@ function LanguageInput(props) {
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <IntroTextField {...params} />
+                                    <IntroTextField {...params} readonly="true" />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,

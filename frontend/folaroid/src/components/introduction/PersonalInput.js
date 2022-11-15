@@ -4,8 +4,6 @@ import {
     Box,
     CardContent,
     TextField,
-    InputBase,
-    alpha,
     InputLabel,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -16,7 +14,6 @@ import { updatePersonal, getPersonal } from '../../modules/intro/personal';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import 'dayjs/locale/ko'
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -103,7 +100,7 @@ function Update(props) {
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <IntroInputLabel shrink>
+                                <IntroInputLabel>
                                     생년월일
                                 </IntroInputLabel>
                                 <DatePicker
@@ -113,6 +110,7 @@ function Update(props) {
                                     onChange={(newValue) => {
                                         setPersonal({
                                             ...personal,
+                                            // userBirth: newValue
                                             userBirth: dayjs(newValue)
                                                 .toISOString()
                                                 .substring(0, 10),

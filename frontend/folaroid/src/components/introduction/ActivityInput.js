@@ -13,10 +13,10 @@ import {
     Paper,
     InputLabel,
 } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
     getActivity,
     createActivity,
@@ -86,7 +86,7 @@ const IntroBox = styled.div`
 const initialState = {
     activityName: '',
     activityUrl: '',
-    activityDate: null,
+    activityDate: new Date(),
     activityDetail: '',
 };
 
@@ -147,17 +147,18 @@ function ActivityInput(props) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <IntroInputLabel>활동시기</IntroInputLabel>
                             <DatePicker
+                                views={['year', 'month', 'date']}
                                 inputFormat="YYYY년 MM월"
                                 value={activity.activityDate}
                                 onChange={(newValue) => {
                                     setActivity({
                                         ...activity,
-                                        activityDate:
-                                            dayjs(newValue).add(1, 'day').toISOString(),
+                                        activityDate: newValue
+    
                                     });
                                 }}
                                 renderInput={(params) => (
-                                    <IntroTextField {...params} />
+                                    <IntroTextField {...params} readonly="true" />
                                 )}
                                 InputLabelProps={{
                                     shrink: true,
