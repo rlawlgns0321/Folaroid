@@ -49,13 +49,14 @@ public class PortfolioServiceImpl implements PortfolioService {
             res.add(eachPortfolio.getPfName());
         }
         Integer i = 1;
-        String pfName = githubId + "의 포트폴리오";
+        String defaultPfName = githubId + "의 포트폴리오";
+        String pfName = defaultPfName;
         // while 문을 활용해서
         while (true) {
             if (!res.contains(pfName)) {
                 break;
             } else {
-                pfName = portfolio.getPfName() + " (" + i + ")";
+                pfName = defaultPfName + " (" + i + ")";
                 i += 1;
             }
         }
