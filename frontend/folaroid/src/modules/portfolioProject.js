@@ -83,6 +83,7 @@ export const portfolioProject = createSlice({
         isProject: false,
         project: initProject,
         isSave: false,
+        isJson: false,
     },
     reducers: {
         changeInput: (state, action) => {
@@ -96,10 +97,11 @@ export const portfolioProject = createSlice({
             state.project = initProject;
             state.isProject = false;
             state.isSave = false;
+            state.isJson = false;
         },
         setProjectJson: (state, action) => {
             state.project.pjtJson = JSON.stringify(action.payload);
-            state.isSave = true;
+            state.isJson = true;
         },
     },
     extraReducers: {
@@ -122,6 +124,12 @@ export const portfolioProject = createSlice({
             state.project = payload;
             state.isProject = true;
         },
+        [saveProjectThunk.pending.type]:(state)=> {
+            state.isSave= false;
+        },
+        [saveProjectThunk.fulfilled.type]:(state) => {
+            state.isSave = true;
+        }
     },
 });
 

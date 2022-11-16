@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 import Template1 from './Template1';
 import TestPage from './TestPage';
 import TemplateBody from '../components/template/TemplateBody';
+import ContentsContainer from '../containers/common/ContentsContainer';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -66,7 +67,7 @@ const PortFolioPage = () => {
                         </SideBar> 
                     </LeftBarWrap>
                     <RightBarWrap>
-                        <Contents title="프로젝트">
+                        <ContentsContainer>
                             <Routes>
                                 <Route
                                 path="intro"
@@ -81,7 +82,7 @@ const PortFolioPage = () => {
                                     element={<TemplateBody />}
                                 />
                             </Routes>
-                        </Contents>
+                        </ContentsContainer>
                     </RightBarWrap>
                 </ContentsWrap>
             </BodyWrap>

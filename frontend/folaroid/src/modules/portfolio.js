@@ -4,6 +4,7 @@ import {
     createPortfolio,
     deletePortfolio,
     getPortfolio,
+    patchPortfolio,
     readSimplePortfolio,
 } from '../lib/api/portfolioAPI';
 
@@ -39,17 +40,32 @@ export const getPortFolioThunk = createAsyncThunk(
     }
 )
 
+export const patchPortFolioThunk = createAsyncThunk(
+    'portfolio/PATCH_PORTFOLIO',
+    async (pf) => {
+        const response = await patchPortfolio(pf);
+        return response.data;
+    }
+)
+
 export const portfolio = createSlice({
     name: 'portfolio',
     initialState: {
         simple: [],
         pf: null,
         isLoading: false,
+        isPatch: false,
     },
     reducers: {
         clearPf: (state, action) => {
             state.isLoading = false;
         },
+        changePfName: (state, action) => {
+            state.pf.pfName = action.payload;
+        },
+        clearPatch: (state) => {
+            state.isPatch = false;
+        }
     },
     extraReducers: {
         [getSimplePortfolioListThunk.fulfilled.type]: (state, action) => {
@@ -71,6 +87,12 @@ export const portfolio = createSlice({
         [getPortFolioThunk.fulfilled.type]: (state, action) => {
             state.pf = action.payload;
             state.isLoading = true;
+        },
+        [patchPortFolioThunk.pending.type]: (state) => {
+            state.isPatch = false;
+        },
+        [patchPortFolioThunk.fulfilled.type] : (state) => {
+            state.isPatch = true;
         }
     },
 });

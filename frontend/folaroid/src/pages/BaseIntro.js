@@ -1,6 +1,4 @@
 import React from 'react';
-import { Grid } from '@mui/material';
-import { css } from '@emotion/css';
 // import { Route, Routes } from 'react-router-dom';
 import SideBar from '../components/common/SideBar';
 import IntroSide from '../components/introduction/IntroSide';

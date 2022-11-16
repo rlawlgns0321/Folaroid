@@ -80,26 +80,33 @@ const ActionControls = ({ store }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { pfNo, pjtNo } = useParams();
-    const { isSave, project } = useSelector((state) => state.portfolioProject);
+    const { isSave, project, isJson } = useSelector(
+        (state) => state.portfolioProject
+    );
 
     const handleClick = async (e) => {
         let images = [];
-        
-        for(let i=0 ;i< store.pages.length; i++)
+
+        for (let i = 0; i < store.pages.length; i++)
             images.push(await store.toDataURL({ pageId: store.pages[i].id }));
 
         const storeJson = await store.toJSON();
 
         dispatch(portfolioProject.actions.setProjectJson(storeJson));
-        dispatch(saveImagesThunk({pjtNo, images}));
+        dispatch(saveImagesThunk({ pjtNo, images }));
     };
 
     useEffect(() => {
-        if (isSave) {
+        if (isJson) {
             dispatch(saveProjectThunk(project));
+        }
+    }, [isJson, dispatch, project]);
+
+    useEffect(() => {
+        if (isSave) {
             navigate(`/portfolio/${pfNo}/project`);
         }
-    }, [isSave, dispatch, project, navigate, pfNo]);
+    }, [isSave, navigate, pfNo]);
 
     return (
         <div>

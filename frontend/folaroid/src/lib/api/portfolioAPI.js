@@ -16,6 +16,16 @@ const deletePortfolio = (pfNo) => {
 
 const getPortfolio = (pfNo) => {
     return api.get(`/portfolio/${pfNo}`);
-}
+};
 
-export { readSimplePortfolio, createPortfolio, deletePortfolio, getPortfolio };
+const patchPortfolio = (pf) => {
+    return api.patch(`/portfolio/${pf.pfNo}`, pf);
+};
+
+export {
+    readSimplePortfolio,
+    createPortfolio,
+    deletePortfolio,
+    getPortfolio,
+    patchPortfolio,
+};
