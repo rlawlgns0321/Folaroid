@@ -31,6 +31,7 @@ const Contents = ({ children }) => {
         if (pathname === `/portfolio/${pfNo}/intro`) setTitle('자기소개');
         else if (pathname === `/portfolio/${pfNo}/project`) setTitle('프로젝트');
         else if (pathname === `/portfolio/${pfNo}/template`) setTitle('템플릿');
+        else if (pathname === `/intro`) setTitle('자기소개');
     }, [pathname, pfNo]);
 
     return (

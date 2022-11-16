@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
     Divider,
     List,
@@ -7,20 +8,27 @@ import {
 } from '@mui/material';
 import React from 'react';
 
+const IntroListItemText = styled(ListItemText)`
+    padding-left: 20px ;
+`
+
 const IntroSide = () => {
     return (
-        <div>
+        <div style={{ color: 'white'}}>
+            <div style={{ maxheight: '8%', marginLeft: '20px' }}>
+                <h1>자기소개 사항</h1>
+            </div>
             <List>
                 <ListItemButton disablePadding>
-                    <ListItemText primary="개인 정보" />
+                    <IntroListItemText primary="개인 정보" />
                 </ListItemButton>
                 <ListItemButton disablePadding>
-                    <ListItemText primary="사진" />
+                    <IntroListItemText primary="사진" />
                 </ListItemButton>
             </List>
             <Divider />
             <List>
-                <h1 style={{margin: '10px'}}>추가 사항</h1>
+                <h1 style={{ margin: '20px' }}>추가 사항</h1>
                 {[
                     '슬로건',
                     '기술스택',
@@ -32,8 +40,8 @@ const IntroSide = () => {
                     '활동',
                     '경력사항',
                 ].map((text) => (
-                    <ListItemButton key={text} disablePadding>
-                        <ListItemText primary={text} />
+                    <ListItemButton key={text}>
+                        <IntroListItemText primary={text} />
                     </ListItemButton>
                 ))}
             </List>
