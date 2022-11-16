@@ -59,20 +59,20 @@ public class PjtImageController {
     })
     public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo,
 //                                                  @RequestParam(value = "files", required = false) List<MultipartFile> files
-                                                  @RequestBody @Valid ImageDataDto data
+                                                  @RequestBody ImageDataDto data
     )  throws IOException {
 
-        List<MultipartFile> res = new ArrayList<>();
-        data.getImages().forEach(image -> {
-            byte[] decodedBytes = Base64.getDecoder().decode(image);
-            MultipartFile multipartFile = new BASE64DecodedMultipartFile(decodedBytes);
-            res.add(multipartFile);
-        });
+//        List<MultipartFile> res = new ArrayList<>();
+//        data.getImages().forEach(image -> {
+//            byte[] decodedBytes = Base64.getDecoder().decode(image);
+//            MultipartFile multipartFile = new BASE64DecodedMultipartFile(decodedBytes);
+//            res.add(multipartFile);
+//        });
 
         if (data.getImages() == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } else {
-            List<String> fileNameList = fileService.uploadImages(pjtNo, res);
+            List<String> fileNameList = fileService.uploadImages(pjtNo, data.getImages());
             return new ResponseEntity<>(fileNameList, HttpStatus.OK);
         }
     }
@@ -81,7 +81,6 @@ public class PjtImageController {
     @AllArgsConstructor
     @NoArgsConstructor
     static class ImageDataDto {
-        private List<String> images;
+        private List<MultipartFile> images;
     }
-
 }
