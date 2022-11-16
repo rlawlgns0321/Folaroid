@@ -11,6 +11,7 @@ import HeaderContainer from '../containers/header/HeaderContainer';
 import styled from '@emotion/styled';
 import Template1 from './Template1';
 import TestPage from './TestPage';
+import TemplateBody from '../components/template/TemplateBody';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -77,7 +78,7 @@ const PortFolioPage = () => {
                                 />
                                 <Route
                                     path="template"
-                                    element={<Template1 />}
+                                    element={<TemplateBody />}
                                 />
                             </Routes>
                         </Contents>
