@@ -15,8 +15,7 @@ public class PortfolioDto {
         private Integer pfPrivacy;
         private LocalDateTime updatedAt;
         private Long portfolioTemplatesNo;
-        //private PortfolioTemplates portfolioTemplates;
-        private String pfImageLocation;
+        private String pfName;
 
         public Portfolio toEntity(){
             Portfolio portfolio = Portfolio.builder()
@@ -24,9 +23,8 @@ public class PortfolioDto {
                     .userNo(userNo)
                     .pfPrivacy(pfPrivacy)
                     .updatedAt(updatedAt)
-                    //.portfolioTemplates(portfolioTemplates)
                     .portfolioTemplatesNo(portfolioTemplatesNo)
-//                    .pfImageLocation(pfImageLocation)
+                    .pfName(pfName)
                     .build();
             return portfolio;
         }
@@ -47,9 +45,7 @@ public class PortfolioDto {
             this.userNo = portfolio.getUserNo();
             this.pfPrivacy = portfolio.getPfPrivacy();
             this.updatedAt = portfolio.getUpdatedAt();
-            //this.portfolioTemplates = portfolio.getPortfolioTemplates();
             this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
-//            this.pfImageLocation = portfolio.getPfImageLocation();
         }
     }
     @Getter
@@ -57,12 +53,30 @@ public class PortfolioDto {
     public static class PortfolioSimpleDto {
         private Long pfNo;
         private LocalDateTime updated_at;
+        private String pfName;
 
         public PortfolioSimpleDto(Portfolio portfolio) {
             this.pfNo = portfolio.getPfNo();
             this.updated_at = portfolio.getUpdatedAt();
+            this.pfName = portfolio.getPfName();
         }
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class PortfolioDetailDto {
+        private Long pfNo;
+        private Long portfolioTemplatesNo;
+        private String pfName;
+
+        public PortfolioDetailDto(Portfolio portfolio) {
+            this.pfNo = portfolio.getPfNo();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
+            this.pfName = portfolio.getPfName();
+        }
+    }
+
+
 
     @Getter
     @AllArgsConstructor
