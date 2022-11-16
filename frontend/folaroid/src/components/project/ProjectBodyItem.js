@@ -29,6 +29,13 @@ const Skeleton = styled.div`
     border-radius: 0 0 10px 10px;
 `;
 
+const Img = styled.img`
+    width: 100%;
+    height: 84%;
+    object-fit: contain;
+    border-radius: 0 0 10px 10px;
+    background-color: rgba(140, 140, 140, 0.85);
+`;
 const DeleteBtn = styled.div`
     width: 15px;
     height: 15px;
@@ -54,7 +61,7 @@ const ProjectBodyItem = ({ project, onDeleteProject }) => {
                 </Grid>
                 <DeleteBtn onClick={onDeleteClick} />
             </TitleBar>
-            <Skeleton/>
+            <Img src = {project.pjtOneImageLocation}/>
         </ItemWrap>
     );
 };
