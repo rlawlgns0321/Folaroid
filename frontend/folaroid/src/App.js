@@ -14,6 +14,7 @@ import Template1 from './pages/Template1';
 import Template2 from './pages/Template2';
 import Template3 from './pages/Template3';
 import Template4 from './pages/Template4';
+import Template10 from './pages/Template10';
 import TestPage from './pages/TestPage';
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                     <Route path="/tem2" element={<Template2 />} />
                     <Route path="/tem3" element={<Template3 />} />
                     <Route path="/tem4" element={<Template4 />} />
+                    <Route path="/tem10" element={<Template10 />} />
                 </Routes>
             </div>
         </ThemeProvider>
