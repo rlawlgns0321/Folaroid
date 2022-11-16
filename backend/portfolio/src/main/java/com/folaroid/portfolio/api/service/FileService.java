@@ -80,7 +80,6 @@ public class FileService {
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(file.getSize());
             objectMetadata.setContentType(file.getContentType());
-
             try(InputStream inputStream = file.getInputStream()) {
                 amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                         .withCannedAcl(CannedAccessControlList.PublicRead));
@@ -168,18 +167,6 @@ public class FileService {
         }
         return fileName;
     }
-
-//    @Transactional
-//    public String downloadImg(Integer storeNo) {
-//        Store store = storeRepository.findById(storeNo)
-//                .orElseThrow(() -> new IllegalAccessError("[storeNo=" + storeNo + "] 해당 상점은 존재하지 않습니다."));
-//        if(store.getStoreImg()==null){
-//            return amazonS3.getUrl(bucket, "default.png").toString();
-//        }else {
-//            return amazonS3.getUrl(bucket, store.getStoreImg()).toString();
-//        }
-//    }
-
 
     private String createFileName(String fileName) { // 먼저 파일 업로드 시, 파일명을 난수화하기 위해 random으로 돌립니다.
         return UUID.randomUUID().toString().concat(getFileExtension(fileName));
