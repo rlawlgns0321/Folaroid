@@ -32,12 +32,36 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final ProjectRepository projectRepository;
     private final PjtImageRepository pjtImageRepository;
     private final FileService fileService;
-
+    private final UserRepository userRepository;
 
     @Transactional
     @Override
     public PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest request) {
         Portfolio portfolio = portfolioRepository.save(request.toEntity());
+
+        List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(request.getUserNo());
+        User user = userRepository.findById(request.getUserNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 userNo 입니다."));
+        String githubId = user.getUserGithubId();
+        // 빈 리스트 생성
+        List<String> res = new ArrayList<>();
+        for (Portfolio eachPortfolio : portfolios) {
+            // 빈 리스트에 각각의 포트폴리오 이름을 추가
+            res.add(eachPortfolio.getPfName());
+        }
+        Integer i = 1;
+        String pfName = githubId + "의 포트폴리오";
+        // while 문을 활용해서
+        while (true) {
+            if (!res.contains(pfName)) {
+                break;
+            } else {
+                pfName = portfolio.getPfName() + " (" + i + ")";
+                i += 1;
+            }
+        }
+        //알고리즘을 거친 pfName으로 이름 설정
+        portfolio.updatePortfolioName(pfName);
+
         Intro introTemp = new Intro();
         introTemp.SavePortfolioInfo(portfolio.getPfNo(), request.getUserNo());
         // 새로 만든 introNo
