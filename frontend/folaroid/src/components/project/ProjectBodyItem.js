@@ -1,8 +1,9 @@
 import { Card, Grid, IconButton } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import AlertDialog from '../dialog/AlertDialog';
 
 const ItemWrap = styled.div`
     width: 355px;
@@ -48,20 +49,42 @@ const DeleteBtn = styled.div`
 const ProjectBodyItem = ({ project, onDeleteProject }) => {
     const navigate = useNavigate();
 
+    const [open, setOpen] = useState();
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     const onDeleteClick = (e) => {
         e.stopPropagation();
+        setOpen(true);
+    };
+
+    const handleOn = () => {
         onDeleteProject(project.pjtNo);
     };
 
     return (
-        <ItemWrap  onClick={() => navigate(`${project.pjtNo}?pjtId=${project.pjtId}`)}>
+        <ItemWrap>
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
                     {project.pjtTitle}
                 </Grid>
                 <DeleteBtn onClick={onDeleteClick} />
             </TitleBar>
-            <Img src = {project.pjtOneImageLocation}/>
+            <Img
+                src={project.pjtOneImageLocation}
+                onClick={() =>
+                    navigate(`${project.pjtNo}?pjtId=${project.pjtId}`)
+                }
+            />
+            <AlertDialog
+                open={open}
+                handleClose={handleClose}
+                handleOn={handleOn}
+                title="프로젝트 삭제"
+                content={`${project.pjtTitle} 프로젝트를 삭제합니다.`}
+            />
         </ItemWrap>
     );
 };

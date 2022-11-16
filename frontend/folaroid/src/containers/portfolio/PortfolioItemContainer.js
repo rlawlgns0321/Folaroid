@@ -6,12 +6,12 @@ import { deletePortFolioThunk } from '../../modules/portfolio';
 
 const PortfolioItemContainer = ({ pf }) => {
     const [open, setOpen] = useState();
+    
+    const dispatch = useDispatch();
 
     const handleClose = () => {
         setOpen(false);
     };
-
-    const dispatch = useDispatch();
 
     const onDeleteClick = () => {
         setOpen(true);

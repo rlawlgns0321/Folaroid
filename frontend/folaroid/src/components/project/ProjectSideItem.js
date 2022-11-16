@@ -1,8 +1,9 @@
 import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid, IconButton, Skeleton } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AlertDialog from '../dialog/AlertDialog';
 
 const ItemBox = styled.div`
     width: 95%;
@@ -39,9 +40,21 @@ const Img = styled.img`
 
 const ProjectSideItem = ({ project, onDeleteProject }) => {
 
-    const onDeleteClick = () => {
+    const [open, setOpen] = useState();
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const onDeleteClick = (e) => {
+        e.stopPropagation();
+        setOpen(true);
+    };
+
+    const handleOn = () => {
         onDeleteProject(project.pjtNo);
     };
+
 
     return (
         <ItemBox>
@@ -82,6 +95,14 @@ const ProjectSideItem = ({ project, onDeleteProject }) => {
                     {project.pjtGithubUrl}
                 </div>
             </Grid>
+
+            <AlertDialog
+                open={open}
+                handleClose={handleClose}
+                handleOn={handleOn}
+                title="프로젝트 삭제"
+                content={`${project.pjtTitle} 프로젝트를 삭제합니다.`}
+            />
         </ItemBox>
     );
 };
