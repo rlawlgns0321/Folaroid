@@ -47,6 +47,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest request) {
         Portfolio portfolio = portfolioRepository.save(request.toEntity());
+        portfolio.updatePortfolioTemplate(1L);
 
         List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(request.getUserNo());
         User user = userRepository.findById(request.getUserNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 userNo 입니다."));
