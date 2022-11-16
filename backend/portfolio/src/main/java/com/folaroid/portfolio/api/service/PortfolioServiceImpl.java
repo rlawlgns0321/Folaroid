@@ -1,12 +1,14 @@
 package com.folaroid.portfolio.api.service;
 
 import com.folaroid.portfolio.api.dto.PortfolioDto;
+import com.folaroid.portfolio.api.dto.ProjectDto;
 import com.folaroid.portfolio.db.entity.*;
 import com.folaroid.portfolio.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,8 +38,16 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Transactional
     @Override
+    public PortfolioDto.PortfolioDetailDto getPortfolioDetail(Long pfNo) {
+        Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
+        return new PortfolioDto.PortfolioDetailDto(portfolio);
+    }
+
+    @Transactional
+    @Override
     public PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest request) {
         Portfolio portfolio = portfolioRepository.save(request.toEntity());
+        portfolio.updatePortfolioTemplate(1L);
 
         List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(request.getUserNo());
         User user = userRepository.findById(request.getUserNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 userNo 입니다."));
@@ -177,10 +187,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Transactional
     @Override
-    public void patchPortfolioTemplate(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest) {
+    public void patchPortfolio(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() ->
                 new IllegalArgumentException("해당하는 포트폴리오 프로젝트가 존재하지 않습니다."));
-        portfolio.updatePortfolioTemplate(portfolioRequest.getPortfolioTemplatesNo());
+        portfolio.updatePortfolio(portfolioRequest.getUserNo(), portfolioRequest.getPfPrivacy(), portfolioRequest.getUpdatedAt(), portfolioRequest.getPortfolioTemplatesNo(), portfolioRequest.getPfName());
     }
 
     @Override

@@ -94,7 +94,7 @@ function Items() {
     );
 }
 
-const Template6 = () => {
+const InfoModal = () => {
     return (
         <div style={{ height: '100vh' }}>
             <Canvas
@@ -171,4 +171,4 @@ const Template6 = () => {
     );
 };
 
-export default Template6;
+export default InfoModal;
