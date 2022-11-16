@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Template10.css';
 import styled from 'styled-components';
 
 function Template10() {
     const outerDivRef = useRef();
-    // const  DIVIDER_HEIGHT = 5;
+    const [scrollIndex, setScrollIndex] = useState(1);
     const DIVIDER_HEIGHT = window.innerHeight;
+
 
     useEffect(() => {
         const wheelHandler = (e) => {
@@ -23,6 +24,7 @@ function Template10() {
                         left: 0,
                         behavior: 'smooth',
                     });
+                    setScrollIndex(2);
                     console.log('1 -> 2, DOWN', scrollTop, pageHeight * 2);
                 } else if (
                     scrollTop >= pageHeight + DIVIDER_HEIGHT &&
@@ -34,6 +36,7 @@ function Template10() {
                         left: 0,
                         behavior: 'smooth',
                     });
+                    setScrollIndex(3);
                     console.log(
                         '2 -> 3, DOWN',
                         scrollTop,
@@ -46,6 +49,7 @@ function Template10() {
                         left: 0,
                         behavior: 'smooth',
                     });
+                    setScrollIndex(4);
                     console.log(
                         '3 -> 4, DOWN',
                         scrollTop,
@@ -61,6 +65,7 @@ function Template10() {
                         left: 0,
                         behavior: 'smooth',
                     });
+                    setScrollIndex(1);
                     console.log(
                         '2 -> 1, UP',
                         scrollTop,
@@ -76,6 +81,7 @@ function Template10() {
                         left: 0,
                         behavior: 'smooth',
                     });
+                    setScrollIndex(2);
                     console.log(
                         '3 -> 2, UP',
                         scrollTop,
@@ -88,6 +94,7 @@ function Template10() {
                         left: 0,
                         behavior: 'smooth',
                     });
+                    setScrollIndex(3);
                     console.log(
                         '4 -> 3',
                         scrollTop,
@@ -103,24 +110,49 @@ function Template10() {
         };
     }, []);
 
+
     const Dot = ({ num, scrollIndex }) => {
-        return(
+        return (
             <div
-              style={{
-                width: 10,
-                height: 10,
-                border: "1px solid black",
-                borderRadius: 999,
-                backgroundColor: scrollIndex ===num ? "black" : "transparent",
-                transitionDuration: 1000,
-                transition: "background-color 0.5s",
-              }}
-              ></div>
+                style={{
+                    width: 10,
+                    height: 10,
+                    border: '1px solid black',
+                    borderRadius: 999,
+                    backgroundColor:
+                        scrollIndex === num ? 'black' : 'transparent',
+                    transitionDuration: 1000,
+                    transition: 'background-color 0.5s',
+                }}
+            ></div>
+        );
+    };
+
+    const Dots = ({ scrollIndex }) => {
+        return (
+            <div style={{ position: 'fixed', top: '50%', right: 100 }}>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: 20,
+                        height: 100,
+                    }}
+                >
+                    <Dot num={1} scrollIndex={scrollIndex}></Dot>
+                    <Dot num={2} scrollIndex={scrollIndex}></Dot>
+                    <Dot num={3} scrollIndex={scrollIndex}></Dot>
+                    <Dot num={4} scrollIndex={scrollIndex}></Dot>
+                </div>
+            </div>
         );
     };
 
     return (
         <div ref={outerDivRef} className="outer">
+            <Dots scrollIndex={scrollIndex}></Dots>
             <div className="inner bg-yellow">1</div>
             <div className="divider"></div>
             <div className="inner bg-blue">2</div>
