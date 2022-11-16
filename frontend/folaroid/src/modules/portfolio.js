@@ -3,6 +3,7 @@ import { flattenJSON } from 'three/src/animation/AnimationUtils';
 import {
     createPortfolio,
     deletePortfolio,
+    getPortfolio,
     readSimplePortfolio,
 } from '../lib/api/portfolioAPI';
 
@@ -30,6 +31,14 @@ export const deletePortFolioThunk = createAsyncThunk(
     }
 );
 
+export const getPortFolioThunk = createAsyncThunk(
+    'portfolio/GET_PORTFOLIO',
+    async (pfNo) => {
+        const response = await getPortfolio(pfNo);
+        return response.data;
+    }
+)
+
 export const portfolio = createSlice({
     name: 'portfolio',
     initialState: {
@@ -56,6 +65,13 @@ export const portfolio = createSlice({
         [deletePortFolioThunk.fulfilled.type]: (state, {payload}) => {
             state.simple = state.simple.filter((pf) => pf.pfNo !== payload.pfNo);
         },
+        [getPortFolioThunk.pending.type]: (state) => {
+            state.isLoading = false;
+        },
+        [getPortFolioThunk.fulfilled.type]: (state, action) => {
+            state.pf = action.payload;
+            state.isLoading = true;
+        }
     },
 });
 

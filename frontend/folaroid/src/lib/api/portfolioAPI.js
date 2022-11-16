@@ -14,4 +14,8 @@ const deletePortfolio = (pfNo) => {
     return api.delete(`/portfolio/${pfNo}`);
 };
 
-export { readSimplePortfolio, createPortfolio, deletePortfolio };
+const getPortfolio = (pfNo) => {
+    return api.get(`/portfolio/${pfNo}`);
+}
+
+export { readSimplePortfolio, createPortfolio, deletePortfolio, getPortfolio };

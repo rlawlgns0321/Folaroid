@@ -36,7 +36,7 @@ const Title = styled.div`
     color: #248bea;
 `;
 
-const PortfolioItem = ({ pf, onDeleteClick }) => {
+const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
     const navigate = useNavigate();
 
     return (
@@ -50,7 +50,7 @@ const PortfolioItem = ({ pf, onDeleteClick }) => {
                     <VisibilityIcon fontSize="inherit" />
                 </IconButton>
                 <IconButton
-                    onClick={() => navigate(`/portfolio/${pf.pfNo}/intro`)}
+                    onClick={onGetClick}
                     edge="end"
                     size="large"
                     sx={{ color: 'white' }}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AlertDialog from '../../components/dialog/AlertDialog';
 import PortfolioItem from '../../components/mypage/PortfolioItem';
-import { deletePortFolioThunk } from '../../modules/portfolio';
+import { deletePortFolioThunk, getPortFolioThunk } from '../../modules/portfolio';
 
 const PortfolioItemContainer = ({ pf }) => {
     const [open, setOpen] = useState();
@@ -20,9 +20,13 @@ const PortfolioItemContainer = ({ pf }) => {
     const handleOn = () => {
         dispatch(deletePortFolioThunk(pf.pfNo));
     };
+
+    const onGetClick = () => {
+        dispatch(getPortFolioThunk(pf.pfNo));
+    }
     return (
         <>
-            <PortfolioItem pf={pf} onDeleteClick={onDeleteClick} />
+            <PortfolioItem pf={pf} onGetClick={onGetClick} onDeleteClick={onDeleteClick} />
             <AlertDialog
                 open={open}
                 handleClose={handleClose}
