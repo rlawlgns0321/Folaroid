@@ -86,12 +86,13 @@ const IntroBox = styled.div`
 const initialState = {
     activityName: '',
     activityUrl: '',
-    activityDate: new Date(),
+    activityDate: null,
     activityDetail: '',
 };
 
 function ActivityInput(props) {
     const [activity, setActivity] = useState(initialState);
+    const [date, setDate] = useState(null);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -100,8 +101,11 @@ function ActivityInput(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(activity);
+        const value = dayjs(date).add(1, 'day').toISOString().substring(0, 10);
+        props.onCreate({ a: activity, b: value });
+        console.log(activity);
         setActivity(initialState);
+        setDate(null);
     };
 
     return (
@@ -147,22 +151,15 @@ function ActivityInput(props) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <IntroInputLabel>활동시기</IntroInputLabel>
                             <DatePicker
-                                views={['year', 'month', 'date']}
+                                views={['year', 'month']}
                                 inputFormat="YYYY년 MM월"
-                                value={activity.activityDate}
+                                value={date}
                                 onChange={(newValue) => {
-                                    setActivity({
-                                        ...activity,
-                                        activityDate: newValue
-    
-                                    });
+                                    setDate(newValue);
                                 }}
                                 renderInput={(params) => (
-                                    <IntroTextField {...params} readonly="true" />
+                                    <IntroTextField {...params} />
                                 )}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
                             />
                         </LocalizationProvider>
                     </div>
@@ -216,7 +213,9 @@ function ReadSchool(props) {
         <TableRow key={item.introActivityNo}>
             <TableCell align="center">{item.activityName}</TableCell>
             <TableCell align="center">{item.activityUrl}</TableCell>
-            <TableCell align="center">{item.activityDate}</TableCell>
+            <TableCell align="center">
+                {item.activityDate && item.activityDate.substring(0, 7)}
+            </TableCell>
             <TableCell align="center">{item.activityDetail}</TableCell>
             <TableCell
                 style={{ display: 'flex', justifyContent: 'center' }}
@@ -282,14 +281,17 @@ function ViewName() {
             <IntroBox>
                 <CardHeader>활동</CardHeader>
                 <ActivityInput
-                    onCreate={(_activity) => {
+                    onCreate={(c) => {
+                        const { a, b } = c;
+                        console.log(a.activity);
+                        console.log(a.value);
                         dispatch(
                             createActivity({
                                 introNo: intro_no,
-                                activityName: _activity.activityName,
-                                activityUrl: _activity.activityUrl,
-                                activityDate: _activity.activityDate,
-                                activityDetail: _activity.activityDetail,
+                                activityName: a.activityName,
+                                activityUrl: a.activityUrl,
+                                activityDate: b,
+                                activityDetail: a.activityDetail,
                             })
                         );
                         setMode('READ');
@@ -303,14 +305,14 @@ function ViewName() {
             <IntroBox>
                 <CardHeader>활동</CardHeader>
                 <ActivityInput
-                    onCreate={(_activity) => {
+                    onCreate={({ a, b }) => {
                         dispatch(
                             createActivity({
                                 introNo: intro_no,
-                                activityName: _activity.activityName,
-                                activityUrl: _activity.activityUrl,
-                                activityDate: _activity.activityDate,
-                                activityDetail: _activity.activityDetail,
+                                activityName: a.activityName,
+                                activityUrl: a.activityUrl,
+                                activityDate: b,
+                                activityDetail: a.activityDetail,
                             })
                         );
                     }}

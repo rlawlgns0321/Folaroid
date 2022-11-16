@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Button,
-    Box,
-    CardContent,
-    TextField,
-    InputLabel,
-} from '@mui/material';
+import { Button, Box, CardContent, TextField, InputLabel } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { updatePersonal, getPersonal } from '../../modules/intro/personal';
 import { useDispatch, useSelector, useStore } from 'react-redux';
@@ -67,14 +60,18 @@ const IntroBox = styled.div`
 function Update(props) {
     const person = props.person;
     const [personal, setPersonal] = useState(person);
+    const [birth, setBirth] = useState(person.userBirth);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setPersonal({ ...personal, [name]: value });
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(personal);
+        console.log(personal.userBirth);
+        const date = dayjs(birth).add(1, 'day').toISOString().substring(0,10)
+        props.onCreate({personal, date});
     };
 
     return (
@@ -100,27 +97,15 @@ function Update(props) {
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <IntroInputLabel>
-                                    생년월일
-                                </IntroInputLabel>
+                                <IntroInputLabel>생년월일</IntroInputLabel>
                                 <DatePicker
                                     inputFormat="YYYY년 MM월 DD일"
-                                    value={personal.userBirth}
-                                    name="userBirth"
+                                    value={birth}
                                     onChange={(newValue) => {
-                                        setPersonal({
-                                            ...personal,
-                                            // userBirth: newValue
-                                            userBirth: dayjs(newValue)
-                                                .toISOString()
-                                                .substring(0, 10),
-                                        });
+                                        setBirth(newValue);
                                     }}
                                     renderInput={(params) => (
-                                        <IntroTextField
-                                            id="date-input"
-                                            {...params}
-                                        />
+                                        <IntroTextField {...params} />
                                     )}
                                 />
                             </LocalizationProvider>
@@ -240,11 +225,11 @@ function ViewName() {
                 <CardHeader>개인정보</CardHeader>
                 <Update
                     person={personal}
-                    onCreate={(personal) => {
+                    onCreate={({personal, date}) => {
                         dispatch(
                             updatePersonal({
                                 introNo: intro_no,
-                                userBirth: personal.userBirth,
+                                userBirth: date,
                                 userEmail: personal.userEmail,
                                 userName: personal.userName,
                                 userPhone: personal.userPhone,

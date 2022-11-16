@@ -103,15 +103,19 @@ const initialState = {
 
 function LanguageInput(props) {
     const [language, setLanguage] = useState(initialState);
+    const [value, setValue] = useState(null)
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setLanguage({ ...language, [name]: value });
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(language);
+        const date = dayjs(value).toISOString().substring(0,10)
+        props.onCreate(language, date);
         setLanguage(initialState);
+        setValue(null)
     };
 
     return (
@@ -161,21 +165,13 @@ function LanguageInput(props) {
                             <DatePicker
                                 views={['year', 'month']}
                                 inputFormat="YYYY년 MM월"
-                                value={language.languageDate}
+                                value={value}
                                 onChange={(newValue) => {
-                                    setLanguage({
-                                        ...language,
-                                        languageDate: dayjs(newValue)
-                                            .toISOString()
-                                            .substring(0, 10),
-                                    });
+                                    setValue(newValue)
                                 }}
                                 renderInput={(params) => (
                                     <IntroTextField {...params} readonly="true" />
                                 )}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
                             />
                         </LocalizationProvider>
                     </div>
@@ -214,7 +210,7 @@ function ReadLanguage(props) {
         <TableRow key={item.introLanguageNo}>
             <TableCell align="center">{item.languageName}</TableCell>
             <TableCell align="center">{item.languageTestName}</TableCell>
-            <TableCell align="center">{item.languageDate}</TableCell>
+            <TableCell align="center">{item.languageDate && item.languageDate.substring(0,7)}</TableCell>
             <TableCell align="center">{item.languageGrade}</TableCell>
             <TableCell
                 style={{ display: 'flex', justifyContent: 'center' }}
@@ -279,15 +275,15 @@ function ViewLanguage() {
             <IntroBox>
                 <CardHeader>공인어학성적</CardHeader>
                 <LanguageInput
-                    onCreate={(_language) => {
-                        console.log('_language', _language);
+                    onCreate={(language, date) => {
+                        console.log('_language', language);
                         dispatch(
                             createLanguage({
                                 introNo: intro_no,
-                                languageName: _language.languageName,
-                                languageTestName: _language.languageTestName,
-                                languageDate: _language.languageDate,
-                                languageGrade: _language.languageGrade,
+                                languageName: language.languageName,
+                                languageTestName: language.languageTestName,
+                                languageDate: date,
+                                languageGrade: language.languageGrade,
                             })
                         );
                         setMode('READ');
@@ -301,15 +297,14 @@ function ViewLanguage() {
             <IntroBox>
                 <CardHeader>공인어학성적</CardHeader>
                 <LanguageInput
-                    onCreate={(_language) => {
-                        console.log('_language', _language);
+                    onCreate={(language, date) => {
                         dispatch(
                             createLanguage({
                                 introNo: intro_no,
-                                languageName: _language.languageName,
-                                languageTestName: _language.languageTestName,
-                                languageDate: _language.languageDate,
-                                languageGrade: _language.languageGrade,
+                                languageName: language.languageName,
+                                languageTestName: language.languageTestName,
+                                languageDate: date,
+                                languageGrade: language.languageGrade,
                             })
                         );
                         setMode('READ');

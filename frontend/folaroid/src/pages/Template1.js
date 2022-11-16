@@ -28,7 +28,7 @@ export const sizes = {
 
 //구름 배경
 export function Scene(props) {
-    const map = useGLTF('models/map.glb');
+    const map = useGLTF('/models/map.glb');
     //const floor = useTexture('images/grid.jpg');
     return (
         <group>
@@ -85,7 +85,7 @@ export function Scene(props) {
     );
 }
 export function House1(props) {
-    const glb = useLoader(GLTFLoader, 'models/house1.glb');
+    const glb = useLoader(GLTFLoader, '/models/house1.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={5} />
@@ -94,7 +94,7 @@ export function House1(props) {
     );
 }
 export function House2(props) {
-    const glb = useLoader(GLTFLoader, 'models/house2.glb');
+    const glb = useLoader(GLTFLoader, '/models/house2.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={85} />
@@ -102,7 +102,7 @@ export function House2(props) {
     );
 }
 export function House3(props) {
-    const glb = useLoader(GLTFLoader, 'models/house3.glb');
+    const glb = useLoader(GLTFLoader, '/models/house3.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={12} />
@@ -110,7 +110,7 @@ export function House3(props) {
     );
 }
 export function House4(props) {
-    const glb = useLoader(GLTFLoader, 'models/house4.glb');
+    const glb = useLoader(GLTFLoader, '/models/house4.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={40} />
@@ -198,7 +198,7 @@ const Template1 = () => {
     }, [open]);
 
     return (
-        <>
+        <div>
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -309,7 +309,7 @@ const Template1 = () => {
                     </div>
                 </section>
             </div>
-        </>
+        </div>
     );
 };
 export default Template1;
