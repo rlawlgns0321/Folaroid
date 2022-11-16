@@ -3,10 +3,10 @@ import Unity, { UnityContext } from 'react-unity-webgl';
 import IntroTemplate3 from '../components/template/IntroTemplate3';
 
 const unityContext = new UnityContext({
-    loaderUrl: 'public_assets/unity_assets/Releases.loader.js',
-    dataUrl: 'public_assets/unity_assets/Releases.data',
-    frameworkUrl: 'public_assets/unity_assets/Releases.framework.js',
-    codeUrl: 'public_assets/unity_assets/Releases.wasm',
+    loaderUrl: 'public_assets/unity_assets/template-art-museum/Releases.loader.js',
+    dataUrl: 'public_assets/unity_assets/template-art-museum/Releases.data',
+    frameworkUrl: 'public_assets/unity_assets/template-art-museum/Releases.framework.js',
+    codeUrl: 'public_assets/unity_assets/template-art-museum/Releases.wasm',
 });
 
 const Template3 = () => {

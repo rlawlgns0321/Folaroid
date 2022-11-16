@@ -3,10 +3,10 @@ import Unity, {UnityContext} from "react-unity-webgl";
 
 
 const unityContext = new UnityContext ({
-  loaderUrl: "Build/Releases.loader.js",
-  dataUrl: "Build/Releases.data",
-  frameworkUrl: "Build/Releases.framework.js",
-  codeUrl: "Build/Releases.wasm",
+  loaderUrl: "public_assets/unity_assets/template-movie-theater/Releases.loader.js",
+  dataUrl: "public_assets/unity_assets/template-movie-theater/Releases.data",
+  frameworkUrl: "public_assets/unity_assets/template-movie-theater/Releases.framework.js",
+  codeUrl: "public_assets/unity_assets/template-movie-theater/Releases.wasm",
 })
 
 const Template4 = () => {
