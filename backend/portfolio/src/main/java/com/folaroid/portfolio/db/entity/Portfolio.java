@@ -50,4 +50,12 @@ public class Portfolio {
     public void updatePortfolioName(String pfName) {
         this.pfName = pfName;
     }
+
+    public void updatePortfolio(Long userNo, Integer pfPrivacy, LocalDateTime updatedAt, Long portfolioTemplatesNo, String pfName) {
+        this.userNo = userNo;
+        this.pfPrivacy = pfPrivacy;
+        this.updatedAt = updatedAt;
+        this.portfolioTemplatesNo = portfolioTemplatesNo;
+        this.pfName = pfName;
+    }
 }
