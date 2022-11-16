@@ -42,8 +42,8 @@ const PortfolioItem = ({ pf, onDeleteClick }) => {
     return (
         <Wrap>
             <Info>
-                <Title>포트폴리오 이름</Title>
-                <div>{pf.updated_at}</div>
+                <Title>{pf.pfName}</Title>
+                <div>{pf.updated_at.substring(0,10)}</div>
             </Info>
             <div>
                 <IconButton edge="end" size="large" sx={{ color: 'white' }}>
@@ -64,7 +64,7 @@ const PortfolioItem = ({ pf, onDeleteClick }) => {
                     edge="end"
                     size="large"
                     sx={{ color: 'white' }}
-                    onClick={() => onDeleteClick()}
+                    onClick={onDeleteClick}
                 >
                     <DeleteIcon fontSize="inherit" />
                 </IconButton>

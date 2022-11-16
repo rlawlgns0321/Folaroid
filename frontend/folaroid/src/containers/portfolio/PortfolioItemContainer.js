@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import AlertDialog from '../../components/dialog/AlertDialog';
 import PortfolioItem from '../../components/mypage/PortfolioItem';
 import { deletePortFolioThunk } from '../../modules/portfolio';
 
-const PortfolioItemContainer = ({pf}) => {
+const PortfolioItemContainer = ({ pf }) => {
+    const [open, setOpen] = useState();
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const dispatch = useDispatch();
 
     const onDeleteClick = () => {
-        dispatch(deletePortFolioThunk(pf.pfNo));
-    }
+        setOpen(true);
+    };
 
+    const handleOn = () => {
+        dispatch(deletePortFolioThunk(pf.pfNo));
+    };
     return (
         <>
-            <PortfolioItem pf={pf} onDeleteClick={onDeleteClick}/>
+            <PortfolioItem pf={pf} onDeleteClick={onDeleteClick} />
+            <AlertDialog
+                open={open}
+                handleClose={handleClose}
+                handleOn={handleOn}
+                title="포트폴리오 삭제"
+                content={`${pf.pfName}포트폴리오를 삭제합니다.`}
+            />
         </>
     );
 };

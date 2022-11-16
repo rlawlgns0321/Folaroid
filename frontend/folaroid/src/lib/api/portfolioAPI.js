@@ -11,7 +11,7 @@ const createPortfolio = (param) => {
 };
 
 const deletePortfolio = (pfNo) => {
-    return api.delete(`/portfolio/intro/${pfNo}`);
+    return api.delete(`/portfolio/${pfNo}`);
 };
 
 export { readSimplePortfolio, createPortfolio, deletePortfolio };

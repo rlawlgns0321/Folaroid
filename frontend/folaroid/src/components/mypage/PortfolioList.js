@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PortfolioItemContainer from '../../containers/portfolio/PortfolioItemContainer';
+import AlertDialog from '../dialog/AlertDialog';
 
 const Wrap = styled.div`
     height: 100%;
@@ -40,7 +41,7 @@ const PortfolioList = ({ portfolioList, onCreateClick }) => {
             <ContentsWrap>
                 {portfolioList &&
                     portfolioList.map((pf, key) => {
-                        return <PortfolioItemContainer key={key} pf={pf} />;
+                        return <PortfolioItemContainer key={pf.pfNo} pf={pf} />;
                     })}
             </ContentsWrap>
         </Wrap>
