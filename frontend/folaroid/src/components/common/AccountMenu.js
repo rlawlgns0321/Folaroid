@@ -78,8 +78,8 @@ const AccountMenu = ({ onLogout }) => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
-                    <ListItemIcon onClick={() => navigate('/mypage')}>
+                <MenuItem onClick={() => navigate('/mypage')}>
+                    <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
                     My Page

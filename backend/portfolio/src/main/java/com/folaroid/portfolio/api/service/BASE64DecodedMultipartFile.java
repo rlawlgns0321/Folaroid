@@ -20,13 +20,13 @@ public class BASE64DecodedMultipartFile implements MultipartFile {
     @Override
     public String getOriginalFilename() {
         // TODO - implementation depends on your requirements
-        return null;
+        return "ProjectImageName.png";
     }
 
     @Override
     public String getContentType() {
         // TODO - implementation depends on your requirements
-        return null;
+        return "image/png";
     }
 
     @Override

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -58,13 +59,14 @@ public class PjtImageController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<List<String>> uploadImg(@PathVariable("pjt-no") Long pjtNo,
-//                                                  @RequestParam(value = "files", required = false) List<MultipartFile> files
-                                                  @RequestBody @Valid ImageDataDto data
+                                                  @RequestBody ImageDataDto data
     )  throws IOException {
 
         List<MultipartFile> res = new ArrayList<>();
+
         data.getImages().forEach(image -> {
-            byte[] decodedBytes = Base64.getDecoder().decode(image);
+            String imageData = image.split("data:image/png;base64,")[1];
+            byte[] decodedBytes = Base64.getDecoder().decode(imageData);
             MultipartFile multipartFile = new BASE64DecodedMultipartFile(decodedBytes);
             res.add(multipartFile);
         });
@@ -83,5 +85,4 @@ public class PjtImageController {
     static class ImageDataDto {
         private List<String> images;
     }
-
 }
