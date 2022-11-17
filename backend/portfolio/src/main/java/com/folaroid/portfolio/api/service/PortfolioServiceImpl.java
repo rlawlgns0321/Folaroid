@@ -40,7 +40,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public PortfolioDto.PortfolioDetailDto getPortfolioDetail(Long pfNo) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
-        return new PortfolioDto.PortfolioDetailDto(portfolio);
+        Long introNo = introRepository.findIntroNoByPfNoAndUserNo(pfNo, portfolio.getUserNo());
+        return new PortfolioDto.PortfolioDetailDto(portfolio, introNo);
     }
 
     @Transactional
