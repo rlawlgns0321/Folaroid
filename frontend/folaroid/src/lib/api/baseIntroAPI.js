@@ -132,6 +132,10 @@ const getImage = (intro_no) => {
     return api.get(`intro-image/${intro_no}`);
 };
 
+const findByPfNo = (pfNo) => {
+    return api.get(`portfolio/intro/${pfNo}`);
+}
+
 const box = () => {
     return axios.create({
         baseURL: process.env.REACT_APP_BASE_URL,
@@ -183,4 +187,5 @@ export {
     getHash,
     getImage,
     updateImage,
+    findByPfNo
 };

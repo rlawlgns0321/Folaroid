@@ -7,12 +7,15 @@ import {
     ListItemText,
 } from '@mui/material';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const IntroListItemText = styled(ListItemText)`
     padding-left: 20px ;
 `
 
 const IntroSide = () => {
+
+
     return (
         <div style={{ color: 'white'}}>
             <div style={{ maxheight: '8%', marginLeft: '20px' }}>

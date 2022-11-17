@@ -135,16 +135,17 @@ function ReadSlogan(props) {
     );
 }
 
-function ViewSlogan() {
+function ViewSlogan(props) {
     const slogan = useSelector((state) => state.slogan);
     const { pathname } = useLocation();
     const store = useStore();
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
+            : props.pfIntro_no;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
+    console.log(intro_no)
 
     useEffect(() => {
         console.log('이거', intro_no);

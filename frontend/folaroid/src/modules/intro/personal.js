@@ -32,6 +32,15 @@ export const findByGithub = createAsyncThunk(
     }
 );
 
+export const findByPfNo = createAsyncThunk(
+    'personal/findByPfNo',
+    async (pfNo) => {
+        const response = await api.findByPfNo(pfNo);
+        console.log(response.data)
+        return response.data
+    }
+)
+
 export const personal = createSlice({
     name: 'personal',
     initialState: {
@@ -41,6 +50,7 @@ export const personal = createSlice({
         userName: '',
         userNo: '',
         userPhone: '',
+        pfNoIntro: '',
     },
     extraReducers: {
         [updatePersonal.fulfilled.type]: (state, action) => {
@@ -58,6 +68,9 @@ export const personal = createSlice({
             console.log(action)
             return action.payload;
         },
+        [findByPfNo.fulfilled.type]: (state, action) => {
+            state.pfNoIntro = action.payload
+        }
     },
 });
 

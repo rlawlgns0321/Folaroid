@@ -136,14 +136,14 @@ function ReadImage(props) {
     );
 }
 
-function ViewImage() {
+function ViewImage(props) {
     const image = useSelector((state) => state.image);
     const { pathname } = useLocation();
     const store = useStore();
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
+            : props.pfIntro_no;
     const [mode, setMode] = useState('READ');
     const dispatch = useDispatch();
 

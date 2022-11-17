@@ -257,14 +257,14 @@ function Read(props) {
     );
 }
 
-function View() {
+function View(props) {
     const certification = useSelector((state) => state.certification);
     const { pathname } = useLocation();
     const store = useStore();
     const introNo =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
+            : props.pfIntro_no;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 

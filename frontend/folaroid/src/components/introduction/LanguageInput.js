@@ -243,14 +243,14 @@ function ReadLanguage(props) {
     );
 }
 
-function ViewLanguage() {
+function ViewLanguage(props) {
     const language = useSelector((state) => state.language);
     const { pathname } = useLocation();
     const store = useStore();
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
+            : props.pfIntro_no;
     console.log('language no', intro_no);
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();

@@ -68,7 +68,8 @@ function ViewIntro() {
                         {personal.userName && <h1>{personal.userName}</h1>}
                         {personal.userBirth && (
                             <h3>
-                                생년월일 : {birth[0]}년 {birth[1]}월 {birth[2]}일
+                                생년월일 : {birth[0]}년 {birth[1]}월 {birth[2]}
+                                일
                             </h3>
                         )}
                         {personal.userEmail && (
@@ -81,7 +82,8 @@ function ViewIntro() {
                             {archiving &&
                                 archiving.map((item) => (
                                     <h3>
-                                        {item.archivingName} : {item.archivingLink}
+                                        {item.archivingName} :{' '}
+                                        {item.archivingLink}
                                     </h3>
                                 ))}
                         </div>
@@ -134,10 +136,13 @@ function ViewIntro() {
                             <h1>경력사항</h1>
                             <h3>근무 회사 : {item.careerComName}</h3>
                             <div>
-                                근무 일시 : {item.careerDate} | 담당 직무 :{item.careerJob}
+                                근무 일시 : {item.careerDate} | 담당 직무 :
+                                {item.careerJob}
                             </div>
                             {item.careerResult && (
-                                <div>상세업무 및 성과 : {item.careerResult}</div>
+                                <div>
+                                    상세업무 및 성과 : {item.careerResult}
+                                </div>
                             )}
                             <div>추가 사항 : {item.careerDetail}</div>
                         </div>
@@ -159,25 +164,31 @@ function ViewIntro() {
             </Box>
             <Box>
                 <h1>자격증</h1>
-                {certification && certification.map((item) => (
-                    <div>
-                        <h3>{item.certificationName}</h3>
-                        <div>{item.certificationDate} | {item.certificationIssuer}</div>
-                        <div>{item.certificationDetail}</div>
-                    </div>
-                ))}
+                {certification &&
+                    certification.map((item) => (
+                        <div>
+                            <h3>{item.certificationName}</h3>
+                            <div>
+                                {item.certificationDate} |{' '}
+                                {item.certificationIssuer}
+                            </div>
+                            <div>{item.certificationDetail}</div>
+                        </div>
+                    ))}
             </Box>
             <Box>
                 <h1>외국어</h1>
-                {language && language.map((item) => (
-                    <div>
-                        <h3>{item.languageName}</h3>
-                        <div>{item.languageTestName} | {item.languageGrade}</div>
-                        <div>{item.languageDate}</div>
-                    </div>
-                ))}
+                {language &&
+                    language.map((item) => (
+                        <div>
+                            <h3>{item.languageName}</h3>
+                            <div>
+                                {item.languageTestName} | {item.languageGrade}
+                            </div>
+                            <div>{item.languageDate}</div>
+                        </div>
+                    ))}
             </Box>
-
         </div>
     );
 }

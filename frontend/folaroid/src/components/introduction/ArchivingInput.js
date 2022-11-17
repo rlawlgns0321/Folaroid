@@ -186,14 +186,14 @@ function ReadSchool(props) {
     );
 }
 
-function ViewName() {
+function ViewName(props) {
     const archiving = useSelector((state) => state.archiving);
     const { pathname } = useLocation();
     const store = useStore();
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
+            : props.pfIntro_no;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
