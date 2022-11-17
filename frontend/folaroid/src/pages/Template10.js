@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Template10.css';
-import styled from 'styled-components';
+import { Stage, Layer, Path} from 'react-konva';
+import Konva from 'konva';
 
 function Template10() {
     const outerDivRef = useRef();
     const [scrollIndex, setScrollIndex] = useState(1);
     const DIVIDER_HEIGHT = window.innerHeight;
-
+    const bag = Konva.Util.getRandomColor();
 
     useEffect(() => {
         const wheelHandler = (e) => {
@@ -110,19 +111,18 @@ function Template10() {
         };
     }, []);
 
-
     const Dot = ({ num, scrollIndex }) => {
         return (
             <div
                 style={{
-                    width: 10,
-                    height: 10,
+                    width: 5,
+                    height: scrollIndex === num ? 20 : 5,
                     border: '1px solid black',
                     borderRadius: 999,
                     backgroundColor:
-                        scrollIndex === num ? 'black' : 'transparent',
+                        scrollIndex === num ? bag : 'transparent',
                     transitionDuration: 1000,
-                    transition: 'background-color 0.5s',
+                    transition: 'All 0.5s',
                 }}
             ></div>
         );
@@ -150,15 +150,28 @@ function Template10() {
         );
     };
 
+    
     return (
         <div ref={outerDivRef} className="outer">
             <Dots scrollIndex={scrollIndex}></Dots>
             <div className="inner bg-yellow">1</div>
-            <div className="divider"></div>
+            <div style={{ background: bag }}>
+                <Stage width={window.innerWidth} height={window.innerHeight}>
+                    <Layer></Layer>
+                </Stage>
+            </div>
             <div className="inner bg-blue">2</div>
-            <div className="divider"></div>
+            <div style={{ background: bag }}>
+                <Stage width={window.innerWidth} height={window.innerHeight}>
+                    <Layer></Layer>
+                </Stage>
+            </div>
             <div className="inner bg-pink">3</div>
-            <div className="divider"></div>
+            <div style={{ background: bag }}>
+                <Stage width={window.innerWidth} height={window.innerHeight}>
+                    <Layer></Layer>
+                </Stage>
+            </div>
             <div className="inner bg-black">4</div>
         </div>
     );
