@@ -18,4 +18,6 @@ public class HashTag {
 
     @Column(length = 20)
     private String hashName;
+
+    private String hashImageLocation;
 }
