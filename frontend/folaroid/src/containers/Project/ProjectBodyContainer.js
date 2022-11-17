@@ -21,7 +21,6 @@ const ProjectBodyContainer = () => {
         dispatch(getProjectsThunk(pfNo));
     }, [dispatch, pfNo]);
 
-
     return (
         <div>
             <ProjectBody

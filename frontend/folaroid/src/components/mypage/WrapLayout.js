@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 import React from 'react';
 import BaseIntroContainer from '../../containers/personal/BaseIntroContainer';
 import PortfolioListContainer from '../../containers/portfolio/PortfolioListContainer';
 
-const Wrap = styled.div`
+const Wrap = styled(motion.div)`
     width: 80%;
     height: 80%;
     display: flex;
     border-radius: 10px;
-    border: 1px solid #2C2B2B;
+    border: 1px solid #2c2b2b;
     flex-direction: row;
 `;
 
@@ -32,14 +33,31 @@ const RightContent = styled.div`
     overflow-y: scroll;
 `;
 
+const container = {
+    hidden: { opacity: 1, scale: 0.7 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2,
+        },
+    },
+};
+
 const WrapLayout = () => {
     return (
-        <Wrap>
+        <Wrap
+            className="container"
+            variants={container}
+            initial="hidden"
+            animate="visible"
+        >
             <LeftContent>
-                <BaseIntroContainer/>
+                <BaseIntroContainer />
             </LeftContent>
             <RightContent>
-                <PortfolioListContainer/>
+                <PortfolioListContainer />
             </RightContent>
         </Wrap>
     );
