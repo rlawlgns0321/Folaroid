@@ -2,19 +2,39 @@ import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
 
-const Title = styled(Grid)`
+const TItleWrap = styled.div`
     height: 8%;
-    border-bottom: 1px solid #248BEA;
+    border: none;
+    border-bottom: 1px solid #248bea;
     font-weight: bold;
     color: white;
-    background-color: #248BEA;
+    background-color: #248bea;
     font-size: 1.7rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-left: 15px;
+    padding-right: 15px;
     border-radius: 0 10px 0 0;
+`;
+
+const Title = styled.input`
+    width: 60%;
+    outline: none;
+    font-size: 1.7rem;
+    color: white;
+    background-color: #248bea;
+    border: none;
+`;
+
+const TitleBtn = styled.button`
+    outline: none;
+    font-size: 1.7rem;
+    color: white;
+    background-color: #248bea;
+    border: none;
+    cursor: pointer;
 `;
 
 const Wrap = styled(Grid)`
@@ -22,21 +42,13 @@ const Wrap = styled(Grid)`
     max-height: 100%;
 `;
 
-const Contents = ({ children }) => {
-    const { pathname } = useLocation();
-    const [title, setTitle] = useState('');
-    const {pfNo} = useParams();
-
-    useEffect(() => {
-        if (pathname === `/portfolio/${pfNo}/intro`) setTitle('자기소개');
-        else if (pathname === `/portfolio/${pfNo}/project`) setTitle('프로젝트');
-        else if (pathname === `/portfolio/${pfNo}/template`) setTitle('템플릿');
-        else if (pathname === `/intro`) setTitle('자기소개');
-    }, [pathname, pfNo]);
-
+const Contents = ({ children, pfName, onChange, onSave }) => {
     return (
         <Wrap container direction="column">
-            <Title>{title}</Title>
+            <TItleWrap>
+                <Title value={pfName} onChange={onChange} spellCheck={false} />
+                <TitleBtn onClick={onSave}>저장</TitleBtn>
+            </TItleWrap>
             <Grid
                 className={css`
                     height: 92%;

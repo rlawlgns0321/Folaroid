@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { portfolioProject } from '../../modules/portfolioProject';
+import { deleteProjectThunk, portfolioProject } from '../../modules/portfolioProject';
 import ProjectSide from '../../components/project/ProjectSide';
 
 const ProjectSideContainer = () => {
@@ -9,7 +9,7 @@ const ProjectSideContainer = () => {
     const dispatch = useDispatch();
 
     const onDeleteProject = (id) => {
-        dispatch(portfolioProject.actions.deleteProject(id));
+        dispatch(deleteProjectThunk(id));
     };
 
     return (

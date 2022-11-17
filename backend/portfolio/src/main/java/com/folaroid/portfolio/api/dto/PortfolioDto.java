@@ -68,11 +68,13 @@ public class PortfolioDto {
         private Long pfNo;
         private Long portfolioTemplatesNo;
         private String pfName;
+        private Long userNo;
 
         public PortfolioDetailDto(Portfolio portfolio) {
             this.pfNo = portfolio.getPfNo();
             this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
             this.pfName = portfolio.getPfName();
+            this.userNo = portfolio.getUserNo();
         }
     }
 
@@ -83,10 +85,16 @@ public class PortfolioDto {
     public static class SavePortfolioDto {
         private Long pfNo;
         private Long introNo;
+        private String pfName;
+        private Long portfolioTemplatesNo;
+        private Long userNo;
 
         public SavePortfolioDto(Portfolio portfolio, Long introNo) {
             this.pfNo = portfolio.getPfNo();
             this.introNo = introNo;
+            this.pfName = portfolio.getPfName();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
+            this.userNo = portfolio.getUserNo();
         }
     }
     @Getter
