@@ -70,11 +70,14 @@ public class PortfolioDto {
         private String pfName;
         private Long userNo;
 
-        public PortfolioDetailDto(Portfolio portfolio) {
+        private Long introNo;
+
+        public PortfolioDetailDto(Portfolio portfolio, Long introNo) {
             this.pfNo = portfolio.getPfNo();
             this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
             this.pfName = portfolio.getPfName();
             this.userNo = portfolio.getUserNo();
+            this.introNo = introNo;
         }
     }
 
