@@ -20,9 +20,10 @@ public class IntroStackService {
     private final HashTagRepository hashTagRepository;
 
     @Transactional
-    public Long save(StackNoDto request) {
-        IntroStack introStack = new IntroStack(request.getIntroNo(), request.getHashNo());
-        return introStackRepository.save(introStack).getIntroStackNo();
+    public StackNameDto save(StackNoDto request) {
+        IntroStack introStackTemp = new IntroStack(request.getIntroNo(), request.getHashNo());
+        IntroStack introStack = introStackRepository.save(introStackTemp);
+        return new StackNameDto(introStack, hashTagRepository.findById(introStack.getHashNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 hashNo 입니다.")));
     }
     @Transactional
     public List<StackNameDto> find(Long introNo) {
