@@ -112,8 +112,8 @@ const deleteSchool = (intro_school_no) => {
     return api.delete(`/intro-school/${intro_school_no}`);
 };
 
-const getStack = (intro_no) => {
-    return api.get(`/intro-stack/${intro_no}`);
+const getStack = (introNo) => {
+    return api.get(`/intro-stack/${introNo}`);
 };
 
 const createStack = (data) => {

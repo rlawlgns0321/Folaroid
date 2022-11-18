@@ -55,6 +55,7 @@ export const portfolio = createSlice({
         pf: null,
         isLoading: false,
         isPatch: false,
+        intro_no: ''
     },
     reducers: {
         clearPf: (state, action) => {

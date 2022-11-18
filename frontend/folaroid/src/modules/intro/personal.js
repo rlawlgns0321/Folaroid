@@ -5,6 +5,7 @@ export const getPersonal = createAsyncThunk(
     'personal/getPersonal',
     async (intro_no) => {
         const response = await api.getPersonal(intro_no);
+        console.log(intro_no)
         return response.data;
     }
 );
@@ -36,7 +37,6 @@ export const findByPfNo = createAsyncThunk(
     'personal/findByPfNo',
     async (pfNo) => {
         const response = await api.findByPfNo(pfNo);
-        console.log(response.data)
         return response.data
     }
 )

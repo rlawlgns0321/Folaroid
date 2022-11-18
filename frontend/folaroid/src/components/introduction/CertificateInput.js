@@ -99,7 +99,6 @@ function Input(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(box);
         props.onCreate(box);
         setBox(initialState);
     };
@@ -264,12 +263,11 @@ function View(props) {
     const introNo =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : props.pfIntro_no;
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('certification', introNo);
         dispatch(getCertification(introNo));
     }, [dispatch, introNo]);
 
@@ -306,7 +304,6 @@ function View(props) {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ certification });
         content = (
             <IntroBox>
                 <CardHeader>자격증</CardHeader>

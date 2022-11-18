@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     Table,
@@ -170,7 +169,7 @@ function LanguageInput(props) {
                                     setValue(newValue)
                                 }}
                                 renderInput={(params) => (
-                                    <IntroTextField {...params} readonly="true" />
+                                    <IntroTextField {...params} />
                                 )}
                             />
                         </LocalizationProvider>
@@ -250,8 +249,7 @@ function ViewLanguage(props) {
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : props.pfIntro_no;
-    console.log('language no', intro_no);
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
@@ -276,7 +274,6 @@ function ViewLanguage(props) {
                 <CardHeader>공인어학성적</CardHeader>
                 <LanguageInput
                     onCreate={(language, date) => {
-                        console.log('_language', language);
                         dispatch(
                             createLanguage({
                                 introNo: intro_no,
@@ -292,7 +289,6 @@ function ViewLanguage(props) {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log('language', { language });
         content = (
             <IntroBox>
                 <CardHeader>공인어학성적</CardHeader>

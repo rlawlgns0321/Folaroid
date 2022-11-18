@@ -16,8 +16,8 @@ export const createStack = createAsyncThunk(
     'stack/createStack',
     async (data) => {
         const response = await api.createStack(data);
+        console.log(response.data);
         return {
-            introStackNo: response.data,
             hashNo: data.hashNo,
         };
     }
@@ -47,12 +47,8 @@ export const stack = createSlice({
         [getStack.fulfilled]: (state, action) => {
             state.stack = action.payload;
         },
-        [createStack.fulfilled.type]: (state, action) => {
-            state.push({
-                introStackNo: action.payload.introStackNo,
-                hashNo: action.payload.hashNo,
-            });
-        },
+        // [createStack.fulfilled.type]: (state, action) => {
+        // },
         [deleteStack.fulfilled.type]: (state, action) => {
             return state.filter((item) => item.introStackNo !== action.payload);
         },

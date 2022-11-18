@@ -24,7 +24,7 @@ import {
     deleteCareer,
 } from '../../modules/intro/career';
 import { useLocation } from 'react-router-dom';
-import styled from '@emotion/styled'; 
+import styled from '@emotion/styled';
 
 const IntroTextField = styled(TextField)`
     .MuiOutlinedInput-root {
@@ -100,7 +100,6 @@ function Input(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(box);
         props.onCreate(box);
         setBox(initialState);
     };
@@ -263,19 +262,18 @@ function Read(props) {
     );
 }
 
-function View(props) {
+function View() {
     const career = useSelector((state) => state.career);
     const { pathname } = useLocation();
     const store = useStore();
     const introNo =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : props.pfIntro_no;
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('career', introNo);
         dispatch(getCareer(introNo));
     }, [dispatch, introNo]);
 
@@ -312,7 +310,6 @@ function View(props) {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ career });
         content = (
             <IntroBox>
                 <CardHeader>경력사항</CardHeader>

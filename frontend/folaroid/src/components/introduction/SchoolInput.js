@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     Table,
@@ -96,8 +95,8 @@ function SchoolInput(props) {
     const [school, setSchool] = useState(initialState);
     const [value, setValue] = useState({
         admission: null,
-        graduation: null
-    })
+        graduation: null,
+    });
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -106,11 +105,20 @@ function SchoolInput(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('create', school);
         const date = {
-            admission: dayjs(value.admission).add(1, 'day').toISOString().substring(0,10),
-            graduation: dayjs(value.graduation).add(1, 'day').toISOString().substring(0,10)
-        }
+            admission: value.admission
+                ? dayjs(value.admission)
+                      .add(1, 'day')
+                      .toISOString()
+                      .substring(0, 10)
+                : null,
+            graduation: value.graduation
+                ? dayjs(value.graduation)
+                      .add(1, 'day')
+                      .toISOString()
+                      .substring(0, 10)
+                : null,
+        };
         props.onCreate(school, date);
         setSchool(initialState);
     };
@@ -279,8 +287,14 @@ function ReadSchool(props) {
             <TableCell align="center">{item.schoolName}</TableCell>
             <TableCell align="center">{item.schoolMajor}</TableCell>
             <TableCell align="center">{item.schoolDegree}</TableCell>
-            <TableCell align="center">{item.schoolAdmissionDate && item.schoolAdmissionDate.substring(0,7)}</TableCell>
-            <TableCell align="center">{item.schoolGraduationDate && item.schoolGraduationDate.substring(0,7)}</TableCell>
+            <TableCell align="center">
+                {item.schoolAdmissionDate &&
+                    item.schoolAdmissionDate.substring(0, 7)}
+            </TableCell>
+            <TableCell align="center">
+                {item.schoolGraduationDate &&
+                    item.schoolGraduationDate.substring(0, 7)}
+            </TableCell>
             <TableCell align="center">
                 {item.schoolCredit}/{item.schoolMaxCredit}
             </TableCell>
@@ -317,19 +331,18 @@ function ReadSchool(props) {
     );
 }
 
-function ViewName(props) {
+function ViewName() {
     const school = useSelector((state) => state.school);
     const { pathname } = useLocation();
     const store = useStore();
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : props.pfIntro_no;
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('스쿨', intro_no);
         dispatch(getSchool(intro_no));
     }, [dispatch, intro_no]);
 
@@ -356,10 +369,8 @@ function ViewName(props) {
                                 schoolName: school.schoolName,
                                 schoolDegree: school.schoolDegree,
                                 schoolMajor: school.schoolMajor,
-                                schoolAdmissionDate:
-                                    date.admission,
-                                schoolGraduationDate:
-                                    date.graduation,
+                                schoolAdmissionDate: date.admission,
+                                schoolGraduationDate: date.graduation,
                                 schoolCredit: school.schoolCredit,
                                 schoolMaxCredit: school.schoolMaxCredit,
                             })
@@ -382,10 +393,8 @@ function ViewName(props) {
                                 schoolName: school.schoolName,
                                 schoolDegree: school.schoolDegree,
                                 schoolMajor: school.schoolMajor,
-                                schoolAdmissionDate:
-                                    date.admission,
-                                schoolGraduationDate:
-                                    date.graduation,
+                                schoolAdmissionDate: date.admission,
+                                schoolGraduationDate: date.graduation,
                                 schoolCredit: school.schoolCredit,
                                 schoolMaxCredit: school.schoolMaxCredit,
                             })

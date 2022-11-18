@@ -186,19 +186,18 @@ function ReadSchool(props) {
     );
 }
 
-function ViewName(props) {
+function ViewName() {
     const archiving = useSelector((state) => state.archiving);
     const { pathname } = useLocation();
     const store = useStore();
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
-            : props.pfIntro_no;
+            : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('링크', intro_no);
         dispatch(getArchiving(intro_no));
     }, [dispatch, intro_no]);
 
@@ -232,7 +231,6 @@ function ViewName(props) {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ archiving });
         content = (
             <IntroBox>
                 <CardHeader>링크</CardHeader>

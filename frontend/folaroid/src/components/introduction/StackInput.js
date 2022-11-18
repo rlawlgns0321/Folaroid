@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Avatar, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -58,19 +56,23 @@ const ListItem = styled('li')(({ theme }) => ({
 
 function StackInput(props) {
     const hash = useSelector((state) => state.stack.hash);
-    console.log(hash);
-    const [stackData, setStackData] = useState('');
+    const [stackData, setStackData] = useState();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getHash());
-    }, [dispatch]);
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault();
         props.onCreate(stackData);
-        setStackData('');
+        setStackData();
     };
+
+    const onHashChange = (object, value) => {
+        console.log(value.hashNo)
+        setStackData(value.hashNo)
+    }
 
     return (
         <IntroBox>
@@ -78,20 +80,15 @@ function StackInput(props) {
             <IntroCardContent>
                 <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                     <Autocomplete
-                        style={{ width: '50%', borderInlineColor: 'white' }}
+                        disablePortal
+                        id="combo-box-demo"
+                        onChange={onHashChange}
                         options={hash}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="stack"
-                                variant="filled"
-                                value={stackData}
-                                onChange={(newValue) => {
-                                    setStackData(newValue);
-                                }}
-                            />
-                        )}
+                        getOptionLabel={(option) => option.hashName}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} />}
                     />
+                    <button type='submit'>제출</button>
                 </form>
             </IntroCardContent>
         </IntroBox>
@@ -101,21 +98,20 @@ function StackInput(props) {
 function ReadStack(props) {
     const dispatch = useDispatch();
 
-    const handleDelete = (introStackNo) => () => {
+
+    const handleDelete = (introStackNo) => {
         console.info('You clicked');
         dispatch(deleteStack(introStackNo));
-        // setStack((stacks) =>
-        //     stacks.filter((stack) => stack.stackNo !== stackToDelete.stackNo)
-        // );
     };
 
     const rowItems = props.stack.map((data) => (
         <Stack spacing={2} alignItems="center">
-            <ListItem key={data.hashNo}>
+            <ListItem key={data.introStackNo}>
                 <Chip
                     style={{ margin: '5px' }}
                     label={data.hashName}
-                    onDelete={handleDelete(data)}
+                    onDelete={handleDelete(data.introStackNo)}
+                    avatar={<Avatar src={data.hashImageLocation} />}
                     color="primary"
                     variant="outlined"
                 ></Chip>
@@ -148,7 +144,6 @@ function ReadStack(props) {
 }
 
 function ViewName() {
-    const hash = useSelector((state) => state.stack.hash);
     const stack = useSelector((state) => state.stack.stack);
     const { pathname } = useLocation();
     const store = useStore();
@@ -160,7 +155,6 @@ function ViewName() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('스쿨', intro_no);
         dispatch(getStack(intro_no));
     }, [dispatch, intro_no]);
 
@@ -174,11 +168,11 @@ function ViewName() {
     if (mode === 'CREATE') {
         content = (
             <StackInput
-                onCreate={(_hash) => {
+                onCreate={(stackData) => {
                     dispatch(
                         createStack({
                             introNo: intro_no,
-                            hashNo: _hash,
+                            hashNo: stackData,
                         })
                     );
                     setMode('READ');
@@ -189,7 +183,7 @@ function ViewName() {
         console.log({ stack });
         content = (
             <IntroBox>
-                <CardHeader>학력</CardHeader>
+                <CardHeader>스택</CardHeader>
                 <StackInput
                     onCreate={(_hash) => {
                         dispatch(
