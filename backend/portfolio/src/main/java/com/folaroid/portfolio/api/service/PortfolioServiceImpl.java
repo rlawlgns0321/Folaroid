@@ -93,7 +93,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
         IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(userInfoIntroNo);
         IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(portfolioIntroNo);
-        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone(), userInfoPersonalData.getPersonalDataEmail());
         introPersonalDataRepository.save(portfolioInfoPersonalData);
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N
@@ -278,7 +278,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
         IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(portfolioIntroNo);
         IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(duplicatedPortfolioIntroNo);
-        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone(),userInfoPersonalData.getPersonalDataEmail());
         introPersonalDataRepository.save(portfolioInfoPersonalData);
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N

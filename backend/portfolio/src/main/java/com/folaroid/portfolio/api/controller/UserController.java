@@ -17,14 +17,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @ApiOperation(value = "유저 회원가입",
-            notes="깃헙으로 로그인하면 자동으로 회원가입 진행. 깃헙에서 얻을 수 있는 정보들은 등록. User Table 생성",
-            httpMethod = "POST")
-    @PostMapping("/signup")
-    public ResponseEntity<Long> signup(@RequestBody UserSignupReq request) {
-        Long userNo = userService.save(request);
-        return new ResponseEntity<>(userNo, HttpStatus.OK);
-    }
+//    @ApiOperation(value = "유저 회원가입",
+//            notes="깃헙으로 로그인하면 자동으로 회원가입 진행. 깃헙에서 얻을 수 있는 정보들은 등록. User Table 생성",
+//            httpMethod = "POST")
+//    @PostMapping("/signup")
+//    public ResponseEntity<Long> signup(@RequestBody UserSignupReq request) {
+//        Long userNo = userService.save(request.getUserGithubId());
+//        return new ResponseEntity<>(userNo, HttpStatus.OK);
+//    }
 
     @ApiOperation(value = "마이페이지 - 유저 개인정보",
             notes="생성. 회원 가입 때 개인정보 테이블의 기본키 생성을 위해 기본적으로 요청",

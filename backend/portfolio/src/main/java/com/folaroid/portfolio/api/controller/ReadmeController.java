@@ -31,7 +31,7 @@ public class ReadmeController {
                                barNumber++;
                        }
                        String headerCheckLine = rd.readLine();
-                       if (headerCheckLine != null && headerCheckLine.contains("|")) {
+                       if (headerCheckLine != null && headerCheckLine.length() != 0 && headerCheckLine.contains("|")) {
                            boolean isTable = true;
                            boolean passDash = false;
                            char currentChar = headerCheckLine.charAt(0);
@@ -86,7 +86,7 @@ public class ReadmeController {
                            else {
                                line += "\n" + headerCheckLine;
                                String tableLine;
-                               while ((tableLine = rd.readLine()) != null && isEmptyLine(tableLine))
+                               while ((tableLine = rd.readLine()) != null && tableLine.length() != 0 && isEmptyLine(tableLine))
                                    line += "\n" + tableLine;
                                res.add("md", line);
                                line = tableLine;
@@ -122,7 +122,7 @@ public class ReadmeController {
                         && line.charAt(0) == line.charAt(1)
                         && line.charAt(1) == line.charAt(2)) {
                         String codeLine;
-                        while ((codeLine = rd.readLine()) != null) {
+                        while ((codeLine = rd.readLine()) != null && codeLine.length() != 0) {
                             line += "\n" + codeLine;
                             if (codeLine.length() > 2 && codeLine.substring(codeLine.length() - 3).equals("```"))
                                 break;
@@ -131,7 +131,7 @@ public class ReadmeController {
 
                     else if (line.charAt(0) == '>') { //quotes parsing
                         String quoteLine;
-                        while ((quoteLine = rd.readLine()) != null && quoteLine.charAt(0) == '>')
+                        while ((quoteLine = rd.readLine()) != null && quoteLine.length() != 0 && quoteLine.charAt(0) == '>')
                             line += "\n" + quoteLine;
                     }
 
@@ -139,7 +139,7 @@ public class ReadmeController {
                     || line.charAt(0) == '*'
                     || line.charAt(0) == '+') && line.charAt(1) == ' ') {
                         String unorderedListLine;
-                        while ((unorderedListLine = rd.readLine()) != null && !isEmptyLine(unorderedListLine)) {
+                        while ((unorderedListLine = rd.readLine()) != null && unorderedListLine.length() != 0 && !isEmptyLine(unorderedListLine)) {
                             line += "\n" + unorderedListLine;
                         }
                     }
@@ -149,7 +149,7 @@ public class ReadmeController {
 
                             if (line.charAt(i) == '.' && line.charAt(i + 1) == ' ') {
                                 String orderedListLine;
-                                while ((orderedListLine = rd.readLine()) != null && !isEmptyLine(orderedListLine)) {
+                                while ((orderedListLine = rd.readLine()) != null && orderedListLine.length() != 0 &&  !isEmptyLine(orderedListLine)) {
                                     line += "\n" + orderedListLine;
                                 }
                                 break;
@@ -158,7 +158,7 @@ public class ReadmeController {
                                 break;
                         }
                     }
-//                    System.out.println(line);
+                    //System.out.println(line);
                     res.add("md", line);
                 }
             }
