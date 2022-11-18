@@ -216,6 +216,9 @@ public class OAuthController {
                                         + target.getDefault_branch() + "/"
                                         + imageUrls.get(j));
                             }
+                            else {
+                                imageUrls.set(j, getBase64(imageUrls.get(j)));
+                            }
                         }
 
                         target.setImagesUrl(imageUrls);
