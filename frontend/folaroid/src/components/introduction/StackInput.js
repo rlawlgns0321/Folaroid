@@ -61,7 +61,7 @@ function StackInput(props) {
 
     useEffect(() => {
         dispatch(getHash());
-    });
+    }, [dispatch]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -70,34 +70,30 @@ function StackInput(props) {
     };
 
     const onHashChange = (object, value) => {
-        console.log(value.hashNo)
-        setStackData(value.hashNo)
-    }
+        console.log(value.hashNo);
+        setStackData(value.hashNo);
+    };
 
     return (
-        <IntroBox>
-            <CardHeader>기술스택</CardHeader>
-            <IntroCardContent>
-                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        onChange={onHashChange}
-                        options={hash}
-                        getOptionLabel={(option) => option.hashName}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
-                    <button type='submit'>제출</button>
-                </form>
-            </IntroCardContent>
-        </IntroBox>
+        <IntroCardContent>
+            <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                <Autocomplete
+                    disablePortal
+                    autoSelect
+                    onChange={onHashChange}
+                    options={hash}
+                    getOptionLabel={(option) => option.hashName}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} />}
+                />
+                <button type="submit">제출</button>
+            </form>
+        </IntroCardContent>
     );
 }
 
 function ReadStack(props) {
     const dispatch = useDispatch();
-
 
     const handleDelete = (introStackNo) => {
         console.info('You clicked');
@@ -167,17 +163,20 @@ function ViewName() {
     let content = null;
     if (mode === 'CREATE') {
         content = (
-            <StackInput
-                onCreate={(stackData) => {
-                    dispatch(
-                        createStack({
-                            introNo: intro_no,
-                            hashNo: stackData,
-                        })
-                    );
-                    setMode('READ');
-                }}
-            ></StackInput>
+            <IntroBox>
+                <CardHeader>기술스택</CardHeader>
+                <StackInput
+                    onCreate={(stackData) => {
+                        dispatch(
+                            createStack({
+                                introNo: intro_no,
+                                hashNo: stackData,
+                            })
+                        );
+                        setMode('READ');
+                    }}
+                ></StackInput>
+            </IntroBox>
         );
     } else if (mode === 'READ') {
         console.log({ stack });
@@ -204,104 +203,3 @@ function ViewName() {
 }
 
 export default ViewName;
-
-// const StackInputModule = () => {
-//     const [stackData, setStackData] = useState([
-//         { key: 0, label: 'Angular' },
-//         { key: 1, label: 'jQuery' },
-//         { key: 2, label: 'Polymer' },
-//         { key: 3, label: 'React' },
-//         { key: 4, label: 'Vue.js' },
-//         { key: 5, label: 'Angular' },
-//         { key: 6, label: 'jQuery' },
-//         { key: 7, label: 'Polymer' },
-//         { key: 8, label: 'React' },
-//         { key: 9, label: 'Vue.js' },
-//     ]);
-
-//     // const [stack, setStack] = useState['']
-
-//     const handleDelete = (stackToDelete) => () => {
-//         console.info('You clicked');
-//         setStackData((stacks) =>
-//             stacks.filter((stack) => stack.key !== stackToDelete.key)
-//         );
-//     };
-
-//     // const handleChangeStack = useCallback((event) => {
-//     //   setStack(event.target.value);
-//     // }, []);
-
-//     const handleSubmit = (event) => {
-//         alert(`이름: ${stackData}`);
-//         event.preventDefault();
-//     };
-
-//     return (
-//         <IntroBox>
-//             <CardHeader>기술스택</CardHeader>
-//             <Card>
-//                 {/* <CardHeader suppressHydrationWarning title="기술스택" /> */}
-//                 <div
-//                     style={{
-//                         display: 'flex',
-//                         width: '100%',
-//                         justifyContent: 'center',
-//                     }}
-//                 >
-//                     <Autocomplete
-//                         multiple
-//                         style={{ width: '50%', borderInlineColor: 'white' }}
-//                         options={stackData}
-//                         getOptionLabel={(option) => option.label}
-//                         filterSelectedOptions
-//                         renderInput={(params) => (
-//                             <TextField
-//                                 variant="filled"
-//                                 {...params}
-//                                 placeholder="stacks"
-//                             />
-//                         )}
-//                     />
-//                 </div>
-
-//                 <IntroCardContent>
-//                     <Box
-//                         sx={{
-//                             display: 'flex',
-//                             justifyContent: 'center',
-//                             alignContent: 'center',
-//                             flexWrap: 'wrap',
-//                             listStyle: 'none',
-//                             p: 0.5,
-//                             marginRight: 'auto',
-//                             marginLeft: 'auto',
-//                             width: '80%',
-//                             border: 'solid 1px gray',
-//                             borderRadius: '30px',
-//                         }}
-//                         component="ul"
-//                     >
-//                         {stackData.map((data) => {
-//                             return (
-//                                 <Stack spacing={2} alignItems="center">
-//                                     <ListItem key={data.key}>
-//                                         <Chip
-//                                             style={{ margin: '5px' }}
-//                                             label={data.label}
-//                                             onDelete={handleDelete(data)}
-//                                             color="primary"
-//                                             variant="outlined"
-//                                         ></Chip>
-//                                     </ListItem>
-//                                 </Stack>
-//                             );
-//                         })}
-//                     </Box>
-//                 </IntroCardContent>
-//             </Card>
-//         </IntroBox>
-//     );
-// };
-
-// export default StackInput;
