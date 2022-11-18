@@ -18,6 +18,9 @@ import Template5 from './pages/Template5';
 import TestPage from './pages/TestPage';
 import InfoModal from './pages/InfoModal';
 import Space from './components/template/space/Space';
+import Flex from './components/template/flex/Flex';
+import Music from './components/template/music/Music';
+import Gallery from './components/template/gallery/Gallery';
 
 function App() {
     const user = useSelector((state) => state.auth.user);
@@ -53,7 +56,10 @@ function App() {
                     <Route path="/tem5" element={<Template5 />} />
                     {/* 자기소개 모달 샘플 */}
                     <Route path="/infoModal" element={<InfoModal />} />
-                    <Route path="space" element={<Space />} />
+                    <Route path="/space" element={<Space />} />
+                    <Route path="/flex" element={<Flex />} />
+                    <Route path="/music" element={<Music />} />
+                    <Route path="/Gallery" element={<Gallery />} />
                 </Routes>
             </div>
         </ThemeProvider>

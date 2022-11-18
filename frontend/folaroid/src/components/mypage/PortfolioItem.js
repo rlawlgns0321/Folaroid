@@ -51,9 +51,9 @@ const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
     return (
         <Wrap
             whileHover={{
-                scale: [1.01, 1.03, 1.05],
-                rotate: [-3, 3, 0],
-                transition: { duration: 0.4 },
+                scale: [1, 1.02, 1.04, 1.04],
+                rotate: [null, 2, -2, null],
+                transition: {duration:0.5 },
             }}
             className="item"
             variants={item}

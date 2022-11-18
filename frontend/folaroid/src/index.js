@@ -12,6 +12,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import GlobalStyle from './components/common/GlobalStyle';
 
 const persistConfig = {
     key: 'root',
@@ -42,6 +43,7 @@ root.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
+                <GlobalStyle />
                 <App />
             </BrowserRouter>
         </PersistGate>
