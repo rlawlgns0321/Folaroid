@@ -95,10 +95,11 @@ function StackInput(props) {
 function ReadStack(props) {
     const dispatch = useDispatch();
 
-    const handleDelete = (introStackNo) => {
-        console.info('You clicked');
+    const handleDelete = (introStackNo) => () => {
+        console.log(introStackNo);
         dispatch(deleteStack(introStackNo));
     };
+    console.log(props.stack)
 
     const rowItems = props.stack.map((data) => (
         <Stack spacing={2} alignItems="center">
@@ -108,7 +109,7 @@ function ReadStack(props) {
                     label={data.hashName}
                     onDelete={handleDelete(data.introStackNo)}
                     avatar={<Avatar src={data.hashImageLocation} />}
-                    color="primary"
+                    color="neutral"
                     variant="outlined"
                 ></Chip>
             </ListItem>
