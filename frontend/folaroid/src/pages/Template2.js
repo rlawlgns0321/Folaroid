@@ -13,8 +13,9 @@ import {
     Stars,
     useCursor,
     Box,
+    ScrollControls,
+    Scroll,
 } from '@react-three/drei';
-import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import {
     Button,
@@ -24,10 +25,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Tab,
-    Tabs,
 } from '@mui/material';
-import { TabPanel } from '@mui/joy';
 
 export function Astronaut(props) {
     const glb = useLoader(GLTFLoader, 'models/astronaut.glb');
@@ -46,11 +44,12 @@ export function Astronaut(props) {
     );
 }
 
-const Template5 = () => {
+const Template2 = () => {
     const spaceman = useRef();
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState();
-
+    const [hovered, set] = useState();
+    useCursor(hovered /*'pointer', 'auto'*/);
     const handleOpen = () => {
         setOpen(true);
         setScroll();
@@ -75,6 +74,9 @@ const Template5 = () => {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
                 maxWidth="xl"
+                PaperProps={{
+                    style: { backgroundColor: 'rgba(0,0,0,0.26)' },
+                }}
             >
                 <DialogTitle id="scroll-dialog-title">
                     프로젝트이름 가져오기
@@ -84,6 +86,7 @@ const Template5 = () => {
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
                         tabIndex={-1}
+                        color="white"
                     >
                         {[...new Array(1000)]
                             .map(() => `이미지가져오기`)
@@ -104,10 +107,10 @@ const Template5 = () => {
 
             <Canvas
                 style={{
-                    background: 'black',
-                    // position: 'fixed',
-                    // top: '0',
-                    // left: '0',
+                    background: 'linear-gradient(black, #3b2574)',
+                    position: 'fixed',
+                    top: '0',
+                    left: '0',
                 }}
             >
                 <Suspense fallback={null}>
@@ -138,19 +141,80 @@ const Template5 = () => {
                             <object3D position={[0, 0, 0]} ref={spaceman} />
                         </Astronaut>
                     </Float>
+                    <ScrollControls pages={5} infinite={false}>
+                        <Scroll html style={{ width: '100%' }}>
+                            <h1
+                                onPointerOver={() => set(true)}
+                                onPointerOut={() => set(false)}
+                                style={{
+                                    position: 'absolute',
+                                    top: `10vh`,
+                                    left: '15vw',
+                                    fontSize: '5em',
+                                    color: 'white',
+                                }}
+                                onClick={handleOpen}
+                            >
+                                Hello,
+                                <br />
+                                Click me
+                            </h1>
 
+                            <h2
+                                style={{
+                                    position: 'absolute',
+                                    top: '100vh',
+                                    right: '20vw',
+                                    color: 'white',
+                                    fontSize: '5em',
+                                }}
+                                onClick={handleOpen}
+                            >
+                                Work
+                            </h2>
+                            <Button
+                                style={{
+                                    position: 'absolute',
+                                    top: `200vh`,
+                                    left: '10vw',
+                                    fontSize: '5em',
+                                    color: 'white',
+                                }}
+                                onClick={handleOpen}
+                            >
+                                엄청난프로젝트1
+                            </Button>
+                            <Button
+                                style={{
+                                    position: 'absolute',
+                                    top: `300vh`,
+                                    left: '10vw',
+                                    fontSize: '5em',
+                                    color: 'white',
+                                }}
+                                onClick={handleOpen}
+                            >
+                                뛰어난프로젝트2
+                            </Button>
+                            <Button
+                                style={{
+                                    position: 'absolute',
+                                    top: `400vh`,
+                                    left: '10vw',
+                                    fontSize: '5em',
+                                    color: 'white',
+                                }}
+                                onClick={handleOpen}
+                            >
+                                대단한프로젝트3
+                            </Button>
+                        </Scroll>
+                    </ScrollControls>
                     {/* <OrbitControls /> */}
                 </Suspense>
             </Canvas>
-            <Pagination
-                count={5}
-                hidePrevButton
-                hideNextButton
-                onClick={handleOpen}
-                style={{ position: 'absolute' }}
-            />
         </div>
     );
 };
 
-export default Template5;
+export default Template2;
