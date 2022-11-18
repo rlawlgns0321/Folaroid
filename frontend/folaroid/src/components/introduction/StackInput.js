@@ -56,7 +56,7 @@ const ListItem = styled('li')(({ theme }) => ({
 
 function StackInput(props) {
     const hash = useSelector((state) => state.stack.hash);
-    const [stackData, setStackData] = useState();
+    const [stackData, setStackData] = useState('');
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -66,11 +66,11 @@ function StackInput(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.onCreate(stackData);
-        setStackData();
+        console.log(stackData);
+        setStackData('');
     };
 
     const onHashChange = (object, value) => {
-        console.log(value.hashNo);
         setStackData(value.hashNo);
     };
 
@@ -96,10 +96,8 @@ function ReadStack(props) {
     const dispatch = useDispatch();
 
     const handleDelete = (introStackNo) => () => {
-        console.log(introStackNo);
         dispatch(deleteStack(introStackNo));
     };
-    console.log(props.stack)
 
     const rowItems = props.stack.map((data) => (
         <Stack spacing={2} alignItems="center">
@@ -110,7 +108,7 @@ function ReadStack(props) {
                     onDelete={handleDelete(data.introStackNo)}
                     avatar={<Avatar src={data.hashImageLocation} />}
                     color="neutral"
-                    variant="outlined"
+                    variant="contained"
                 ></Chip>
             </ListItem>
         </Stack>
@@ -150,7 +148,6 @@ function ViewName() {
             : store.getState().portfolio.pf.introNo;
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(getStack(intro_no));
     }, [dispatch, intro_no]);
@@ -180,7 +177,6 @@ function ViewName() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ stack });
         content = (
             <IntroBox>
                 <CardHeader>스택</CardHeader>

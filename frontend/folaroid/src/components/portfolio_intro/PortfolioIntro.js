@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-// import '../introduction/base_introduction.css';
+import React from 'react';
 import { Grid } from '@mui/material';
 import PersonalInput from '../introduction/PersonalInput';
 import ActivityInput from '../introduction/ActivityInput';

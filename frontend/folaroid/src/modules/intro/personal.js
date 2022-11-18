@@ -5,7 +5,6 @@ export const getPersonal = createAsyncThunk(
     'personal/getPersonal',
     async (intro_no) => {
         const response = await api.getPersonal(intro_no);
-        console.log(intro_no)
         return response.data;
     }
 );
@@ -14,7 +13,6 @@ export const updatePersonal = createAsyncThunk(
     'personal/updatePersonal',
     async (data) => {
         const response = await api.updatePersonal(data);
-        console.log(response)
         return {
             userBirth: data.userBirth,
             userName: data.userName,
@@ -23,7 +21,6 @@ export const updatePersonal = createAsyncThunk(
         };
     }
 );
-
 
 export const findByGithub = createAsyncThunk(
     'personal/findByGithub', //  action의 type
@@ -37,9 +34,9 @@ export const findByPfNo = createAsyncThunk(
     'personal/findByPfNo',
     async (pfNo) => {
         const response = await api.findByPfNo(pfNo);
-        return response.data
+        return response.data;
     }
-)
+);
 
 export const personal = createSlice({
     name: 'personal',
@@ -54,23 +51,20 @@ export const personal = createSlice({
     },
     extraReducers: {
         [updatePersonal.fulfilled.type]: (state, action) => {
-            console.log('fulfilled', action.payload);
-            state.userName = action.payload.userName
-            state.userBirth = action.payload.userBirth
-            state.userEmail = action.payload.userEmail
-            state.userPhone = action.payload.userPhone
-            console.log(state)
+            state.userName = action.payload.userName;
+            state.userBirth = action.payload.userBirth;
+            state.userEmail = action.payload.userEmail;
+            state.userPhone = action.payload.userPhone;
         },
         [findByGithub.fulfilled]: (state, action) => {
             return [...action.payload];
         },
         [getPersonal.fulfilled.type]: (state, action) => {
-            console.log(action)
             return action.payload;
         },
         [findByPfNo.fulfilled.type]: (state, action) => {
-            state.pfNoIntro = action.payload
-        }
+            state.pfNoIntro = action.payload;
+        },
     },
 });
 

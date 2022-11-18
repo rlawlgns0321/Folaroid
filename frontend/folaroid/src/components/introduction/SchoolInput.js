@@ -381,7 +381,6 @@ function ViewName() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ school });
         content = (
             <IntroBox>
                 <CardHeader>학력</CardHeader>

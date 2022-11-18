@@ -8,7 +8,6 @@ export const getHash = createAsyncThunk('stack/getHash', async () => {
 
 export const getStack = createAsyncThunk('stack/getStack', async (introNo) => {
     const response = await api.getStack(introNo);
-    console.log(response.data);
     return response.data;
 });
 
@@ -16,7 +15,7 @@ export const createStack = createAsyncThunk(
     'stack/createStack',
     async (data) => {
         const response = await api.createStack(data);
-        return response.data
+        return response.data;
     }
 );
 
@@ -24,7 +23,6 @@ export const deleteStack = createAsyncThunk(
     'stack/deleteStack',
     async (introStackNo) => {
         const response = await api.deleteStack(introStackNo);
-        console.log(response);
         return response.data;
     }
 );
@@ -35,20 +33,28 @@ export const stack = createSlice({
         hash: [],
         stack: [],
     },
-    reducers: {},
     extraReducers: {
         [getHash.fulfilled]: (state, action) => {
-            state.hash = action.payload;
+            return {
+                ...state,
+                hash: action.payload,
+            };
         },
 
         [getStack.fulfilled]: (state, action) => {
-            state.stack = action.payload;
+            return {
+                ...state,
+                stack: action.payload,
+            };
         },
-        [createStack.fulfilled.type]: (state, action) => {
-            state.stack.push(action.payload);
-        },
+        [createStack.fulfilled.type]: (state, action) =>
+            void state.stack.push(action.payload),
+
         [deleteStack.fulfilled.type]: (state, action) => {
-            return state.filter((item) => item.introStackNo !== action.payload);
+            const newStack = state.stack.filter(
+                (item) => item.introStackNo !== action.payload
+            );
+            state.stack = newStack;
         },
     },
 });
