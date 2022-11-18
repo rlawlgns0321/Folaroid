@@ -42,14 +42,12 @@ public class UserService {
     @Transactional
     public void put(UserDefaultForUpdateDto request) {
         IntroPersonalData introPersonalData = introPersonalDataRepository.findById(request.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다. 해당 introNo로 저장된 IntroPersonalData가 없습니다."));
-        introPersonalData.updateIntroPersonalData(request.getUserName(), request.getUserBirth(), request.getUserPhone());
-        User user = userRepository.findById(introRepository.findById(request.getIntroNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 introNo 입니다. 해당 Intro 가 없습니다.")).getUserNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 userNo 입니다. 해당 User 가 없습니다."));
-        user.saveEmail(request.getUserEmail());
+        introPersonalData.updateIntroPersonalData(request.getUserName(), request.getUserBirth(), request.getUserPhone(), request.getUserEmail());
     }
     @Transactional
-    public Long save(UserSignupReq request) {
+    public Long save(String userGithubId) {
         User user = new User();
-        user.save(request.getUserGithubId(), request.getUserEmail());
+        user.save(userGithubId);
         return userRepository.save(user).getUserNo();
     }
 
