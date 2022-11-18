@@ -21,15 +21,9 @@ public class User {
     @Column(length = 60, unique=true)
     private String userGithubId;
 
-    @Column(length = 40)
-    private String userEmail;
 
-    public void save(String userGithubId, String userEmail) {
+
+    public void save(String userGithubId) {
         this.userGithubId = userGithubId;
-        this.userEmail = userEmail;
-    }
-
-    public void saveEmail(String userEmail) {
-        this.userEmail = userEmail;
     }
 }

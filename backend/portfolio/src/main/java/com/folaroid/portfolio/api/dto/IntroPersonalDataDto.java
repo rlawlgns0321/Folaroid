@@ -23,6 +23,7 @@ public class IntroPersonalDataDto {
                     .personalDataName(personalDataName)
                     .personalDataBirth(personaDataBirth)
                     .personalDataPhone(personalDataPhone)
+                    .personalDataEmail(personalDataEmail)
                     //.intro(intro)
                     .build();
             return introPersonalData;
@@ -43,7 +44,7 @@ public class IntroPersonalDataDto {
             this.personalDataName = introPersonalData.getPersonalDataName();
             this.personaDataBirth = introPersonalData.getPersonalDataBirth();
             this.personalDataPhone = introPersonalData.getPersonalDataPhone();
-            //this.intro = introPersonalData.getIntro();
+            this.personalDataEmail = introPersonalData.getPersonalDataEmail();
         }
 
     }
