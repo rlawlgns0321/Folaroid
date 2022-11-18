@@ -22,9 +22,11 @@ public class IntroStackDto {
         private String hashName;
 
         private String hashImageLocation;
+        private Long introStackNo;
 
         public StackNameDto(IntroStack introStack, HashTag hashTag) {
             this.introNo = introStack.getIntroNo();
+            this.introStackNo = introStack.getIntroStackNo();
             this.hashNo = introStack.getHashNo();
             this.hashName = hashTag.getHashName();
             this.hashImageLocation = hashTag.getHashImageLocation();
