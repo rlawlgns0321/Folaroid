@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PortfolioItemContainer from '../../containers/portfolio/PortfolioItemContainer';
@@ -39,10 +40,14 @@ const PortfolioList = ({ portfolioList, onCreateClick }) => {
                 포트폴리오 만들기
             </TitleBtn>
             <ContentsWrap>
-                {portfolioList &&
-                    portfolioList.map((pf, key) => {
-                        return <PortfolioItemContainer key={pf.pfNo} pf={pf} />;
-                    })}
+                <AnimatePresence>
+                    {portfolioList &&
+                        portfolioList.map((pf, key) => {
+                            return (
+                                <PortfolioItemContainer key={pf.pfNo} pf={pf} />
+                            );
+                        })}
+                </AnimatePresence>
             </ContentsWrap>
         </Wrap>
     );

@@ -64,7 +64,7 @@ const ProjectSideItem = ({ project, onDeleteProject }) => {
     };
 
     return (
-        <ItemBox variants={item}>
+        <ItemBox variants={item} exit={{scale: 0}}>
             <Grid
                 container
                 direction="row"

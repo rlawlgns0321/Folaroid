@@ -6,15 +6,21 @@ import ProjectBody from '../../components/project/ProjectBody';
 import {
     deleteProjectThunk,
     getProjectsThunk,
+    portfolioProject,
 } from '../../modules/portfolioProject';
 
 const ProjectBodyContainer = () => {
-    const { projects } = useSelector((state) => state.portfolioProject);
+    const { projects, isProjects } = useSelector(
+        (state) => state.portfolioProject
+    );
     const dispatch = useDispatch();
-    const {pfNo} = useParams();
+    const { pfNo } = useParams();
 
     const onDeleteProject = (id) => {
         dispatch(deleteProjectThunk(id));
+        return () => {
+            dispatch(portfolioProject.actions.clearProjects());
+        };
     };
 
     useEffect(() => {
@@ -23,9 +29,10 @@ const ProjectBodyContainer = () => {
 
     return (
         <>
-            <ProjectBody 
+            <ProjectBody
                 projects={projects}
                 onDeleteProject={onDeleteProject}
+                isProjects={isProjects}
             />
         </>
     );

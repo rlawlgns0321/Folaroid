@@ -1,8 +1,8 @@
 import React from 'react';
 import ProjectSideItem from './ProjectSideItem';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const ProjectSide = ({ projects, onDeleteProject }) => {
+const ProjectSide = ({ projects, onDeleteProject, isProjects }) => {
     const container = {
         hidden: { opacity: 1, scale: 1 },
         visible: {
@@ -15,19 +15,26 @@ const ProjectSide = ({ projects, onDeleteProject }) => {
         },
     };
 
-   
-
     return (
-        <motion.div variants={container} initial="hidden" animate="visible">
-            {projects &&
-                projects.map((project, key) => (
-                    <ProjectSideItem
-                        key={project.pjtNo}
-                        project={project}
-                        onDeleteProject={onDeleteProject}
-                    />
-                ))}
-        </motion.div>
+        <>
+            {isProjects && (
+                <motion.div
+                    variants={container}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    <AnimatePresence>
+                        {projects.map((project, key) => (
+                            <ProjectSideItem
+                                key={project.pjtNo}
+                                project={project}
+                                onDeleteProject={onDeleteProject}
+                            />
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
+            )}
+        </>
     );
 };
 

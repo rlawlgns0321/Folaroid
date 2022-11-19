@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import ProjectAdd from './ProjectAdd';
 import ProjectBodyItem from './ProjectBodyItem';
@@ -30,37 +30,49 @@ const item = {
         y: 0,
         opacity: 1,
     },
+    exit: { scale: 0 },
 };
 
-const ProjectBody = ({ projects, onDeleteProject }) => {
+const ProjectBody = ({ projects, onDeleteProject, isProjects }) => {
     return (
-        <Grid
-            container
-            component={motion.div}
-            variants={container}
-            initial="hidden"
-            animate="visible"
-        >
-            {projects &&
-                projects.map((project, key) => (
+        <>
+            {isProjects && (
+                <Grid
+                    container
+                    component={motion.div}
+                    variants={container}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    <AnimatePresence>
+                        {projects.map((project, key) => (
+                            <ItemWrap
+                                component={motion.div}
+                                variants={item}
+                                exit={{ scale: 0 }}
+                                item
+                                xs={6}
+                                key={project.pjtNo}
+                            >
+                                <ProjectBodyItem
+                                    project={project}
+                                    onDeleteProject={onDeleteProject}
+                                    delay={key / 10}
+                                />
+                            </ItemWrap>
+                        ))}
+                    </AnimatePresence>
                     <ItemWrap
                         component={motion.div}
                         variants={item}
                         item
                         xs={6}
-                        key={project.pjtNo}
                     >
-                        <ProjectBodyItem
-                            project={project}
-                            onDeleteProject={onDeleteProject}
-                            delay={key / 10}
-                        />
+                        <ProjectAdd />
                     </ItemWrap>
-                ))}
-            <ItemWrap component={motion.div} variants={item} item xs={6}>
-                <ProjectAdd/>
-            </ItemWrap>
-        </Grid>
+                </Grid>
+            )}
+        </>
     );
 };
 
