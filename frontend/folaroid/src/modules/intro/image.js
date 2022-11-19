@@ -10,7 +10,6 @@ export const updateImage = createAsyncThunk(
     'image/updateImage',
     async ({intro_no, formData}) => {
         const response = await api.updateImage(intro_no, formData);
-        console.log('이미지', response);
         return response.data;
     }
 );
@@ -21,7 +20,6 @@ export const image = createSlice({
     extraReducers: {
         [getImage.fulfilled]: (state, action) => {
             state.imageLocation = action.payload.introImageLocation;
-            console.log(state);
         },
         [updateImage.fulfilled]: (state, action) => {
             state.imageLocation = action.payload.introImageLocation;

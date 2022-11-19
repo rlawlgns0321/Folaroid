@@ -23,9 +23,9 @@ public class IntroStackController {
             notes="등록",
             httpMethod = "POST")
     @PostMapping("/intro-stack")
-    public ResponseEntity<Long> save(@RequestBody StackNoDto request){
-        Long introStackNo = introStackService.save(request);
-        return new ResponseEntity<>(introStackNo, HttpStatus.OK);
+    public ResponseEntity<StackNameDto> save(@RequestBody StackNoDto request){
+        StackNameDto stackNameDto = introStackService.save(request);
+        return new ResponseEntity<>(stackNameDto, HttpStatus.OK);
     }
 
     @ApiOperation(value = "마이페이지 - 기술스택",

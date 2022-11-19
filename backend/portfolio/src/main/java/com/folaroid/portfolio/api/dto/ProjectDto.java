@@ -1,8 +1,11 @@
 package com.folaroid.portfolio.api.dto;
 
+import com.folaroid.portfolio.db.entity.PjtImage;
 import com.folaroid.portfolio.db.entity.Portfolio;
 import com.folaroid.portfolio.db.entity.Project;
 import lombok.*;
+
+import java.util.List;
 
 public class ProjectDto {
     @Data
@@ -90,4 +93,31 @@ public class ProjectDto {
             this.pjtOneImageLocation = pjtOneImageLocation;
         }
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class AllProjectDto {
+        private Long pjtNo;
+        private String pjtTitle;
+        private String pjtSubtitle;
+        private String pjtUrl;
+        private String pjtGithubUrl;
+        private Integer pjtStar;
+        private String pjtOneImageLocation;
+        private List<PjtImageDto.PjtImageResponse> pjtImages;
+        private String pjtId;
+
+        public AllProjectDto(Project project, List<PjtImageDto.PjtImageResponse> pjtImageDtos){
+            this.pjtNo = project.getPjtNo();
+            this.pjtTitle = project.getPjtTitle();
+            this.pjtSubtitle = project.getPjtSubtitle();
+            this.pjtUrl = project.getPjtUrl();
+            this.pjtGithubUrl = project.getPjtGithubUrl();
+            this.pjtStar = project.getPjtStar();
+            this.pjtOneImageLocation = project.getPjtOneImageLocation();
+            this.pjtImages = pjtImageDtos;
+            this.pjtId = project.getPjtId();
+        }
+    }
+
 }

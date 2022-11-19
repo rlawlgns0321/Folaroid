@@ -14,14 +14,14 @@ const Template3 = () => {
         <div className="template3">
             <Unity
                 style={{
-                    width: '90%',
                     height: '100%',
                     justifySelf: 'center',
                     alignSelf: 'center',
+                    width: '100%',
                 }}
                 unityContext={unityContext}
             ></Unity>
-            <IntroTemplate3></IntroTemplate3>
+            {/* <IntroTemplate3></IntroTemplate3> */}
         </div>
     );
 };

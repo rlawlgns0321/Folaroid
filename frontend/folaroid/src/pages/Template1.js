@@ -127,7 +127,6 @@ function setSection(position, camera) {
         flag = 1;
         /*화면이동 */
         gsap.to(camera.position, {
-            rotation: 0,
             duration: 1,
             x: position[newSection][0],
             y: position[newSection][1] + 5,
@@ -254,7 +253,7 @@ const Template1 = () => {
                     <House1 position={position[0]} />
                     <House2 position={position[1]} />
                     {/* 중간지점 */}
-                    <mesh position={position[2]}></mesh>
+                    <mesh position={position[2]} />
                     <House3 position={position[3]} />
                     <mesh position={position[4]} />
                     <House4 position={position[5]} />

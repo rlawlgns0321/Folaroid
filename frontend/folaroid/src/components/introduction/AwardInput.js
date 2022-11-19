@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     TableRow,
@@ -99,7 +98,6 @@ function AwardInput(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(award);
         props.onCreate(award);
         setAward(initialState);
     };
@@ -247,7 +245,6 @@ function ViewAwards() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('어워드', intro_no);
         dispatch(getAwards(intro_no));
     }, [dispatch, intro_no]);
 
@@ -274,14 +271,12 @@ function ViewAwards() {
                                 awardsName: box.awardsName,
                             })
                         );
-                        console.log(award);
                         setMode('READ');
                     }}
                 ></AwardInput>
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ award });
         content = (
             <IntroBox>
                 <CardHeader>수상내역</CardHeader>
@@ -297,7 +292,6 @@ function ViewAwards() {
                                 awardsName: box.awardsName,
                             })
                         );
-                        console.log(award);
                         setMode('READ');
                     }}
                 ></AwardInput>

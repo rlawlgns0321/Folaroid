@@ -101,9 +101,8 @@ function ActivityInput(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const value = dayjs(date).add(1, 'day').toISOString().substring(0, 10);
+        const value = date? dayjs(date).add(1, 'day').toISOString().substring(0, 10) : null;
         props.onCreate({ a: activity, b: value });
-        console.log(activity);
         setActivity(initialState);
         setDate(null);
     };
@@ -256,12 +255,10 @@ function ViewName() {
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
             : store.getState().portfolio.pf.introNo;
-    console.log('인트로넘버', intro_no);
     const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('액티비티', intro_no);
         dispatch(getActivity(intro_no));
     }, [dispatch, intro_no]);
 
@@ -283,8 +280,6 @@ function ViewName() {
                 <ActivityInput
                     onCreate={(c) => {
                         const { a, b } = c;
-                        console.log(a.activity);
-                        console.log(a.value);
                         dispatch(
                             createActivity({
                                 introNo: intro_no,
@@ -300,7 +295,6 @@ function ViewName() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ activity });
         content = (
             <IntroBox>
                 <CardHeader>활동</CardHeader>

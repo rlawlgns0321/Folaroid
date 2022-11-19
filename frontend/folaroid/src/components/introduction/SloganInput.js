@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, Card, CardContent, TextField, InputLabel } from '@mui/material';
+import { Button, Box, CardContent, TextField, InputLabel } from '@mui/material';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
     createSlogan,
@@ -135,7 +135,7 @@ function ReadSlogan(props) {
     );
 }
 
-function ViewSlogan() {
+function ViewSlogan(props) {
     const slogan = useSelector((state) => state.slogan);
     const { pathname } = useLocation();
     const store = useStore();
@@ -147,7 +147,6 @@ function ViewSlogan() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('이거', intro_no);
         dispatch(getSlogan(intro_no));
     }, [dispatch, intro_no]);
 
@@ -174,7 +173,6 @@ function ViewSlogan() {
             ></SloganInput>
         );
     } else if (mode === 'READ') {
-        console.log({ slogan });
         content = (
             <ReadSlogan
                 sloganContent={slogan.sloganContent}

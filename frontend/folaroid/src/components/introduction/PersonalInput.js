@@ -69,9 +69,10 @@ function Update(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(personal.userBirth);
-        const date = dayjs(birth).add(1, 'day').toISOString().substring(0,10)
-        props.onCreate({personal, date});
+        const date = birth
+            ? dayjs(birth).add(1, 'day').toISOString().substring(0, 10)
+            : null;
+        props.onCreate({ personal, date });
     };
 
     return (
@@ -147,7 +148,11 @@ function Update(props) {
                                 justifyContent: 'end',
                             }}
                         >
-                            <Button type="submit" variant="outlined">
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="neutral"
+                            >
                                 저장
                             </Button>
                         </div>
@@ -225,7 +230,7 @@ function ViewName() {
                 <CardHeader>개인정보</CardHeader>
                 <Update
                     person={personal}
-                    onCreate={({personal, date}) => {
+                    onCreate={({ personal, date }) => {
                         dispatch(
                             updatePersonal({
                                 introNo: intro_no,
@@ -237,7 +242,6 @@ function ViewName() {
                         );
                         setMode('READ');
                     }}
-                    personal={personal}
                 ></Update>
             </IntroBox>
         );

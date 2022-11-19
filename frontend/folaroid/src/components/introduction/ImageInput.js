@@ -20,7 +20,6 @@ const IntroTextField = styled(TextField)`
     }
 `;
 
-
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
     background-color: rgba(140, 140, 140, 0.35);
@@ -56,19 +55,12 @@ function ImageInput(props) {
     const handleChange = (e) => {
         let formData = new FormData();
         const file = e.target.files[0];
-        console.log(file);
         formData.append('file', file);
         setImageSrc(formData);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // for (var key of imageSrc.keys()) {
-        // console.log(key);
-        // }
-        // for (var value of imageSrc.values()) {
-        // console.log(value);
-        // }
         props.onCreate(imageSrc);
     };
 
@@ -84,8 +76,8 @@ function ImageInput(props) {
                         style={{
                             width: '100%',
                             display: 'flex',
-                            justifyContent: 'space-between',
-                            flexDirection: 'row',
+                            alignItems: 'center',
+                            margin: '20px',
                         }}
                     >
                         <div style={{ width: '100%' }}>
@@ -97,8 +89,19 @@ function ImageInput(props) {
                                 multiple
                             />
                         </div>
-                        <div>
-                            <Button type="submit" variant="contained">
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                margin: '20px',
+                                justifyContent: 'end',
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="neutral"
+                            >
                                 저장
                             </Button>
                         </div>
@@ -130,13 +133,19 @@ function ReadImage(props) {
                     justifyContent: 'end',
                 }}
             >
-                <Button onClick={handleClick}>수정</Button>
+                <Button
+                    onClick={handleClick}
+                    variant="contained"
+                    color="neutral"
+                >
+                    수정
+                </Button>
             </div>
         </IntroCardContent>
     );
 }
 
-function ViewImage() {
+function ViewImage(props) {
     const image = useSelector((state) => state.image);
     const { pathname } = useLocation();
     const store = useStore();
@@ -158,7 +167,6 @@ function ViewImage() {
                 <CardHeader>사진</CardHeader>
                 <ImageInput
                     onCreate={(formData) => {
-                        console.log(formData);
                         dispatch(updateImage({ intro_no, formData }));
                         setMode('READ');
                     }}

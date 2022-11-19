@@ -29,13 +29,21 @@ public class IntroPersonalData {
 
     private Long introNo;
 
-    public void updateIntroPersonalData(String userName, java.sql.Date userBirth, String userPhone) {
+    @Column(length = 40)
+    private String personalDataEmail;
+
+    public void updateIntroPersonalData(String userName, java.sql.Date userBirth, String userPhone, String userEmail) {
         this.personalDataName = userName;
         this.personalDataBirth = userBirth;
         this.personalDataPhone = userPhone;
+        this.personalDataEmail = userEmail;
     }
     public IntroPersonalData(Long introNo) {
         this.introNo = introNo;
+    }
+
+    public void updateUserEmail(String userEmail) {
+        this.personalDataEmail = userEmail;
     }
 }
 

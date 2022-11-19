@@ -139,13 +139,14 @@ public class OAuthController {
        }
        else{
 //            System.out.println("New User!!");
-            Long createUserPk = userService.save(new UserDto.UserSignupReq(responseUserInfo.getLogin(), responseUserInfo.getEmail()));
+            Long createUserPk = userService.save(responseUserInfo.getLogin());
             map.put("user", userRepository.findByUserGithubId(responseUserInfo.getLogin()));
             IntroDto.introRequest introDto = new IntroDto.introRequest();
             introDto.setUserNo(createUserPk);
             Intro intro = introService.createIntro(introDto);
             Long introNo = intro.getIntroNo();
             IntroPersonalData introPersonalData = new IntroPersonalData(introNo);
+            introPersonalData.updateUserEmail(responseUserInfo.getEmail());
             introPersonalDataRepository.save(introPersonalData);
             map.put("introNo", introNo);
            IntroImage introImage = new IntroImage(introNo, responseUserInfo.getAvatar_url());
@@ -215,6 +216,9 @@ public class OAuthController {
                                         + target.getName() + "/"
                                         + target.getDefault_branch() + "/"
                                         + imageUrls.get(j));
+                            }
+                            else {
+                                imageUrls.set(j, getBase64(imageUrls.get(j)));
                             }
                         }
 
