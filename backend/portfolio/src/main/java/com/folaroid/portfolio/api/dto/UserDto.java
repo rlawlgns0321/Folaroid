@@ -4,6 +4,7 @@ import com.folaroid.portfolio.db.entity.IntroPersonalData;
 import com.folaroid.portfolio.db.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class UserDto {
 
@@ -48,6 +49,7 @@ public class UserDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class UserDefaultForUpdateDto {
         private Long introNo;
         private String userName;
