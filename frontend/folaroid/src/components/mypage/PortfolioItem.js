@@ -6,7 +6,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CreateIcon from '@mui/icons-material/Create';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Wrap = styled(motion.div)`
     width: 80%;
@@ -49,42 +49,45 @@ const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
     const navigate = useNavigate();
 
     return (
-        <Wrap
-            whileHover={{
-                scale: 1.04,
-                backgroundColor: '#4B4A4A'
-            }}
-            variants={item}
-        >
-            <Info>
-                <Title>{pf.pfName}</Title>
-                <div>{pf.updated_at.substring(0, 10)}</div>
-            </Info>
-            <div>
-                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
-                    <VisibilityIcon fontSize="inherit" />
-                </IconButton>
-                <IconButton
-                    onClick={onGetClick}
-                    edge="end"
-                    size="large"
-                    sx={{ color: 'white' }}
-                >
-                    <CreateIcon fontSize="inherit" />
-                </IconButton>
-                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
-                    <ContentCopyIcon fontSize="inherit" />
-                </IconButton>
-                <IconButton
-                    edge="end"
-                    size="large"
-                    sx={{ color: 'white' }}
-                    onClick={onDeleteClick}
-                >
-                    <DeleteIcon fontSize="inherit" />
-                </IconButton>
-            </div>
-        </Wrap>
+        <AnimatePresence>
+            <Wrap
+                whileHover={{
+                    scale: 1.04,
+                    backgroundColor: '#4B4A4A',
+                }}
+                exit={{ scale: 0 }}
+                variants={item}
+            >
+                <Info>
+                    <Title>{pf.pfName}</Title>
+                    <div>{pf.updated_at.substring(0, 10)}</div>
+                </Info>
+                <div>
+                    <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                        <VisibilityIcon fontSize="inherit" />
+                    </IconButton>
+                    <IconButton
+                        onClick={onGetClick}
+                        edge="end"
+                        size="large"
+                        sx={{ color: 'white' }}
+                    >
+                        <CreateIcon fontSize="inherit" />
+                    </IconButton>
+                    <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                        <ContentCopyIcon fontSize="inherit" />
+                    </IconButton>
+                    <IconButton
+                        edge="end"
+                        size="large"
+                        sx={{ color: 'white' }}
+                        onClick={onDeleteClick}
+                    >
+                        <DeleteIcon fontSize="inherit" />
+                    </IconButton>
+                </div>
+            </Wrap>
+        </AnimatePresence>
     );
 };
 

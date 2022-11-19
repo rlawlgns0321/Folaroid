@@ -66,16 +66,11 @@ const ProjectBodyItem = ({ project, onDeleteProject }) => {
         onDeleteProject(project.pjtNo);
     };
 
-    const item = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-        },
-    };
 
     return (
-        <ItemWrap whileHover={{ scale: 1.05 }} variants={item} initial="hidden" animate="visible">
+        <ItemWrap
+            whileHover={{ scale: 1.05, delay: 0 }}
+        >
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
                     {project.pjtTitle}
