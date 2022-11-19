@@ -116,14 +116,14 @@ public class PortfolioDto {
         private Long portfolioTemplatesNo;
         private String pfName;
         private List<ProjectDto.AllProjectDto> projects;
-//        private IntroDto intro;
+//        private IntroDto.AllIntroDto intro;
 
-        public TotalPortfolioDto(Portfolio portfolio, List<ProjectDto.AllProjectDto> projects) { //, IntroDto intro
+        public TotalPortfolioDto(Portfolio portfolio, List<ProjectDto.AllProjectDto> projects) { //, IntroDto.AllIntroDto intro
             this.updatedAt = portfolio.getUpdatedAt();
             this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
             this.pfName = portfolio.getPfName();
             this.projects = projects;
-//            this.intro = intro;
+//            this.intro = introDto;
         }
     }
 

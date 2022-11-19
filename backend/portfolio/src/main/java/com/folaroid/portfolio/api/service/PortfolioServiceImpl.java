@@ -1,8 +1,6 @@
 package com.folaroid.portfolio.api.service;
 
-import com.folaroid.portfolio.api.dto.PjtImageDto;
-import com.folaroid.portfolio.api.dto.PortfolioDto;
-import com.folaroid.portfolio.api.dto.ProjectDto;
+import com.folaroid.portfolio.api.dto.*;
 import com.folaroid.portfolio.db.entity.*;
 import com.folaroid.portfolio.db.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -48,8 +46,13 @@ public class PortfolioServiceImpl implements PortfolioService {
             List<PjtImageDto.PjtImageResponse> pjtImageDtos = pjtImageRepository.findAllByPjtNo(pjtNo).stream().map(pjtImage -> new PjtImageDto.PjtImageResponse(pjtImage)).collect(toList());
             return new ProjectDto.AllProjectDto(project, pjtImageDtos);
         }).collect(toList());;
+//        Intro intro = introRepository.findByPfNoAndUserNo(portfolioNo, userNo);
+//        Long introNo = intro.getIntroNo();
+//        IntroImageDto.AllIntroImageDto introImage = new IntroImageDto.AllIntroImageDto(introImageRepository.findByIntroNo(introNo));
 
-//                IntroDto.AllIntroDto allIntroDto =
+
+
+//        IntroDto.AllIntroDto allIntroDto = new IntroDto.AllIntroDto(intro, introImage, introPersonalData, introStacks, introLanguages, introArchivings, introCertifications, introAwards, introActivities, introCareers, introSchools, introSlogans);
         return new PortfolioDto.TotalPortfolioDto(portfolio, allProjectDto); //, allIntroDto
     }
 

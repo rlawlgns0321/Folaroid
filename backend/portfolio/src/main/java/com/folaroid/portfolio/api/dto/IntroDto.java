@@ -67,8 +67,8 @@ public class IntroDto {
     public static class AllIntroDto {
         private Long introNo;
         private String introContent;
-        private List<IntroImage> introImages;
-        private List<IntroPersonalData> introPersonalData;
+        private IntroImage introImage;
+        private IntroPersonalData introPersonalData;
         private List<IntroStack> introStacks;
         private List<IntroLanguage> introLanguages;
         private List<IntroArchiving> introArchivings;
@@ -81,8 +81,8 @@ public class IntroDto {
 
 
         public AllIntroDto(Intro intro,
-                           List<IntroImage> introImages,
-                           List<IntroPersonalData> introPersonalData,
+                           IntroImage introImage,
+                           IntroPersonalData introPersonalData,
                            List<IntroStack> introStacks,
                            List<IntroLanguage> introLanguages,
                            List<IntroArchiving> introArchivings,
@@ -94,7 +94,7 @@ public class IntroDto {
                            List<IntroSlogan> introSlogans) {
             this.introNo = intro.getIntroNo();
             this.introContent = intro.getIntroContent();
-            this.introImages = introImages;
+            this.introImage = introImage;
             this.introPersonalData = introPersonalData;
             this.introStacks = introStacks;
             this.introLanguages = introLanguages;
