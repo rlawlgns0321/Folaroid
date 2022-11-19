@@ -4,8 +4,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import AlertDialog from '../dialog/AlertDialog';
+import { motion } from 'framer-motion';
 
-const ItemWrap = styled.div`
+const ItemWrap = styled(motion.div)`
     width: 355px;
     height: 240px;
     border-radius: 10px;
@@ -65,7 +66,7 @@ const ProjectBodyItem = ({ project, onDeleteProject }) => {
     };
 
     return (
-        <ItemWrap>
+        <ItemWrap whileHover={{scale:1.05}}>
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
                     {project.pjtTitle}
