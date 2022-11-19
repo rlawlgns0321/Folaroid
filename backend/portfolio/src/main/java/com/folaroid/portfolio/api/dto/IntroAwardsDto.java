@@ -32,18 +32,17 @@ public class IntroAwardsDto {
             return introAwards;
         }
     }
-
-    public static class introAwardsResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroAwardsDto{
         private Long introAwardsNo;
-        private Long introNo;
         private String awardsName;
         private java.sql.Date awardsDate;
         private String awardsIssuer;
         private String awardsDetail;
 
-        public introAwardsResponse(IntroAwards introAwards){
+        public AllIntroAwardsDto(IntroAwards introAwards){
             this.introAwardsNo = introAwards.getIntroAwardsNo();
-            this.introNo = introAwards.getIntroNo();
             this.awardsName = introAwards.getAwardsName();
             this.awardsDate = introAwards.getAwardsDate();
             this.awardsIssuer = introAwards.getAwardsIssuer();

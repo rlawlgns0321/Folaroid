@@ -27,16 +27,15 @@ public class IntroArchivingDto {
 
     }
 
-    @Getter
-    public static class introArchivingResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroArchivingDto{
         private Long introArchivingNo;
-        private Long introNo;
         private String archivingName;
         private String archivingLink;
 
-        public introArchivingResponse(IntroArchiving introArchiving){
+        public AllIntroArchivingDto(IntroArchiving introArchiving){
             this.introArchivingNo = introArchiving.getIntroArchivingNo();
-            this.introNo = introArchiving.getIntroNo();
             this.archivingName = introArchiving.getArchivingName();
             this.archivingLink = introArchiving.getArchivingLink();
         }

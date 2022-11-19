@@ -34,18 +34,17 @@ public class IntroActivityDto {
         }
 
     }
-
-    public static class introActivityResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroActivityDto{
         private Long introActivityNo;
-        private Long introNo;
         private String activityName;
         private String activityDate;
         private String activityUrl;
         private String activityDetail;
 
-        public introActivityResponse(IntroActivity introActivity){
+        public AllIntroActivityDto(IntroActivity introActivity){
             this.introActivityNo = introActivity.getIntroActivityNo();
-            this.introNo = introActivity.getIntroNo();
             this.activityName = introActivity.getActivityName();
             this.activityDate = introActivity.getActivityDate();
             this.activityUrl = introActivity.getActivityUrl();

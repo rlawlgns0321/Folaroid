@@ -34,7 +34,8 @@ public class IntroImageDto {
         }
     }
 
-    @Getter
+    @Data
+    @AllArgsConstructor
     public static class AllIntroImageDto {
         private Long introImageNo;
         private String introImageLocation;

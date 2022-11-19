@@ -31,21 +31,21 @@ public class IntroLanguageDto {
         }
     }
 
-    public static class introLanguageResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroLanguageDto{
         private Long introLanguageNo;
         private String languageName;
         private String languageTestName;
         private String languageGrade;
         private java.sql.Date languageDate;
-        private Long introNo;
 
-        public introLanguageResponse(IntroLanguage introLanguage){
+        public AllIntroLanguageDto(IntroLanguage introLanguage){
             this.introLanguageNo = introLanguage.getIntroLanguageNo();
             this.languageName = introLanguage.getLanguageName();
             this.languageTestName = introLanguage.getLanguageTestName();
             this. languageGrade = introLanguage.getLanguageGrade();
             this.languageDate = introLanguage.getLanguageDate();
-            this.introNo = introLanguage.getIntroNo();
         }
     }
 
