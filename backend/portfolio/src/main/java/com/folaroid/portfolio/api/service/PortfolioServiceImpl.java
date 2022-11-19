@@ -1,5 +1,6 @@
 package com.folaroid.portfolio.api.service;
 
+import com.folaroid.portfolio.api.dto.PjtImageDto;
 import com.folaroid.portfolio.api.dto.PortfolioDto;
 import com.folaroid.portfolio.api.dto.ProjectDto;
 import com.folaroid.portfolio.db.entity.*;
@@ -8,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @Service("portfolioService")
@@ -35,6 +36,23 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final PjtImageRepository pjtImageRepository;
     private final FileService fileService;
     private final UserRepository userRepository;
+
+    @Transactional
+    @Override
+    public PortfolioDto.TotalPortfolioDto getTotalPortfolio(Long userNo, Long portfolioNo) {
+
+        Portfolio portfolio =  portfolioRepository.findById(portfolioNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
+        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
+        List<ProjectDto.AllProjectDto> allProjectDto = projects.stream().map(project -> {
+            Long pjtNo = project.getPjtNo();
+            List<PjtImageDto.PjtImageResponse> pjtImageDtos = pjtImageRepository.findAllByPjtNo(pjtNo).stream().map(pjtImage -> new PjtImageDto.PjtImageResponse(pjtImage)).collect(toList());
+            return new ProjectDto.AllProjectDto(project, pjtImageDtos);
+        }).collect(toList());;
+
+//                IntroDto.AllIntroDto allIntroDto =
+        return new PortfolioDto.TotalPortfolioDto(portfolio, allProjectDto); //, allIntroDto
+    }
+
 
     @Transactional
     @Override
@@ -200,7 +218,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(userNo);
         List<PortfolioDto.PortfolioSimpleDto> result = portfolios.stream()
                 .map(i -> new PortfolioDto.PortfolioSimpleDto(i))
-                .collect(Collectors.toList());
+                .collect(toList());
         return result;
     }
 

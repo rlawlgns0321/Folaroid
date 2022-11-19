@@ -1,9 +1,9 @@
 package com.folaroid.portfolio.api.dto;
 
-import com.folaroid.portfolio.db.entity.Intro;
-import com.folaroid.portfolio.db.entity.IntroImage;
-import com.folaroid.portfolio.db.entity.IntroPersonalData;
+import com.folaroid.portfolio.db.entity.*;
 import lombok.*;
+
+import java.util.List;
 
 public class IntroDto {
     @Data
@@ -61,4 +61,53 @@ public class IntroDto {
     public static class IntroNoDto {
         private Long introNo;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class AllIntroDto {
+        private Long introNo;
+        private String introContent;
+        private List<IntroImage> introImages;
+        private List<IntroPersonalData> introPersonalData;
+        private List<IntroStack> introStacks;
+        private List<IntroLanguage> introLanguages;
+        private List<IntroArchiving> introArchivings;
+        private List<IntroCertification> introCertifications;
+        private List<IntroAwards> introAwards;
+        private List<IntroActivity> introActivities;
+        private List<IntroCareer> introCareers;
+        private List<IntroSchool> introSchools;
+        private List<IntroSlogan> introSlogans;
+
+
+        public AllIntroDto(Intro intro,
+                           List<IntroImage> introImages,
+                           List<IntroPersonalData> introPersonalData,
+                           List<IntroStack> introStacks,
+                           List<IntroLanguage> introLanguages,
+                           List<IntroArchiving> introArchivings,
+                           List<IntroCertification> introCertifications,
+                           List<IntroAwards> introAwards,
+                           List<IntroActivity> introActivities,
+                           List<IntroCareer> introCareers,
+                           List<IntroSchool> introSchools,
+                           List<IntroSlogan> introSlogans) {
+            this.introNo = intro.getIntroNo();
+            this.introContent = intro.getIntroContent();
+            this.introImages = introImages;
+            this.introPersonalData = introPersonalData;
+            this.introStacks = introStacks;
+            this.introLanguages = introLanguages;
+            this.introArchivings = introArchivings;
+            this.introCertifications = introCertifications;
+            this.introAwards = introAwards;
+            this.introActivities = introActivities;
+            this.introCareers = introCareers;
+            this.introSchools = introSchools;
+            this.introSlogans = introSlogans;
+        }
+
+
+    }
+
 }
