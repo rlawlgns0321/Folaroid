@@ -34,7 +34,7 @@ const RightContent = styled.div`
 `;
 
 const container = {
-    hidden: { opacity: 1, scale: 0.7 },
+    hidden: { opacity: 0.5, scale: 0.7 },
     visible: {
         opacity: 1,
         scale: 1,

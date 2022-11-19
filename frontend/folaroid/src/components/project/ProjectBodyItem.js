@@ -37,6 +37,7 @@ const Img = styled.img`
     object-fit: contain;
     border-radius: 0 0 10px 10px;
     background-color: rgba(140, 140, 140, 0.85);
+    cursor: pointer;
 `;
 const DeleteBtn = styled.div`
     width: 15px;
@@ -65,8 +66,16 @@ const ProjectBodyItem = ({ project, onDeleteProject }) => {
         onDeleteProject(project.pjtNo);
     };
 
+    const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+        },
+    };
+
     return (
-        <ItemWrap whileHover={{scale:1.05}}>
+        <ItemWrap whileHover={{ scale: 1.05 }} className="item" variants={item}>
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
                     {project.pjtTitle}
