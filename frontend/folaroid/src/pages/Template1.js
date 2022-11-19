@@ -127,7 +127,6 @@ function setSection(position, camera) {
         flag = 1;
         /*화면이동 */
         gsap.to(camera.position, {
-            rotation: 0,
             duration: 1,
             x: position[newSection][0],
             y: position[newSection][1] + 5,
