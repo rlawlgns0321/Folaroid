@@ -61,25 +61,40 @@ const Header = ({ user, onLogout }) => {
                     Folaroid
                 </button>
             </Link>
-            <Grid
-                sx={{ width: '25vw' }}
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                <MenuBtn>
-                    <RouteBtn to="/others">포트폴리오 열람</RouteBtn>
-                </MenuBtn>
-                <MenuBtn>
-                    <RouteBtn to="/portfolio/intro">포트폴리오 제작</RouteBtn>
-                </MenuBtn>
-                {user ? (
+            {user ? (
+                <Grid
+                    sx={{ width: '18vw' }}
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
+                    <MenuBtn>
+                        <RouteBtn to="/portfolio/intro">
+                            포트폴리오 제작
+                        </RouteBtn>
+                    </MenuBtn>
+                    <MenuBtn>
+                        <RouteBtn to="/mypage">마이페이지</RouteBtn>
+                    </MenuBtn>
                     <AccountMenu onLogout={onLogout} />
-                ) : (
+                </Grid>
+            ) : (
+                <Grid
+                    sx={{ width: '18vw' }}
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
+                    <MenuBtn>
+                        <RouteBtn to="/portfolio/intro">
+                            포트폴리오 제작
+                        </RouteBtn>
+                    </MenuBtn>
                     <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
-                )}
-            </Grid>
+                </Grid>
+            )}
             <SignInDialog open={open} onClose={handleClose} />
         </Grid>
     );
