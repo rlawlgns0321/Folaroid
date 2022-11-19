@@ -19,6 +19,9 @@ import InfoModal from './pages/InfoModal';
 import IntroModal2 from './components/template/IntroTemplate2';
 import IntroModal3 from './components/template/IntroTemplate3';
 import Space from './components/template/space/Space';
+import Flex from './components/template/flex/Flex';
+import Music from './components/template/music/Music';
+import Gallery from './components/template/gallery/Gallery';
 
 function App() {
     const user = useSelector((state) => state.auth.user);
@@ -56,6 +59,9 @@ function App() {
                     <Route path="/intromodal2" element={<IntroModal2 />} />
                     <Route path="/intromodal3" element={<IntroModal3 />} />
                     <Route path="space" element={<Space />} />
+                    <Route path="/flex" element={<Flex />} />
+                    <Route path="/music" element={<Music />} />
+                    <Route path="/Gallery" element={<Gallery />} />
                 </Routes>
             </div>
         </ThemeProvider>

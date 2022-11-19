@@ -1,17 +1,17 @@
 package com.folaroid.portfolio.api.service;
 
-import com.folaroid.portfolio.api.dto.PortfolioDto;
-import com.folaroid.portfolio.api.dto.ProjectDto;
+import com.folaroid.portfolio.api.dto.*;
 import com.folaroid.portfolio.db.entity.*;
 import com.folaroid.portfolio.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @Service("portfolioService")
@@ -35,6 +35,58 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final PjtImageRepository pjtImageRepository;
     private final FileService fileService;
     private final UserRepository userRepository;
+    private final HashTagRepository hashTagRepository;
+
+
+    @Transactional
+    @Override
+    public PortfolioDto.TotalPortfolioDto getTotalPortfolio(Long userNo, Long portfolioNo) {
+
+        Portfolio portfolio =  portfolioRepository.findById(portfolioNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
+        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
+        List<ProjectDto.AllProjectDto> allProjectDto = projects.stream().map(project -> {
+            Long pjtNo = project.getPjtNo();
+            List<PjtImageDto.PjtImageResponse> pjtImageDtos = pjtImageRepository.findAllByPjtNo(pjtNo).stream().map(pjtImage -> new PjtImageDto.PjtImageResponse(pjtImage)).collect(toList());
+            return new ProjectDto.AllProjectDto(project, pjtImageDtos);
+        }).collect(toList());;
+        Intro intro = introRepository.findByPfNoAndUserNo(portfolioNo, userNo);
+        Long introNo = intro.getIntroNo();
+        IntroImageDto.AllIntroImageDto introImage = new IntroImageDto.AllIntroImageDto(introImageRepository.findByIntroNo(introNo));
+        IntroPersonalDataDto.Response introPersonalData = new IntroPersonalDataDto.Response(introPersonalDataRepository.findByIntroNo(introNo));
+
+        List<IntroStackDto.AllIntroStackDto> introStacks = introStackRepository.findAllByIntroNo(introNo).stream()
+                        .map(introStack -> new IntroStackDto.AllIntroStackDto(introStack, hashTagRepository.findById(introStack.getHashNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 hashNo 입니다.")))).collect(Collectors.toList());
+
+        List<IntroLanguageDto.AllIntroLanguageDto> introLanguages = introLanguageRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroLanguageDto.AllIntroLanguageDto::new).collect(Collectors.toList());
+
+        List<IntroArchivingDto.AllIntroArchivingDto> introArchivings = introArchivingRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroArchivingDto.AllIntroArchivingDto::new).collect(Collectors.toList());
+
+        List<IntroCertificationDto.AllIntroCertificationDto> introCertifications = introCertificationRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroCertificationDto.AllIntroCertificationDto::new).collect(Collectors.toList());
+
+        List<IntroAwardsDto.AllIntroAwardsDto> introAwards = introAwardsRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroAwardsDto.AllIntroAwardsDto::new).collect(Collectors.toList());
+
+
+        List<IntroActivityDto.AllIntroActivityDto> introActivities = introActivityRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroActivityDto.AllIntroActivityDto::new).collect(Collectors.toList());
+
+        List<IntroCareerDto.AllIntroCareerDto> introCareers = introCareerRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroCareerDto.AllIntroCareerDto::new).collect(Collectors.toList());
+
+        List<IntroSchoolDto.AllIntroSchoolDto> introSchools = introSchoolRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroSchoolDto.AllIntroSchoolDto::new).collect(Collectors.toList());
+
+
+        IntroSloganDto.AllIntroSloganDto introSlogan = new IntroSloganDto.AllIntroSloganDto(introSloganRepository.findByIntroNo(introNo));
+
+        IntroDto.AllIntroDto allIntroDto = new IntroDto.AllIntroDto(intro, introImage, introPersonalData, introStacks, introLanguages, introArchivings, introCertifications, introAwards, introActivities, introCareers, introSchools, introSlogan);
+
+        return new PortfolioDto.TotalPortfolioDto(portfolio, allProjectDto, allIntroDto); //, allIntroDto
+    }
+
 
     @Transactional
     @Override
@@ -200,7 +252,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(userNo);
         List<PortfolioDto.PortfolioSimpleDto> result = portfolios.stream()
                 .map(i -> new PortfolioDto.PortfolioSimpleDto(i))
-                .collect(Collectors.toList());
+                .collect(toList());
         return result;
     }
 

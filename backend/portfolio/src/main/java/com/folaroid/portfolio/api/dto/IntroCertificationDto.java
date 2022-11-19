@@ -32,19 +32,18 @@ public class IntroCertificationDto {
         }
     }
 
-    @Getter
-    public static class introCertificationResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroCertificationDto{
         private Long introCertificationNo;
-        private Long introNo;
         private java.sql.Date certificationDate;
         private String certificationName;
         private String certificationIssuer;
         private String certificationDetail;
         private String certificationId;
 
-        public introCertificationResponse(IntroCertification introCertification){
+        public AllIntroCertificationDto(IntroCertification introCertification){
             this.introCertificationNo = introCertification.getIntroCertificationNo();
-            this.introNo = introCertification.getIntroNo();
             this.certificationDate = introCertification.getCertificationDate();
             this.certificationName = introCertification.getCertificationName();
             this.certificationIssuer = introCertification.getCertificationIssuer();

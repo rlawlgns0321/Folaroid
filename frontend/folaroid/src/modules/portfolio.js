@@ -64,6 +64,9 @@ export const portfolio = createSlice({
         changePfName: (state, action) => {
             state.pf.pfName = action.payload;
         },
+        changeTemplatesNo: (state, action) => {
+            state.pf.portfolioTemplatesNo = action.payload;
+        },
         clearPatch: (state) => {
             state.isPatch = false;
         }
