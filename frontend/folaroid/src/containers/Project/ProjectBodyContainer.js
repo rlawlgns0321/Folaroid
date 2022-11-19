@@ -22,12 +22,12 @@ const ProjectBodyContainer = () => {
     }, [dispatch, pfNo]);
 
     return (
-        <div>
-            <ProjectBody
+        <>
+            <ProjectBody 
                 projects={projects}
                 onDeleteProject={onDeleteProject}
             />
-        </div>
+        </>
     );
 };
 

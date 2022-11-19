@@ -54,7 +54,6 @@ const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
                 scale: 1.04,
                 backgroundColor: '#4B4A4A'
             }}
-            className="item"
             variants={item}
         >
             <Info>

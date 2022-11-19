@@ -46,13 +46,6 @@ const RightBarWrap = styled(motion.div)`
     backdrop-filter: blur(10px);
 `;
 
-const container = {
-    hidden: { opacity: 0.5, scale: 0.8 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-    },
-};
 
 const PortFolioPage = () => {
     return (
@@ -60,10 +53,11 @@ const PortFolioPage = () => {
             <HeaderContainer />
             <BodyWrap>
                 <ContentsWrap
-                    className="container"
-                    variants={container}
-                    initial="hidden"
-                    animate="visible"
+                    initial={{ opacity: 0.5, scale: 0.8 }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1,
+                    }}
                 >
                     <LeftBarWrap>
                         <SideBar isPortfolio>
@@ -80,12 +74,7 @@ const PortFolioPage = () => {
                             </Routes>
                         </SideBar>
                     </LeftBarWrap>
-                    <RightBarWrap
-                        className="container"
-                        initial="hidden"
-                        variants={container}
-                        animate="visible"
-                    >
+                    <RightBarWrap>
                         <ContentsContainer>
                             <Routes>
                                 <Route

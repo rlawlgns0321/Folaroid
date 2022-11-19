@@ -75,7 +75,7 @@ const ProjectBodyItem = ({ project, onDeleteProject }) => {
     };
 
     return (
-        <ItemWrap whileHover={{ scale: 1.05 }} className="item" variants={item}>
+        <ItemWrap whileHover={{ scale: 1.05 }} variants={item} initial="hidden" animate="visible">
             <TitleBar>
                 <Grid sx={{ pl: 2, fontWeight: 'bold', color: 'white' }}>
                     {project.pjtTitle}

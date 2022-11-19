@@ -48,7 +48,6 @@ const container = {
 const WrapLayout = () => {
     return (
         <Wrap
-            className="container"
             variants={container}
             initial="hidden"
             animate="visible"
