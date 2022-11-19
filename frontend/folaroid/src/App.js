@@ -20,6 +20,7 @@ import Space from './components/template/space/Space';
 import Flex from './components/template/flex/Flex';
 import Music from './components/template/music/Music';
 import Gallery from './components/template/gallery/Gallery';
+import TemplatePage from './pages/TemplatePage';
 
 function App() {
     const user = useSelector((state) => state.auth.user);
@@ -48,6 +49,7 @@ function App() {
                             user ? <ProjectInfoPage /> : <Navigate to="/" />
                         }
                     />
+                    <Route path="/:userNo/:pfNo" element={<TemplatePage/>} />
                     <Route path="/tem1" element={<Template1 />} />
                     <Route path="/tem2" element={<Template2 />} />
                     <Route path="/tem3" element={<Template3 />} />

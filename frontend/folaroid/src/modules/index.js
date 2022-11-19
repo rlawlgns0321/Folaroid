@@ -14,7 +14,7 @@ import portfolioReducer from './portfolio';
 import githubReducer from './github';
 import imageReducer from './intro/image';
 import stackReducer from './intro/stack'
-
+import templateReducer from './template';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -32,6 +32,7 @@ const rootReducer = combineReducers({
     github: githubReducer,
     image: imageReducer,
     stack: stackReducer,
+    template: templateReducer,
 });
 
 export default rootReducer;

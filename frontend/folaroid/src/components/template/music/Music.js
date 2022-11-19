@@ -308,11 +308,10 @@ const Section = styled.section`
     }
 `;
 
-const Music = () => {
+const Music = ({ items }) => {
     const deg = 45;
     const [num, setNum] = useState(0);
     const [active, setActive] = useState(0);
-    const articles = [0, 1, 2, 3, 4, 5, 6, 7];
 
     const onPrev = () => {
         setNum(num - 1);
@@ -336,11 +335,12 @@ const Music = () => {
             </a>
 
             <Section style={{ transform: `rotate(${deg * num}deg)` }}>
-                {articles.map((value, key) => (
+                {items.map((project, key) => (
                     <MusicArticle
                         key={key}
                         isActive={key === active}
                         deg={deg * key}
+                        project={project}
                     />
                 ))}
             </Section>
@@ -351,10 +351,53 @@ const Music = () => {
             <div className="btnNext" onClick={onNext}>
                 <span>NEXT MUSIC</span>
             </div>
-
-            <p>2021 Designed by DCODELAB</p>
         </Figure>
     );
+};
+
+Music.defaultProps = {
+    items: [
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Blizzards',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+    ],
 };
 
 export default Music;
