@@ -16,6 +16,8 @@ import Template3 from './pages/Template3';
 import Template4 from './pages/Template4';
 import TestPage from './pages/TestPage';
 import InfoModal from './pages/InfoModal';
+import IntroModal2 from './components/template/IntroTemplate2';
+import IntroModal3 from './components/template/IntroTemplate3';
 import Space from './components/template/space/Space';
 
 function App() {
@@ -51,6 +53,8 @@ function App() {
                     <Route path="/tem4" element={<Template4 />} />
                     {/* 자기소개 모달 샘플 */}
                     <Route path="/infoModal" element={<InfoModal />} />
+                    <Route path="/intromodal2" element={<IntroModal2 />} />
+                    <Route path="/intromodal3" element={<IntroModal3 />} />
                     <Route path="space" element={<Space />} />
                 </Routes>
             </div>

@@ -115,12 +115,10 @@ function ViewIntro() {
                     ))}
             </Box>
             <Box>
-                <div>
-                    <h1>활동</h1>
-                </div>
                 {activity &&
                     activity.map((item) => (
                         <div>
+                            <h1>활동</h1>
                             <h3>
                                 {item.activityName} | {item.activityDate}
                             </h3>
@@ -163,10 +161,10 @@ function ViewIntro() {
                     ))}{' '}
             </Box>
             <Box>
-                <h1>자격증</h1>
                 {certification &&
                     certification.map((item) => (
                         <div>
+                            <h1>자격증</h1>
                             <h3>{item.certificationName}</h3>
                             <div>
                                 {item.certificationDate} |{' '}
@@ -177,10 +175,10 @@ function ViewIntro() {
                     ))}
             </Box>
             <Box>
-                <h1>외국어</h1>
                 {language &&
                     language.map((item) => (
                         <div>
+                            <h1>외국어</h1>
                             <h3>{item.languageName}</h3>
                             <div>
                                 {item.languageTestName} | {item.languageGrade}
