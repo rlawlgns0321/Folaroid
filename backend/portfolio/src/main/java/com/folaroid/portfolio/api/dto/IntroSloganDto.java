@@ -26,15 +26,14 @@ public class IntroSloganDto {
             return introSlogan;
         }
     }
-
-    public static class introSloganResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroSloganDto{
         private Long introSloganNo;
-        private Long introNo;
         private String sloganContent;
 
-        public introSloganResponse(IntroSlogan introSlogan){
+        public AllIntroSloganDto(IntroSlogan introSlogan){
             this.introSloganNo = introSlogan.getIntroSloganNo();
-            this.introNo = introSlogan.getIntroNo();
             this.sloganContent = introSlogan.getSloganContent();
         }
     }

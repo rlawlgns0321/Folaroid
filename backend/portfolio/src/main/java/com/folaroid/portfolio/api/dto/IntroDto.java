@@ -34,6 +34,7 @@ public class IntroDto {
     }
 
     @Getter
+    @AllArgsConstructor
     public static class Response{
         private Long introNo;
         private String introContent;
@@ -67,31 +68,32 @@ public class IntroDto {
     public static class AllIntroDto {
         private Long introNo;
         private String introContent;
-        private IntroImage introImage;
-        private IntroPersonalData introPersonalData;
-        private List<IntroStack> introStacks;
-        private List<IntroLanguage> introLanguages;
-        private List<IntroArchiving> introArchivings;
-        private List<IntroCertification> introCertifications;
-        private List<IntroAwards> introAwards;
-        private List<IntroActivity> introActivities;
-        private List<IntroCareer> introCareers;
-        private List<IntroSchool> introSchools;
-        private List<IntroSlogan> introSlogans;
+        private IntroImageDto.AllIntroImageDto introImage;
+        private IntroPersonalDataDto.Response introPersonalData;
+        private List<IntroStackDto.AllIntroStackDto> introStacks;
+        private List<IntroLanguageDto.AllIntroLanguageDto> introLanguages;
+        private List<IntroArchivingDto.AllIntroArchivingDto> introArchivings;
+        private List<IntroCertificationDto.AllIntroCertificationDto> introCertifications;
+        private List<IntroAwardsDto.AllIntroAwardsDto> introAwards;
+        private List<IntroActivityDto.AllIntroActivityDto> introActivities;
+        private List<IntroCareerDto.AllIntroCareerDto> introCareers;
+        private List<IntroSchoolDto.AllIntroSchoolDto> introSchools;
+        private IntroSloganDto.AllIntroSloganDto introSlogan;
 
 
         public AllIntroDto(Intro intro,
-                           IntroImage introImage,
-                           IntroPersonalData introPersonalData,
-                           List<IntroStack> introStacks,
-                           List<IntroLanguage> introLanguages,
-                           List<IntroArchiving> introArchivings,
-                           List<IntroCertification> introCertifications,
-                           List<IntroAwards> introAwards,
-                           List<IntroActivity> introActivities,
-                           List<IntroCareer> introCareers,
-                           List<IntroSchool> introSchools,
-                           List<IntroSlogan> introSlogans) {
+                           IntroImageDto.AllIntroImageDto introImage,
+                           IntroPersonalDataDto.Response introPersonalData,
+                           List<IntroStackDto.AllIntroStackDto> introStacks,
+                           List<IntroLanguageDto.AllIntroLanguageDto> introLanguages,
+                           List<IntroArchivingDto.AllIntroArchivingDto> introArchivings,
+                           List<IntroCertificationDto.AllIntroCertificationDto> introCertifications,
+                           List<IntroAwardsDto.AllIntroAwardsDto> introAwards,
+                           List<IntroActivityDto.AllIntroActivityDto> introActivities,
+                           List<IntroCareerDto.AllIntroCareerDto> introCareers,
+                           List<IntroSchoolDto.AllIntroSchoolDto> introSchools,
+                           IntroSloganDto.AllIntroSloganDto introSlogan) {
+
             this.introNo = intro.getIntroNo();
             this.introContent = intro.getIntroContent();
             this.introImage = introImage;
@@ -104,7 +106,7 @@ public class IntroDto {
             this.introActivities = introActivities;
             this.introCareers = introCareers;
             this.introSchools = introSchools;
-            this.introSlogans = introSlogans;
+            this.introSlogan = introSlogan;
         }
 
 
