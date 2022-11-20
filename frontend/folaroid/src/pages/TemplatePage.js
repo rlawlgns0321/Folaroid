@@ -14,10 +14,11 @@ const TemplatePage = () => {
     const { template } = useSelector((state) => state.template);
     const [items, setItems] = useState(null);
     
+
     useEffect(() => {
         console.log(userNo, pfNo);
         dispatch(getTemplateThunk({ userNo, pfNo }));
-    }, []);
+    }, [dispatch, userNo, pfNo]);
 
     useEffect(() => {
         if (template) {
@@ -38,7 +39,7 @@ const TemplatePage = () => {
         }
     }, [template]);
 
-    if (template.portfolioTemplatesNo) {
+    if (template) {
         switch (template.portfolioTemplatesNo) {
             case 1:
                 return <>{items && <Music items={items} />}</>;
@@ -63,7 +64,7 @@ const TemplatePage = () => {
                 return <div></div>;
         }
     }
-    return <></>;
+    return <div></div>;
 };
 
 export default TemplatePage;
