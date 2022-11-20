@@ -13,7 +13,6 @@ const TemplatePage = () => {
     const dispatch = useDispatch();
     const { template } = useSelector((state) => state.template);
     const [items, setItems] = useState(null);
-    
 
     useEffect(() => {
         console.log(userNo, pfNo);
@@ -42,7 +41,13 @@ const TemplatePage = () => {
     if (template) {
         switch (template.portfolioTemplatesNo) {
             case 1:
-                return <>{items && <Music items={items} />}</>;
+                return (
+                    <>
+                        {items && (
+                            <Music items={items} pfName={template.pfName} />
+                        )}
+                    </>
+                );
             case 2:
                 return <>{items && <Space items={items} />}</>;
             case 3:
@@ -52,12 +57,19 @@ const TemplatePage = () => {
                             <Flex
                                 intro={template.intro}
                                 items={template.projects}
+                                pfName={template.pfName}
                             />
                         )}
                     </>
                 );
             case 4:
-                return <>{items && <Gallery items={items} />}</>;
+                return (
+                    <>
+                        {items && (
+                            <Gallery items={items} pfName={template.pfName} />
+                        )}
+                    </>
+                );
             case 5:
                 return <>{template && <Template4 template={template} />}</>;
             default:

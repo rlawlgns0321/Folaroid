@@ -7,7 +7,7 @@ import ProjectDialog from '../../dialog/ProjectDialog';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
-const Gallery = ({ items }) => {
+const Gallery = ({ items, pfName }) => {
 
     const [openPjt, setOpenPjt] = useState(false);
     const [pjt, setPjt] = useState({});
@@ -25,7 +25,7 @@ const Gallery = ({ items }) => {
     return (
         <div className="wrap">
             <h1>
-                DEVELOPER <span>PORTFOLIO</span>
+                {pfName} <span>DEVELOPER</span>
             </h1>
 
             <ul className="auto">
@@ -90,6 +90,7 @@ const Gallery = ({ items }) => {
 };
 
 Gallery.defaultProps = {
+    pfName:"DEVELOPER",
     items: [
         {
             pjtTitle: 'Dicta! elit.',

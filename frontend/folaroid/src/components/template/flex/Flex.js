@@ -206,7 +206,7 @@ const Aside = styled.aside`
     }
 `;
 
-const Flex = ({ intro, items }) => {
+const Flex = ({ intro, items, pfName }) => {
     console.log(items);
 
     return (
@@ -215,11 +215,11 @@ const Flex = ({ intro, items }) => {
                 <h1>
                     <i className="fab fa-firstdraft"></i>
                     <br />
-                    <span>DCODELAB</span>
+                    <span>{pfName}</span>
                 </h1>
 
                 <address>
-                    2021 DCODELAB
+                    FOLAROID
                     <br />
                     ALL RIGHT RESERVED.
                 </address>
@@ -265,6 +265,7 @@ const Flex = ({ intro, items }) => {
 };
 
 Flex.defaultProps = {
+    pfName:"FOLAROID",
     items: [
         {
             pjtTitle: '01',

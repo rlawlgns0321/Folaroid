@@ -309,7 +309,7 @@ const Section = styled.section`
     }
 `;
 
-const Music = ({ items }) => {
+const Music = ({ items, pfName }) => {
     const deg = 45;
     const [num, setNum] = useState(0);
     const [active, setActive] = useState(0);
@@ -327,8 +327,8 @@ const Music = ({ items }) => {
     return (
         <Figure>
             <H1>
-                <strong>DCODELAB</strong> <br />
-                <span>UI/UX DESIGN & DEVELOPMENT</span>
+                <strong>{pfName}</strong> <br />
+                <span>DEVELOPMENT</span>
             </H1>
 
             <a href="#" className="menu">
@@ -357,6 +357,7 @@ const Music = ({ items }) => {
 };
 
 Music.defaultProps = {
+    pfName:"FOLAROID",
     items: [
         {
             pjtTitle: 'Blizzards',
