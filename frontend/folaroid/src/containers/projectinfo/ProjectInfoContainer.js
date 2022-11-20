@@ -11,6 +11,32 @@ import { getRepoThunk, github } from '../../modules/github';
 
 const ProjectInfoContainer = () => {
     const store = createStore({ key: 'zkx11y_517U965lTjfcT' });
+    store.addFont({
+        fontFamily: 'BlackAndWhitePicture-Regular',
+        url: 'url("/public_assets/BlackAndWhitePicture-Regular.ttf")',
+      });
+
+    store.addFont({
+       fontFamily: 'Dongle-Bold',
+       url: 'url("/public_assets/Dongle-Bold.ttf")',
+    });
+
+    store.addFont({
+        fontFamily: 'Dongle-Light',
+        url: 'url("/public_assets/Dongle-Bold.ttf")',
+     });
+
+    store.addFont({
+       fontFamily: 'Gaegu-Bold',
+       url: 'url("/public_assets/Gaegu-Bold.ttf")',
+    });
+
+    store.addFont({
+      fontFamily: 'GothicA1-Black',
+      url: 'url("/public_assets/GothicA1-Black.ttf")',
+    });
+
+
     const dispatch = useDispatch();
     const { pfNo, pjtNo } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
