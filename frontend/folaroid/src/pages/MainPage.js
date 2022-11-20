@@ -5,7 +5,7 @@ import MainCanvas from '../components/canvas/MainCanvas';
 // import Header from '../components/common/Header';
 import HeaderContainer from '../containers/header/HeaderContainer';
 import TestPage from './TestPage';
-import  styled  from '@emotion/styled';
+import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/css';
 
 const stroke = keyframes`
@@ -14,10 +14,10 @@ const stroke = keyframes`
     stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
   }
   70%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); }
-  80%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); stroke-width: 3; }
+  80%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); stroke-width: 2; }
   100% {
-    fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1);
-    stroke-dashoffset: -25%; stroke-dasharray: 50% 0;}
+    fill: rgba(54,95,160,0); stroke: rgba(54,95,160,0);
+    stroke-dashoffset: -25%; stroke-dasharray: 50%  0; stroke-width: 2;}
 `;
 
 const Svg = styled.svg`
@@ -32,7 +32,7 @@ const Text = styled.text`
     font-family: 'Karla', sans-serif;
     /* font-family: 'Sacramento', cursive; */
     text-transform: uppercase;
-    animation: ${stroke} 5s;
+    animation: ${stroke} 10s infinite alternate;
     stroke-width: 2;
     stroke: #365fa0;
     font-size: 120px;
