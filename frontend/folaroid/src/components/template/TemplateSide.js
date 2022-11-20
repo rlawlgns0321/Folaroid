@@ -33,6 +33,7 @@ const TemplateSide = () => {
         { key: 2, src: '/images/template2.jpg' },
         { key: 3, src: '/images/template3.jpg' },
         { key: 4, src: '/images/template4.jpg' },
+        { key: 5, src: '/images/template5.jpg' },
     ];
 
     const onClick = (key) => {
