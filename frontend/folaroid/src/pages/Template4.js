@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
 
 const Template4 = ({ template }) => {
@@ -13,12 +13,23 @@ const Template4 = ({ template }) => {
             '/public_assets/unity_assets/template-movie-theater/Releases.wasm',
     });
 
-    useEffect(() => {
-        sendMessage('GameObject', 'getJson', JSON.stringify(template));
-    }, [template, sendMessage]);
+    const [visible, setVisible] = useState(true);
 
+    function handleClickSpawnEnemies() {
+        sendMessage("JSONDataManager", "getJson", JSON.stringify(template));
+        setVisible((prev) => !prev);
+    }
+
+    useEffect(() => {
+        console.log("GetWhat");
+        sendMessage("JSONDataManager", "getJson", JSON.stringify(template));
+        console.log(JSON.stringify(template));
+    }, []);
+
+    
     return (
         <>
+        {visible && (<button onClick={handleClickSpawnEnemies}>Press TO Continue</button>)}
             <Unity
                 style={{
                     width: '100%',
@@ -30,6 +41,8 @@ const Template4 = ({ template }) => {
             />
         </>
     );
+
+    
 };
 
 export default Template4;
