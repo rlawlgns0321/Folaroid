@@ -262,7 +262,9 @@ const Template1 = () => {
             {/* div sections */}
             <div className="sections">
                 <section className="section">
-                    <h2 id="intro">자기소개서</h2>
+                    <h2 id="intro">
+                        Hello, <br /> Click home
+                    </h2>
                     <div id="divintro">
                         <CustomBtn
                             onClick={handleOpen}
