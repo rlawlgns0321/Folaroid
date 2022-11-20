@@ -1,4 +1,4 @@
-import { Dialog } from '@mui/material';
+import { Dialog, Slide } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -48,14 +48,25 @@ const DescriptionText = styled.div`
 
 const ImgaesWrap = styled.div`
     margin: auto;
-    width: 75%;
+    width: 100%;
 `;
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const ProjectDialog = ({ open, handleClose, project }) => {
     return (
-        <Dialog fullWidth maxWidth={'lg'} open={open} onClose={handleClose}>
+        <Dialog
+            TransitionComponent={Transition}
+            fullWidth
+            maxWidth={'md'}
+            open={open}
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+        >
             <div>
-                <InfoWrap>
+                {/* <InfoWrap>
                     <ImgWrap>
                         <Img src={project.pjtOneImageLocation} alt="1" />
                     </ImgWrap>
@@ -64,7 +75,7 @@ const ProjectDialog = ({ open, handleClose, project }) => {
                         <Description>Description</Description>
                         <DescriptionText>{project.pjtSubtitle}</DescriptionText>
                     </InfoRight>
-                </InfoWrap>
+                </InfoWrap> */}
                 <ImgaesWrap>
                     {project.pjtImages &&
                         project.pjtImages.map((image, key) => (

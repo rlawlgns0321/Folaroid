@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import ProjectDialog from '../../dialog/ProjectDialog';
 
 const MusicArticle = ({ deg, isActive, project }) => {
-    const [open, setOpen] = useState(false);
+    const [openPjt, setOpenPjt] = useState(false);
 
     const handleClick = () => {
-        console.log('asdf)');
-        setOpen(true);
+        if(!project.intro)
+            setOpenPjt(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenPjt(false);
     };
 
     return (
@@ -49,7 +49,7 @@ const MusicArticle = ({ deg, isActive, project }) => {
                 </div>
             </article>
             <ProjectDialog
-                open={open}
+                open={openPjt}
                 handleClose={handleClose}
                 project={project}
             />

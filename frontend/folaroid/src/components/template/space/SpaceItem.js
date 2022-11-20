@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import ProjectDialog from '../../dialog/ProjectDialog';
 
 const H1 = styled.h1`
     margin: 0;
@@ -19,7 +20,7 @@ const Face = styled.article`
     position: absolute;
     top: 0px;
     left: 0px;
-    transform: ${props => `rotateY(${props.deg}deg) translateZ(-764px)`};
+    transform: ${(props) => `rotateY(${props.deg}deg) translateZ(-764px)`};
     backface-visibility: hidden;
     &:hover {
         ${H1} {
@@ -70,18 +71,40 @@ const P = styled.p`
 `;
 
 const SpaceItem = ({ onMouseEnter, onMouseLeave, project, deg }) => {
+    const [openPjt, setOpenPjt] = useState(false);
+
+    const handleClick = () => {
+        if (!project.intro) setOpenPjt(true);
+    };
+
+    const handleClose = () => {
+        setOpenPjt(false);
+    };
+
     return (
-        <Face deg={deg} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <H1>{project.pjtTitle}</H1>
-            <Inner>
-                <InnerDiv>
-                    <h2>Project</h2>
-                    <Img src={project.pjtOneImageLocation} />
-                    <H3>{project.pjtTitle}</H3>
-                    <P>{project.pjtSubtitle}</P>
-                </InnerDiv>
-            </Inner>
-        </Face>
+        <>
+            <Face
+                deg={deg}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                onClick={handleClick}
+            >
+                <H1>{project.pjtTitle}</H1>
+                <Inner>
+                    <InnerDiv>
+                        <h2>Project</h2>
+                        <Img src={project.pjtOneImageLocation} />
+                        <H3>{project.pjtTitle}</H3>
+                        <P>{project.pjtSubtitle}</P>
+                    </InnerDiv>
+                </Inner>
+            </Face>
+            <ProjectDialog
+                open={openPjt}
+                handleClose={handleClose}
+                project={project}
+            />
+        </>
     );
 };
 
