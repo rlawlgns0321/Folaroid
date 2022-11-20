@@ -32,7 +32,7 @@ const PortfolioItemContainer = ({ pf }) => {
     };
 
     const onViewClick = () => {
-        window.open(`https://folaroid.com/${userNo}/${pf.pfNo}`, '_blank');
+        window.open(`https://localhost:3000/${userNo}/${pf.pfNo}`, '_blank');
     };
 
     return (
