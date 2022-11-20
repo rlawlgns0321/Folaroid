@@ -14,7 +14,7 @@ const TemplateBody = () => {
         (state) => state.portfolio.pf.portfolioTemplatesNo
     );
 
-    const urls = ['', 'music', 'space', 'flex', 'gallery', 'tem4'];
+    const urls = ['', 'music', 'space', 'flex', 'gallery', 'tem4', 'tem1', 'tem2'];
 
     return (
         <Iframe
