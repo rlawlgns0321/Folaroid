@@ -58,11 +58,6 @@ const ProjectInfoContainer = () => {
     });
 
     store.addFont({
-        fontFamily: 'GowunBatang-Regular',
-        url: '/public_assets/fonts/GowunBatang-Regular.ttf',
-    });
-
-    store.addFont({
         fontFamily: 'Gugi-Regular',
         url: '/public_assets/fonts/Gugi-Regular.ttf',
     });
@@ -235,6 +230,61 @@ const ProjectInfoContainer = () => {
     store.addFont({
         fontFamily: '나눔손글씨 흰꼬리수리',
         url: '/public_assets/fonts/나눔손글씨 흰꼬리수리.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'LINESeedKR-Rg',
+        url: '/public_assets/fonts/LINESeedKR-Rg.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'Tenada',
+        url: '/public_assets/fonts/Tenada.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '꽃소금체',
+        url: '/public_assets/fonts/꽃소금체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'RixInooAriDuri Regular',
+        url: '/public_assets/fonts/RixInooAriDuri Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'EF_Firenze(윈도우용_TTF)',
+        url: '/public_assets/fonts/EF_Firenze(윈도우용_TTF).ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'Mabinogi_Classic_TTF',
+        url: '/public_assets/fonts/Mabinogi_Classic_TTF.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'HSGyeoulNoonkott2.0-Regular',
+        url: '/public_assets/fonts/HSGyeoulNoonkott2.0-Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'CookieRun Regular',
+        url: '/public_assets/fonts/CookieRun Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'tway_air',
+        url: '/public_assets/fonts/tway_air.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'HSSaemaul-Regular',
+        url: '/public_assets/fonts/HSSaemaul-Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'Ycomputer',
+        url: '/public_assets/fonts/Ycomputer.ttf',
     });
 
     const dispatch = useDispatch();
