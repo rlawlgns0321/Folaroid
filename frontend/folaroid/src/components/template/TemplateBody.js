@@ -18,7 +18,7 @@ const TemplateBody = () => {
 
     return (
         <Iframe
-            src={`http://127.0.0.1:3000/${urls[temNo]}`}
+            src={`https://folaroid.com/${urls[temNo]}`}
             width="100%"
             height="100%"
             title="tem"
