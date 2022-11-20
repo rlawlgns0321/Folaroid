@@ -152,6 +152,76 @@ const ProjectInfoContainer = () => {
         url: '/public_assets/fonts/나눔손글씨 달의궤도.ttf',
     });
 
+    store.addFont({
+        fontFamily: '나눔손글씨 둥근인연',
+        url: '/public_assets/fonts/나눔손글씨 둥근인연.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 맛있는체',
+        url: '/public_assets/fonts/나눔손글씨 맛있는체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 바른히피',
+        url: '/public_assets/fonts/나눔손글씨 바른히피.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 버드나무',
+        url: '/public_assets/fonts/나눔손글씨 버드나무.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 부장님 눈치체',
+        url: '/public_assets/fonts/나눔손글씨 부장님 눈치체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 비상체',
+        url: '/public_assets/fonts/나눔손글씨 비상체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 상해찬미체',
+        url: '/public_assets/fonts/나눔손글씨 상해찬미체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 소미체',
+        url: '/public_assets/fonts/나눔손글씨 소미체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 수줍은 대학생',
+        url: '/public_assets/fonts/나눔손글씨 수줍은 대학생.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 아줌마 자유',
+        url: '/public_assets/fonts/나눔손글씨 아줌마 자유.ttf',
+    });
+    
+    store.addFont({
+        fontFamily: '나눔손글씨 예쁜 민경체',
+        url: '/public_assets/fonts/나눔손글씨 예쁜 민경체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 자부심지우',
+        url: '/public_assets/fonts/나눔손글씨 자부심지우.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 장미체',
+        url: '/public_assets/fonts/나눔손글씨 장미체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 흰꼬리수리',
+        url: '/public_assets/fonts/나눔손글씨 흰꼬리수리.ttf',
+    });
+
     const dispatch = useDispatch();
     const { pfNo, pjtNo } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
