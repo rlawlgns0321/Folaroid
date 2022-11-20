@@ -25,7 +25,7 @@ const Gallery = ({ items, pfName }) => {
     return (
         <div className="wrap">
             <h1>
-                {pfName} <span>DEVELOPER</span>
+                {pfName}
             </h1>
 
             <ul className="auto">
