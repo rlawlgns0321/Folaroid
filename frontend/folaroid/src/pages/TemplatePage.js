@@ -13,8 +13,10 @@ const TemplatePage = () => {
     const dispatch = useDispatch();
     const { template } = useSelector((state) => state.template);
     const [items, setItems] = useState(null);
+    
 
     useEffect(() => {
+        console.log(userNo, pfNo);
         dispatch(getTemplateThunk({ userNo, pfNo }));
     }, [dispatch, userNo, pfNo]);
 
@@ -37,29 +39,32 @@ const TemplatePage = () => {
         }
     }, [template]);
 
-    switch (template.portfolioTemplatesNo) {
-        case 1:
-            return <>{items && <Music items={items} />}</>;
-        case 2:
-            return <>{items && <Space items={items} />}</>;
-        case 3:
-            return (
-                <>
-                    {items && (
-                        <Flex
-                            intro={template.intro}
-                            items={template.projects}
-                        />
-                    )}
-                </>
-            );
-        case 4:
-            return <>{items && <Gallery items={items} />}</>;
-        case 5:
-            return <>{template && <Template4 template={template}/>}</>
-        default:
-            return <div></div>;
+    if (template) {
+        switch (template.portfolioTemplatesNo) {
+            case 1:
+                return <>{items && <Music items={items} />}</>;
+            case 2:
+                return <>{items && <Space items={items} />}</>;
+            case 3:
+                return (
+                    <>
+                        {items && (
+                            <Flex
+                                intro={template.intro}
+                                items={template.projects}
+                            />
+                        )}
+                    </>
+                );
+            case 4:
+                return <>{items && <Gallery items={items} />}</>;
+            case 5:
+                return <>{template && <Template4 template={template} />}</>;
+            default:
+                return <div></div>;
+        }
     }
+    return <div></div>;
 };
 
 export default TemplatePage;

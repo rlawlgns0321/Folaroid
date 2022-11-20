@@ -45,7 +45,7 @@ const item = {
     },
 };
 
-const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
+const PortfolioItem = ({ pf, onDeleteClick, onGetClick, onViewClick }) => {
     const navigate = useNavigate();
 
     return (
@@ -62,7 +62,12 @@ const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
                 <div>{pf.updated_at.substring(0, 10)}</div>
             </Info>
             <div>
-                <IconButton edge="end" size="large" sx={{ color: 'white' }}>
+                <IconButton
+                    onClick={onViewClick}
+                    edge="end"
+                    size="large"
+                    sx={{ color: 'white' }}
+                >
                     <VisibilityIcon fontSize="inherit" />
                 </IconButton>
                 <IconButton
