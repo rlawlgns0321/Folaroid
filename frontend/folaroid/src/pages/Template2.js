@@ -2,17 +2,9 @@ import { Canvas, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import {
-    OrbitControls,
-    Environment,
-    useGLTF,
     Float,
-    PivotControls,
-    QuadraticBezierLine,
-    Backdrop,
-    ContactShadows,
     Stars,
     useCursor,
-    Box,
     ScrollControls,
     Scroll,
 } from '@react-three/drei';
