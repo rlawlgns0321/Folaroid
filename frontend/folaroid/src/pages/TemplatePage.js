@@ -7,6 +7,7 @@ import Music from '../components/template/music/Music';
 import Space from '../components/template/space/Space';
 import { getTemplateThunk } from '../modules/template';
 import Template4 from './Template4';
+import Template1 from './Template1'
 
 const TemplatePage = () => {
     const { userNo, pfNo } = useParams();
@@ -72,6 +73,8 @@ const TemplatePage = () => {
                 );
             case 5:
                 return <>{template && <Template4 template={template} />}</>;
+            case 6:
+                return <>{items && <Template1 items={items} />}</>
             default:
                 return <div></div>;
         }

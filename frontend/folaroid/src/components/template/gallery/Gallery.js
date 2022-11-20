@@ -1,32 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 import 'swiper/css';
 import './style.css';
 import ProjectDialog from '../../dialog/ProjectDialog';
+import BasicModal from '../introTemplate1';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
 const Gallery = ({ items, pfName }) => {
-
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('');
     const [openPjt, setOpenPjt] = useState(false);
     const [pjt, setPjt] = useState({});
 
     const handleClick = (project) => {
         setPjt(project);
-        if(!pjt.intro)
-            setOpenPjt(true);
+        if (!pjt.intro) setOpenPjt(true);
     };
 
     const handleClose = () => {
         setOpenPjt(false);
     };
 
+    const handleOpen = (project) => {
+        setPjt(project);
+        setOpen(true);
+        setScroll();
+    };
+
+    const onClose = () => setOpen(false);
+    const descriptionElementRef = useRef(null);
+
+    useEffect(() => {
+        if (open) {
+            const { current: descriptionElement } = descriptionElementRef;
+            if (descriptionElement !== null) {
+                descriptionElement.focus();
+            }
+        }
+    }, [open]);
+
     return (
         <div className="wrap">
-            <h1>
-                {pfName}
-            </h1>
+            <h1>{pfName}</h1>
 
             <ul className="auto">
                 <li className="btnStart">
@@ -61,7 +78,16 @@ const Gallery = ({ items, pfName }) => {
                 autoplay={{ delay: 1000, disableOnInteraction: true }}
             >
                 {items.map((project, key) => (
-                    <SwiperSlide key={key} onClick={() => handleClick(project)}>
+                    <SwiperSlide
+                        key={key}
+                        onClick={
+                            project.intro
+                                ? () => {
+                                      handleOpen(project);
+                                  }
+                                : () => handleClick(project)
+                        }
+                    >
                         <div className="inner">
                             <div className="con">
                                 <img
@@ -80,17 +106,26 @@ const Gallery = ({ items, pfName }) => {
             <div className="swiper-button-prev"></div>
 
             <div className="swiper-pagination"></div>
-            <ProjectDialog
-                open={openPjt}
-                handleClose={handleClose}
-                project={pjt}
-            />
+            {pjt.intro ? (
+                <BasicModal
+                    project={pjt}
+                    handleClose={onClose}
+                    scroll={scroll}
+                    open={open}
+                />
+            ) : (
+                <ProjectDialog
+                    open={openPjt}
+                    handleClose={handleClose}
+                    project={pjt}
+                />
+            )}
         </div>
     );
 };
 
 Gallery.defaultProps = {
-    pfName:"DEVELOPER",
+    pfName: 'DEVELOPER',
     items: [
         {
             pjtTitle: 'Dicta! elit.',
