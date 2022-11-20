@@ -28,14 +28,14 @@ import {
 } from '@mui/material';
 
 export function Astronaut(props) {
-    const glb = useLoader(GLTFLoader, 'models/astronaut.glb');
+    const glb = useLoader(GLTFLoader, 'models/rose.glb');
     const [hovered, set] = useState();
     useCursor(hovered /*'pointer', 'auto'*/);
     return (
         <group {...props} dispose={null}>
             <primitive
                 object={glb.scene}
-                scale={3}
+                scale={200}
                 onPointerOver={() => set(true)}
                 onPointerOut={() => set(false)}
             />
@@ -78,7 +78,7 @@ const Template2 = () => {
                     style: { backgroundColor: 'rgba(0,0,0,0.26)' },
                 }}
             >
-                <DialogTitle id="scroll-dialog-title">
+                <DialogTitle id="scroll-dialog-title" color="white">
                     프로젝트이름 가져오기
                 </DialogTitle>
                 <DialogContent>
@@ -97,13 +97,6 @@ const Template2 = () => {
                     <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>
-            {/* <ButtonGroup variant="outlined" aria-label="outlined button group">
-                <Button>One</Button>
-                <Button>Two</Button>
-                <Button>Three</Button>
-                <Button>Four</Button>
-                <Button>Five</Button>
-            </ButtonGroup> */}
 
             <Canvas
                 style={{
@@ -125,17 +118,16 @@ const Template2 = () => {
                     <ambientLight intensity={0.2} />
                     <directionalLight intensity={1} />
                     <spotLight position={[5, 10, 5]} intensity={1} castShadow />
-
                     <Float
                         scale={0.75}
                         //position={[0, 0.65, 0]}
-                        floatIntensity={2}
-                        rotationIntensity={0.5}
+                        floatIntensity={3}
+                        //rotationIntensity={5}
                         //rotation={[0, 0.6, 0]}
                     >
                         <Astronaut
                             scale={0.2}
-                            position={[0, 1, 0]}
+                            position={[-1, 1.5, 0]}
                             onClick={handleOpen}
                         >
                             <object3D position={[0, 0, 0]} ref={spaceman} />
@@ -179,10 +171,11 @@ const Template2 = () => {
                                     left: '10vw',
                                     fontSize: '5em',
                                     color: 'white',
+                                    fontFamily: 'S-CoreDream-3Light',
                                 }}
                                 onClick={handleOpen}
                             >
-                                엄청난프로젝트1
+                                Project1
                             </Button>
                             <Button
                                 style={{
@@ -191,10 +184,11 @@ const Template2 = () => {
                                     left: '10vw',
                                     fontSize: '5em',
                                     color: 'white',
+                                    fontFamily: 'S-CoreDream-3Light',
                                 }}
                                 onClick={handleOpen}
                             >
-                                뛰어난프로젝트2
+                                Project2
                             </Button>
                             <Button
                                 style={{
@@ -203,10 +197,11 @@ const Template2 = () => {
                                     left: '10vw',
                                     fontSize: '5em',
                                     color: 'white',
+                                    fontFamily: 'S-CoreDream-3Light',
                                 }}
                                 onClick={handleOpen}
                             >
-                                대단한프로젝트3
+                                Project3
                             </Button>
                         </Scroll>
                     </ScrollControls>
