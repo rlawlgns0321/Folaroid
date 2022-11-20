@@ -15,7 +15,7 @@ const Template4 = ({ template }) => {
 
     useEffect(() => {
         sendMessage('GameObject', 'getJson', JSON.stringify(template));
-    }, []);
+    }, [template, sendMessage]);
 
     return (
         <>
