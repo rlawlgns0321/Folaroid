@@ -9,7 +9,6 @@ import {
     TableRow,
     TableContainer,
     TableHead,
-    Paper,
     InputLabel,
     Select,
     MenuItem,
@@ -25,6 +24,7 @@ import {
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroTextField = styled(TextField)`
     .MuiOutlinedInput-root {
@@ -100,218 +100,283 @@ const initialState = {
     languageGrade: '',
 };
 
-function LanguageInput(props) {
+export function LanguageInput() {
     const [language, setLanguage] = useState(initialState);
-    const [value, setValue] = useState(null)
+    const [value, setValue] = useState(null);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const dispatch = useDispatch();
+
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setLanguage({ ...language, [name]: value });
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const date = dayjs(value).toISOString().substring(0,10)
-        props.onCreate(language, date);
-        setLanguage(initialState);
-        setValue(null)
+    const onDeleteClick = () => {
+        dispatch(introSelector.actions.outBoard('language'));
     };
-
-    return (
-        <IntroCardContent>
-            <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <div style={{ width: '100%', margin: '20px' }}>
-                        <IntroInputLabel>외국어</IntroInputLabel>
-                        <IntroSelect
-                            style={{ width: '90%' }}
-                            name="languageName"
-                            value={language.languageName}
-                            label="Age"
-                            onChange={handleInputChange}
-                        >
-                            <MenuItem value={'영어'}>영어</MenuItem>
-                            <MenuItem value={'일본어'}>일본어</MenuItem>
-                            <MenuItem value={'중국어'}>중국어</MenuItem>
-                            <MenuItem value={'기타'}>기타</MenuItem>
-                        </IntroSelect>
-                    </div>
-                    <div style={{ width: '100%', margin: '20px' }}>
-                        <IntroInputLabel>시험명</IntroInputLabel>
-                        <IntroTextField
-                            placeholder="Opic"
-                            size="medium"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            value={language.languageTestName}
-                            style={{ width: '90%' }}
-                            name="languageTestName"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div style={{ width: '100%', margin: '20px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <IntroInputLabel>취득일자</IntroInputLabel>
-
-                            <DatePicker
-                                views={['year', 'month']}
-                                inputFormat="YYYY년 MM월"
-                                value={value}
-                                onChange={(newValue) => {
-                                    setValue(newValue)
-                                }}
-                                renderInput={(params) => (
-                                    <IntroTextField {...params} />
-                                )}
-                            />
-                        </LocalizationProvider>
-                    </div>
-                    <div style={{ width: '100%', margin: '20px' }}>
-                        <IntroInputLabel>점수/등급</IntroInputLabel>
-                        <IntroTextField
-                            placeholder="IH"
-                            size="medium"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            value={language.languageGrade}
-                            style={{ width: '90%' }}
-                            name="languageGrade"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <Button type="submit" variant="contained">
-                            제출
-                        </Button>
-                    </div>
-                </div>
-            </form>
-        </IntroCardContent>
-    );
-}
-function ReadLanguage(props) {
-    const dispatch = useDispatch();
-
-    const onDeleteClick = (introLanguageNo) => {
-        dispatch(deleteLanguage(introLanguageNo));
-    };
-
-    const rowItems = props.language.map((item) => (
-        <TableRow key={item.introLanguageNo}>
-            <TableCell align="center">{item.languageName}</TableCell>
-            <TableCell align="center">{item.languageTestName}</TableCell>
-            <TableCell align="center">{item.languageDate && item.languageDate.substring(0,7)}</TableCell>
-            <TableCell align="center">{item.languageGrade}</TableCell>
-            <TableCell
-                style={{ display: 'flex', justifyContent: 'center' }}
-                algin="center"
-            >
-                <Button onClick={() => onDeleteClick(item.introLanguageNo)}>
-                    삭제
-                </Button>
-            </TableCell>
-        </TableRow>
-    ));
-
-    return (
-        <IntroCardContent>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">외국어</TableCell>
-                            <TableCell align="center">시험명</TableCell>
-                            <TableCell align="center">취득일자</TableCell>
-                            <TableCell align="center">점수/등급</TableCell>
-                            <TableCell align="center"></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>{rowItems}</TableBody>
-                </Table>
-            </TableContainer>
-        </IntroCardContent>
-    );
-}
-
-function ViewLanguage(props) {
-    const language = useSelector((state) => state.language);
-    const { pathname } = useLocation();
-    const store = useStore();
-    const intro_no =
-        pathname === '/intro'
-            ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
-    const [mode, setMode] = useState('CREATE');
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getLanguage(intro_no));
     }, [dispatch, intro_no]);
 
-    if (language.length !== 0 && mode === 'CREATE') {
-        setMode('READ');
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const date = value ? dayjs(value).toISOString().substring(0, 10) : null;
+        dispatch(
+            createLanguage({
+                introNo: intro_no,
+                languageName: language.languageName,
+                languageTestName: language.languageTestName,
+                languageDate: date,
+                languageGrade: language.languageGrade,
+            })
+        );
+        setLanguage(initialState);
+        setValue(null);
+    };
+
+    return (
+        <IntroBox>
+            <CardHeader>
+                <div>공인어학성적</div>
+                <DeleteBtn onClick={() => onDeleteClick()}></DeleteBtn>
+            </CardHeader>
+            <IntroCardContent>
+                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>외국어</IntroInputLabel>
+                            <IntroSelect
+                                style={{ width: '90%' }}
+                                name="languageName"
+                                value={language.languageName}
+                                label="Age"
+                                onChange={handleInputChange}
+                            >
+                                <MenuItem value={'영어'}>영어</MenuItem>
+                                <MenuItem value={'일본어'}>일본어</MenuItem>
+                                <MenuItem value={'중국어'}>중국어</MenuItem>
+                                <MenuItem value={'기타'}>기타</MenuItem>
+                            </IntroSelect>
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>시험명</IntroInputLabel>
+                            <IntroTextField
+                                placeholder="Opic"
+                                size="medium"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                value={language.languageTestName}
+                                style={{ width: '90%' }}
+                                name="languageTestName"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <IntroInputLabel>취득일자</IntroInputLabel>
+
+                                <DatePicker
+                                    views={['year', 'month']}
+                                    inputFormat="YYYY년 MM월"
+                                    value={value}
+                                    onChange={(newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                    renderInput={(params) => (
+                                        <IntroTextField {...params} />
+                                    )}
+                                />
+                            </LocalizationProvider>
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>점수/등급</IntroInputLabel>
+                            <IntroTextField
+                                placeholder="IH"
+                                size="medium"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                value={language.languageGrade}
+                                style={{ width: '90%' }}
+                                name="languageGrade"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                margin: '20px',
+                                justifyContent: 'end',
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="neutral"
+                                style={{ fontWeight: 'bolder' }}
+                            >
+                                제출
+                            </Button>
+                        </div>
+                    </div>
+                </form>
+            </IntroCardContent>
+        </IntroBox>
+    );
+}
+
+export function ReadLanguage() {
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const store = useStore();
+    const language = useSelector((state) => state.language);
+    const [mode, setMode] = useState('OFF');
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+
+    const onDeleteClick = (introLanguageNo) => {
+        dispatch(deleteLanguage(introLanguageNo));
+    };
+
+    useEffect(() => {
+        dispatch(getLanguage(intro_no));
+    }, [dispatch, intro_no]);
+
+    if (language.length !== 0 && mode === 'OFF') {
+        setMode('ON');
     } else if (
         Array.isArray(language) &&
         language.length === 0 &&
-        mode === 'READ'
+        mode === 'ON'
     ) {
-        setMode('CREATE');
+        setMode('OFF');
     }
 
     let content = null;
-    if (mode === 'CREATE') {
+    if (mode === 'ON') {
         content = (
             <IntroBox>
                 <CardHeader>공인어학성적</CardHeader>
-                <LanguageInput
-                    onCreate={(language, date) => {
-                        dispatch(
-                            createLanguage({
-                                introNo: intro_no,
-                                languageName: language.languageName,
-                                languageTestName: language.languageTestName,
-                                languageDate: date,
-                                languageGrade: language.languageGrade,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></LanguageInput>
-            </IntroBox>
-        );
-    } else if (mode === 'READ') {
-        content = (
-            <IntroBox>
-                <CardHeader>공인어학성적</CardHeader>
-                <LanguageInput
-                    onCreate={(language, date) => {
-                        dispatch(
-                            createLanguage({
-                                introNo: intro_no,
-                                languageName: language.languageName,
-                                languageTestName: language.languageTestName,
-                                languageDate: date,
-                                languageGrade: language.languageGrade,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></LanguageInput>
-                <ReadLanguage language={language}></ReadLanguage>
+                <IntroCardContent>
+                    <TableContainer>
+                        <Table
+                            style={{
+                                backgroundColor: ' rgba(44, 43, 43, 1)',
+                            }}
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        외국어
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        시험명
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        취득일자
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        점수/등급
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    ></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {language.map((item) => (
+                                    <TableRow key={item.introLanguageNo}>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.languageName}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.languageTestName}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.languageDate &&
+                                                item.languageDate.substring(
+                                                    0,
+                                                    7
+                                                )}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.languageGrade}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                color: 'white',
+                                            }}
+                                            algin="center"
+                                        >
+                                            <Button
+                                                size="small"
+                                                style={{
+                                                    color: 'white',
+                                                }}
+                                                onClick={() =>
+                                                    onDeleteClick(
+                                                        item.introLanguageNo
+                                                    )
+                                                }
+                                            >
+                                                삭제
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </IntroCardContent>
             </IntroBox>
         );
     }
-
     return content;
 }
 
-export default ViewLanguage;
+export default LanguageInput;

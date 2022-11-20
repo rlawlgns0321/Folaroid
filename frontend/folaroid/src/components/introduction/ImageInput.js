@@ -76,11 +76,11 @@ function ImageInput(props) {
                         style={{
                             width: '100%',
                             display: 'flex',
-                            alignItems: 'center',
-                            margin: '20px',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
                         }}
                     >
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: '100%', margin: '20px' }}>
                             <IntroTextField
                                 type="file"
                                 accept="image/*"
@@ -101,6 +101,7 @@ function ImageInput(props) {
                                 type="submit"
                                 variant="contained"
                                 color="neutral"
+                                style={{ fontWeight: 'bolder' }}
                             >
                                 저장
                             </Button>
