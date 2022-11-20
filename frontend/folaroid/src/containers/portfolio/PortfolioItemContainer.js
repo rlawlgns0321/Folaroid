@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AlertDialog from '../../components/dialog/AlertDialog';
 import PortfolioItem from '../../components/mypage/PortfolioItem';
-import { deletePortFolioThunk, getPortFolioThunk } from '../../modules/portfolio';
+import {
+    deletePortFolioThunk,
+    getPortFolioThunk,
+} from '../../modules/portfolio';
 
 const PortfolioItemContainer = ({ pf }) => {
     const [open, setOpen] = useState();
-    
+    const userNo = useSelector((state) => state.auth.user.userNo);
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const handleClose = () => {
@@ -23,10 +29,21 @@ const PortfolioItemContainer = ({ pf }) => {
 
     const onGetClick = () => {
         dispatch(getPortFolioThunk(pf.pfNo));
-    }
+    };
+
+    const onViewClick = () => {
+        navigate(`/${userNo}/${pf.pfNo}`);
+        window.open(`https://folaroid.com/${userNo}/${pf.pfNo}`, '_blank');
+    };
+
     return (
         <>
-            <PortfolioItem pf={pf} onGetClick={onGetClick} onDeleteClick={onDeleteClick} />
+            <PortfolioItem
+                pf={pf}
+                onGetClick={onGetClick}
+                onDeleteClick={onDeleteClick}
+                onViewClick={onViewClick}
+            />
             <AlertDialog
                 open={open}
                 handleClose={handleClose}

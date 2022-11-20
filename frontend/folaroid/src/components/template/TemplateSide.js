@@ -29,11 +29,11 @@ const TemplateSide = () => {
     const [active, setActive] = useState(temNo);
 
     const images = [
-        { key: 1, src: '/images/template1.jpg' },
-        { key: 2, src: '/images/template2.jpg' },
-        { key: 3, src: '/images/template3.jpg' },
-        { key: 4, src: '/images/template4.jpg' },
-        { key: 5, src: '/images/template5.jpg' },
+        { key: 1, src: '/images/template1.JPG' },
+        { key: 2, src: '/images/template2.JPG' },
+        { key: 3, src: '/images/template3.JPG' },
+        { key: 4, src: '/images/template4.JPG' },
+        { key: 5, src: '/images/template5.JPG' },
     ];
 
     const onClick = (key) => {
