@@ -197,7 +197,7 @@ export function ReadStack() {
                         component="ul"
                     >
                         {stack.map((data, index) => (
-                            <Stack spacing={2} alignItems="center">
+                            <Stack spacing={3} alignItems="center">
                                 <ListItem key={index}>
                                     <Chip
                                         style={{ margin: '5px' }}

@@ -271,96 +271,99 @@ export function ReadAwards() {
     let content = null;
     if (mode === 'ON') {
         content = (
-            <IntroCardContent>
-                <TableContainer component={Paper}>
-                    <Table
-                        style={{
-                            backgroundColor: ' rgba(44, 43, 43, 1)',
-                        }}
-                    >
-                        <TableHead>
-                            <TableRow>
-                                <TableCell
-                                    align="center"
-                                    style={{ color: 'white' }}
-                                >
-                                    대회 이름
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    style={{ color: 'white' }}
-                                >
-                                    수상일자
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    style={{ color: 'white' }}
-                                >
-                                    대회 주최 기관
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    style={{ color: 'white' }}
-                                >
-                                    설명
-                                </TableCell>
-                                <TableCell align="center"></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {award.map((item) => (
-                                <TableRow key={item.introAwardsNo}>
+            <IntroBox>
+                <CardHeader>수상내역</CardHeader>
+                <IntroCardContent>
+                    <TableContainer component={Paper}>
+                        <Table
+                            style={{
+                                backgroundColor: ' rgba(44, 43, 43, 1)',
+                            }}
+                        >
+                            <TableHead>
+                                <TableRow>
                                     <TableCell
                                         align="center"
                                         style={{ color: 'white' }}
                                     >
-                                        {item.awardsName}
+                                        대회 이름
                                     </TableCell>
                                     <TableCell
                                         align="center"
                                         style={{ color: 'white' }}
                                     >
-                                        {item.awardsDate}
+                                        수상일자
                                     </TableCell>
                                     <TableCell
                                         align="center"
                                         style={{ color: 'white' }}
                                     >
-                                        {item.awardsIssuer}
+                                        대회 주최 기관
                                     </TableCell>
                                     <TableCell
                                         align="center"
                                         style={{ color: 'white' }}
                                     >
-                                        {item.awardsDetail}
+                                        설명
                                     </TableCell>
-                                    <TableCell
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                        }}
-                                        algin="center"
-                                    >
-                                        <Button
-                                            style={{
-                                                color: 'white',
-                                            }}
-                                            size="small"
-                                            onClick={() =>
-                                                onDeleteClick(
-                                                    item.introAwardsNo
-                                                )
-                                            }
-                                        >
-                                            삭제
-                                        </Button>
-                                    </TableCell>
+                                    <TableCell align="center"></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </IntroCardContent>
+                            </TableHead>
+                            <TableBody>
+                                {award.map((item) => (
+                                    <TableRow key={item.introAwardsNo}>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.awardsName}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.awardsDate}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.awardsIssuer}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.awardsDetail}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                            }}
+                                            algin="center"
+                                        >
+                                            <Button
+                                                style={{
+                                                    color: 'white',
+                                                }}
+                                                size="small"
+                                                onClick={() =>
+                                                    onDeleteClick(
+                                                        item.introAwardsNo
+                                                    )
+                                                }
+                                            >
+                                                삭제
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </IntroCardContent>
+            </IntroBox>
         );
     }
     return content;
