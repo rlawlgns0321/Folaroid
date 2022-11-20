@@ -1,13 +1,12 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, EffectCoverflow } from "swiper";
+import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 import 'swiper/css';
 import './style.css';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
-const Gallery = () => {
-
+const Gallery = ({ items }) => {
     return (
         <div className="wrap">
             <h1>
@@ -32,11 +31,11 @@ const Gallery = () => {
                     prevEl: '.swiper-button-prev',
                 }}
                 spaceBetween={0}
-                slidesPerView='auto'
+                slidesPerView="auto"
                 grabCursor
                 centeredSlides
                 speed={1000}
-                effect='coverflow'
+                effect="coverflow"
                 coverflowEffect={{
                     rotate: 50,
                     stretch: -100,
@@ -46,68 +45,20 @@ const Gallery = () => {
                 }}
                 autoplay={{ delay: 1000, disableOnInteraction: true }}
             >
-                <SwiperSlide>
-                    <div className="inner">
-                        <div className="con">
-                            <img src="/images/1.jpg" alt="1" />
-                            <h2>Ipsum dolor sit amet.</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Qui, optio.
-                            </p>
+                {items.map((project, key) => (
+                    <SwiperSlide key={key}>
+                        <div className="inner">
+                            <div className="con">
+                                <img
+                                    src={project.pjtOneImageLocation}
+                                    alt="1"
+                                />
+                                <h2>{project.pjtTitle}</h2>
+                                <p>{project.pjtSubtitle}</p>
+                            </div>
                         </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="inner">
-                        <div className="con">
-                        <img src="/images/1.jpg" alt="1" />
-                            <h2>Lorem ipsum dolor.</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Obcaecati eum doloribus
-                                voluptate officiis excepturi!
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="inner">
-                        <div className="con">
-                        <img src="/images/1.jpg" alt="1" />
-                            <h2>Dolor ipsum sit.</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Eligendi officiis iste nam
-                                quae.
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="inner">
-                        <div className="con">
-                        <img src="/images/1.jpg" alt="1" />
-                            <h2>Consectetur adicing.</h2>
-                            <p>
-                                Lorem ipsum, dolor sit amet consectetur
-                                adipisicing elit. Velit optio debitis sapiente!
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="inner">
-                        <div className="con">
-                        <img src="/images/1.jpg" alt="1" />
-                            <h2>Dicta! elit. </h2>
-                            <p>
-                                Lorem ipsum dolor, sit amet consectetur
-                                adipisicing elit. Eos, accusantium corrupti.
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
+                    </SwiperSlide>
+                ))}
             </Swiper>
 
             <div className="swiper-button-next"></div>
@@ -116,6 +67,29 @@ const Gallery = () => {
             <div className="swiper-pagination"></div>
         </div>
     );
+};
+
+Gallery.defaultProps = {
+    items: [
+        {
+            pjtTitle: 'Dicta! elit.',
+            pjtSubtitle:
+                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos, accusantium corrupti.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Dicta! elit.',
+            pjtSubtitle:
+                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos, accusantium corrupti.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: 'Dicta! elit.',
+            pjtSubtitle:
+                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos, accusantium corrupti.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+    ],
 };
 
 export default Gallery;

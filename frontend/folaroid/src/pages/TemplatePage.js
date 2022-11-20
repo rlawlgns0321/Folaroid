@@ -42,9 +42,18 @@ const TemplatePage = () => {
         case 2:
             return <>{items && <Space items={items} />}</>;
         case 3:
-            return <Flex intro={template.intro} items={items} />;
+            return (
+                <>
+                    {items && (
+                        <Flex
+                            intro={template.intro}
+                            items={template.projects}
+                        />
+                    )}
+                </>
+            );
         case 4:
-            return <Gallery intro={template.intro} items={items} />;
+            return <>{items && <Gallery items={items} />}</>;
         default:
             return <div></div>;
     }
