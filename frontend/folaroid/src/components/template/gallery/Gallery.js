@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 import 'swiper/css';
 import './style.css';
+import ProjectDialog from '../../dialog/ProjectDialog';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
 const Gallery = ({ items }) => {
+
+    const [openPjt, setOpenPjt] = useState(false);
+    const [pjt, setPjt] = useState({});
+
+    const handleClick = (project) => {
+        setPjt(project);
+        if(!pjt.intro)
+            setOpenPjt(true);
+    };
+
+    const handleClose = () => {
+        setOpenPjt(false);
+    };
+
     return (
         <div className="wrap">
             <h1>
-                UI/UX <span>PORTFOLIO</span>
+                DEVELOPER <span>PORTFOLIO</span>
             </h1>
 
             <ul className="auto">
@@ -46,7 +61,7 @@ const Gallery = ({ items }) => {
                 autoplay={{ delay: 1000, disableOnInteraction: true }}
             >
                 {items.map((project, key) => (
-                    <SwiperSlide key={key}>
+                    <SwiperSlide key={key} onClick={() => handleClick(project)}>
                         <div className="inner">
                             <div className="con">
                                 <img
@@ -65,6 +80,11 @@ const Gallery = ({ items }) => {
             <div className="swiper-button-prev"></div>
 
             <div className="swiper-pagination"></div>
+            <ProjectDialog
+                open={openPjt}
+                handleClose={handleClose}
+                project={pjt}
+            />
         </div>
     );
 };
