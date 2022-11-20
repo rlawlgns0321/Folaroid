@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import CardContent from '@mui/material/CardContent';
-import { Autocomplete, Avatar, Button, TextField } from '@mui/material';
+import {
+    Autocomplete,
+    Avatar,
+    Button,
+    createStyles,
+    makeStyles,
+    TextField,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -54,6 +61,25 @@ const IntroBox = styled.div`
 const ListItem = styled('li')(({ theme }) => ({
     margin: theme.spacing(0.5),
 }));
+
+const IntroAutocomplete = styled(Autocomplete)`
+    .MuiAutocomplete-root {
+        color: white;
+        border-color: white;
+        outline-color: white;
+        background-color: white;
+
+    }
+    .MuiAutocomplete-inputRoot {
+        color: white;
+        border-color: white;
+        outline-color: white;
+
+    }
+    .MuiAutocomplete-input {
+        outline-color: white;
+    }
+`;
 
 export function StackInput(props) {
     const hash = useSelector((state) => state.stack.hash);
@@ -110,17 +136,18 @@ export function StackInput(props) {
                             }}
                         >
                             <div style={{ width: '100%', margin: '20px' }}>
-                                <Autocomplete
+                                <IntroAutocomplete
                                     clearOnBlur
                                     disablePortal
                                     // autoSelect
                                     onChange={onHashChange}
                                     options={hash}
-                                    value={stackData}
                                     getOptionLabel={(option) => option.hashName}
-                                    sx={{ width: 300, color:'white' }}
+                                    sx={{ width: 300, color: 'white' }}
                                     renderInput={(params) => (
-                                        <TextField {...params} />
+                                        <TextField
+                                        sx={{ borderColor: 'white' }}
+                                        {...params} />
                                     )}
                                 />
                             </div>
