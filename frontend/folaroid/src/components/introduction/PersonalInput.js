@@ -152,6 +152,7 @@ function Update(props) {
                                 type="submit"
                                 variant="contained"
                                 color="neutral"
+                                style={{ fontWeight: 'bolder' }}
                             >
                                 저장
                             </Button>
@@ -198,8 +199,10 @@ function ReadName(props) {
             >
                 <Button
                     onClick={handleClick}
+                    type="submit"
                     variant="contained"
                     color="neutral"
+                    style={{ fontWeight: 'bolder' }}
                 >
                     수정
                 </Button>

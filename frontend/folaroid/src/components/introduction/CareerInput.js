@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     TableRow,
@@ -25,6 +24,7 @@ import {
 } from '../../modules/intro/career';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroTextField = styled(TextField)`
     .MuiOutlinedInput-root {
@@ -90,249 +90,311 @@ const initialState = {
     careerJob: '',
     careerResult: '',
 };
-function Input(props) {
+export function CareerInput() {
     const [box, setBox] = useState(initialState);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const dispatch = useDispatch();
+
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+
+    useEffect(() => {
+        dispatch(getCareer(intro_no));
+    }, [dispatch, intro_no]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setBox({ ...box, [name]: value });
     };
 
+    const onDeleteClick = () => {
+        dispatch(introSelector.actions.outBoard('career'));
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(box);
+        dispatch(
+            createCareer({
+                introNo: intro_no,
+                careerComName: box.careerComName,
+                careerDate: box.careerDate,
+                careerJob: box.careerJob,
+                careerResult: box.careerResult,
+                careerDetail: box.careerDetail,
+            })
+        );
         setBox(initialState);
     };
 
     return (
-        <IntroCardContent>
-            <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <IntroInputLabel>회사명</IntroInputLabel>
-                    <IntroTextField
-                        type="text"
-                        placeholder="입력"
-                        InputLabelProps={{
-                            shrink: true,
+        <IntroBox>
+            <CardHeader>
+                <div>경력사항</div>
+                <DeleteBtn onClick={() => onDeleteClick()}></DeleteBtn>
+            </CardHeader>
+            <IntroCardContent>
+                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
                         }}
-                        style={{ width: '40%' }}
-                        name="careerComName"
-                        onChange={handleInputChange}
-                        value={box.careerComName}
-                    />
-                </div>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <div style={{ width: '100%' }}>
-                        <LocalizationProvider
-                            dateAdapter={AdapterDayjs}
-                            sx={{ width: '40%' }}
-                        >
-                            <IntroInputLabel>근무날짜</IntroInputLabel>
-                            <DatePicker
-                                name="careerDate"
-                                value={box.careerDate}
-                                onChange={(newValue) => {
-                                    setBox({
-                                        ...box,
-                                        careerDate:
-                                            dayjs(newValue).toISOString(),
-                                    });
-                                }}
-                                renderInput={(params) => (
-                                    <IntroTextField {...params} />
-                                )}
+                    >
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>회사명</IntroInputLabel>
+                            <IntroTextField
+                                type="text"
+                                placeholder="입력"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                style={{ width: '40%' }}
+                                name="careerComName"
+                                onChange={handleInputChange}
+                                value={box.careerComName}
                             />
-                        </LocalizationProvider>
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <div style={{ width: '100%' }}>
+                                <LocalizationProvider
+                                    dateAdapter={AdapterDayjs}
+                                    sx={{ width: '40%' }}
+                                >
+                                    <IntroInputLabel>근무날짜</IntroInputLabel>
+                                    <DatePicker
+                                        name="careerDate"
+                                        value={box.careerDate}
+                                        onChange={(newValue) => {
+                                            setBox({
+                                                ...box,
+                                                careerDate:
+                                                    dayjs(
+                                                        newValue
+                                                    ).toISOString(),
+                                            });
+                                        }}
+                                        renderInput={(params) => (
+                                            <IntroTextField {...params} />
+                                        )}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </LocalizationProvider>
+                            </div>
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>직무</IntroInputLabel>
+                            <IntroTextField
+                                type="text"
+                                placeholder="입력"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                style={{ width: '40%' }}
+                                name="careerJob"
+                                onChange={handleInputChange}
+                                value={box.careerJob}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: '100%',
+                                margin: '20px',
+                            }}
+                        >
+                            <IntroInputLabel>상세업무 및 성과</IntroInputLabel>
+                            <IntroTextField
+                                multiline
+                                placeholder="근무내용에 관한 사항을 적어주세요."
+                                style={{ width: '90%' }}
+                                onChange={handleInputChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                name="careerResult"
+                                rows={2}
+                                maxRows={4}
+                                value={box.careerResult}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: '100%',
+                                margin: '20px',
+                            }}
+                        >
+                            <IntroInputLabel>기타 설명</IntroInputLabel>
+                            <IntroTextField
+                                multiline
+                                placeholder="추가 사항에 관한 사항을 적어주세요."
+                                style={{ width: '90%' }}
+                                onChange={handleInputChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                name="careerDetail"
+                                rows={2}
+                                maxRows={4}
+                                value={box.careerDetail}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                margin: '20px',
+                                justifyContent: 'end',
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="neutral"
+                                style={{ fontWeight: 'bolder' }}
+                            >
+                                제출
+                            </Button>
+                        </div>
                     </div>
-                </div>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <IntroInputLabel>직무</IntroInputLabel>
-                    <IntroTextField
-                        type="text"
-                        placeholder="입력"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        style={{ width: '40%' }}
-                        name="careerJob"
-                        onChange={handleInputChange}
-                        value={box.careerJob}
-                    />
-                </div>
-                <div
-                    style={{
-                        width: '100%',
-                        marginBottom: '10px',
-                    }}
-                >
-                    <IntroInputLabel>상세업무 및 성과</IntroInputLabel>
-                    <IntroTextField
-                        multiline
-                        placeholder="근무내용에 관한 사항을 적어주세요."
-                        style={{ width: '90%' }}
-                        onChange={handleInputChange}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        name="careerResult"
-                        rows={2}
-                        maxRows={4}
-                        value={box.careerResult}
-                    />
-                </div>
-                <div
-                    style={{
-                        width: '100%',
-                        marginBottom: '10px',
-                    }}
-                >
-                    <IntroInputLabel>기타 설명</IntroInputLabel>
-                    <IntroTextField
-                        multiline
-                        placeholder="추가 사항에 관한 사항을 적어주세요."
-                        style={{ width: '90%' }}
-                        onChange={handleInputChange}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        name="careerDetail"
-                        rows={2}
-                        maxRows={4}
-                        value={box.careerDetail}
-                    />
-                </div>
-                <div>
-                    <Button type="submit" variant="contained">
-                        제출
-                    </Button>
-                </div>
-            </form>
-        </IntroCardContent>
+                </form>
+            </IntroCardContent>
+        </IntroBox>
     );
 }
 
-function Read(props) {
+export function ReadCareer() {
     const dispatch = useDispatch();
+    const career = useSelector((state) => state.career);
+    const [mode, setMode] = useState('OFF');
 
     const onDeleteClick = (introCareerNo) => {
         dispatch(deleteCareer(introCareerNo));
     };
 
-    const rowItems = props.career.map((item) => (
-        <TableRow key={item.introCareerNo}>
-            <TableCell align="center">{item.careerComName}</TableCell>
-            <TableCell align="center">{item.careerDate}</TableCell>
-            <TableCell align="center">{item.careerJob}</TableCell>
-            <TableCell align="center">{item.careerResult}</TableCell>
-            <TableCell align="center">{item.careerDetail}</TableCell>
-            <TableCell
-                style={{ display: 'flex', justifyContent: 'center' }}
-                algin="center"
-            >
-                <Button onClick={() => onDeleteClick(item.introCareerNo)}>
-                    삭제
-                </Button>
-            </TableCell>
-        </TableRow>
-    ));
-
-    return (
-        <IntroCardContent>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">회사명</TableCell>
-                            <TableCell align="center">근무날짜</TableCell>
-                            <TableCell align="center">직무</TableCell>
-                            <TableCell align="center">
-                                상세업무 및 성과
-                            </TableCell>
-                            <TableCell align="center">기타 설명</TableCell>
-                            <TableCell align="center"></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>{rowItems}</TableBody>
-                </Table>
-            </TableContainer>
-        </IntroCardContent>
-    );
-}
-
-function View() {
-    const career = useSelector((state) => state.career);
-    const { pathname } = useLocation();
-    const store = useStore();
-    const introNo =
-        pathname === '/intro'
-            ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
-    const [mode, setMode] = useState('CREATE');
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCareer(introNo));
-    }, [dispatch, introNo]);
-
-    if (career.length !== 0 && mode === 'CREATE') {
-        setMode('READ');
-    } else if (
-        Array.isArray(career) &&
-        career.length === 0 &&
-        mode === 'READ'
-    ) {
-        setMode('CREATE');
+    if (career.length !== 0 && mode === 'OFF') {
+        setMode('ON');
+    } else if (Array.isArray(career) && career.length === 0 && mode === 'ON') {
+        setMode('OFF');
     }
 
     let content = null;
-    if (mode === 'CREATE') {
+    if (mode === 'ON') {
         content = (
             <IntroBox>
                 <CardHeader>경력사항</CardHeader>
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCareer({
-                                introNo: introNo,
-                                careerComName: box.careerComName,
-                                careerDate: box.careerDate,
-                                careerJob: box.careerJob,
-                                careerResult: box.careerResult,
-                                careerDetail: box.careerDetail,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-            </IntroBox>
-        );
-    } else if (mode === 'READ') {
-        content = (
-            <IntroBox>
-                <CardHeader>경력사항</CardHeader>
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCareer({
-                                introNo: introNo,
-                                careerComName: box.careerComName,
-                                careerDate: box.careerDate,
-                                careerJob: box.careerJob,
-                                careerResult: box.careerResult,
-                                careerDetail: box.careerDetail,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-                <Read career={career}></Read>
+                <IntroCardContent>
+                    <TableContainer>
+                        <Table
+                            style={{
+                                backgroundColor: ' rgba(44, 43, 43, 1)',
+                            }}
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        회사명
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        근무날짜
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        직무
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        상세업무 및 성과
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        기타 설명
+                                    </TableCell>
+                                    <TableCell align="center"></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {career.map((item) => (
+                                    <TableRow key={item.introCareerNo}>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.careerComName}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.careerDate}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.careerJob}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.careerResult}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.careerDetail}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                            }}
+                                            algin="center"
+                                        >
+                                            <Button
+                                                size="small"
+                                                style={{
+                                                    color: 'white',
+                                                }}
+                                                onClick={() =>
+                                                    onDeleteClick(
+                                                        item.introCareerNo
+                                                    )
+                                                }
+                                            >
+                                                삭제
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </IntroCardContent>
             </IntroBox>
         );
     }
 
     return content;
 }
-export default View;
+
+export default CareerInput;

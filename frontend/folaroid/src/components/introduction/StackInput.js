@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CardContent from '@mui/material/CardContent';
-import { Autocomplete, Avatar, TextField } from '@mui/material';
+import { Autocomplete, Avatar, Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -13,6 +13,7 @@ import {
 } from '../../modules/intro/stack';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const CardHeader = styled.div`
     border-radius: 10px 10px 0 0;
@@ -54,18 +55,31 @@ const ListItem = styled('li')(({ theme }) => ({
     margin: theme.spacing(0.5),
 }));
 
-function StackInput(props) {
+export function StackInput(props) {
     const hash = useSelector((state) => state.stack.hash);
     const [stackData, setStackData] = useState('');
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const store = useStore();
+    const isSelected = props.select;
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
 
     useEffect(() => {
         dispatch(getHash());
-    }, [dispatch]);
+        dispatch(getStack(intro_no));
+    }, [dispatch, intro_no]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(stackData);
+        dispatch(
+            createStack({
+                introNo: intro_no,
+                hashNo: stackData,
+            })
+        );
         console.log(stackData);
         setStackData('');
     };
@@ -73,130 +87,182 @@ function StackInput(props) {
     const onHashChange = (object, value) => {
         setStackData(value.hashNo);
     };
+    const onDeleteClick = () => {
+        dispatch(introSelector.actions.outBoard('stack'));
+    };
 
-    return (
-        <IntroCardContent>
-            <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                <Autocomplete
-                    disablePortal
-                    autoSelect
-                    onChange={onHashChange}
-                    options={hash}
-                    getOptionLabel={(option) => option.hashName}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} />}
-                />
-                <button type="submit">제출</button>
-            </form>
-        </IntroCardContent>
-    );
+    let inputBox = null;
+    if (isSelected) {
+        inputBox = (
+            <IntroBox>
+                <CardHeader>
+                    <div>기술스택</div>
+                    <DeleteBtn onClick={() => onDeleteClick()}></DeleteBtn>
+                </CardHeader>
+                <IntroCardContent>
+                    <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                        <div
+                            style={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <div style={{ width: '100%', margin: '20px' }}>
+                                <Autocomplete
+                                    disablePortal
+                                    autoSelect
+                                    onChange={onHashChange}
+                                    options={hash}
+                                    getOptionLabel={(option) => option.hashName}
+                                    sx={{ width: 300 }}
+                                    renderInput={(params) => (
+                                        <TextField {...params} />
+                                    )}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    margin: '20px',
+                                    justifyContent: 'end',
+                                }}
+                            >
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="neutral"
+                                    style={{ fontWeight: 'bolder' }}
+                                >
+                                    저장
+                                </Button>
+                            </div>
+                        </div>
+                    </form>
+                </IntroCardContent>
+            </IntroBox>
+        );
+    }
+
+    return inputBox;
 }
 
-function ReadStack(props) {
+export function ReadStack() {
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const store = useStore();
+    const stack = useSelector((state) => state.stack.stack);
+    const [mode, setMode] = useState('OFF');
+
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+    useEffect(() => {
+        dispatch(getStack(intro_no));
+    }, [dispatch, intro_no]);
 
     const handleDelete = (introStackNo) => () => {
         dispatch(deleteStack(introStackNo));
     };
 
-    const rowItems = props.stack.map((data) => (
-        <Stack spacing={2} alignItems="center">
-            <ListItem key={data.introStackNo}>
-                <Chip
-                    style={{ margin: '5px' }}
-                    label={data.hashName}
-                    onDelete={handleDelete(data.introStackNo)}
-                    avatar={<Avatar src={data.hashImageLocation} />}
-                    color="neutral"
-                    variant="contained"
-                ></Chip>
-            </ListItem>
-        </Stack>
-    ));
+    if (stack.length !== 0 && mode === 'OFF') {
+        setMode('ON');
+    } else if (Array.isArray(stack) && stack.length === 0 && mode === 'ON') {
+        setMode('OFF');
+    }
 
-    return (
-        <IntroCardContent>
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                    flexWrap: 'wrap',
-                    listStyle: 'none',
-                    p: 0.5,
-                    marginRight: 'auto',
-                    marginLeft: 'auto',
-                    width: '80%',
-                    border: 'solid 1px gray',
-                    borderRadius: '30px',
-                }}
-                component="ul"
-            >
-                {rowItems}
-            </Box>
-        </IntroCardContent>
-    );
+    let content = null;
+    if (mode === 'ON') {
+        content = (
+            <IntroBox>
+                <CardHeader>기술스택</CardHeader>
+                <IntroCardContent>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignContent: 'center',
+                            flexWrap: 'wrap',
+                            listStyle: 'none',
+                            p: 0.5,
+                            marginRight: 'auto',
+                            marginLeft: 'auto',
+                            width: '80%',
+                            border: 'solid 1px gray',
+                            borderRadius: '30px',
+                        }}
+                        component="ul"
+                    >
+                        {stack.map((data, index) => (
+                            <Stack spacing={2} alignItems="center">
+                                <ListItem key={index}>
+                                    <Chip
+                                        style={{ margin: '5px' }}
+                                        label={data.hashName}
+                                        onDelete={handleDelete(
+                                            data.introStackNo
+                                        )}
+                                        avatar={
+                                            <Avatar
+                                                src={data.hashImageLocation}
+                                            />
+                                        }
+                                        color="neutral"
+                                        variant="contained"
+                                    ></Chip>
+                                </ListItem>
+                            </Stack>
+                        ))}
+                    </Box>
+                </IntroCardContent>
+            </IntroBox>
+        );
+    } else if (mode === 'OFF') {
+        <div></div>;
+    }
+    return content;
 }
 
-function ViewName() {
-    const stack = useSelector((state) => state.stack.stack);
+export function ViewStack(props) {
     const { pathname } = useLocation();
     const store = useStore();
+    const isSelected = props.select;
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
             : store.getState().portfolio.pf.introNo;
-    const [mode, setMode] = useState('CREATE');
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getStack(intro_no));
     }, [dispatch, intro_no]);
 
-    if (stack.length !== 0 && mode === 'CREATE') {
-        setMode('READ');
-    } else if (Array.isArray(stack) && stack.length === 0 && mode === 'READ') {
-        setMode('CREATE');
-    }
-
-    let content = null;
-    if (mode === 'CREATE') {
-        content = (
-            <IntroBox>
-                <CardHeader>기술스택</CardHeader>
-                <StackInput
-                    onCreate={(stackData) => {
-                        dispatch(
-                            createStack({
-                                introNo: intro_no,
-                                hashNo: stackData,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></StackInput>
-            </IntroBox>
-        );
-    } else if (mode === 'READ') {
-        content = (
-            <IntroBox>
-                <CardHeader>스택</CardHeader>
-                <StackInput
-                    onCreate={(_hash) => {
-                        dispatch(
-                            createStack({
-                                introNo: intro_no,
-                                hashNo: _hash,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></StackInput>
-                <ReadStack stack={stack}></ReadStack>
-            </IntroBox>
+    let inputBox = null;
+    if (isSelected) {
+        inputBox = (
+            <div>
+                <IntroBox>
+                    <CardHeader>기술스택</CardHeader>
+                    <StackInput
+                        onCreate={(stackData) => {
+                            dispatch(
+                                createStack({
+                                    introNo: intro_no,
+                                    hashNo: stackData,
+                                })
+                            );
+                            dispatch(introSelector.actions.outBoard('stack'));
+                        }}
+                    ></StackInput>
+                </IntroBox>
+            </div>
         );
     }
 
-    return content;
+    return inputBox;
 }
 
-export default ViewName;
+export default StackInput;

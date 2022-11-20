@@ -27,7 +27,6 @@ export const deleteAward = createAsyncThunk(
     'awards/deleteAward',
     async (introAwardNo) => {
         const response = await api.deleteAward(introAwardNo);
-        console.log(response);
         return response.data;
     }
 );

@@ -40,7 +40,6 @@ const TemplateSide = () => {
         dispatch(portfolio.actions.changeTemplatesNo(key));
     };
 
-    const onSelectTemplate = (e) => {};
     return (
         <Wrap>
             {images.map((image) => (
