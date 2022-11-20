@@ -23,6 +23,11 @@ const ProjectInfoContainer = () => {
     });
 
     store.addFont({
+        fontFamily: 'CuteFont-Regular',
+        url: '/public_assets/fonts/CuteFont-Regular.ttf',
+    });
+
+    store.addFont({
         fontFamily: 'Dokdo-Regular',
         url: '/public_assets/fonts/Dokdo-Regular.ttf',
     });
@@ -40,6 +45,11 @@ const ProjectInfoContainer = () => {
     store.addFont({
         fontFamily: 'Gaegu-Bold',
         url: '/public_assets/fonts/Gaegu-Bold.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'GamjaFlower-Regular',
+        url: '/public_assets/fonts/GamjaFlower-Regular.ttf',
     });
 
     store.addFont({
@@ -110,6 +120,11 @@ const ProjectInfoContainer = () => {
     store.addFont({
         fontFamily: 'SingleDay-Regular',
         url: '/public_assets/fonts/SingleDay-Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'Stylish-Regular',
+        url: '/public_assets/fonts/Stylish-Regular.ttf',
     });
 
     store.addFont({
