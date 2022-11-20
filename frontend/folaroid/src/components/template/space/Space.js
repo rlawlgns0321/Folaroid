@@ -56,7 +56,7 @@ const Space = ({ items }) => {
                         project={project}
                         onMouseEnter={mouseEnter}
                         onMouseLeave={mouseLeave}
-                        deg={key*45}
+                        deg={key * 45}
                     />
                 ))}
             </Circle>

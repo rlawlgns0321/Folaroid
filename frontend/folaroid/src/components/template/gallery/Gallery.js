@@ -1,10 +1,72 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 import 'swiper/css';
 import './style.css';
+import BasicModal from '../introTemplate1';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
+
+const Content = (props) => {
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('');
+    const handleOpen = () => {
+        setOpen(true);
+        setScroll();
+    };
+    const handleClose = () => setOpen(false);
+    const descriptionElementRef = useRef(null);
+
+    useEffect(() => {
+        if (open) {
+            const { current: descriptionElement } = descriptionElementRef;
+            if (descriptionElement !== null) {
+                descriptionElement.focus();
+            }
+        }
+    }, [open]);
+    const project = props.project;
+    let content = null;
+
+    if (project.intro) {
+        content = (
+            <SwiperSlide
+                key={props.key}
+                onClick={() => {
+                    handleOpen();
+                }}
+            >
+                <div className="inner">
+                    <div className="con">
+                        <img src={project.pjtOneImageLocation} alt="1" />
+                        <h2>{project.pjtTitle}</h2>
+                        <p>{project.pjtSubtitle}</p>
+                    </div>
+                </div>
+                <BasicModal
+                    open={open}
+                    handleClose={handleClose}
+                    scroll={scroll}
+                    project={project}
+                />
+            </SwiperSlide>
+        );
+    } else {
+        content = (
+            <SwiperSlide key={props.key}>
+                <div className="inner">
+                    <div className="con">
+                        <img src={project.pjtOneImageLocation} alt="1" />
+                        <h2>{project.pjtTitle}</h2>
+                        <p>{project.pjtSubtitle}</p>
+                    </div>
+                </div>
+            </SwiperSlide>
+        );
+    }
+
+    return content;
+};
 
 const Gallery = ({ items }) => {
     return (
@@ -46,18 +108,19 @@ const Gallery = ({ items }) => {
                 autoplay={{ delay: 1000, disableOnInteraction: true }}
             >
                 {items.map((project, key) => (
-                    <SwiperSlide key={key}>
-                        <div className="inner">
-                            <div className="con">
-                                <img
-                                    src={project.pjtOneImageLocation}
-                                    alt="1"
-                                />
-                                <h2>{project.pjtTitle}</h2>
-                                <p>{project.pjtSubtitle}</p>
-                            </div>
-                        </div>
-                    </SwiperSlide>
+                    <Content project={project} key={key} />
+                    // <SwiperSlide key={key}>
+                    //     <div className="inner">
+                    //         <div className="con">
+                    //             <img
+                    //                 src={project.pjtOneImageLocation}
+                    //                 alt="1"
+                    //             />
+                    //             <h2>{project.pjtTitle}</h2>
+                    //             <p>{project.pjtSubtitle}</p>
+                    //         </div>
+                    //     </div>
+                    // </SwiperSlide>
                 ))}
             </Swiper>
 

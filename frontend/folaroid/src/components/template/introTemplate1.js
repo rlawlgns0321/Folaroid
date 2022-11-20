@@ -7,45 +7,32 @@ import {
     Dialog,
     DialogContent,
     Grid,
-    IconButton,
     Paper,
-    Tab,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Tabs,
-    TextField,
     Toolbar,
     Tooltip,
     Typography,
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import HelpIcon from '@mui/icons-material/Help';
-import { Copyright } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-const IntroTemplate1 = () => {
-    const activity = useSelector((state) => state.activity);
-    const awards = useSelector((state) => state.awards);
-    const career = useSelector((state) => state.career);
-    const certification = useSelector((state) => state.certification);
-    const language = useSelector((state) => state.language);
-    const archiving = useSelector((state) => state.archiving);
-    const stack = useSelector((state) => state.stack.stack);
-    const image = useSelector((state) => state.image);
-    const personal = useSelector((state) => state.personal);
-    const school = useSelector((state) => state.school);
-    const slogan = useSelector((state) => state.slogan);
-
-    const lightColor = 'rgba(255, 255, 255, 0.7)';
+export const IntroTemplate1 = (props) => {
+    const intro = props.intro;
+    const activity = intro.introActivities;
+    const awards = intro.introAwards;
+    const career = intro.introCareers;
+    const certification = intro.introCertifications;
+    const language = intro.introLanguages;
+    const archiving = intro.introArchivings;
+    const stack = intro.introStacks;
+    const image = intro.introImage;
+    const personal = intro.introPersonalData;
+    const school = intro.introSchools;
+    const slogan = intro.introSlogan;
 
     return (
         <Box sx={{ display: 'flex', minHeight: '100vh' }}>
@@ -74,7 +61,7 @@ const IntroTemplate1 = () => {
                                 }}
                             >
                                 <div style={{ width: '5%' }}>
-                                    <Avatar src={image.imageLocation} />
+                                    <Avatar src={image.introImageLocation} />
                                 </div>
                                 <Typography
                                     color="inherit"
@@ -109,7 +96,9 @@ const IntroTemplate1 = () => {
                             <Toolbar>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item>
-                                        <Avatar src={image.imageLocation} />
+                                        <Avatar
+                                            src={image.introImageLocation}
+                                        />
                                     </Grid>
                                     <Grid item xs>
                                         <div
@@ -117,25 +106,25 @@ const IntroTemplate1 = () => {
                                                 fontWeight: 'bolder',
                                             }}
                                         >
-                                            {personal.userName}
+                                            {personal.personalDataName}
                                         </div>
                                     </Grid>
                                 </Grid>
                             </Toolbar>
                         </AppBar>
-                        {personal.userEmail && (
+                        {personal.personalDataEmail && (
                             <Typography sx={{ my: 3, mx: 2 }}>
-                                Email : {personal.userEmail}
+                                Email : {personal.personalDataEmail}
                             </Typography>
                         )}
-                        {personal.userBirth && (
+                        {personal.personalDataBirth && (
                             <Typography sx={{ my: 3, mx: 2 }}>
-                                Birth : {personal.userBirth}
+                                Birth : {personal.personalDataBirth}
                             </Typography>
                         )}
-                        {personal.userPhone && (
+                        {personal.personalDataPhone && (
                             <Typography sx={{ my: 3, mx: 2 }}>
-                                PhoneNumber : {personal.userPhone}
+                                PhoneNumber : {personal.personalDataPhone}
                             </Typography>
                         )}
                         {archiving.length !== 0 &&
@@ -197,6 +186,7 @@ const IntroTemplate1 = () => {
                                 {stack &&
                                     stack.map((item) => (
                                         <Grid
+                                            item
                                             xs={3}
                                             style={{
                                                 display: 'flex',
@@ -734,39 +724,29 @@ const IntroTemplate1 = () => {
     );
 };
 
-export default function BasicModal() {
-    const [open, setOpen] = useState(false);
-    const [scroll, setScroll] = useState('');
-    const handleOpen = () => {
-        setOpen(true);
-        setScroll();
-    };
-    const handleClose = () => setOpen(false);
-    const descriptionElementRef = useRef(null);
-    useEffect(() => {
-        if (open) {
-            const { current: descriptionElement } = descriptionElementRef;
-            if (descriptionElement !== null) {
-                descriptionElement.focus();
-            }
-        }
-    }, [open]);
-
+export function BasicModal(props) {
+    const pjt = props.project;
+    let intro = null
+    if (pjt.intro) {
+        intro = pjt.intro
+    } else {
+        intro = pjt
+    }
+    console.log(intro)
     return (
-        <div>
-            <Button onClick={handleOpen}>Open modal</Button>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={scroll}
-                aria-describedby="scroll-dialog-description"
-                maxWidth="lg"
-                fullWidth
-            >
-                <DialogContent style={{ margin: '50px' }}>
-                    <IntroTemplate1 id="modal-modal-description"></IntroTemplate1>
-                </DialogContent>
-            </Dialog>
-        </div>
+        <Dialog
+            open={props.open}
+            onClose={props.handleClose}
+            scroll={props.scroll}
+            aria-describedby="scroll-dialog-description"
+            maxWidth="lg"
+            fullWidth
+        >
+            <DialogContent style={{ margin: '50px' }}>
+                <IntroTemplate1 intro={intro}></IntroTemplate1>
+            </DialogContent>
+        </Dialog>
     );
 }
+
+export default BasicModal;
