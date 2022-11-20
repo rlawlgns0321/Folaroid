@@ -4,6 +4,7 @@ import BasicModal from '../introTemplate1';
 const FlexIntro = ({ intro }) => {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState('');
+
     const handleOpen = () => {
         setOpen(true);
         setScroll();
@@ -21,31 +22,32 @@ const FlexIntro = ({ intro }) => {
     }, [open]);
 
     return (
-        <article>
-            <div
-                className="inner"
+        <>
+            <article
                 onClick={() => {
                     handleOpen();
                 }}
             >
-                <div className="txt">
-                    <h2>자기소개</h2>
-                    <p>{intro.introSlogan.sloganContent}</p>
+                <div className="inner">
+                    <div className="txt">
+                        <h2>자기소개</h2>
+                        <p>{intro.introSlogan.sloganContent}</p>
+                    </div>
+                    <figure>
+                        <img
+                            src={intro.introImage.introImageLocation}
+                            alt="1"
+                        ></img>
+                    </figure>
                 </div>
-                <figure>
-                    <img
-                        src={intro.introImage.introImageLocation}
-                        alt="1"
-                    ></img>
-                </figure>
-            </div>
+            </article>
             <BasicModal
                 project={intro}
                 handleClose={handleClose}
                 scroll={scroll}
                 open={open}
             />
-        </article>
+        </>
     );
 };
 

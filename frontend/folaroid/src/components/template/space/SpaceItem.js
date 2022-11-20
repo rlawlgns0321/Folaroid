@@ -152,8 +152,8 @@ const SpaceItem = ({ onMouseEnter, onMouseLeave, project, deg }) => {
                 />
             </>
         );
-        return content;
     }
+    return content;
 };
 
 export default SpaceItem;

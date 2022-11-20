@@ -15,10 +15,9 @@ import {
     TableHead,
     TableRow,
     Toolbar,
-    Tooltip,
     Typography,
 } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 export const IntroTemplate1 = (props) => {
     const intro = props.intro;
