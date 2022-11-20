@@ -764,7 +764,7 @@ export default function BasicModal() {
                 fullWidth
             >
                 <DialogContent style={{ margin: '50px' }}>
-                    <IntroTemplate1 id="modal-modal-description"></IntroTemplate1>
+                    <IntroTemplate1 id="modal-modal-description"></IntroTemplate1> 
                 </DialogContent>
             </Dialog>
         </div>

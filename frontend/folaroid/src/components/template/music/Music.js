@@ -194,6 +194,7 @@ const Section = styled.section`
     transition: 1s; /* 11단계 */
 
     & article {
+        cursor: pointer;
         width: 100%;
         height: 100%;
         position: absolute;
