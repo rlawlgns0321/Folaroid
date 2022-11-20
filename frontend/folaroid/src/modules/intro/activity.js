@@ -13,7 +13,6 @@ export const createActivity = createAsyncThunk(
     'activity/createActivity',
     async ({introNo, activityDate, activityDetail, activityName, activityUrl}) => {
         const response = await api.createActivity({introNo, activityDate, activityDetail, activityName, activityUrl});
-        console.log(response);
         return {
             introActivityNo: response.data,
             activityDate: activityDate,
@@ -28,7 +27,6 @@ export const deleteActivity = createAsyncThunk(
     'activity/deleteActivity',
     async (introActivityNo) => {
         const response = await api.deleteActivity(introActivityNo);
-        console.log(response);
         return response.data;
     }
 );

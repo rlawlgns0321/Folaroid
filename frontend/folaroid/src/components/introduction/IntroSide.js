@@ -7,17 +7,42 @@ import {
     ListItemText,
 } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroListItemText = styled(ListItemText)`
-    padding-left: 20px ;
-`
+    padding-left: 20px;
+`;
 
 const IntroSide = () => {
+    // const introSelector = useSelector((state) => state.introSelector)
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
 
+    const onClick = (title) => {
+        dispatch(introSelector.actions.onBoard(title));
+    };
+
+    const sides = [
+        { key: 1, name: '슬로건', title: 'slogan' },
+        { key: 2, name: '기술스택', title: 'stack' },
+        { key: 3, name: '학력', title: 'school' },
+        { key: 4, name: '공인어학성적', title: 'language' },
+        { key: 5, name: '링크', title: 'archiving' },
+        { key: 6, name: '자격증', title: 'certification' },
+        { key: 7, name: '수상내역', title: 'awards' },
+        { key: 8, name: '활동', title: 'activity' },
+        { key: 9, name: '경력사항', title: 'career' },
+    ];
 
     return (
-        <div style={{ color: 'white'}}>
+        <div style={{ color: 'white', height: '100%' }}>
+            {pathname === '/intro' ? (
+                <div style={{ height: '9%' }}></div>
+            ) : (
+                <div style={{ height: '2%'}}></div>
+            )}
             <div style={{ maxheight: '8%', marginLeft: '20px' }}>
                 <h1>자기소개 사항</h1>
             </div>
@@ -32,24 +57,16 @@ const IntroSide = () => {
             <Divider />
             <List>
                 <h1 style={{ margin: '20px' }}>추가 사항</h1>
-                {[
-                    '슬로건',
-                    '기술스택',
-                    '학력',
-                    '공인어학성적',
-                    '링크',
-                    '자격증',
-                    '수상내역',
-                    '활동',
-                    '경력사항',
-                ].map((text) => (
-                    <ListItemButton key={text}>
-                        <IntroListItemText primary={text} />
+                {sides.map((item) => (
+                    <ListItemButton key={item.key}>
+                        <IntroListItemText
+                            onClick={() => onClick(item.title)}
+                            primary={item.name}
+                        />
                     </ListItemButton>
                 ))}
             </List>
         </div>
     );
 };
-
 export default IntroSide;

@@ -14,6 +14,8 @@ import portfolioReducer from './portfolio';
 import githubReducer from './github';
 import imageReducer from './intro/image';
 import stackReducer from './intro/stack'
+import introSelectorReducer from './intro/introSelector';
+
 import templateReducer from './template';
 
 const rootReducer = combineReducers({
@@ -32,6 +34,7 @@ const rootReducer = combineReducers({
     github: githubReducer,
     image: imageReducer,
     stack: stackReducer,
+    introSelector: introSelectorReducer,
     template: templateReducer,
 });
 
