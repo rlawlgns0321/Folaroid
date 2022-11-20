@@ -111,12 +111,14 @@ export function StackInput(props) {
                         >
                             <div style={{ width: '100%', margin: '20px' }}>
                                 <Autocomplete
+                                    clearOnBlur
                                     disablePortal
-                                    autoSelect
+                                    // autoSelect
                                     onChange={onHashChange}
                                     options={hash}
+                                    value={stackData}
                                     getOptionLabel={(option) => option.hashName}
-                                    sx={{ width: 300 }}
+                                    sx={{ width: 300, color:'white' }}
                                     renderInput={(params) => (
                                         <TextField {...params} />
                                     )}

@@ -41,16 +41,6 @@ const IntroTextField = styled(TextField)`
     }
 `;
 
-const IntroSelect = styled(Select)`
-    color: white;
-    &:before {
-        border-color: white;
-    }
-    &:after {
-        border-color: white;
-    }
-`;
-
 const IntroInputLabel = styled(InputLabel)`
     color: white;
     margin-bottom: 5px;
@@ -159,7 +149,27 @@ export function LanguageInput() {
                     >
                         <div style={{ width: '100%', margin: '20px' }}>
                             <IntroInputLabel>외국어</IntroInputLabel>
-                            <IntroSelect
+                            <Select
+                                sx={{
+                                    color: 'white',
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor:
+                                            'white',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                        {
+                                            borderColor:
+                                                'white',
+                                        },
+                                    '&:hover .MuiOutlinedInput-notchedOutline':
+                                        {
+                                            borderColor:
+                                                'white',
+                                        },
+                                    '.MuiSvgIcon-root ': {
+                                        fill: 'white !important',
+                                    },
+                                }}
                                 style={{ width: '90%' }}
                                 name="languageName"
                                 value={language.languageName}
@@ -170,7 +180,7 @@ export function LanguageInput() {
                                 <MenuItem value={'일본어'}>일본어</MenuItem>
                                 <MenuItem value={'중국어'}>중국어</MenuItem>
                                 <MenuItem value={'기타'}>기타</MenuItem>
-                            </IntroSelect>
+                            </Select>
                         </div>
                         <div style={{ width: '100%', margin: '20px' }}>
                             <IntroInputLabel>시험명</IntroInputLabel>
