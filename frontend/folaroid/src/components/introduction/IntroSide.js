@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroListItemText = styled(ListItemText)`
@@ -17,6 +18,7 @@ const IntroListItemText = styled(ListItemText)`
 const IntroSide = () => {
     // const introSelector = useSelector((state) => state.introSelector)
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
 
     const onClick = (title) => {
         dispatch(introSelector.actions.onBoard(title));
@@ -36,7 +38,11 @@ const IntroSide = () => {
 
     return (
         <div style={{ color: 'white', height: '100%' }}>
-            <div style={{ height: '9%' }}></div>
+            {pathname === '/intro' ? (
+                <div style={{ height: '9%' }}></div>
+            ) : (
+                <div style={{ height: '2%'}}></div>
+            )}
             <div style={{ maxheight: '8%', marginLeft: '20px' }}>
                 <h1>자기소개 사항</h1>
             </div>

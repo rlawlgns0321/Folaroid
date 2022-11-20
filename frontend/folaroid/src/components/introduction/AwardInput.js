@@ -274,7 +274,7 @@ export function ReadAwards() {
             <IntroBox>
                 <CardHeader>수상내역</CardHeader>
                 <IntroCardContent>
-                    <TableContainer component={Paper}>
+                    <TableContainer>
                         <Table
                             style={{
                                 backgroundColor: ' rgba(44, 43, 43, 1)',

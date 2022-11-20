@@ -2,6 +2,7 @@ import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const TItleWrap = styled.div`
     height: 8%;
@@ -43,12 +44,22 @@ const Wrap = styled(Grid)`
 `;
 
 const Contents = ({ children, pfName, onChange, onSave }) => {
+    const { pathname } = useLocation();
+
     return (
         <Wrap container direction="column">
-            <TItleWrap>
-                <Title value={pfName} onChange={onChange} spellCheck={false} />
-                <TitleBtn onClick={onSave}>저장</TitleBtn>
-            </TItleWrap>
+            {pathname === '/intro' ? (
+                <TItleWrap></TItleWrap>
+            ) : (
+                <TItleWrap>
+                    <Title
+                        value={pfName}
+                        onChange={onChange}
+                        spellCheck={false}
+                    />
+                    <TitleBtn onClick={onSave}>저장</TitleBtn>
+                </TItleWrap>
+            )}
             <Grid
                 className={css`
                     height: 92%;

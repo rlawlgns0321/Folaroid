@@ -24,7 +24,7 @@ const CallBack = () => {
         }
     }, [user,  navigate]);
 
-    return <div>로딩중</div>;
+    return <div></div>;
 };
 
 export default CallBack;
