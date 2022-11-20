@@ -98,8 +98,58 @@ const ProjectInfoContainer = () => {
     });
 
     store.addFont({
+        fontFamily: 'NanumSquareRoundB',
+        url: '/public_assets/fonts/NanumSquareRoundB.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'PoorStory-Regular',
+        url: '/public_assets/fonts/PoorStory-Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'SingleDay-Regular',
+        url: '/public_assets/fonts/SingleDay-Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: 'YeonSung-Regular',
+        url: '/public_assets/fonts/YeonSung-Regular.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 갈맷글',
+        url: '/public_assets/fonts/나눔손글씨 갈맷글.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 금은보화',
+        url: '/public_assets/fonts/나눔손글씨 금은보화.ttf',
+    });
+
+    store.addFont({
         fontFamily: '나눔손글씨 가람연꽃',
         url: '/public_assets/fonts/나눔손글씨 가람연꽃.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 기쁨밝음',
+        url: '/public_assets/fonts/나눔손글씨 기쁨밝음.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 끄트머리체',
+        url: '/public_assets/fonts/나눔손글씨 끄트머리체.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 다시 시작해',
+        url: '/public_assets/fonts/나눔손글씨 다시 시작해.ttf',
+    });
+
+    store.addFont({
+        fontFamily: '나눔손글씨 달의궤도',
+        url: '/public_assets/fonts/나눔손글씨 달의궤도.ttf',
     });
 
     const dispatch = useDispatch();
