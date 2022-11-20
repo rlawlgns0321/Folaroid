@@ -33,4 +33,15 @@ public class IntroImageDto {
 //            this.intro = introImage.getIntro();
         }
     }
+
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroImageDto {
+        private Long introImageNo;
+        private String introImageLocation;
+        public AllIntroImageDto(IntroImage introImage) {
+            this.introImageNo = introImage.getIntroImageNo();
+            this.introImageLocation = introImage.getIntroImageLocation();
+        }
+    }
 }

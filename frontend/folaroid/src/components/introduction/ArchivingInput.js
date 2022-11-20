@@ -198,7 +198,6 @@ function ViewName() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('링크', intro_no);
         dispatch(getArchiving(intro_no));
     }, [dispatch, intro_no]);
 
@@ -232,7 +231,6 @@ function ViewName() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ archiving });
         content = (
             <IntroBox>
                 <CardHeader>링크</CardHeader>

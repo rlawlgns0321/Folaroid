@@ -1,26 +1,35 @@
-import React from "react";
-import Unity, {UnityContext} from "react-unity-webgl";
+import React, { useEffect } from 'react';
+import { Unity, useUnityContext } from 'react-unity-webgl';
 
+const Template4 = ({ template }) => {
+    const { unityProvider, sendMessage } = useUnityContext({
+        loaderUrl:
+            '/public_assets/unity_assets/template-movie-theater/Releases.loader.js',
+        dataUrl:
+            '/public_assets/unity_assets/template-movie-theater/Releases.data',
+        frameworkUrl:
+            '/public_assets/unity_assets/template-movie-theater/Releases.framework.js',
+        codeUrl:
+            '/public_assets/unity_assets/template-movie-theater/Releases.wasm',
+    });
 
-const unityContext = new UnityContext ({
-  loaderUrl: "Build/Releases.loader.js",
-  dataUrl: "Build/Releases.data",
-  frameworkUrl: "Build/Releases.framework.js",
-  codeUrl: "Build/Releases.wasm",
-})
+    useEffect(() => {
+        sendMessage('GameObject', 'getJson', JSON.stringify(template));
+    }, []);
 
-const Template4 = () => {
     return (
-        <div className="template4">
-            <Unity style={{
-                width: '100%',
-                height: '100%',
-                justifySelf: 'center',
-                alignSelf: 'center',
-            }}
-            unityContext={unityContext}></Unity>
-        </div>
+        <>
+            <Unity
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    justifySelf: 'center',
+                    alignSelf: 'center',
+                }}
+                unityProvider={unityProvider}
+            />
+        </>
     );
-}
+};
 
 export default Template4;

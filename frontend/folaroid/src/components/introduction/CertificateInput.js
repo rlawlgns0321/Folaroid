@@ -99,7 +99,6 @@ function Input(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(box);
         props.onCreate(box);
         setBox(initialState);
     };
@@ -257,7 +256,7 @@ function Read(props) {
     );
 }
 
-function View() {
+function View(props) {
     const certification = useSelector((state) => state.certification);
     const { pathname } = useLocation();
     const store = useStore();
@@ -269,7 +268,6 @@ function View() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('certification', introNo);
         dispatch(getCertification(introNo));
     }, [dispatch, introNo]);
 
@@ -306,7 +304,6 @@ function View() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ certification });
         content = (
             <IntroBox>
                 <CardHeader>자격증</CardHeader>

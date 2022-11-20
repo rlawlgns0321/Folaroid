@@ -28,7 +28,7 @@ export const sizes = {
 
 //구름 배경
 export function Scene(props) {
-    const map = useGLTF('models/map.glb');
+    const map = useGLTF('/models/map.glb');
     //const floor = useTexture('images/grid.jpg');
     return (
         <group>
@@ -85,7 +85,7 @@ export function Scene(props) {
     );
 }
 export function House1(props) {
-    const glb = useLoader(GLTFLoader, 'models/house1.glb');
+    const glb = useLoader(GLTFLoader, '/models/house1.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={5} />
@@ -94,7 +94,7 @@ export function House1(props) {
     );
 }
 export function House2(props) {
-    const glb = useLoader(GLTFLoader, 'models/house2.glb');
+    const glb = useLoader(GLTFLoader, '/models/house2.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={85} />
@@ -102,7 +102,7 @@ export function House2(props) {
     );
 }
 export function House3(props) {
-    const glb = useLoader(GLTFLoader, 'models/house3.glb');
+    const glb = useLoader(GLTFLoader, '/models/house3.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={12} />
@@ -110,7 +110,7 @@ export function House3(props) {
     );
 }
 export function House4(props) {
-    const glb = useLoader(GLTFLoader, 'models/house4.glb');
+    const glb = useLoader(GLTFLoader, '/models/house4.glb');
     return (
         <group {...props} dispose={null}>
             <primitive object={glb.scene} scale={40} />
@@ -127,7 +127,6 @@ function setSection(position, camera) {
         flag = 1;
         /*화면이동 */
         gsap.to(camera.position, {
-            rotation: 0,
             duration: 1,
             x: position[newSection][0],
             y: position[newSection][1] + 5,
@@ -198,7 +197,7 @@ const Template1 = () => {
     }, [open]);
 
     return (
-        <>
+        <div>
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -254,7 +253,7 @@ const Template1 = () => {
                     <House1 position={position[0]} />
                     <House2 position={position[1]} />
                     {/* 중간지점 */}
-                    <mesh position={position[2]}></mesh>
+                    <mesh position={position[2]} />
                     <House3 position={position[3]} />
                     <mesh position={position[4]} />
                     <House4 position={position[5]} />
@@ -309,7 +308,7 @@ const Template1 = () => {
                     </div>
                 </section>
             </div>
-        </>
+        </div>
     );
 };
 export default Template1;

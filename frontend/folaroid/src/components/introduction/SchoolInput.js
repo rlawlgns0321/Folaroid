@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     Table,
@@ -94,6 +93,10 @@ const initialState = {
 
 function SchoolInput(props) {
     const [school, setSchool] = useState(initialState);
+    const [value, setValue] = useState({
+        admission: null,
+        graduation: null,
+    });
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -102,8 +105,21 @@ function SchoolInput(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('create', school);
-        props.onCreate(school);
+        const date = {
+            admission: value.admission
+                ? dayjs(value.admission)
+                      .add(1, 'day')
+                      .toISOString()
+                      .substring(0, 10)
+                : null,
+            graduation: value.graduation
+                ? dayjs(value.graduation)
+                      .add(1, 'day')
+                      .toISOString()
+                      .substring(0, 10)
+                : null,
+        };
+        props.onCreate(school, date);
         setSchool(initialState);
     };
 
@@ -205,14 +221,11 @@ function SchoolInput(props) {
                                 <DatePicker
                                     views={['year', 'month']}
                                     inputFormat="YYYY년 MM월"
-                                    value={school.schoolAdmissionDate}
-                                    name="schoolAdmissionDate"
+                                    value={value.admission}
                                     onChange={(newValue) => {
-                                        setSchool({
-                                            ...school,
-                                            schoolAdmissionDate: dayjs(newValue)
-                                                .toISOString()
-                                                .substring(0, 10),
+                                        setValue({
+                                            ...value,
+                                            admission: newValue,
                                         });
                                     }}
                                     renderInput={(params) => (
@@ -230,16 +243,11 @@ function SchoolInput(props) {
                                 <DatePicker
                                     views={['year', 'month']}
                                     inputFormat="YYYY년 MM월"
-                                    value={school.schoolGraduationDate}
-                                    name="schoolGraduationDate"
+                                    value={value.graduation}
                                     onChange={(newValue) => {
-                                        setSchool({
-                                            ...school,
-                                            schoolGraduationDate: dayjs(
-                                                newValue
-                                            )
-                                                .toISOString()
-                                                .substring(0, 10),
+                                        setValue({
+                                            ...value,
+                                            graduation: newValue,
                                         });
                                     }}
                                     renderInput={(params) => (
@@ -279,8 +287,14 @@ function ReadSchool(props) {
             <TableCell align="center">{item.schoolName}</TableCell>
             <TableCell align="center">{item.schoolMajor}</TableCell>
             <TableCell align="center">{item.schoolDegree}</TableCell>
-            <TableCell align="center">{item.schoolAdmissionDate}</TableCell>
-            <TableCell align="center">{item.schoolGraduationDate}</TableCell>
+            <TableCell align="center">
+                {item.schoolAdmissionDate &&
+                    item.schoolAdmissionDate.substring(0, 7)}
+            </TableCell>
+            <TableCell align="center">
+                {item.schoolGraduationDate &&
+                    item.schoolGraduationDate.substring(0, 7)}
+            </TableCell>
             <TableCell align="center">
                 {item.schoolCredit}/{item.schoolMaxCredit}
             </TableCell>
@@ -329,7 +343,6 @@ function ViewName() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('스쿨', intro_no);
         dispatch(getSchool(intro_no));
     }, [dispatch, intro_no]);
 
@@ -349,19 +362,17 @@ function ViewName() {
             <IntroBox>
                 <CardHeader>학력</CardHeader>
                 <SchoolInput
-                    onCreate={(_school) => {
+                    onCreate={(school, date) => {
                         dispatch(
                             createSchool({
                                 introNo: intro_no,
-                                schoolName: _school.schoolName,
-                                schoolDegree: _school.schoolDegree,
-                                schoolMajor: _school.schoolMajor,
-                                schoolAdmissionDate:
-                                    _school.schoolAdmissionDate,
-                                schoolGraduationDate:
-                                    _school.schoolGraduationDate,
-                                schoolCredit: _school.schoolCredit,
-                                schoolMaxCredit: _school.schoolMaxCredit,
+                                schoolName: school.schoolName,
+                                schoolDegree: school.schoolDegree,
+                                schoolMajor: school.schoolMajor,
+                                schoolAdmissionDate: date.admission,
+                                schoolGraduationDate: date.graduation,
+                                schoolCredit: school.schoolCredit,
+                                schoolMaxCredit: school.schoolMaxCredit,
                             })
                         );
                         setMode('READ');
@@ -370,24 +381,21 @@ function ViewName() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ school });
         content = (
             <IntroBox>
                 <CardHeader>학력</CardHeader>
                 <SchoolInput
-                    onCreate={(_school) => {
+                    onCreate={(school, date) => {
                         dispatch(
                             createSchool({
                                 introNo: intro_no,
-                                schoolName: _school.schoolName,
-                                schoolDegree: _school.schoolDegree,
-                                schoolMajor: _school.schoolMajor,
-                                schoolAdmissionDate:
-                                    _school.schoolAdmissionDate,
-                                schoolGraduationDate:
-                                    _school.schoolGraduationDate,
-                                schoolCredit: _school.schoolCredit,
-                                schoolMaxCredit: _school.schoolMaxCredit,
+                                schoolName: school.schoolName,
+                                schoolDegree: school.schoolDegree,
+                                schoolMajor: school.schoolMajor,
+                                schoolAdmissionDate: date.admission,
+                                schoolGraduationDate: date.graduation,
+                                schoolCredit: school.schoolCredit,
+                                schoolMaxCredit: school.schoolMaxCredit,
                             })
                         );
                         setMode('READ');

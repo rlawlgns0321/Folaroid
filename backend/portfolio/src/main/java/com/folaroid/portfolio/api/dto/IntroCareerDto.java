@@ -32,19 +32,18 @@ public class IntroCareerDto {
         }
     }
 
-    @Getter
-    public static class introCareerResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroCareerDto{
         private Long introCareerNo;
-        private Long introNo;
         private String careerComName;
         private String careerJob;
         private String careerDate;
         private String careerResult;
         private String careerDetail;
 
-        public introCareerResponse(IntroCareer introCareer){
+        public AllIntroCareerDto(IntroCareer introCareer){
             this.introCareerNo = introCareer.getIntroCareerNo();
-            this.introNo = introCareer.getIntroNo();
             this.careerComName = introCareer.getCareerComName();
             this.careerJob = introCareer.getCareerJob();
             this.careerDate = introCareer.getCareerDate();

@@ -6,8 +6,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CreateIcon from '@mui/icons-material/Create';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-const Wrap = styled.div`
+const Wrap = styled(motion.div)`
     width: 80%;
     height: 80px;
     margin: auto;
@@ -36,21 +37,36 @@ const Title = styled.div`
     color: #248bea;
 `;
 
-const PortfolioItem = ({ pf, onDeleteClick }) => {
+const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+    },
+};
+
+const PortfolioItem = ({ pf, onDeleteClick, onGetClick }) => {
     const navigate = useNavigate();
 
     return (
-        <Wrap>
+        <Wrap
+            whileHover={{
+                scale: 1.04,
+                backgroundColor: '#4B4A4A',
+            }}
+            exit={{ scale: 0 }}
+            variants={item}
+        >
             <Info>
-                <Title>포트폴리오 이름</Title>
-                <div>{pf.updated_at}</div>
+                <Title>{pf.pfName}</Title>
+                <div>{pf.updated_at.substring(0, 10)}</div>
             </Info>
             <div>
                 <IconButton edge="end" size="large" sx={{ color: 'white' }}>
                     <VisibilityIcon fontSize="inherit" />
                 </IconButton>
                 <IconButton
-                    onClick={() => navigate(`/portfolio/${pf.pfNo}/intro`)}
+                    onClick={onGetClick}
                     edge="end"
                     size="large"
                     sx={{ color: 'white' }}
@@ -64,7 +80,7 @@ const PortfolioItem = ({ pf, onDeleteClick }) => {
                     edge="end"
                     size="large"
                     sx={{ color: 'white' }}
-                    onClick={() => onDeleteClick()}
+                    onClick={onDeleteClick}
                 >
                     <DeleteIcon fontSize="inherit" />
                 </IconButton>

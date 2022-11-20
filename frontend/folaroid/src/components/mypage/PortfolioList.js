@@ -1,6 +1,8 @@
-import React from 'react';
+import { AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PortfolioItemContainer from '../../containers/portfolio/PortfolioItemContainer';
+import AlertDialog from '../dialog/AlertDialog';
 
 const Wrap = styled.div`
     height: 100%;
@@ -38,10 +40,14 @@ const PortfolioList = ({ portfolioList, onCreateClick }) => {
                 포트폴리오 만들기
             </TitleBtn>
             <ContentsWrap>
-                {portfolioList &&
-                    portfolioList.map((pf, key) => {
-                        return <PortfolioItemContainer key={key} pf={pf} />;
-                    })}
+                <AnimatePresence>
+                    {portfolioList &&
+                        portfolioList.map((pf, key) => {
+                            return (
+                                <PortfolioItemContainer key={pf.pfNo} pf={pf} />
+                            );
+                        })}
+                </AnimatePresence>
             </ContentsWrap>
         </Wrap>
     );

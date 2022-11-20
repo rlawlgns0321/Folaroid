@@ -15,7 +15,7 @@ const ProjectListItem = ({ repo, onSelect }) => {
                 border-bottom: 1px solid #999999;
                 cursor: pointer;
                 width: 100%;
-                height: 50px;
+                max-width: 100%;
             `}
             onClick={() => onSelect()}
         >
@@ -23,7 +23,7 @@ const ProjectListItem = ({ repo, onSelect }) => {
                 sx={{ display: 'flex', direction: 'row', alignItems: 'center' }}
             >
                 <Grid sx={{ display: 'flex', flexDirection: 'column', mr: 3 }}>
-                    <Grid sx={{ fontSize: '1.2rem', color: '#248BEA' }}>
+                    <Grid sx={{ fontSize: '1.2rem', color: '#248BEA', minWidth:'20%' }}>
                         {repo.name}
                     </Grid>
                     <Grid sx={{ fontSize: '0.8rem' }}>{repo.updated_at}</Grid>

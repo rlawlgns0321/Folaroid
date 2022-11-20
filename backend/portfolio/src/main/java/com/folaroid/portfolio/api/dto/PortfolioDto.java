@@ -3,6 +3,7 @@ package com.folaroid.portfolio.api.dto;
 import com.folaroid.portfolio.db.entity.Portfolio;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PortfolioDto {
     @Data
@@ -15,8 +16,7 @@ public class PortfolioDto {
         private Integer pfPrivacy;
         private LocalDateTime updatedAt;
         private Long portfolioTemplatesNo;
-        //private PortfolioTemplates portfolioTemplates;
-        private String pfImageLocation;
+        private String pfName;
 
         public Portfolio toEntity(){
             Portfolio portfolio = Portfolio.builder()
@@ -24,9 +24,8 @@ public class PortfolioDto {
                     .userNo(userNo)
                     .pfPrivacy(pfPrivacy)
                     .updatedAt(updatedAt)
-                    //.portfolioTemplates(portfolioTemplates)
                     .portfolioTemplatesNo(portfolioTemplatesNo)
-//                    .pfImageLocation(pfImageLocation)
+                    .pfName(pfName)
                     .build();
             return portfolio;
         }
@@ -47,9 +46,7 @@ public class PortfolioDto {
             this.userNo = portfolio.getUserNo();
             this.pfPrivacy = portfolio.getPfPrivacy();
             this.updatedAt = portfolio.getUpdatedAt();
-            //this.portfolioTemplates = portfolio.getPortfolioTemplates();
             this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
-//            this.pfImageLocation = portfolio.getPfImageLocation();
         }
     }
     @Getter
@@ -57,22 +54,51 @@ public class PortfolioDto {
     public static class PortfolioSimpleDto {
         private Long pfNo;
         private LocalDateTime updated_at;
+        private String pfName;
 
         public PortfolioSimpleDto(Portfolio portfolio) {
             this.pfNo = portfolio.getPfNo();
             this.updated_at = portfolio.getUpdatedAt();
+            this.pfName = portfolio.getPfName();
         }
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class PortfolioDetailDto {
+        private Long pfNo;
+        private Long portfolioTemplatesNo;
+        private String pfName;
+        private Long userNo;
+
+        private Long introNo;
+
+        public PortfolioDetailDto(Portfolio portfolio, Long introNo) {
+            this.pfNo = portfolio.getPfNo();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
+            this.pfName = portfolio.getPfName();
+            this.userNo = portfolio.getUserNo();
+            this.introNo = introNo;
+        }
+    }
+
+
 
     @Getter
     @AllArgsConstructor
     public static class SavePortfolioDto {
         private Long pfNo;
         private Long introNo;
+        private String pfName;
+        private Long portfolioTemplatesNo;
+        private Long userNo;
 
         public SavePortfolioDto(Portfolio portfolio, Long introNo) {
             this.pfNo = portfolio.getPfNo();
             this.introNo = introNo;
+            this.pfName = portfolio.getPfName();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
+            this.userNo = portfolio.getUserNo();
         }
     }
     @Getter
@@ -80,6 +106,25 @@ public class PortfolioDto {
     public static class DuplicatePortfolioDto {
         private Long pfNo;
 
+    }
+
+
+    @Getter
+    @AllArgsConstructor
+    public static class TotalPortfolioDto {
+        private LocalDateTime updatedAt;
+        private Long portfolioTemplatesNo;
+        private String pfName;
+        private List<ProjectDto.AllProjectDto> projects;
+        private IntroDto.AllIntroDto intro;
+
+        public TotalPortfolioDto(Portfolio portfolio, List<ProjectDto.AllProjectDto> projects, IntroDto.AllIntroDto introDto) { //, IntroDto.AllIntroDto introDto
+            this.updatedAt = portfolio.getUpdatedAt();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
+            this.pfName = portfolio.getPfName();
+            this.projects = projects;
+            this.intro = introDto;
+        }
     }
 
 }

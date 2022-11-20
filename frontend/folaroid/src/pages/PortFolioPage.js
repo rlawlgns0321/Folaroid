@@ -11,6 +11,9 @@ import HeaderContainer from '../containers/header/HeaderContainer';
 import styled from '@emotion/styled';
 import Template1 from './Template1';
 import TestPage from './TestPage';
+import TemplateBody from '../components/template/TemplateBody';
+import ContentsContainer from '../containers/common/ContentsContainer';
+import { motion } from 'framer-motion';
 
 const BodyWrap = styled.div`
     width: 100vw;
@@ -21,7 +24,7 @@ const BodyWrap = styled.div`
     align-items: center;
 `;
 
-const ContentsWrap = styled.div`
+const ContentsWrap = styled(motion.div)`
     display: flex;
     width: 90vw;
     height: 90vh;
@@ -37,18 +40,25 @@ const LeftBarWrap = styled.div`
     border-radius: 10px 0 0 10px;
 `;
 
-const RightBarWrap = styled.div`
+const RightBarWrap = styled(motion.div)`
     width: 80%;
     border-radius: 0 10px 10px 0;
     backdrop-filter: blur(10px);
 `;
+
 
 const PortFolioPage = () => {
     return (
         <TestPage>
             <HeaderContainer />
             <BodyWrap>
-                <ContentsWrap>
+                <ContentsWrap
+                    initial={{ opacity: 0.5, scale: 0.8 }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1,
+                    }}
+                >
                     <LeftBarWrap>
                         <SideBar isPortfolio>
                             <Routes>
@@ -62,14 +72,14 @@ const PortFolioPage = () => {
                                 />
                                 <Route path="intro" element={<IntroSide />} />
                             </Routes>
-                        </SideBar> 
+                        </SideBar>
                     </LeftBarWrap>
                     <RightBarWrap>
-                        <Contents title="프로젝트">
+                        <ContentsContainer>
                             <Routes>
                                 <Route
-                                path="intro"
-                                element={<PortfolioIntro />}
+                                    path="intro"
+                                    element={<PortfolioIntro />}
                                 />
                                 <Route
                                     path="project"
@@ -77,10 +87,10 @@ const PortFolioPage = () => {
                                 />
                                 <Route
                                     path="template"
-                                    element={<Template1 />}
+                                    element={<TemplateBody />}
                                 />
                             </Routes>
-                        </Contents>
+                        </ContentsContainer>
                     </RightBarWrap>
                 </ContentsWrap>
             </BodyWrap>

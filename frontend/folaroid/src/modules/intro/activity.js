@@ -11,15 +11,15 @@ export const getActivity = createAsyncThunk(
 
 export const createActivity = createAsyncThunk(
     'activity/createActivity',
-    async (data) => {
-        const response = await api.createActivity(data);
+    async ({introNo, activityDate, activityDetail, activityName, activityUrl}) => {
+        const response = await api.createActivity({introNo, activityDate, activityDetail, activityName, activityUrl});
         console.log(response);
         return {
             introActivityNo: response.data,
-            activityDate: data.activityDate,
-            activityDetail: data.activityDetail,
-            activityName: data.activityName,
-            activityUrl: data.activityUrl,
+            activityDate: activityDate,
+            activityDetail: activityDetail,
+            activityName: activityName,
+            activityUrl: activityUrl,
         };
     }
 );

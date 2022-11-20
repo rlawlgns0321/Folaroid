@@ -81,8 +81,10 @@ export const portfolioProject = createSlice({
     initialState: {
         projects: [],
         isProject: false,
+        isProjects: false,
         project: initProject,
         isSave: false,
+        isJson: false,
     },
     reducers: {
         changeInput: (state, action) => {
@@ -95,16 +97,25 @@ export const portfolioProject = createSlice({
         clearProject: (state, action) => {
             state.project = initProject;
             state.isProject = false;
+            state.isProjects = false;
             state.isSave = false;
+            state.isJson = false;
+        },
+        clearProjects: (state, action) => {
+            state.isProjects = false;
         },
         setProjectJson: (state, action) => {
             state.project.pjtJson = JSON.stringify(action.payload);
-            state.isSave = true;
+            state.isJson = true;
         },
     },
     extraReducers: {
+        [getProjectsThunk.pending.type]: (state) => {
+            state.isProjects = false;
+        },
         [getProjectsThunk.fulfilled.type]: (state, action) => {
             state.projects = action.payload;
+            state.isProjects = true;
         },
         [getProjectThunk.fulfilled.type]: (state, action) => {
             state.project = action.payload;
@@ -121,6 +132,12 @@ export const portfolioProject = createSlice({
         [createProjectThunk.fulfilled.type]: (state, { payload }) => {
             state.project = payload;
             state.isProject = true;
+        },
+        [saveProjectThunk.pending.type]: (state) => {
+            state.isSave = false;
+        },
+        [saveProjectThunk.fulfilled.type]: (state) => {
+            state.isSave = true;
         },
     },
 });

@@ -100,7 +100,6 @@ function Input(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(box);
         props.onCreate(box);
         setBox(initialState);
     };
@@ -275,7 +274,6 @@ function View() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('career', introNo);
         dispatch(getCareer(introNo));
     }, [dispatch, introNo]);
 
@@ -312,7 +310,6 @@ function View() {
             </IntroBox>
         );
     } else if (mode === 'READ') {
-        console.log({ career });
         content = (
             <IntroBox>
                 <CardHeader>경력사항</CardHeader>

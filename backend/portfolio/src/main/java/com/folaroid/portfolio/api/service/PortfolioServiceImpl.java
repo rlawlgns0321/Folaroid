@@ -1,6 +1,6 @@
 package com.folaroid.portfolio.api.service;
 
-import com.folaroid.portfolio.api.dto.PortfolioDto;
+import com.folaroid.portfolio.api.dto.*;
 import com.folaroid.portfolio.db.entity.*;
 import com.folaroid.portfolio.db.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @Service("portfolioService")
@@ -33,11 +35,72 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final PjtImageRepository pjtImageRepository;
     private final FileService fileService;
     private final UserRepository userRepository;
+    private final HashTagRepository hashTagRepository;
+
+
+    @Transactional
+    @Override
+    public PortfolioDto.TotalPortfolioDto getTotalPortfolio(Long userNo, Long portfolioNo) {
+
+        Portfolio portfolio =  portfolioRepository.findById(portfolioNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
+        List<Project> projects = projectRepository.findAllByPortfolio(portfolio);
+        List<ProjectDto.AllProjectDto> allProjectDto = projects.stream().map(project -> {
+            Long pjtNo = project.getPjtNo();
+            List<PjtImageDto.PjtImageResponse> pjtImageDtos = pjtImageRepository.findAllByPjtNo(pjtNo).stream().map(pjtImage -> new PjtImageDto.PjtImageResponse(pjtImage)).collect(toList());
+            return new ProjectDto.AllProjectDto(project, pjtImageDtos);
+        }).collect(toList());;
+        Intro intro = introRepository.findByPfNoAndUserNo(portfolioNo, userNo);
+        Long introNo = intro.getIntroNo();
+        IntroImageDto.AllIntroImageDto introImage = new IntroImageDto.AllIntroImageDto(introImageRepository.findByIntroNo(introNo));
+        IntroPersonalDataDto.Response introPersonalData = new IntroPersonalDataDto.Response(introPersonalDataRepository.findByIntroNo(introNo));
+
+        List<IntroStackDto.AllIntroStackDto> introStacks = introStackRepository.findAllByIntroNo(introNo).stream()
+                        .map(introStack -> new IntroStackDto.AllIntroStackDto(introStack, hashTagRepository.findById(introStack.getHashNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 hashNo 입니다.")))).collect(Collectors.toList());
+
+        List<IntroLanguageDto.AllIntroLanguageDto> introLanguages = introLanguageRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroLanguageDto.AllIntroLanguageDto::new).collect(Collectors.toList());
+
+        List<IntroArchivingDto.AllIntroArchivingDto> introArchivings = introArchivingRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroArchivingDto.AllIntroArchivingDto::new).collect(Collectors.toList());
+
+        List<IntroCertificationDto.AllIntroCertificationDto> introCertifications = introCertificationRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroCertificationDto.AllIntroCertificationDto::new).collect(Collectors.toList());
+
+        List<IntroAwardsDto.AllIntroAwardsDto> introAwards = introAwardsRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroAwardsDto.AllIntroAwardsDto::new).collect(Collectors.toList());
+
+
+        List<IntroActivityDto.AllIntroActivityDto> introActivities = introActivityRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroActivityDto.AllIntroActivityDto::new).collect(Collectors.toList());
+
+        List<IntroCareerDto.AllIntroCareerDto> introCareers = introCareerRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroCareerDto.AllIntroCareerDto::new).collect(Collectors.toList());
+
+        List<IntroSchoolDto.AllIntroSchoolDto> introSchools = introSchoolRepository.findAllByIntroNo(introNo).stream()
+                .map(IntroSchoolDto.AllIntroSchoolDto::new).collect(Collectors.toList());
+
+
+        IntroSloganDto.AllIntroSloganDto introSlogan = new IntroSloganDto.AllIntroSloganDto(introSloganRepository.findByIntroNo(introNo));
+
+        IntroDto.AllIntroDto allIntroDto = new IntroDto.AllIntroDto(intro, introImage, introPersonalData, introStacks, introLanguages, introArchivings, introCertifications, introAwards, introActivities, introCareers, introSchools, introSlogan);
+
+        return new PortfolioDto.TotalPortfolioDto(portfolio, allProjectDto, allIntroDto); //, allIntroDto
+    }
+
+
+    @Transactional
+    @Override
+    public PortfolioDto.PortfolioDetailDto getPortfolioDetail(Long pfNo) {
+        Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() -> new IllegalAccessError("유효하지 않은 pfNo 입니다."));
+        Long introNo = introRepository.findIntroNoByPfNoAndUserNo(pfNo, portfolio.getUserNo());
+        return new PortfolioDto.PortfolioDetailDto(portfolio, introNo);
+    }
 
     @Transactional
     @Override
     public PortfolioDto.SavePortfolioDto createPortfolio(PortfolioDto.portfolioRequest request) {
         Portfolio portfolio = portfolioRepository.save(request.toEntity());
+        portfolio.updatePortfolioTemplate(1L);
 
         List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(request.getUserNo());
         User user = userRepository.findById(request.getUserNo()).orElseThrow(() -> new IllegalAccessError("유효하지 않은 userNo 입니다."));
@@ -49,13 +112,14 @@ public class PortfolioServiceImpl implements PortfolioService {
             res.add(eachPortfolio.getPfName());
         }
         Integer i = 1;
-        String pfName = githubId + "의 포트폴리오";
+        String defaultPfName = githubId + "의 포트폴리오";
+        String pfName = defaultPfName;
         // while 문을 활용해서
         while (true) {
             if (!res.contains(pfName)) {
                 break;
             } else {
-                pfName = portfolio.getPfName() + " (" + i + ")";
+                pfName = defaultPfName + " (" + i + ")";
                 i += 1;
             }
         }
@@ -81,7 +145,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
         IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(userInfoIntroNo);
         IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(portfolioIntroNo);
-        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone(), userInfoPersonalData.getPersonalDataEmail());
         introPersonalDataRepository.save(portfolioInfoPersonalData);
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N
@@ -176,10 +240,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Transactional
     @Override
-    public void patchPortfolioTemplate(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest) {
+    public void patchPortfolio(Long pfNo, PortfolioDto.portfolioRequest portfolioRequest) {
         Portfolio portfolio = portfolioRepository.findById(pfNo).orElseThrow(() ->
                 new IllegalArgumentException("해당하는 포트폴리오 프로젝트가 존재하지 않습니다."));
-        portfolio.updatePortfolioTemplate(portfolioRequest.getPortfolioTemplatesNo());
+        portfolio.updatePortfolio(portfolioRequest.getUserNo(), portfolioRequest.getPfPrivacy(), portfolioRequest.getUpdatedAt(), portfolioRequest.getPortfolioTemplatesNo(), portfolioRequest.getPfName());
     }
 
     @Override
@@ -188,7 +252,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         List<Portfolio> portfolios = portfolioRepository.findAllByUserNo(userNo);
         List<PortfolioDto.PortfolioSimpleDto> result = portfolios.stream()
                 .map(i -> new PortfolioDto.PortfolioSimpleDto(i))
-                .collect(Collectors.toList());
+                .collect(toList());
         return result;
     }
 
@@ -266,7 +330,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         //포트폴리오 자기소개 개인정보 테이블 저장 1:1
         IntroPersonalData userInfoPersonalData = introPersonalDataRepository.findByIntroNo(portfolioIntroNo);
         IntroPersonalData portfolioInfoPersonalData = new IntroPersonalData(duplicatedPortfolioIntroNo);
-        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone());
+        portfolioInfoPersonalData.updateIntroPersonalData(userInfoPersonalData.getPersonalDataName(), userInfoPersonalData.getPersonalDataBirth(), userInfoPersonalData.getPersonalDataPhone(),userInfoPersonalData.getPersonalDataEmail());
         introPersonalDataRepository.save(portfolioInfoPersonalData);
 
         //포트폴리오 자기소개 기술스택 테이블 저장 1:N

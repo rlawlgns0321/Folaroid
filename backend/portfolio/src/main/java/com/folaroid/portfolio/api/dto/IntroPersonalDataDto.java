@@ -1,6 +1,5 @@
 package com.folaroid.portfolio.api.dto;
 
-import com.folaroid.portfolio.db.entity.Intro;
 import com.folaroid.portfolio.db.entity.IntroPersonalData;
 import lombok.*;
 
@@ -23,27 +22,28 @@ public class IntroPersonalDataDto {
                     .personalDataName(personalDataName)
                     .personalDataBirth(personaDataBirth)
                     .personalDataPhone(personalDataPhone)
+                    .personalDataEmail(personalDataEmail)
                     //.intro(intro)
                     .build();
             return introPersonalData;
         }
     }
 
-    @Getter
+    @Data
+    @AllArgsConstructor
     public static class Response{
         private Long introPersonalDataNo;
         private String personalDataName;
         private java.sql.Date personaDataBirth;
         private String personalDataEmail;
         private String personalDataPhone;
-        //private Intro intro;
 
         public Response(IntroPersonalData introPersonalData){
             this.introPersonalDataNo = introPersonalData.getIntroPersonalDataNo();
             this.personalDataName = introPersonalData.getPersonalDataName();
             this.personaDataBirth = introPersonalData.getPersonalDataBirth();
             this.personalDataPhone = introPersonalData.getPersonalDataPhone();
-            //this.intro = introPersonalData.getIntro();
+            this.personalDataEmail = introPersonalData.getPersonalDataEmail();
         }
 
     }

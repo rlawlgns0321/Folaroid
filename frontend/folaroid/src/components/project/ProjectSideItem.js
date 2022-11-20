@@ -1,17 +1,19 @@
 import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid, IconButton, Skeleton } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AlertDialog from '../dialog/AlertDialog';
+import { motion } from 'framer-motion';
 
-const ItemBox = styled.div`
-    height: 130px;
+const ItemBox = styled(motion.div)`
     width: 95%;
     display: flex;
     margin: auto;
     flex-direction: column;
     margin-top: 10px;
     border-bottom: 1px solid #c8c8c8;
+    padding-bottom: 20px;
 `;
 
 const Header = styled.div`
@@ -27,13 +29,42 @@ const DeleteBtn = styled.div`
     border-radius: 50%;
     margin-right: 10px;
 `;
+
+const Img = styled.img`
+    width: 60px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-right: 10px;
+`;
+
 const ProjectSideItem = ({ project, onDeleteProject }) => {
-    const onDeleteClick = () => {
-        onDeleteProject(project.id);
+    const [open, setOpen] = useState();
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const onDeleteClick = (e) => {
+        e.stopPropagation();
+        setOpen(true);
+    };
+
+    const handleOn = () => {
+        onDeleteProject(project.pjtNo);
+    };
+
+    const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+        },
     };
 
     return (
-        <ItemBox>
+        <ItemBox variants={item} exit={{scale: 0}}>
             <Grid
                 container
                 direction="row"
@@ -42,27 +73,25 @@ const ProjectSideItem = ({ project, onDeleteProject }) => {
             >
                 <Header>
                     <div>
-                        <Skeleton
-                            variant="rectangular"
-                            width={60}
-                            height={60}
-                            sx={{ mr: 1, marginY: 'auto' }}
-                        />
+                        <Img src={project.pjtOneImageLocation} />
                     </div>
                     <div
                         className={css`
                             font-weight: bold;
                             font-size: 1.3rem;
                             color: #248bea;
+                            width: 10vw;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         `}
                     >
-                        {/* {project.name} */}
-                        프로젝트이름
+                        {project.pjtTitle}
                     </div>
                 </Header>
-                <DeleteBtn onClick={onDeleteClick}/>
+                <DeleteBtn onClick={onDeleteClick} />
             </Grid>
-            <Grid sx={{ my: 1, color: 'white' }}>프로젝트 설명</Grid>
+            <Grid sx={{ my: 1, color: 'white' }}>{project.pjtSubtitle}</Grid>
             <Grid>
                 <div
                     className={css`
@@ -70,10 +99,17 @@ const ProjectSideItem = ({ project, onDeleteProject }) => {
                         color: #838282;
                     `}
                 >
-                    {/* 마지막 업데이트 {project.lastUpdate} */}
-                    마지막 업데이트
+                    {project.pjtGithubUrl}
                 </div>
             </Grid>
+
+            <AlertDialog
+                open={open}
+                handleClose={handleClose}
+                handleOn={handleOn}
+                title="프로젝트 삭제"
+                content={`${project.pjtTitle} 프로젝트를 삭제합니다.`}
+            />
         </ItemBox>
     );
 };

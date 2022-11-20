@@ -1,18 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import AlertDialog from '../../components/dialog/AlertDialog';
 import ProjectBody from '../../components/project/ProjectBody';
 import {
     deleteProjectThunk,
     getProjectsThunk,
+    portfolioProject,
 } from '../../modules/portfolioProject';
 
 const ProjectBodyContainer = () => {
-    const { projects } = useSelector((state) => state.portfolioProject);
+    const { projects, isProjects } = useSelector(
+        (state) => state.portfolioProject
+    );
     const dispatch = useDispatch();
-    const {pfNo} = useParams();
+    const { pfNo } = useParams();
+
     const onDeleteProject = (id) => {
         dispatch(deleteProjectThunk(id));
+        return () => {
+            dispatch(portfolioProject.actions.clearProjects());
+        };
     };
 
     useEffect(() => {
@@ -20,12 +28,13 @@ const ProjectBodyContainer = () => {
     }, [dispatch, pfNo]);
 
     return (
-        <div>
+        <>
             <ProjectBody
                 projects={projects}
                 onDeleteProject={onDeleteProject}
+                isProjects={isProjects}
             />
-        </div>
+        </>
     );
 };
 

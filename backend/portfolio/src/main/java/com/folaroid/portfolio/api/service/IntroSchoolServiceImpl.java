@@ -26,9 +26,6 @@ public class IntroSchoolServiceImpl implements IntroSchoolService{
     @Transactional
     @Override
     public void deleteIntroSchool(Long introSchoolNo) {
-//        IntroSchool introSchool = introSchoolRepository.findById(introSchoolNo).orElseThrow(()->
-//                new IllegalArgumentException("해당하는 학력이 없습니다."));
-
         introSchoolRepository.deleteById(introSchoolNo);
     }
 

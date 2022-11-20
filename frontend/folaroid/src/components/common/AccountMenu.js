@@ -41,7 +41,7 @@ const AccountMenu = ({ onLogout }) => {
             >
                 <Avatar
                     src={image.imageLocation}
-                    sx={{ width: 50, height: 50 }}
+                    sx={{ width: 36, height: 36 }}
                 ></Avatar>
             </IconButton>
             <Menu
@@ -78,12 +78,12 @@ const AccountMenu = ({ onLogout }) => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={() => navigate('/mypage')}>
+                {/* <MenuItem onClick={() => navigate('/mypage')}>
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
                     My Page
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={() => onLogout()}>
                     <ListItemIcon>
                         <Logout fontSize="small" />

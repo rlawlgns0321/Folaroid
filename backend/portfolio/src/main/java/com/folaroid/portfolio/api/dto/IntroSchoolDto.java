@@ -37,10 +37,10 @@ public class IntroSchoolDto {
 
     }
 
-    @Getter
-    public static class introSchoolResponse{
+    @Data
+    @AllArgsConstructor
+    public static class AllIntroSchoolDto{
         private Long introSchoolNo;
-        private Long introNo;
         private String schoolName;
         private String schoolMajor;
         private String schoolDegree;
@@ -49,9 +49,8 @@ public class IntroSchoolDto {
         private Float schoolCredit;
         private Float schoolMaxCredit;
 
-        public introSchoolResponse(IntroSchool introSchool){
+        public AllIntroSchoolDto(IntroSchool introSchool){
             this.introSchoolNo = introSchool.getIntroSchoolNo();
-            this.introNo = introSchool.getIntroNo();
             this.schoolName = introSchool.getSchoolName();
             this.schoolMajor = introSchool.getSchoolMajor();
             this.schoolDegree = introSchool.getSchoolDegree();

@@ -112,8 +112,8 @@ const deleteSchool = (intro_school_no) => {
     return api.delete(`/intro-school/${intro_school_no}`);
 };
 
-const getStack = (intro_no) => {
-    return api.get(`/intro-stack/${intro_no}`);
+const getStack = (introNo) => {
+    return api.get(`/intro-stack/${introNo}`);
 };
 
 const createStack = (data) => {
@@ -131,6 +131,10 @@ const getHash = () => {
 const getImage = (intro_no) => {
     return api.get(`intro-image/${intro_no}`);
 };
+
+const findByPfNo = (pfNo) => {
+    return api.get(`portfolio/intro/${pfNo}`);
+}
 
 const box = () => {
     return axios.create({
@@ -183,4 +187,5 @@ export {
     getHash,
     getImage,
     updateImage,
+    findByPfNo
 };
