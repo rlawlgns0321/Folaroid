@@ -2,14 +2,24 @@ import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import React from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-const TabBtn = styled(Link)`
+const TabBtn = styled.button`
     font-size: 1rem;
     font-weight: bold;
-    color: ${(props) => (props.$active ? '#248BEA' : '#c8c8c8')};
+    color: ${(props) => (props.active ? '#248BEA' : '#c8c8c8')};
     border: 0;
-    text-decoration: none;
+    background: inherit;
+    cursor: pointer;
+    &:focus,
+    &:hover,
+    &:visited,
+    &:link,
+    &:active {
+        text-decoration: none;
+        border: 0;
+        outline: none;
+    }
 `;
 
 const SideTab = styled.div`
@@ -22,8 +32,8 @@ const SideTab = styled.div`
 
 const SideBar = ({ children, isPortfolio }) => {
     const { pathname } = useLocation();
-    const {pfNo} = useParams();
-    
+    const { pfNo } = useParams();
+    const navigate = useNavigate();
     return (
         <Grid
             container
@@ -47,23 +57,24 @@ const SideBar = ({ children, isPortfolio }) => {
                     <SideTab>
                         <TabBtn
                             to={`/portfolio/${pfNo}/intro`}
-                            $active={pathname === `/portfolio/${pfNo}/intro`}
+                            active={pathname === `/portfolio/${pfNo}/intro`}
+                            onClick={() => {navigate(`/portfolio/${pfNo}/intro`)}}
                         >
                             자기소개
                         </TabBtn>
                     </SideTab>
                     <SideTab>
                         <TabBtn
-                            to={`/portfolio/${pfNo}/project`}
-                            $active={pathname === `/portfolio/${pfNo}/project`}
+                            active={pathname === `/portfolio/${pfNo}/project`}
+                            onClick={() => {navigate(`/portfolio/${pfNo}/project`)}}
                         >
                             프로젝트
                         </TabBtn>
                     </SideTab>
                     <SideTab>
                         <TabBtn
-                            to={`/portfolio/${pfNo}/template`}
-                            $active={pathname === `/portfolio/${pfNo}/template`}
+                            active={pathname === `/portfolio/${pfNo}/template`}
+                            onClick={() => {navigate(`/portfolio/${pfNo}/template`)}}
                         >
                             템플릿
                         </TabBtn>

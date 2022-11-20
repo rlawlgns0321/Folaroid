@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
     Button,
-    Card,
     CardContent,
     TextField,
     Table,
@@ -10,7 +9,6 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Paper,
     InputLabel,
 } from '@mui/material';
 import {
@@ -21,6 +19,7 @@ import {
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroTextField = styled(TextField)`
     .MuiOutlinedInput-root {
@@ -84,174 +83,212 @@ const initialState = {
     archivingName: '',
 };
 
-function ArchivingInput(props) {
+export function ArchivingInput() {
     const [archiving, setArchiving] = useState(initialState);
+    const { pathname } = useLocation();
+    const store = useStore();
+    const dispatch = useDispatch();
+
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+
+    useEffect(() => {
+        dispatch(getArchiving(intro_no));
+    }, [dispatch, intro_no]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setArchiving({ ...archiving, [name]: value });
     };
 
+    const onDeleteClick = () => {
+        dispatch(introSelector.actions.outBoard('archiving'));
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(archiving);
+        dispatch(
+            createArchiving({
+                introNo: intro_no,
+                archivingName: archiving.archivingName,
+                archivingLink: archiving.archivingLink,
+            })
+        );
         setArchiving(initialState);
     };
 
     return (
-        <IntroCardContent>
-            <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <div style={{ width: '100%', margin: '20px' }}>
-                        <IntroInputLabel>링크명</IntroInputLabel>
-                        <IntroTextField
-                            placeholder="블로그"
-                            size="medium"
-                            InputLabelProps={{
-                                shrink: true,
+        <IntroBox>
+            <CardHeader>
+                <div>링크</div>
+                <DeleteBtn onClick={() => onDeleteClick()}></DeleteBtn>
+            </CardHeader>
+            <IntroCardContent>
+                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>링크명</IntroInputLabel>
+                            <IntroTextField
+                                placeholder="블로그"
+                                size="medium"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                value={archiving.archivingName}
+                                style={{ width: '90%' }}
+                                name="archivingName"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div style={{ width: '100%', margin: '20px' }}>
+                            <IntroInputLabel>링크주소</IntroInputLabel>
+                            <IntroTextField
+                                placeholder="https://"
+                                size="medium"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                style={{ width: '90%' }}
+                                name="archivingLink"
+                                onChange={handleInputChange}
+                                value={archiving.archivingLink}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                margin: '20px',
+                                justifyContent: 'end',
                             }}
-                            value={archiving.archivingName}
-                            style={{ width: '90%' }}
-                            name="archivingName"
-                            onChange={handleInputChange}
-                        />
+                        >
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="neutral"
+                                style={{ fontWeight: 'bolder' }}
+                            >
+                                제출
+                            </Button>
+                        </div>
                     </div>
-                    <div style={{ width: '100%', margin: '20px' }}>
-                        <IntroInputLabel>링크주소</IntroInputLabel>
-                        <IntroTextField
-                            placeholder="https://"
-                            size="medium"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            style={{ width: '90%' }}
-                            name="archivingLink"
-                            onChange={handleInputChange}
-                            value={archiving.archivingLink}
-                        />
-                    </div>
-                    <Button type="submit" variant="contained">
-                        제출
-                    </Button>
-                </div>
-            </form>
-        </IntroCardContent>
+                </form>
+            </IntroCardContent>
+        </IntroBox>
     );
 }
 
-function ReadSchool(props) {
+export function ReadArchiving() {
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const store = useStore();
+    const archiving = useSelector((state) => state.archiving);
+    const [mode, setMode] = useState('OFF');
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
 
     const onDeleteClick = (introArchivingNo) => {
         dispatch(deleteArchiving(introArchivingNo));
     };
 
-    const rowItems = props.archiving.map((item) => (
-        <TableRow key={item.introArchivingNo}>
-            <TableCell align="center">{item.archivingName}</TableCell>
-            <TableCell align="center">{item.archivingLink}</TableCell>
-            <TableCell
-                style={{ display: 'flex', justifyContent: 'center' }}
-                algin="center"
-            >
-                <Button onClick={() => onDeleteClick(item.introArchivingNo)}>
-                    삭제
-                </Button>
-            </TableCell>
-        </TableRow>
-    ));
-
-    return (
-        <IntroCardContent>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">링크명</TableCell>
-                            <TableCell align="center">링크 주소</TableCell>
-                            <TableCell align="center"></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>{rowItems}</TableBody>
-                </Table>
-            </TableContainer>
-        </IntroCardContent>
-    );
-}
-
-function ViewName() {
-    const archiving = useSelector((state) => state.archiving);
-    const { pathname } = useLocation();
-    const store = useStore();
-    const intro_no =
-        pathname === '/intro'
-            ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
-    const [mode, setMode] = useState('CREATE');
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getArchiving(intro_no));
-    }, [dispatch, intro_no]);
-
-    if (archiving.length !== 0 && mode === 'CREATE') {
-        setMode('READ');
+    if (archiving.length !== 0 && mode === 'OFF') {
+        setMode('ON');
     } else if (
         Array.isArray(archiving) &&
         archiving.length === 0 &&
-        mode === 'READ'
+        mode === 'ON'
     ) {
-        setMode('CREATE');
+        setMode('OFF');
     }
+    console.log(mode);
 
     let content = null;
-    if (mode === 'CREATE') {
+    if (mode === 'ON') {
         content = (
             <IntroBox>
                 <CardHeader>링크</CardHeader>
-                <ArchivingInput
-                    onCreate={(_archiving) => {
-                        dispatch(
-                            createArchiving({
-                                introNo: intro_no,
-                                archivingName: _archiving.archivingName,
-                                archivingLink: _archiving.archivingLink,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></ArchivingInput>
-            </IntroBox>
-        );
-    } else if (mode === 'READ') {
-        content = (
-            <IntroBox>
-                <CardHeader>링크</CardHeader>
-                <ArchivingInput
-                    onCreate={(_archiving) => {
-                        dispatch(
-                            createArchiving({
-                                introNo: intro_no,
-                                archivingName: _archiving.archivingName,
-                                archivingLink: _archiving.archivingLink,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></ArchivingInput>
-                <ReadSchool archiving={archiving}></ReadSchool>
+                <IntroCardContent>
+                    <TableContainer>
+                        <Table
+                            style={{
+                                backgroundColor: ' rgba(44, 43, 43, 1)',
+                            }}
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        링크명
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        링크 주소
+                                    </TableCell>
+                                    <TableCell align="center"></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {archiving.map((item) => (
+                                    <TableRow key={item.introArchivingNo}>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.archivingName}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.archivingLink}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                            }}
+                                            algin="center"
+                                        >
+                                            <Button
+                                                size="small"
+                                                style={{
+                                                    color: 'white',
+                                                }}
+                                                onClick={() =>
+                                                    onDeleteClick(
+                                                        item.introArchivingNo
+                                                    )
+                                                }
+                                            >
+                                                삭제
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </IntroCardContent>
+                ;
             </IntroBox>
         );
     }
-
     return content;
 }
 
-export default ViewName;
+export default ArchivingInput;

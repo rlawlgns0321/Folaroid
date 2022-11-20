@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import BasicModal from '../introTemplate1';
+import ProjectDialog from '../../dialog/ProjectDialog';
 
 const H1 = styled.h1`
     margin: 0;
@@ -19,6 +21,7 @@ const Face = styled.article`
     position: absolute;
     top: 0px;
     left: 0px;
+    transform: ${(props) => `rotateY(${props.deg}deg) translateZ(-764px)`};
     backface-visibility: hidden;
     &:hover {
         ${H1} {
@@ -68,23 +71,89 @@ const P = styled.p`
     color: #ccc;
 `;
 
-const SpaceItem = ({className, onMouseEnter, onMouseLeave}) => {
-    return (
-        <Face className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <H1>What's New</H1>
-            <Inner>
-                <InnerDiv>
-                    <h2>News n Articles</h2>
-                    <Img src="/images/pattern.jpg" />
-                    <H3>What is Lorem Ipsum</H3>
-                    <P>
-                        Lorem Ipsum is simply dumy text of the printing and
-                        typesetting indus-try
-                    </P>
-                </InnerDiv>
-            </Inner>
-        </Face>
-    );
+const SpaceItem = ({ onMouseEnter, onMouseLeave, project, deg }) => {
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('');
+    const [openPjt, setOpenPjt] = useState(false);
+
+    const handleClick = () => {
+        if (!project.intro) setOpenPjt(true);
+    };
+
+    const handleClose = () => {
+        setOpenPjt(false);
+    };
+    const handleOpen = () => {
+        setOpen(true);
+        setScroll();
+    };
+    const onClose = () => setOpen(false);
+    const descriptionElementRef = useRef(null);
+
+    useEffect(() => {
+        if (open) {
+            const { current: descriptionElement } = descriptionElementRef;
+            if (descriptionElement !== null) {
+                descriptionElement.focus();
+            }
+        }
+    }, [open]);
+    let content = null;
+    if (project.intro) {
+        content = (
+            <Face
+                deg={deg}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            >
+                <H1>{project.pjtTitle}</H1>
+                <Inner>
+                    <InnerDiv
+                        onClick={() => {
+                            handleOpen();
+                        }}
+                    >
+                        <Img src={project.pjtOneImageLocation} />
+                        <H3>{project.pjtTitle}</H3>
+                        <P>{project.pjtSubtitle}</P>
+                    </InnerDiv>
+                    <BasicModal
+                        project={project}
+                        handleClose={onClose}
+                        scroll={scroll}
+                        open={open}
+                    />
+                </Inner>
+            </Face>
+        );
+    } else {
+        content = (
+            <>
+                <Face
+                    deg={deg}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    onClick={handleClick}
+                >
+                    <H1>{project.pjtTitle}</H1>
+                    <Inner>
+                        <InnerDiv>
+                            <h2>Project</h2>
+                            <Img src={project.pjtOneImageLocation} />
+                            <H3>{project.pjtTitle}</H3>
+                            <P>{project.pjtSubtitle}</P>
+                        </InnerDiv>
+                    </Inner>
+                </Face>
+                <ProjectDialog
+                    open={openPjt}
+                    handleClose={handleClose}
+                    project={project}
+                />
+            </>
+        );
+    }
+    return content;
 };
 
 export default SpaceItem;

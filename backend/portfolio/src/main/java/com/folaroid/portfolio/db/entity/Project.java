@@ -42,7 +42,7 @@ public class Project {
     @Column(name = "pjt_one_image_location", length = 2083)
     private String pjtOneImageLocation; // 프로젝트 대표이미지
 
-    @Column(name = "pjt_json", columnDefinition = "TEXT")
+    @Column(name = "pjt_json", columnDefinition = "longtext")
     private String pjtJson;
 
     private String pjtId;

@@ -152,6 +152,7 @@ function Update(props) {
                                 type="submit"
                                 variant="contained"
                                 color="neutral"
+                                style={{ fontWeight: 'bolder' }}
                             >
                                 저장
                             </Button>
@@ -172,21 +173,23 @@ function ReadName(props) {
 
     return (
         <IntroCardContent>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', margin: '20px'}}>
                 <h3>이름</h3>
-                <Box style={{ margin: '20px' }}>{userInfo.userName}</Box>
+                <Box style={{ marginLeft: '10px' }}>
+                    <div>{userInfo.userName}</div>
+                </Box>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', margin: '20px' }}>
                 <h3>생년월일</h3>
-                <Box style={{ margin: '20px' }}>{userInfo.userBirth}</Box>
+                <Box style={{ marginLeft: '10px' }}>{userInfo.userBirth}</Box>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', margin: '20px' }}>
                 <h3>이메일</h3>
-                <Box style={{ margin: '20px' }}>{userInfo.userEmail}</Box>
+                <Box style={{ marginLeft: '10px' }}>{userInfo.userEmail}</Box>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', margin: '20px' }}>
                 <h3>전화번호</h3>
-                <Box style={{ margin: '20px' }}>{userInfo.userPhone}</Box>
+                <Box style={{ marginLeft: '10px' }}>{userInfo.userPhone}</Box>
             </div>
             <div
                 style={{
@@ -198,8 +201,10 @@ function ReadName(props) {
             >
                 <Button
                     onClick={handleClick}
+                    type="submit"
                     variant="contained"
                     color="neutral"
+                    style={{ fontWeight: 'bolder' }}
                 >
                     수정
                 </Button>

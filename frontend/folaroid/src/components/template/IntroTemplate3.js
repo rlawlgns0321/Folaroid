@@ -64,24 +64,28 @@ function ViewIntro() {
                             sx={{ width: 250, height: 250 }}
                         />
                     </div>
-                    <div style={{ width: '60%' }}>
+                    <div style={{ width: '60%', margin: '10px' }}>
                         {personal.userName && <h1>{personal.userName}</h1>}
                         {personal.userBirth && (
-                            <h3>
+                            <h3 style={{ margin: '10px' }}>
                                 생년월일 : {birth[0]}년 {birth[1]}월 {birth[2]}
                                 일
                             </h3>
                         )}
                         {personal.userEmail && (
-                            <h3>이메일 : {personal.userEmail}</h3>
+                            <h3 style={{ margin: '10px' }}>
+                                이메일 : {personal.userEmail}
+                            </h3>
                         )}
                         {personal.userPhone && (
-                            <h3>전화번호 : {personal.userPhone}</h3>
+                            <h3 style={{ margin: '10px' }}>
+                                전화번호 : {personal.userPhone}
+                            </h3>
                         )}
                         <div>
                             {archiving &&
                                 archiving.map((item) => (
-                                    <h3>
+                                    <h3 style={{ margin: '10px' }}>
                                         {item.archivingName} :{' '}
                                         {item.archivingLink}
                                     </h3>
@@ -96,98 +100,131 @@ function ViewIntro() {
                 </div>
             </Box>
             <Box>
-                {school &&
-                    school.map((item) => (
-                        <div>
-                            <h1>학교</h1>
-                            <h3>
-                                {item.schoolName} | {item.schoolDegree}
-                            </h3>
+                {school.length !== 0 && (
+                    <div style={{ margin: '10px' }}>
+                        <h1 style={{ margin: '10px' }}>학교</h1>
+                        {school.map((item) => (
                             <div>
-                                {item.schoolAdmissionDate} ~{' '}
-                                {item.schoolGraduationDate}
-                            </div>
-                            <div>
-                                전공 : {item.schoolMajor} | 학점 :{' '}
-                                {item.schoolCredit} / {item.schoolMaxCredit}
-                            </div>
-                        </div>
-                    ))}
-            </Box>
-            <Box>
-                <div>
-                    <h1>활동</h1>
-                </div>
-                {activity &&
-                    activity.map((item) => (
-                        <div>
-                            <h3>
-                                {item.activityName} | {item.activityDate}
-                            </h3>
-                            <div>{item.activityDetail}</div>
-                            <div>{item.activityUrl}</div>
-                        </div>
-                    ))}
-            </Box>
-            <Box>
-                {career &&
-                    career.map((item) => (
-                        <div>
-                            <h1>경력사항</h1>
-                            <h3>근무 회사 : {item.careerComName}</h3>
-                            <div>
-                                근무 일시 : {item.careerDate} | 담당 직무 :
-                                {item.careerJob}
-                            </div>
-                            {item.careerResult && (
-                                <div>
-                                    상세업무 및 성과 : {item.careerResult}
+                                <h3 style={{ margin: '10px' }}>
+                                    {item.schoolName} | {item.schoolDegree}
+                                </h3>
+                                <div style={{ margin: '10px' }}>
+                                    {item.schoolAdmissionDate} ~{' '}
+                                    {item.schoolGraduationDate}
                                 </div>
-                            )}
-                            <div>추가 사항 : {item.careerDetail}</div>
-                        </div>
-                    ))}
+                                <div style={{ margin: '10px' }}>
+                                    전공 : {item.schoolMajor} | 학점 :{' '}
+                                    {item.schoolCredit} / {item.schoolMaxCredit}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </Box>
+            <Box>
+                {activity.length !== 0 && (
+                    <div style={{ margin: '10px' }}>
+                        <h1 style={{ margin: '10px' }}>활동</h1>
+                        {activity.map((item) => (
+                            <div>
+                                <h3 style={{ margin: '10px' }}>
+                                    {item.activityName} | {item.activityDate}
+                                </h3>
+                                <div style={{ margin: '10px' }}>
+                                    {item.activityDetail}
+                                </div>
+                                <div style={{ margin: '10px' }}>
+                                    {item.activityUrl}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </Box>
+            <Box>
+                {career.length !== 0 && (
+                    <div style={{ margin: '10px' }}>
+                        <h1 style={{ margin: '10px' }}>경력사항</h1>
+                        {career.map((item) => (
+                            <div>
+                                <h3 style={{ margin: '10px' }}>
+                                    근무 회사 : {item.careerComName}
+                                </h3>
+                                <div style={{ margin: '10px' }}>
+                                    근무 일시 : {item.careerDate} | 담당 직무 :
+                                    {item.careerJob}
+                                </div>
+                                {item.careerResult && (
+                                    <div style={{ margin: '10px' }}>
+                                        상세업무 및 성과 : {item.careerResult}
+                                    </div>
+                                )}
+                                <div style={{ margin: '10px' }}>
+                                    추가 사항 : {item.careerDetail}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </Box>
 
             <Box>
-                {awards &&
-                    awards.map((item) => (
-                        <div>
-                            <h1>수상 경력</h1>
-                            <h3>
-                                {item.awardsDate} | {item.awardsName}
-                            </h3>
-                            <div>{item.awardsIssuer}</div>
-                            <div>{item.awardsDetail}</div>
-                        </div>
-                    ))}{' '}
+                {awards.length !== 0 && (
+                    <div style={{ margin: '10px' }}>
+                        <h1 style={{ margin: '10px' }}>수상 경력</h1>
+                        {awards.map((item) => (
+                            <div>
+                                <h3 style={{ margin: '10px' }}>
+                                    {item.awardsDate} | {item.awardsName}
+                                </h3>
+                                <div style={{ margin: '10px' }}>
+                                    {item.awardsIssuer}
+                                </div>
+                                <div style={{ margin: '10px' }}>
+                                    {item.awardsDetail}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}{' '}
             </Box>
             <Box>
-                <h1>자격증</h1>
-                {certification &&
-                    certification.map((item) => (
-                        <div>
-                            <h3>{item.certificationName}</h3>
+                {certification.length !== 0 && (
+                    <div style={{ margin: '10px' }}>
+                        <h1 style={{ margin: '10px' }}>자격증</h1>
+                        {certification.map((item) => (
                             <div>
-                                {item.certificationDate} |{' '}
-                                {item.certificationIssuer}
+                                <h3 style={{ margin: '10px' }}>
+                                    {item.certificationName}
+                                </h3>
+                                <div style={{ margin: '10px' }}>
+                                    {item.certificationDate} |{' '}
+                                    {item.certificationIssuer}
+                                </div>
+                                <div style={{ margin: '10px' }}>
+                                    {item.certificationDetail}
+                                </div>
                             </div>
-                            <div>{item.certificationDetail}</div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                )}
             </Box>
             <Box>
-                <h1>외국어</h1>
-                {language &&
-                    language.map((item) => (
-                        <div>
-                            <h3>{item.languageName}</h3>
+                {language.length !== 0 && (
+                    <div style={{ margin: '10px' }}>
+                        <h1 style={{ margin: '10px' }}>외국어</h1>
+                        {language.map((item) => (
                             <div>
-                                {item.languageTestName} | {item.languageGrade}
+                                <h3 style={{ margin: '10px' }}>{item.languageName}</h3>
+                                <div style={{ margin: '10px' }}>
+                                    {item.languageTestName} |{' '}
+                                    {item.languageGrade}
+                                </div>
+                                <div style={{ margin: '10px' }}>{item.languageDate}</div>
                             </div>
-                            <div>{item.languageDate}</div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                )}
             </Box>
         </div>
     );

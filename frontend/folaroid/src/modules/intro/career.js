@@ -13,7 +13,6 @@ export const createCareer = createAsyncThunk(
     'career/createCareer',
     async (data) => {
         const response = await api.createCareer(data);
-        console.log(response);
         return {
             introCareerNo: response.data,
             careerComName: data.careerComName,
@@ -29,7 +28,6 @@ export const deleteCareer = createAsyncThunk(
     'career/deleteCareer',
     async (introCareerNo) => {
         const response = await api.deleteCareer(introCareerNo);
-        console.log(response);
         return response.data;
     }
 );

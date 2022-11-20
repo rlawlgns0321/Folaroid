@@ -3,6 +3,7 @@ package com.folaroid.portfolio.api.dto;
 import com.folaroid.portfolio.db.entity.Portfolio;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PortfolioDto {
     @Data
@@ -105,6 +106,25 @@ public class PortfolioDto {
     public static class DuplicatePortfolioDto {
         private Long pfNo;
 
+    }
+
+
+    @Getter
+    @AllArgsConstructor
+    public static class TotalPortfolioDto {
+        private LocalDateTime updatedAt;
+        private Long portfolioTemplatesNo;
+        private String pfName;
+        private List<ProjectDto.AllProjectDto> projects;
+        private IntroDto.AllIntroDto intro;
+
+        public TotalPortfolioDto(Portfolio portfolio, List<ProjectDto.AllProjectDto> projects, IntroDto.AllIntroDto introDto) { //, IntroDto.AllIntroDto introDto
+            this.updatedAt = portfolio.getUpdatedAt();
+            this.portfolioTemplatesNo = portfolio.getPortfolioTemplatesNo();
+            this.pfName = portfolio.getPfName();
+            this.projects = projects;
+            this.intro = introDto;
+        }
     }
 
 }

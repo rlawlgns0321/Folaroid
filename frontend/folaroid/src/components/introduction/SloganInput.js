@@ -8,6 +8,7 @@ import {
 } from '../../modules/intro/slogan';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroTextField = styled(TextField)`
     .MuiOutlinedInput-root {
@@ -67,15 +68,23 @@ const IntroBox = styled.div`
 `;
 
 function SloganInput(props) {
+    const dispatch = useDispatch();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const content = event.target[0].value;
         props.onCreate(content);
     };
 
+    const onDeleteClick = () => {
+        dispatch(introSelector.actions.outBoard('slogan'));
+    };
     return (
         <IntroBox>
-            <CardHeader>슬로건</CardHeader>
+            <CardHeader>
+                <div>슬로건</div>
+                <DeleteBtn onClick={() => onDeleteClick()}></DeleteBtn>
+            </CardHeader>
             <IntroCardContent>
                 <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
                     <div
@@ -83,10 +92,10 @@ function SloganInput(props) {
                             width: '100%',
                             display: 'flex',
                             justifyContent: 'space-between',
-                            flexDirection: 'row',
+                            flexDirection: 'column',
                         }}
                     >
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: '100%', margin: '20px' }}>
                             <IntroInputLabel>슬로건</IntroInputLabel>
                             <IntroTextField
                                 InputLabelProps={{
@@ -99,8 +108,20 @@ function SloganInput(props) {
                                 maxRows={4}
                             />
                         </div>
-                        <div>
-                            <Button type="submit" variant="contained">
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                margin: '20px',
+                                justifyContent: 'end',
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="neutral"
+                                style={{ fontWeight: 'bolder' }}
+                            >
                                 제출
                             </Button>
                         </div>
@@ -116,6 +137,7 @@ function ReadSlogan(props) {
 
     const onDeleteClick = (introSloganNo) => {
         dispatch(deleteSlogan(introSloganNo));
+        dispatch(introSelector.actions.outBoard('slogan'));
     };
 
     return (
@@ -139,6 +161,7 @@ function ViewSlogan(props) {
     const slogan = useSelector((state) => state.slogan);
     const { pathname } = useLocation();
     const store = useStore();
+    const isSelected = props.select;
     const intro_no =
         pathname === '/intro'
             ? store.getState().auth.user.intro_no
@@ -152,7 +175,7 @@ function ViewSlogan(props) {
 
     let content = null;
 
-    if (slogan.introSloganNo && mode === 'CREATE') {
+    if (isSelected && slogan.introSloganNo && mode === 'CREATE') {
         setMode('READ');
     } else if (!slogan.introSloganNo && mode === 'READ') {
         setMode('CREATE');
