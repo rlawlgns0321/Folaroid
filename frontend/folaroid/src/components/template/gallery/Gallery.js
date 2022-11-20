@@ -4,6 +4,7 @@ import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 import 'swiper/css';
 import './style.css';
 import BasicModal from '../introTemplate1';
+import ProjectDialog from '../../dialog/ProjectDialog';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
@@ -69,10 +70,24 @@ const Content = (props) => {
 };
 
 const Gallery = ({ items }) => {
+
+    const [openPjt, setOpenPjt] = useState(false);
+    const [pjt, setPjt] = useState({});
+
+    const handleClick = (project) => {
+        setPjt(project);
+        if(!pjt.intro)
+            setOpenPjt(true);
+    };
+
+    const handleClose = () => {
+        setOpenPjt(false);
+    };
+
     return (
         <div className="wrap">
             <h1>
-                UI/UX <span>PORTFOLIO</span>
+                DEVELOPER <span>PORTFOLIO</span>
             </h1>
 
             <ul className="auto">
@@ -108,19 +123,18 @@ const Gallery = ({ items }) => {
                 autoplay={{ delay: 1000, disableOnInteraction: true }}
             >
                 {items.map((project, key) => (
-                    <Content project={project} key={key} />
-                    // <SwiperSlide key={key}>
-                    //     <div className="inner">
-                    //         <div className="con">
-                    //             <img
-                    //                 src={project.pjtOneImageLocation}
-                    //                 alt="1"
-                    //             />
-                    //             <h2>{project.pjtTitle}</h2>
-                    //             <p>{project.pjtSubtitle}</p>
-                    //         </div>
-                    //     </div>
-                    // </SwiperSlide>
+                    <SwiperSlide key={key} onClick={() => handleClick(project)}>
+                        <div className="inner">
+                            <div className="con">
+                                <img
+                                    src={project.pjtOneImageLocation}
+                                    alt="1"
+                                />
+                                <h2>{project.pjtTitle}</h2>
+                                <p>{project.pjtSubtitle}</p>
+                            </div>
+                        </div>
+                    </SwiperSlide>
                 ))}
             </Swiper>
 
@@ -128,6 +142,11 @@ const Gallery = ({ items }) => {
             <div className="swiper-button-prev"></div>
 
             <div className="swiper-pagination"></div>
+            <ProjectDialog
+                open={openPjt}
+                handleClose={handleClose}
+                project={pjt}
+            />
         </div>
     );
 };
