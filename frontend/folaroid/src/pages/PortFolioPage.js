@@ -6,7 +6,7 @@ import IntroSide from '../components/introduction/IntroSide';
 import Contents from '../components/common/Contents';
 import ProjectBodyContainer from '../containers/Project/ProjectBodyContainer';
 import ProjectSideContainer from '../containers/Project/ProjectSideContainer';
-import PortfolioIntro from '../components/portfolio_intro/PortfolioIntro';
+import IntroContent from './IntroContent'
 import HeaderContainer from '../containers/header/HeaderContainer';
 import styled from '@emotion/styled';
 import Template1 from './Template1';
@@ -78,8 +78,8 @@ const PortFolioPage = () => {
                         <ContentsContainer>
                             <Routes>
                                 <Route
-                                    path="intro"
-                                    element={<PortfolioIntro />}
+                                path="intro"
+                                element={<IntroContent />}
                                 />
                                 <Route
                                     path="project"

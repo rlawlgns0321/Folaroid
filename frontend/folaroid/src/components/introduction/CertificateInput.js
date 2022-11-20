@@ -24,6 +24,7 @@ import {
 } from '../../modules/intro/certification';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { introSelector } from '../../modules/intro/introSelector';
 
 const IntroTextField = styled(TextField)`
     .MuiOutlinedInput-root {
@@ -89,245 +90,299 @@ const initialState = {
     certificationIssuer: '',
     certificationName: '',
 };
-function Input(props) {
-    const [box, setBox] = useState(initialState);
+export function CertificateInput() {
+    const [certification, setCertification] = useState(initialState);
+    const [date, setDate] = useState(null);
+
+    const { pathname } = useLocation();
+    const store = useStore();
+    const dispatch = useDispatch();
+
+    const intro_no =
+        pathname === '/intro'
+            ? store.getState().auth.user.intro_no
+            : store.getState().portfolio.pf.introNo;
+
+    useEffect(() => {
+        dispatch(getCertification(intro_no));
+    }, [dispatch, intro_no]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setBox({ ...box, [name]: value });
+        setCertification({ ...certification, [name]: value });
+    };
+
+    const onDeleteClick = () => {
+        dispatch(introSelector.actions.outBoard('certification'));
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onCreate(box);
-        setBox(initialState);
+        const value = date ? dayjs(date).toISOString().substring(0, 10) : null;
+        dispatch(
+            createCertification({
+                introNo: intro_no,
+                certificationDate: value,
+                certificationDetail: certification.certificationDetail,
+                certificationIssuer: certification.certificationIssuer,
+                certificationId: certification.certificationId,
+                certificationName: certification.certificationName,
+            })
+        );
+        setCertification(initialState);
     };
 
     return (
-        <IntroCardContent>
-            <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <IntroInputLabel>자격증명</IntroInputLabel>
-                    <IntroTextField
-                        type="text"
-                        placeholder="자격증명"
-                        InputLabelProps={{
-                            shrink: true,
+        <IntroBox>
+            <CardHeader>
+                <div>자격증</div>
+                <DeleteBtn onClick={() => onDeleteClick()}></DeleteBtn>
+            </CardHeader>
+            <IntroCardContent>
+                <form onSubmit={handleSubmit} style={{ margin: '10px' }}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
                         }}
-                        style={{ width: '40%' }}
-                        name="certificationName"
-                        onChange={handleInputChange}
-                        value={box.certificationName}
-                    />
-                </div>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <div style={{ width: '100%' }}>
-                        <LocalizationProvider
-                            dateAdapter={AdapterDayjs}
-                            sx={{ width: '40%' }}
-                        >
-                            <IntroInputLabel>취득일자</IntroInputLabel>
-                            <DatePicker
-                                name="certificationDate"
-                                value={box.certificationDate}
-                                onChange={(newValue) => {
-                                    setBox({
-                                        ...box,
-                                        certificationDate: dayjs(newValue)
-                                            .toISOString()
-                                            .substring(0, 10),
-                                    });
-                                }}
-                                renderInput={(params) => (
-                                    <IntroTextField {...params} />
-                                )}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                        </LocalizationProvider>
+                    ></div>
+                    <div style={{ width: '100%', margin: '20px' }}>
+                        <IntroInputLabel>자격증명</IntroInputLabel>
+                        <IntroTextField
+                            type="text"
+                            placeholder="자격증명"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style={{ width: '40%' }}
+                            name="certificationName"
+                            onChange={handleInputChange}
+                            value={certification.certificationName}
+                        />
                     </div>
-                </div>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <IntroInputLabel>자격증 발급 기관</IntroInputLabel>
-                    <IntroTextField
-                        type="text"
-                        placeholder="입력"
-                        InputLabelProps={{
-                            shrink: true,
+                    <div style={{ width: '100%', margin: '20px' }}>
+                        <div style={{ width: '100%' }}>
+                            <LocalizationProvider
+                                dateAdapter={AdapterDayjs}
+                                sx={{ width: '40%' }}
+                            >
+                                <IntroInputLabel>취득일자</IntroInputLabel>
+                                <DatePicker
+                                    views={['year', 'month']}
+                                    inputFormat="YYYY년 MM월"
+                                    value={date}
+                                    onChange={(newValue) => {
+                                        setDate(newValue);
+                                    }}
+                                    renderInput={(params) => (
+                                        <IntroTextField {...params} />
+                                    )}
+                                />
+                            </LocalizationProvider>
+                        </div>
+                    </div>
+                    <div style={{ width: '100%', margin: '20px' }}>
+                        <IntroInputLabel>자격증 발급 기관</IntroInputLabel>
+                        <IntroTextField
+                            type="text"
+                            placeholder="입력"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style={{ width: '40%' }}
+                            name="certificationIssuer"
+                            onChange={handleInputChange}
+                            value={certification.certificationIssuer}
+                        />
+                    </div>
+                    <div style={{ width: '100%', margin: '20px' }}>
+                        <IntroInputLabel>자격증 고유번호</IntroInputLabel>
+                        <IntroTextField
+                            type="text"
+                            placeholder="입력"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            style={{ width: '40%' }}
+                            name="certificationId"
+                            onChange={handleInputChange}
+                            value={certification.certificationId}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            width: '100%',
+                            margin: '20px',
                         }}
-                        style={{ width: '40%' }}
-                        name="certificationIssuer"
-                        onChange={handleInputChange}
-                        value={box.certificationIssuer}
-                    />
-                </div>
-                <div style={{ width: '100%', marginBottom: '10px' }}>
-                    <IntroInputLabel>자격증 고유번호</IntroInputLabel>
-                    <IntroTextField
-                        type="text"
-                        placeholder="입력"
-                        InputLabelProps={{
-                            shrink: true,
+                    >
+                        <IntroInputLabel>취득 내용</IntroInputLabel>
+                        <IntroTextField
+                            multiline
+                            placeholder="취득내용에 관한 사항을 적어주세요."
+                            style={{ width: '90%' }}
+                            onChange={handleInputChange}
+                            name="certificationDetail"
+                            rows={2}
+                            maxRows={4}
+                            value={certification.certificationDetail}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            margin: '20px',
+                            justifyContent: 'end',
                         }}
-                        style={{ width: '40%' }}
-                        name="certificationId"
-                        onChange={handleInputChange}
-                        value={box.certificationId}
-                    />
-                </div>
-                <div
-                    style={{
-                        width: '100%',
-                        marginBottom: '10px',
-                    }}
-                >
-                    <IntroInputLabel>취득 내용</IntroInputLabel>
-                    <IntroTextField
-                        multiline
-                        placeholder="취득내용에 관한 사항을 적어주세요."
-                        style={{ width: '90%' }}
-                        onChange={handleInputChange}
-                        name="certificationDetail"
-                        rows={2}
-                        maxRows={4}
-                        value={box.certificationDetail}
-                    />
-                </div>
-                <div>
-                    <Button type="submit" variant="contained">
-                        제출
-                    </Button>
-                </div>
-            </form>
-        </IntroCardContent>
+                    >
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="neutral"
+                            style={{ fontWeight: 'bolder' }}
+                        >
+                            제출
+                        </Button>
+                    </div>
+                </form>
+            </IntroCardContent>
+        </IntroBox>
     );
 }
 
-function Read(props) {
+export function ReadCertificate() {
     const dispatch = useDispatch();
+    const certification = useSelector((state) => state.certification);
+    const [mode, setMode] = useState('OFF');
 
     const onDeleteClick = (introCertificationNo) => {
         dispatch(deleteCertification(introCertificationNo));
     };
 
-    const rowItems = props.certification.map((item) => (
-        <TableRow key={item.introCertificationNo}>
-            <TableCell align="center">{item.certificationName}</TableCell>
-            <TableCell align="center">{item.certificationDate}</TableCell>
-            <TableCell align="center">{item.certificationIssuer}</TableCell>
-            <TableCell align="center">{item.certificationId}</TableCell>
-            <TableCell align="center">{item.certificationDetail}</TableCell>
-            <TableCell
-                style={{ display: 'flex', justifyContent: 'center' }}
-                algin="center"
-            >
-                <Button
-                    onClick={() => onDeleteClick(item.introCertificationNo)}
-                >
-                    삭제
-                </Button>
-            </TableCell>
-        </TableRow>
-    ));
-
-    return (
-        <IntroCardContent>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">자격증명</TableCell>
-                            <TableCell align="center">취득일자</TableCell>
-                            <TableCell align="center">
-                                자격증 발급 기관
-                            </TableCell>
-                            <TableCell align="center">
-                                자격증 고유번호
-                            </TableCell>
-                            <TableCell align="center">취득내용</TableCell>
-                            <TableCell align="center"></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>{rowItems}</TableBody>
-                </Table>
-            </TableContainer>
-        </IntroCardContent>
-    );
-}
-
-function View(props) {
-    const certification = useSelector((state) => state.certification);
-    const { pathname } = useLocation();
-    const store = useStore();
-    const introNo =
-        pathname === '/intro'
-            ? store.getState().auth.user.intro_no
-            : store.getState().portfolio.pf.introNo;
-    const [mode, setMode] = useState('CREATE');
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCertification(introNo));
-    }, [dispatch, introNo]);
-
-    if (certification.length !== 0 && mode === 'CREATE') {
-        setMode('READ');
+    if (certification.length !== 0 && mode === 'OFF') {
+        setMode('ON');
     } else if (
         Array.isArray(certification) &&
         certification.length === 0 &&
-        mode === 'READ'
+        mode === 'ON'
     ) {
-        setMode('CREATE');
+        setMode('OFF');
     }
 
     let content = null;
-    if (mode === 'CREATE') {
+    if (mode === 'ON') {
         content = (
             <IntroBox>
                 <CardHeader>자격증</CardHeader>
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCertification({
-                                introNo: introNo,
-                                certificationDate: box.certificationDate,
-                                certificationDetail: box.certificationDetail,
-                                certificationIssuer: box.certificationIssuer,
-                                certificationId: box.certificationId,
-                                certificationName: box.certificationName,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-            </IntroBox>
-        );
-    } else if (mode === 'READ') {
-        content = (
-            <IntroBox>
-                <CardHeader>자격증</CardHeader>
-
-                <Input
-                    onCreate={(box) => {
-                        dispatch(
-                            createCertification({
-                                introNo: introNo,
-                                certificationDate: box.certificationDate,
-                                certificationDetail: box.certificationDetail,
-                                certificationIssuer: box.certificationIssuer,
-                                certificationId: box.certificationId,
-                                certificationName: box.certificationName,
-                            })
-                        );
-                        setMode('READ');
-                    }}
-                ></Input>
-                <Read certification={certification}></Read>
+                <IntroCardContent>
+                    <TableContainer>
+                        <Table
+                            style={{
+                                backgroundColor: ' rgba(44, 43, 43, 1)',
+                            }}
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        자격증명
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        취득일자
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        자격증 발급 기관
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        자격증 고유번호
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        style={{ color: 'white' }}
+                                    >
+                                        취득내용
+                                    </TableCell>
+                                    <TableCell align="center"></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {certification.map((item) => (
+                                    <TableRow key={item.introCertificationNo}>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.certificationName}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.certificationDate}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.certificationIssuer}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.certificationId}
+                                        </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            style={{ color: 'white' }}
+                                        >
+                                            {item.certificationDetail}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                            }}
+                                            algin="center"
+                                        >
+                                            <Button
+                                                style={{
+                                                    color: 'white',
+                                                }}
+                                                size="small"
+                                                onClick={() =>
+                                                    onDeleteClick(
+                                                        item.introCertificationNo
+                                                    )
+                                                }
+                                            >
+                                                삭제
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </IntroCardContent>
             </IntroBox>
         );
     }
 
     return content;
 }
-export default View;
+
+export default CertificateInput;

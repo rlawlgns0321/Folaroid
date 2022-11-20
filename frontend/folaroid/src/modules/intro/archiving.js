@@ -13,7 +13,6 @@ export const createArchiving = createAsyncThunk(
     'archiving/createArchiving',
     async (data) => {
         const response = await api.createArchiving(data);
-        console.log(response);
         return {
             introArchivingNo: response.data,
             archivingLink: data.archivingLink,
@@ -26,7 +25,6 @@ export const deleteArchiving = createAsyncThunk(
     'archiving/deleteArchiving',
     async (introArchivingNo) => {
         const response = await api.deleteArchiving(introArchivingNo);
-        console.log(response);
         return response.data;
     }
 );

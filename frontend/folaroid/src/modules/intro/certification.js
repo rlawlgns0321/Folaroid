@@ -13,7 +13,6 @@ export const createCertification = createAsyncThunk(
     'certification/createCertification',
     async (data) => {
         const response = await api.createCertification(data);
-        console.log(response);
         return {
             introCertificationNo: response.data,
             certificationDate: data.certificationDate,
@@ -29,7 +28,6 @@ export const deleteCertification = createAsyncThunk(
     'certification/deleteCertification',
     async (introCertificationNo) => {
         const response = await api.deleteCertification(introCertificationNo);
-        console.log(response);
         return response.data;
     }
 );

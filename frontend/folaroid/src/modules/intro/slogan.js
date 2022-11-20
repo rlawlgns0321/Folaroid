@@ -13,7 +13,6 @@ export const createSlogan = createAsyncThunk(
     'slogan/createSlogan',
     async (data) => {
         const response = await api.createSlogan(data);
-        console.log(response);
         return { sloganId: response.data, sloganContent: data.sloganContent };
     }
 );
@@ -22,7 +21,6 @@ export const deleteSlogan = createAsyncThunk(
     'slogan/deleteSlogan',
     async (introSloganNo) => {
         const response = await api.deleteSlogan(introSloganNo);
-        console.log(response);
         return response.data;
     }
 );
@@ -41,8 +39,7 @@ export const slogan = createSlice({
         },
         [createSlogan.fulfilled.type]: (state, action) => {
             state.introSloganNo = action.payload.sloganId;
-            state.sloganContent = action.payload.sloganContent
-            console.log(action.payload);
+            state.sloganContent = action.payload.sloganContent;
         },
         [deleteSlogan.fulfilled.type]: (state, action) => {
             state.introSloganNo = null;

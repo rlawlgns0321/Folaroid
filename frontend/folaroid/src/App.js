@@ -14,8 +14,12 @@ import Template1 from './pages/Template1';
 import Template2 from './pages/Template2';
 import Template3 from './pages/Template3';
 import Template4 from './pages/Template4';
+import Template10 from './pages/Template10';
 import TestPage from './pages/TestPage';
 import InfoModal from './pages/InfoModal';
+import IntroModal1 from './components/template/introTemplate1';
+import IntroModal2 from './components/template/IntroTemplate2';
+import IntroModal3 from './components/template/IntroTemplate3';
 import Space from './components/template/space/Space';
 import Flex from './components/template/flex/Flex';
 import Music from './components/template/music/Music';
@@ -49,14 +53,18 @@ function App() {
                             user ? <ProjectInfoPage /> : <Navigate to="/" />
                         }
                     />
-                    <Route path="/:userNo/:pfNo" element={<TemplatePage/>} />
+                    <Route path="/:userNo/:pfNo" element={<TemplatePage />} />
                     <Route path="/tem1" element={<Template1 />} />
                     <Route path="/tem2" element={<Template2 />} />
                     <Route path="/tem3" element={<Template3 />} />
                     <Route path="/tem4" element={<Template4 />} />
+                    <Route path="/tem10" element={<Template10 />} />
                     {/* 자기소개 모달 샘플 */}
                     <Route path="/infoModal" element={<InfoModal />} />
-                    <Route path="/space" element={<Space />} />
+                    <Route path="/intromodal1" element={<IntroModal1 />} />
+                    <Route path="/intromodal2" element={<IntroModal2 />} />
+                    <Route path="/intromodal3" element={<IntroModal3 />} />
+                    <Route path="space" element={<Space />} />
                     <Route path="/flex" element={<Flex />} />
                     <Route path="/music" element={<Music />} />
                     <Route path="/Gallery" element={<Gallery />} />
