@@ -63,17 +63,12 @@ const Header = ({ user, onLogout }) => {
             </Link>
             {user ? (
                 <Grid
-                    sx={{ width: '18vw' }}
+                    sx={{ width: '9vw' }}
                     container
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
                 >
-                    <MenuBtn>
-                        <RouteBtn to="/portfolio/intro">
-                            포트폴리오 제작
-                        </RouteBtn>
-                    </MenuBtn>
                     <MenuBtn>
                         <RouteBtn to="/mypage">마이페이지</RouteBtn>
                     </MenuBtn>
@@ -88,9 +83,7 @@ const Header = ({ user, onLogout }) => {
                     alignItems="center"
                 >
                     <MenuBtn>
-                        <RouteBtn to="/portfolio/intro">
-                            포트폴리오 제작
-                        </RouteBtn>
+                        
                     </MenuBtn>
                     <MenuBtn onClick={handleClickOpen}>로그인</MenuBtn>
                 </Grid>
