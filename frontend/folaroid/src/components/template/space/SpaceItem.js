@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import BasicModal from '../introTemplate1';
 import ProjectDialog from '../../dialog/ProjectDialog';
 
 const H1 = styled.h1`
@@ -71,6 +72,8 @@ const P = styled.p`
 `;
 
 const SpaceItem = ({ onMouseEnter, onMouseLeave, project, deg }) => {
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('');
     const [openPjt, setOpenPjt] = useState(false);
 
     const handleClick = () => {
@@ -80,32 +83,77 @@ const SpaceItem = ({ onMouseEnter, onMouseLeave, project, deg }) => {
     const handleClose = () => {
         setOpenPjt(false);
     };
+    const handleOpen = () => {
+        setOpen(true);
+        setScroll();
+    };
+    const onClose = () => setOpen(false);
+    const descriptionElementRef = useRef(null);
 
-    return (
-        <>
+    useEffect(() => {
+        if (open) {
+            const { current: descriptionElement } = descriptionElementRef;
+            if (descriptionElement !== null) {
+                descriptionElement.focus();
+            }
+        }
+    }, [open]);
+    let content = null;
+    if (project.intro) {
+        content = (
             <Face
                 deg={deg}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onClick={handleClick}
             >
                 <H1>{project.pjtTitle}</H1>
                 <Inner>
-                    <InnerDiv>
-                        <h2>Project</h2>
+                    <InnerDiv
+                        onClick={() => {
+                            handleOpen();
+                        }}
+                    >
                         <Img src={project.pjtOneImageLocation} />
                         <H3>{project.pjtTitle}</H3>
                         <P>{project.pjtSubtitle}</P>
                     </InnerDiv>
+                    <BasicModal
+                        project={project}
+                        handleClose={onClose}
+                        scroll={scroll}
+                        open={open}
+                    />
                 </Inner>
             </Face>
-            <ProjectDialog
-                open={openPjt}
-                handleClose={handleClose}
-                project={project}
-            />
-        </>
-    );
+        );
+    } else {
+        content = (
+            <>
+                <Face
+                    deg={deg}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    onClick={handleClick}
+                >
+                    <H1>{project.pjtTitle}</H1>
+                    <Inner>
+                        <InnerDiv>
+                            <h2>Project</h2>
+                            <Img src={project.pjtOneImageLocation} />
+                            <H3>{project.pjtTitle}</H3>
+                            <P>{project.pjtSubtitle}</P>
+                        </InnerDiv>
+                    </Inner>
+                </Face>
+                <ProjectDialog
+                    open={openPjt}
+                    handleClose={handleClose}
+                    project={project}
+                />
+            </>
+        );
+    }
+    return content;
 };
 
 export default SpaceItem;

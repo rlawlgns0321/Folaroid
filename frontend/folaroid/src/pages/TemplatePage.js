@@ -74,7 +74,7 @@ const TemplatePage = () => {
             case 5:
                 return <>{template && <Template4 template={template} />}</>;
             case 6:
-                return <>{template && <Template1 />}</>;
+                return <>{items && <Template1 items={items} />}</>
             default:
                 return <div></div>;
         }
