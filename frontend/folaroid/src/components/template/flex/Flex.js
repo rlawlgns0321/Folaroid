@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import FlexIntro from './FlexIntro';
+import FlexItem from './FlexItem';
 
 const Main = styled.main`
     width: 100%;
@@ -204,7 +206,9 @@ const Aside = styled.aside`
     }
 `;
 
-const Flex = () => {
+const Flex = ({ intro, items }) => {
+    console.log(items);
+
     return (
         <Main>
             <Header>
@@ -237,65 +241,10 @@ const Flex = () => {
             </Nav>
 
             <Section>
-                <article>
-                    <div className="inner">
-                        <div className="txt">
-                            <h2>01</h2>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit.
-                            </p>
-                        </div>
-                        <figure>
-                            <img src="/images/1.jpg" alt="1"></img>
-                        </figure>
-                    </div>
-                </article>
-
-                <article>
-                    <div className="inner">
-                        <div className="txt">
-                            <h2>02</h2>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit.
-                            </p>
-                        </div>
-                        <figure>
-                            <img src="/images/1.jpg" alt="1"></img>
-                        </figure>
-                    </div>
-                </article>
-
-                <article>
-                    <div className="inner">
-                        <div className="txt">
-                            <h2>03</h2>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit.
-                            </p>
-                        </div>
-                        <figure>
-                            <img src="/images/1.jpg" alt="1"></img>
-                        </figure>
-                    </div>
-                </article>
-
-                <article>
-                    <div className="inner">
-                        <div className="txt">
-                            <h2>04</h2>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit.
-                            </p>
-                        </div>
-                        <figure>
-                            <img src="/images/1.jpg" alt="1"></img>
-                        </figure>
-                    </div>
-                </article>
+                <FlexIntro intro={intro} />
+                {items.map((project, key) => (
+                    <FlexItem key={key} project={project} />
+                ))}
             </Section>
 
             <Aside>
@@ -313,6 +262,39 @@ const Flex = () => {
             </Aside>
         </Main>
     );
+};
+
+Flex.defaultProps = {
+    items: [
+        {
+            pjtTitle: '01',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: '02',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+        {
+            pjtTitle: '03',
+            pjtSubtitle: 'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+            pjtOneImageLocation: '/images/1.jpg',
+        },
+    ],
+    intro: {
+        pjtTitle: '03',
+        introContent: null,
+        introImage: {
+            introImageNo: 2,
+            introImageLocation: '/images/1.jpg',
+        },
+        introSlogan: {
+            introSloganNo: 2,
+            sloganContent:
+                'Lorem ipsum dolor, sit amet consectetur adipisicing.',
+        },
+    },
 };
 
 export default Flex;

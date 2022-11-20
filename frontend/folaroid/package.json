@@ -43,7 +43,7 @@
     "react-scripts": "5.0.1",
     "react-textarea-autosize": "^8.3.4",
     "react-transition-group": "^4.4.5",
-    "react-unity-webgl": "8.x",
+    "react-unity-webgl": "^9.3.0",
     "redux": "^4.2.0",
     "redux-actions": "^2.6.5",
     "redux-pender": "^2.0.12",

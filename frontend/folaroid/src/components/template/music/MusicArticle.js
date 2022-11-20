@@ -1,18 +1,18 @@
 import React from 'react';
 
-const MusicArticle = ({deg, isActive}) => {
+const MusicArticle = ({deg, isActive, project}) => {
 
 
     return (
         <article className={`${(isActive ? 'on': '')}`}  style={{transform:`rotate(${deg}deg) translateY(-100vh)`}}>
             <div className="inner">
-                <div className="pic" style={{background:`url(/images/1.jpg)`}}>
+                <div className="pic" style={{background:`url(${project.pjtOneImageLocation})`, objectFit: 'cover'}}>
                     {/* <div className="dot"></div> */}
                 </div>
 
                 <div className="txt">
-                    <h2>Blizzards</h2>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing.</p>
+                    <h2>{project.pjtTitle}</h2>
+                    <p>{project.pjtSubtitle}</p>
                     <ul>
                         <li className="pause">
                             <i className="fas fa-pause"></i>

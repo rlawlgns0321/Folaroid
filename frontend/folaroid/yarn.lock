@@ -9185,10 +9185,10 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-unity-webgl@8.x:
-  version "8.8.0"
-  resolved "https://registry.yarnpkg.com/react-unity-webgl/-/react-unity-webgl-8.8.0.tgz#605fcfe65e47d2645dd66ac28f13b350fb9a2828"
-  integrity sha512-4PHTEwUQd70IJAy+jdVvHM+A6No9GMTmA/PCFOWkgpy2g0SlKJF3LREt92TfhttnMJ+CLL9iF8X03wMBvNvsjA==
+react-unity-webgl@^9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/react-unity-webgl/-/react-unity-webgl-9.3.0.tgz#f9b5c6ae42a29192776d5710d7699fd963786a7e"
+  integrity sha512-1UXNW8KEtNY7Y4wt4V2i4pw26VgwhcJzFCEyh93+2V4QHwpRW8KvmeFLhKGYNQ5mPLbqfhJF6y387or0upfFkQ==
 
 react-use-measure@^2.1.1:
   version "2.1.1"

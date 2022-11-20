@@ -4,8 +4,9 @@ import { Grid, IconButton, Skeleton } from '@mui/material';
 import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AlertDialog from '../dialog/AlertDialog';
+import { motion } from 'framer-motion';
 
-const ItemBox = styled.div`
+const ItemBox = styled(motion.div)`
     width: 95%;
     display: flex;
     margin: auto;
@@ -39,7 +40,6 @@ const Img = styled.img`
 `;
 
 const ProjectSideItem = ({ project, onDeleteProject }) => {
-
     const [open, setOpen] = useState();
 
     const handleClose = () => {
@@ -55,9 +55,16 @@ const ProjectSideItem = ({ project, onDeleteProject }) => {
         onDeleteProject(project.pjtNo);
     };
 
+    const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+        },
+    };
 
     return (
-        <ItemBox>
+        <ItemBox variants={item} exit={{scale: 0}}>
             <Grid
                 container
                 direction="row"
