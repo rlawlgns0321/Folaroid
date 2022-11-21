@@ -27,7 +27,7 @@ export function Astronaut(props) {
         <group {...props} dispose={null}>
             <primitive
                 object={glb.scene}
-                scale={200}
+                scale={500}
                 onPointerOver={() => set(true)}
                 onPointerOut={() => set(false)}
             />
@@ -114,12 +114,12 @@ const Template2 = () => {
                         scale={0.75}
                         //position={[0, 0.65, 0]}
                         floatIntensity={3}
-                        //rotationIntensity={5}
+                        rotationIntensity={-4}
                         //rotation={[0, 0.6, 0]}
                     >
                         <Astronaut
                             scale={0.2}
-                            position={[-1, 1.5, 0]}
+                            position={[0, -1, 0]}
                             onClick={handleOpen}
                         >
                             <object3D position={[0, 0, 0]} ref={spaceman} />
