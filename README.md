@@ -70,38 +70,9 @@
 | 튜토리얼 페이지              |WebGL 활용<br>제작 페이지에서 각 선택 상황에서 어떤식으로 사용하는지 튜토리얼 제공|      |            |
 
 
-
-### :airplane: 5-1. 팀미팅(221017)
-
-    1) 사용자가 디자인할 수 있는 기능이 한정적임 -> 템플릿의 수량보다 다양한 케이스를 지원할 수 있는 기능이 중요하다!
-    2) 자기소개 템플릿과 프로젝트 소개 템플릿을 SelectBox or radio로 선택, 조합할 수 있도록 한다.
-### :airplane: 5-2. 팀미팅(221020)
-
-    Wireframe
-    1) 색깔 폰트 다 다르게 하고 싶을거고 이모티콘 다 만들고 싶을텐데 이 레이아웃에선 다 가능하게 할 수 있다는 느낌이 안들었다. 프로젝트 별로 꾸미는 기능 강화가 필요
-    2) 자기소개 - 소개 내용이 없다, 글씨나 그림, 사진을 넣을 수 있는 기능이 없다
-    3) 링크드인? 인크루트? -> 포폴사이트 좀더 참고해야함
-    
-    ERD
-    1) UserInfo의 확장 필요 -> 고유정보(나이, 학벌, 성적) 추가
-    2) 해시태그는 관리자가 관리 필요
-    3) 자격증 취득 api 활용도 가능
-    4) 많은 데이터를 한번에 받아서 처리해주는 방법 고민?
-    5) 템플릿 그 이상을 담을 필요가 있다 (IDE의 테마변경할 때)
-
-
-
 ### 6. ERD
 
 ![a103_ERD2](README.assets/a103_ERD2.png)
-
-
-
-### 7. 캐릭터 모델링 후보
-![image](/uploads/f1f7c2b93d311a610f8e162ab2bddcfd/image.png)<br />
-https://www.turbosquid.com/ko/3d-models/rigged-cute-cartoon-chibi-rabbit-3d-1759274<br />
-![image](/uploads/eb490c0189d855dc46b0761cae7f333a/image.png)<br />
-https://www.turbosquid.com/ko/3d-models/cute-cartoon-flamingo-3d-model-1322940<br />
 
 
 
