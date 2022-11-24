@@ -26,6 +26,10 @@
 
 ![projecteditpage](README.assets/projecteditpage.png)
 
+### 템플릿 선택 화면
+
+![templateselectionpage](README.assets/templateselectionpage.png)
+
 ### 기술 활용 기획
 - 백엔드 : Spring, Java, MySQL, python
 - 프론트엔드 : React, Three.js
