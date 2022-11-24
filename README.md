@@ -2,6 +2,8 @@
 
 [TOC]
 
+![Logo](README.assets/Logo.png)
+
 
 
 ### :airplane: 1. 아이디어 회의
