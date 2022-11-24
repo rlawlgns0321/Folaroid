@@ -14,6 +14,10 @@
 
 ![mypage](README.assets/mypage.png)
 
+### 자기소개 작성화면
+
+![intropage](README.assets/intropage.png)
+
 ### 기술 활용 기획
 - 백엔드 : Spring, Java, MySQL, python
 - 프론트엔드 : React, Three.js
