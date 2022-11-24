@@ -56,5 +56,3 @@
 
 ![a103_ERD2](README.assets/a103_ERD2.png)
 
-### :pencil: REST API Docs
-[REST API](https://checkered-thyme-68e.notion.site/REST-API-Docs-dd1543123f6e4456aa185a09c04b60f9)
