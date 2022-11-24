@@ -36,33 +36,7 @@
 
 
 
-
-### :monorail: 2. 화면 기획 - 프로토타입
-
-##### 메인페이지
-
-![image-20221012171332715](README.assets/image-20221012171332715.png)
-
-##### 템플릿 페이지
-![Desktop - 4](README.assets/Desktop - 4.png)
-
-+ 템플릿 디자인 추가
-
-![image-20221017171505057](README.assets/image-20221017171505057.png)
-
-![image-20221017175456492](README.assets/image-20221017175456492.png)
-
-
-
-### :classical_building: 3. 아키텍처 다이어그램
-
-##### Three.js | React | Spring boot | JPA | MySQL | AWS
-
-![architecture](README.assets/architecture.png)
-
-
-
-### :pencil: 4. 기능명세서
+### :pencil: 기능명세서
 
 | 기능                        | 내용                                                         | 비고 | 참고사이트 |
 | :-------------------------: | :----------------------------------------------------------: | :--: | :--------: |
@@ -78,43 +52,11 @@
 | 튜토리얼 페이지              |WebGL 활용<br>제작 페이지에서 각 선택 상황에서 어떤식으로 사용하는지 튜토리얼 제공|      |            |
 
 
-### 6. ERD
+### :pencil: ERD
 
 ![a103_ERD2](README.assets/a103_ERD2.png)
 
-
-
-### 8. 화면 설계
-
-1. 메인페이지
-
-![메인페이지](README.assets/메인페이지.png)
-
-2. 제작 페이지
-
-![image-20221024171417152](README.assets/image-20221024171417152.png)
-
-![image-20221024171443006](README.assets/image-20221024171443006.png)
-
-![image-20221024171456057](README.assets/image-20221024171456057.png)
-
-3. 프로젝트 상세 제작 페이지
-
-![image-20221021175603768](README.assets/image-20221021175603768.png)
-
-![image-20221024171521803](README.assets/image-20221024171521803.png)
-
-4. 다른회원의 포트폴리오
-
-![image-20221021175513860](README.assets/image-20221021175513860.png)
-
-### 9. WireFrame 작성
-
-![image-20221020195039820](README.assets/image-20221020195039820.png)
-
-
-
-### :pencil: 10. REST API Docs
+### :pencil: REST API Docs
 
 | Description | URL (endpoints) |  Method | Body | Payload | 상태 | ps |
 | :---------: | :-------------: |  :----: | :--: | :-----: | :--: | :-: |
