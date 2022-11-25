@@ -59,7 +59,7 @@
 
 ![a103_ERD2](README.assets/a103_ERD2.png)
 
-### 아키텍쳐
+### 🏗 아키텍쳐
 
 ![architecture](README.assets/architecture.png)
 
