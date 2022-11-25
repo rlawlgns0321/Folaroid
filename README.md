@@ -59,6 +59,14 @@
 
 ![a103_ERD2](README.assets/a103_ERD2.png)
 
+### 아키텍쳐
+
+![architecture](README.assets/architecture.png)
+
+### 🦾 기술스택
+
+![techstack](README.assets/techstack.png)
+
 ### 담당파트
 - 백엔드 : 김지훈, 박종선, 이창현
 - 프론트엔드 : 김용환, 김미애, 정예원
